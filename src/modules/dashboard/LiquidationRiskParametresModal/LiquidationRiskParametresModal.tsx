@@ -29,36 +29,35 @@ export const LiquidationRiskParametresInfoModal = ({
   return (
     <BasicModal open={open} setOpen={setOpen}>
       <Typography variant="h2" mb={6}>
-        <Trans>Liquidation risk parametres</Trans>
+        <Trans>Liquidation Risk Parametres</Trans>
       </Typography>
       <Typography mb={6}>
         <Trans>
-          Your health factor and loan to value determine the assurance of your collateral. To avoid
+          Your healrh factor an loan to value determine the assurance of your collateral. To avoid
           liquidations you can supply more collateral or repay borrow positions.
-        </Trans>{' '}
-        <Link
+        </Trans>
+        {/* <Link
           href="https://docs.aave.com/faq/"
           sx={{ textDecoration: 'underline' }}
           color="text.primary"
           variant="description"
         >
           <Trans>Learn more</Trans>
-        </Link>
+        </Link> */}
       </Typography>
 
       <InfoWrapper
-        topTitle={<Trans>Health factor</Trans>}
+        topTitle={<Trans>Health Factor</Trans>}
         topDescription={
           <Trans>
-            Safety of your deposited collateral against the borrowed assets and its underlying
-            value.
+            Safety of your deposited collateral against the borrow assets and its underlying value.
           </Trans>
         }
         topValue={
           <HealthFactorNumber
             value={healthFactor}
             variant="main12"
-            sx={{ color: 'common.white' }}
+            // sx={{ color: 'common.black' }}
           />
         }
         bottomText={
@@ -83,8 +82,8 @@ export const LiquidationRiskParametresInfoModal = ({
             value={loanToValue}
             percent
             variant="main12"
-            color="common.white"
-            symbolsColor="common.white"
+            color="success.main" // TODO: 加判断  红色 黄色 绿色
+            symbolsColor="success.main" // TODO: 加判断  红色 黄色 绿色
           />
         }
         bottomText={

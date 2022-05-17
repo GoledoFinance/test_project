@@ -52,7 +52,14 @@ export const InfoWrapper = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            bgcolor: isError ? 'error.main' : isWarning ? 'warning.main' : 'success.main',
+            borderColor: isError ? 'error.main' : isWarning ? 'warning.main' : 'success.main',
+            borderWidth: 1,
+            borderStyle: 'dotted',
+            bgcolor: isError
+              ? 'rgba(233, 30, 30, 0.1)'
+              : isWarning
+              ? 'rgba(255, 193, 7, 0.1)'
+              : 'rgba(58, 193, 112, 0.1)',
           }}
         >
           {topValue}

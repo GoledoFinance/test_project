@@ -1,13 +1,14 @@
 import { API_ETH_MOCK_ADDRESS } from '@aave/contract-helpers';
 import { USD_DECIMALS, valueToBigNumber } from '@aave/math-utils';
 import { Trans } from '@lingui/macro';
-import { Alert, Box, useMediaQuery, useTheme } from '@mui/material';
+import { Button, Box, useMediaQuery, useTheme, SvgIcon } from '@mui/material';
 import BigNumber from 'bignumber.js';
 import { useState } from 'react';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
+import LaunchIcon from '@mui/icons-material/Launch';
 
 import { ListWrapper } from '../../../../components/lists/ListWrapper';
-import { Link } from '../../../../components/primitives/Link';
+// import { Link } from '../../../../components/primitives/Link';
 import {
   ComputedReserveData,
   useAppDataContext,
@@ -33,7 +34,12 @@ export const SupplyAssetsList = () => {
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
-  const { bridge, isTestnet, baseAssetSymbol, name: networkName } = currentNetworkConfig;
+  const {
+    bridge,
+    isTestnet,
+    baseAssetSymbol,
+    //  name: networkName
+  } = currentNetworkConfig;
 
   const localStorageName = 'showSupplyZeroAssets';
   const [isShowZeroAssets, setIsShowZeroAssets] = useState(
@@ -144,23 +150,25 @@ export const SupplyAssetsList = () => {
     : sortedSupplyReserves;
 
   const head = [
-    <Trans key="Wallet balance">Wallet balance</Trans>,
+    <Trans key="Balance">Balance</Trans>,
     <Trans key="APY">APY</Trans>,
     <Trans key="Can be collateral">Can be collateral</Trans>,
   ];
 
   if (loadingReserves || loading)
-    return <ListLoader title={<Trans>Assets to supply</Trans>} head={head} withTopMargin />;
+    return <ListLoader title={<Trans>Assets to Supply</Trans>} head={head} withTopMargin />;
 
   return (
     <ListWrapper
-      title={<Trans>Assets to supply</Trans>}
+      title={<Trans>Assets to Supply</Trans>}
       localStorageName="supplyAssetsDashboardTableCollapse"
+      // TODO: 可以删掉
       bottomComponent={isTestnet ? <ListBottomText /> : undefined}
       withTopMargin
       subChildrenComponent={
         <>
-          <Box sx={{ px: 6 }}>
+          {/* TODO: 是否需要？ */}
+          {/* <Box sx={{ px: 6 }}>
             {user?.isInIsolationMode && (
               <Alert severity="warning">
                 <Trans>
@@ -182,16 +190,44 @@ export const SupplyAssetsList = () => {
                 )}
               </Alert>
             )}
+          </Box> */}
+          <Box
+            sx={{
+              display: 'flex',
+              direction: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            {filteredSupplyReserves.length >= 1 && (
+              <DashboardListTopPanel
+                value={isShowZeroAssets}
+                onClick={setIsShowZeroAssets}
+                localStorageName={localStorageName}
+                bridge={bridge}
+              />
+            )}
+            <Button
+              sx={{ mr: 6 }}
+              size="small"
+              variant="outlined"
+              startIcon={
+                <img
+                  alt="eth logo"
+                  width="14px"
+                  height="14px"
+                  src={'/icons/networks/ethereum.svg'}
+                />
+              }
+              endIcon={
+                <SvgIcon sx={{ fontSize: '12px' }}>
+                  <LaunchIcon />
+                </SvgIcon>
+              }
+            >
+              Ethereum Bridge
+            </Button>
           </Box>
-
-          {filteredSupplyReserves.length >= 1 && (
-            <DashboardListTopPanel
-              value={isShowZeroAssets}
-              onClick={setIsShowZeroAssets}
-              localStorageName={localStorageName}
-              bridge={bridge}
-            />
-          )}
         </>
       }
     >

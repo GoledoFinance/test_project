@@ -411,9 +411,9 @@ export function getThemedComponents(theme: Theme) {
               color: theme.palette.common.white,
               border: '1px solid',
               borderColor: '#EBEBED1F',
-              backgroundColor: '#383D51',
+              backgroundColor: theme.palette.background.header,
               '&:hover, &.Mui-focusVisible': {
-                backgroundColor: theme.palette.background.header,
+                backgroundColor: '#383D51',
               },
             },
           },
@@ -421,10 +421,10 @@ export function getThemedComponents(theme: Theme) {
             props: { variant: 'gradient' },
             style: {
               color: theme.palette.common.white,
-              background: theme.palette.gradients.aaveGradient,
+              background: 'rgba(58, 193, 112, 1)',
               transition: 'all 0.2s ease',
               '&:hover, &.Mui-focusVisible': {
-                background: theme.palette.gradients.aaveGradient,
+                background: 'rgba(58, 193, 112, 0.7)',
                 opacity: '0.9',
               },
             },
@@ -434,6 +434,12 @@ export function getThemedComponents(theme: Theme) {
             style: {
               background: theme.palette.background.surface,
               borderColor: theme.palette.divider,
+            },
+          },
+          {
+            props: { variant: 'contained' },
+            style: {
+              background: '#111',
             },
           },
         ],

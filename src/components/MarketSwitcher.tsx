@@ -59,7 +59,7 @@ type MarketLogoProps = {
 
 export const MarketLogo = ({ size, logo, testChainName }: MarketLogoProps) => {
   return (
-    <Box sx={{ mr: 2, width: size, height: size, position: 'relative' }}>
+    <Box sx={{ mr: 4, width: size, height: size, position: 'relative' }}>
       <img src={logo} alt="" width="100%" height="100%" />
 
       {testChainName && (
@@ -185,7 +185,7 @@ export const MarketSwitcher = () => {
     >
       <Box>
         <Typography variant="subheader2" color="text.secondary" sx={{ px: 4, py: 2 }}>
-          <Trans>Select Aave Market</Trans>
+          <Trans>Select Market</Trans>
         </Typography>
         <Divider />
       </Box>

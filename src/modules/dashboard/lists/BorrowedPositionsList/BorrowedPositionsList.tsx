@@ -1,8 +1,8 @@
 import { API_ETH_MOCK_ADDRESS, InterestRate } from '@aave/contract-helpers';
 import { valueToBigNumber } from '@aave/math-utils';
 import { Trans } from '@lingui/macro';
-import { useMediaQuery, useTheme } from '@mui/material';
-import { useModalContext } from 'src/hooks/useModal';
+import { useMediaQuery, useTheme, Stack, Chip } from '@mui/material';
+// import { useModalContext } from 'src/hooks/useModal';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
 
@@ -15,7 +15,7 @@ import {
   useAppDataContext,
 } from '../../../../hooks/app-data-provider/useAppDataProvider';
 import { DashboardContentNoData } from '../../DashboardContentNoData';
-import { DashboardEModeButton } from '../../DashboardEModeButton';
+// import { DashboardEModeButton } from '../../DashboardEModeButton';
 import { ListHeader } from '../ListHeader';
 import { ListLoader } from '../ListLoader';
 import { ListTopInfoItem } from '../ListTopInfoItem';
@@ -24,8 +24,11 @@ import { BorrowedPositionsListMobileItem } from './BorrowedPositionsListMobileIt
 
 export const BorrowedPositionsList = () => {
   const { user, loading } = useAppDataContext();
-  const { currentMarketData, currentNetworkConfig } = useProtocolDataContext();
-  const { openEmode } = useModalContext();
+  const {
+    // currentMarketData,
+    currentNetworkConfig,
+  } = useProtocolDataContext();
+  // const { openEmode } = useModalContext();
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
@@ -78,22 +81,14 @@ export const BorrowedPositionsList = () => {
     <APYTypeTooltip text={<Trans>APY type</Trans>} key="APY type" variant="subheader2" />,
   ];
 
-  if (loading) return <ListLoader title={<Trans>Your borrows</Trans>} head={head} />;
+  if (loading) return <ListLoader title={<Trans>Your Borrows</Trans>} head={head} />;
 
   return (
     <ListWrapper
-      title={<Trans>Your borrows</Trans>}
+      title={<Trans>Your Borrows</Trans>}
       localStorageName="borrowedAssetsDashboardTableCollapse"
-      subTitleComponent={
-        currentMarketData.v3 ? (
-          <DashboardEModeButton
-            userEmodeCategoryId={user.userEmodeCategoryId}
-            onClick={() => openEmode()}
-          />
-        ) : undefined
-      }
       noData={!borrowPositions.length}
-      topInfo={
+      subTitleComponent={
         <>
           {!!borrowPositions.length && (
             <>

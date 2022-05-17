@@ -1,9 +1,9 @@
 import { normalize, UserIncentiveData, valueToBigNumber } from '@aave/math-utils';
 import { Trans } from '@lingui/macro';
-import { Box, Button, useMediaQuery, useTheme } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import * as React from 'react';
 import { useState } from 'react';
-import { useModalContext } from 'src/hooks/useModal';
+// import { useModalContext } from 'src/hooks/useModal';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
 
@@ -17,13 +17,13 @@ import { useAppDataContext } from '../../hooks/app-data-provider/useAppDataProvi
 import { LiquidationRiskParametresInfoModal } from './LiquidationRiskParametresModal/LiquidationRiskParametresModal';
 
 import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
+import { RewardsTooltip } from 'src/components/infoTooltips/RewardsTooltip';
 
 export const DashboardTopPanel = () => {
   const { currentNetworkConfig, currentMarketData, currentMarket } = useProtocolDataContext();
   const { user, reserves, loading } = useAppDataContext();
   const { currentAccount } = useWeb3Context();
   const [open, setOpen] = useState(false);
-  const { openClaimRewards } = useModalContext();
 
   const theme = useTheme();
   const downToSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -75,6 +75,7 @@ export const DashboardTopPanel = () => {
   const valueTypographyVariant = downToSM ? 'main16' : 'main21';
   const noDataTypographyVariant = downToSM ? 'secondary16' : 'secondary21';
 
+  // console.log('user:', user);
   return (
     <>
       <TopInfoPanel
@@ -90,7 +91,7 @@ export const DashboardTopPanel = () => {
               variant={valueTypographyVariant}
               visibleDecimals={2}
               compact
-              symbolsColor="#A5A8B6"
+              symbolsColor="#fff"
               symbolsVariant={noDataTypographyVariant}
             />
           ) : (
@@ -114,7 +115,7 @@ export const DashboardTopPanel = () => {
               variant={valueTypographyVariant}
               visibleDecimals={2}
               percent
-              symbolsColor="#A5A8B6"
+              symbolsColor="#fff"
               symbolsVariant={noDataTypographyVariant}
             />
           ) : (
@@ -122,59 +123,60 @@ export const DashboardTopPanel = () => {
           )}
         </TopInfoPanelItem>
 
-        {currentAccount && user?.healthFactor !== '-1' && (
-          <TopInfoPanelItem
-            hideIcon
-            title={
-              <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
-                <Trans>Health Factor</Trans>
-                <HALTooltip />
-              </Box>
-            }
-            loading={loading}
-          >
-            <HealthFactorNumber
-              value={user?.healthFactor || '-1'}
-              variant={valueTypographyVariant}
-              onInfoClick={() => setOpen(true)}
-            />
-          </TopInfoPanelItem>
-        )}
-
-        {currentAccount && claimableRewardsUsd > 0 && (
-          <TopInfoPanelItem title={<Trans>Rewards</Trans>} hideIcon loading={loading}>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: { xs: 'flex-start', xsm: 'center' },
-                flexDirection: { xs: 'column', xsm: 'row' },
-              }}
-            >
-              <Box sx={{ display: 'inline-flex', alignItems: 'center' }} data-cy={'Claim_Box'}>
-                <FormattedNumber
-                  value={claimableRewardsUsd}
-                  variant={valueTypographyVariant}
-                  visibleDecimals={2}
-                  compact
-                  symbol="USD"
-                  symbolsColor="#A5A8B6"
-                  symbolsVariant={noDataTypographyVariant}
-                  data-cy={'Claim_Value'}
-                />
-              </Box>
-
-              <Button
-                variant="gradient"
-                size="small"
-                onClick={() => openClaimRewards()}
-                sx={{ minWidth: 'unset', ml: { xs: 0, xsm: 2 } }}
-                data-cy={'Dashboard_Claim_Button'}
-              >
-                <Trans>Claim</Trans>
-              </Button>
+        {/* TODO: 是否需要直接显示 */}
+        {/* {currentAccount && user?.healthFactor !== '-1' && ( */}
+        <TopInfoPanelItem
+          hideIcon
+          title={
+            <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
+              <Trans>Health Factor</Trans>
+              <HALTooltip />
             </Box>
-          </TopInfoPanelItem>
-        )}
+          }
+          loading={loading}
+        >
+          <HealthFactorNumber
+            value={user?.healthFactor || '-1'}
+            variant={valueTypographyVariant}
+            onInfoClick={() => setOpen(true)}
+          />
+        </TopInfoPanelItem>
+        {/* )} */}
+
+        {/* TODO: 是否需要直接显示 */}
+        {/* {currentAccount && claimableRewardsUsd > 0 && ( */}
+        <TopInfoPanelItem
+          title={
+            <div style={{ display: 'flex' }}>
+              <Trans>Rewards</Trans>
+              <RewardsTooltip />
+            </div>
+          }
+          hideIcon
+          loading={loading}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: { xs: 'flex-start', xsm: 'center' },
+              flexDirection: { xs: 'column', xsm: 'row' },
+            }}
+          >
+            <Box sx={{ display: 'inline-flex', alignItems: 'center' }} data-cy={'Claim_Box'}>
+              <FormattedNumber
+                value={claimableRewardsUsd}
+                variant={valueTypographyVariant}
+                visibleDecimals={2}
+                compact
+                symbol="USD"
+                symbolsColor="#fff"
+                symbolsVariant={noDataTypographyVariant}
+                data-cy={'Claim_Value'}
+              />
+            </Box>
+          </Box>
+        </TopInfoPanelItem>
+        {/* )} */}
       </TopInfoPanel>
 
       <LiquidationRiskParametresInfoModal

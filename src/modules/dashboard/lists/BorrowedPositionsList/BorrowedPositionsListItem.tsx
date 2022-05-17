@@ -73,6 +73,7 @@ export const BorrowedPositionsListItem = ({
 
       <ListButtonsColumn>
         <Button
+          sx={{ height: 32 }}
           disabled={!isActive}
           variant="contained"
           onClick={() => openRepay(reserve.underlyingAsset, borrowRateMode)}
@@ -80,6 +81,7 @@ export const BorrowedPositionsListItem = ({
           <Trans>Repay</Trans>
         </Button>
         <Button
+          sx={{ height: 32 }}
           disabled={!isActive || !borrowingEnabled || isFrozen}
           variant="outlined"
           onClick={() => openBorrow(reserve.underlyingAsset)}

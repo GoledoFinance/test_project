@@ -1,5 +1,6 @@
-import { CheckIcon, ExclamationCircleIcon } from '@heroicons/react/outline';
+import { ExclamationCircleIcon } from '@heroicons/react/outline';
 import { Box, SvgIcon } from '@mui/material';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 import { NoData } from '../../../components/primitives/NoData';
 import { ListItemIsolationBadge } from './ListItemIsolationBadge';
@@ -16,13 +17,13 @@ export const ListItemCanBeCollateral = ({
   const CollateralStates = () => {
     if (usageAsCollateralEnabled && !isIsolated) {
       return (
-        <SvgIcon sx={{ color: 'success.main', fontSize: { xs: '20px', xsm: '24px' } }}>
-          <CheckIcon />
+        <SvgIcon sx={{ color: 'success.main', fontSize: { xs: '14px', xsm: '14px' } }}>
+          <CheckCircleOutlineIcon />
         </SvgIcon>
       );
     } else if (usageAsCollateralEnabled && isIsolated) {
       return (
-        <SvgIcon sx={{ color: 'warning.main', fontSize: { xs: '20px', xsm: '24px' } }}>
+        <SvgIcon sx={{ color: 'warning.main', fontSize: { xs: '14px', xsm: '14px' } }}>
           <ExclamationCircleIcon />
         </SvgIcon>
       );

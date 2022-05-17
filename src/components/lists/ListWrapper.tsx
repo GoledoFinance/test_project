@@ -50,7 +50,7 @@ export const ListWrapper = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          mb: noData || (collapsed && !topInfo) ? 0 : 4,
+          // mb: noData || (collapsed && !topInfo) ? 0 : 4,
         }}
       >
         <Box
@@ -75,23 +75,23 @@ export const ListWrapper = ({
               cursor: 'pointer',
               minHeight: '28px',
               pl: 3,
-              span: {
-                width: '14px',
-                height: '2px',
-                bgcolor: 'text.secondary',
-                position: 'relative',
-                ml: 1,
-                '&:after': {
-                  content: "''",
-                  position: 'absolute',
-                  width: '14px',
-                  height: '2px',
-                  bgcolor: 'text.secondary',
-                  transition: 'all 0.2s ease',
-                  transform: collapsed ? 'rotate(90deg)' : 'rotate(0)',
-                  opacity: collapsed ? 1 : 0,
-                },
-              },
+              // span: {
+              //   width: '14px',
+              //   height: '2px',
+              //   bgcolor: 'text.secondary',
+              //   position: 'relative',
+              //   ml: 1,
+              //   '&:after': {
+              //     content: "''",
+              //     position: 'absolute',
+              //     width: '14px',
+              //     height: '2px',
+              //     bgcolor: 'text.secondary',
+              //     transition: 'all 0.2s ease',
+              //     transform: collapsed ? 'rotate(90deg)' : 'rotate(0)',
+              //     opacity: collapsed ? 1 : 0,
+              //   },
+              // },
             }}
             onClick={() =>
               !!localStorageName && !noData
@@ -102,7 +102,7 @@ export const ListWrapper = ({
             <Typography variant="buttonM" color="text.secondary">
               {collapsed ? <Trans>Show</Trans> : <Trans>Hide</Trans>}
             </Typography>
-            <span />
+            {/* <span /> */}
           </Box>
         )}
       </Box>

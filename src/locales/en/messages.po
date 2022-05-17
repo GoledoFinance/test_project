@@ -228,10 +228,6 @@ msgstr "Available assets"
 msgid "Available liquidity"
 msgstr "Available liquidity"
 
-#: src/modules/dashboard/DashboardTopPanel.tsx
-msgid "Available rewards"
-msgstr "Available rewards"
-
 #: src/components/caps/CapsHint.tsx
 #: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsListMobileItem.tsx
 #: src/modules/reserve-overview/ReserveActions.tsx
@@ -440,7 +436,18 @@ msgstr "Collateral usage is limited because of isolation mode. <0>Learn More</0>
 msgid "Collateralization"
 msgstr "Collateralization"
 
+#: src/components/ConnectWalletPaper.tsx
+msgid "Conncet your wallet to see your supplies, borrowings and open positions."
+msgstr "Conncet your wallet to see your supplies, borrowings and open positions."
+
 #: src/components/WalletConnection/ConnectWalletButton.tsx
+msgid "Connect Wallet"
+msgstr "Connect Wallet"
+
+#: src/components/ConnectWalletPaper.tsx
+msgid "Connect Your Wallet"
+msgstr "Connect Your Wallet"
+
 #: src/layouts/WalletWidget.tsx
 msgid "Connect wallet"
 msgstr "Connect wallet"
@@ -700,7 +707,6 @@ msgstr "Funds in the Safety Module"
 msgid "Github"
 msgstr "Github"
 
-#: src/layouts/MobileMenu.tsx
 #: src/layouts/SettingsMenu.tsx
 msgid "Global settings"
 msgstr "Global settings"
@@ -713,8 +719,11 @@ msgstr "Go Back"
 msgid "Governance"
 msgstr "Governance"
 
-#: src/components/transactions/FlowCommons/TxModalDetails.tsx
 #: src/modules/dashboard/DashboardTopPanel.tsx
+msgid "Health Factor"
+msgstr "Health Factor"
+
+#: src/components/transactions/FlowCommons/TxModalDetails.tsx
 #: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
 msgid "Health factor"
 msgstr "Health factor"
@@ -1021,17 +1030,9 @@ msgstr "Pending..."
 msgid "Please connect a wallet to view your personal information here."
 msgstr "Please connect a wallet to view your personal information here."
 
-#: src/components/ConnectWalletPaper.tsx
-msgid "Please connect your wallet to see your supplies, borrowings, and open positions."
-msgstr "Please connect your wallet to see your supplies, borrowings, and open positions."
-
 #: src/components/transactions/Warnings/ChangeNetworkWarning.tsx
 msgid "Please switch to {networkName}."
 msgstr "Please switch to {networkName}."
-
-#: src/components/ConnectWalletPaper.tsx
-msgid "Please, connect your wallet"
-msgstr "Please, connect your wallet"
 
 #: src/ui-config/errorMapping.tsx
 msgid "Pool addresses provider is not registered"
@@ -1149,6 +1150,10 @@ msgstr "Review tx details"
 #: src/components/transactions/ClaimRewards/RewardsSelect.tsx
 msgid "Reward(s) to claim"
 msgstr "Reward(s) to claim"
+
+#: src/modules/dashboard/DashboardTopPanel.tsx
+msgid "Rewards"
+msgstr "Rewards"
 
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
 msgid "Rewards APR"

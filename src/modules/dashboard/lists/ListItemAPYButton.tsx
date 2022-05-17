@@ -55,7 +55,7 @@ export const ListItemAPYButton = ({
   return (
     <>
       <Button
-        variant="outlined"
+        variant="text"
         onClick={handleClick}
         size="small"
         endIcon={

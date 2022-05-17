@@ -101,7 +101,7 @@ export default function WalletWidget({ open, setOpen, headerHeight, md }: Wallet
       textCenterEllipsis(currentAccount, 4, 4)
     )
   ) : (
-    <Trans>Connect wallet</Trans>
+    <Trans>Connect Wallet</Trans>
   );
 
   const Content = ({ component = ListItem }: { component?: typeof MenuItem | typeof ListItem }) => (
@@ -276,15 +276,14 @@ export default function WalletWidget({ open, setOpen, headerHeight, md }: Wallet
         <Skeleton height={36} width={126} sx={{ background: '#383D51' }} />
       ) : (
         <Button
-          variant={connected ? 'surface' : 'contained'}
-          color="success"
+          variant={connected ? 'surface' : 'gradient'}
           aria-label="wallet"
           id="wallet-button"
           aria-controls={open ? 'wallet-button' : undefined}
           aria-expanded={open ? 'true' : undefined}
           aria-haspopup="true"
           onClick={handleClick}
-          sx={{ p: connected ? '5px 8px' : undefined, borderRadius: '100px', color: 'white' }}
+          sx={{ p: connected ? '5px 8px' : undefined, borderRadius: '100px' }}
           startIcon={
             connected && (
               <Box

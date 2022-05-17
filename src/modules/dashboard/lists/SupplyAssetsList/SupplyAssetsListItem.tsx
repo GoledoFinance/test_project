@@ -69,6 +69,7 @@ export const SupplyAssetsListItem = ({
 
       <ListButtonsColumn>
         <Button
+          sx={{ height: 32 }}
           disabled={!isActive || isFreezed || Number(walletBalance) <= 0}
           variant="contained"
           onClick={() => openSupply(underlyingAsset)}
@@ -76,6 +77,7 @@ export const SupplyAssetsListItem = ({
           <Trans>Supply</Trans>
         </Button>
         <Button
+          sx={{ height: 32 }}
           variant="outlined"
           component={Link}
           href={ROUTES.reserveOverview(detailsAddress, currentMarket)}

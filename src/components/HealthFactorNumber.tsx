@@ -50,7 +50,8 @@ export const HealthFactorNumber = ({ value, onInfoClick, ...rest }: HealthFactor
       {onInfoClick && (
         <Button
           onClick={onInfoClick}
-          variant="surface"
+          variant="outlined"
+          color="success"
           size="small"
           sx={{ minWidth: 'unset', ml: { xs: 0, xsm: 2 } }}
         >

@@ -9,13 +9,11 @@ export const ConnectWalletButton = () => {
   return (
     <>
       <Button
-        variant="contained"
-        color="success"
+        variant="gradient"
         size="large"
         onClick={() => setWalletModalOpen(true)}
         sx={{
           borderRadius: '100px',
-          color: 'white',
         }}
       >
         <Trans>Connect Wallet</Trans>

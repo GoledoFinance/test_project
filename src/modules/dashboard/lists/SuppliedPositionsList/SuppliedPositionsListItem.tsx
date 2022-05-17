@@ -70,6 +70,7 @@ export const SuppliedPositionsListItem = ({
 
       <ListButtonsColumn>
         <Button
+          sx={{ height: 32 }}
           disabled={!isActive}
           variant="contained"
           onClick={() => openWithdraw(underlyingAsset)}
@@ -79,6 +80,7 @@ export const SuppliedPositionsListItem = ({
 
         {isSwapButton ? (
           <Button
+            sx={{ height: 32 }}
             disabled={!isActive || isFrozen}
             variant="outlined"
             onClick={() => openSwap(underlyingAsset)}
@@ -88,6 +90,7 @@ export const SuppliedPositionsListItem = ({
           </Button>
         ) : (
           <Button
+            sx={{ height: 32 }}
             disabled={!isActive || isFrozen}
             variant="outlined"
             onClick={() => openSupply(underlyingAsset)}
