@@ -34,7 +34,7 @@ import { Web3ReactProvider } from '@web3-react/core';
 import { providers } from 'ethers';
 import { WalletModalContextProvider } from 'src/hooks/useWalletModal';
 import { PermissionProvider } from 'src/hooks/usePermissions';
-import AaveMetaImage from 'public/aaveMetaLogo.png';
+import MetaImage from 'public/Logo-text.svg';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -67,7 +67,7 @@ export default function MyApp(props: MyAppProps) {
         description={
           'Aave is an Open Source Protocol to create Non-Custodial Liquidity Markets to earn interest on supplying and borrowing assets with a variable or stable interest rate. The protocol is designed for easy integration into your products and services.'
         }
-        imageUrl={AaveMetaImage.src}
+        imageUrl={MetaImage.src}
       />
 
       <ApolloProvider client={apolloClient}>

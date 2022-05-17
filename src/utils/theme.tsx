@@ -169,12 +169,14 @@ export const getDesignTokens = (mode: 'light' | 'dark') => {
         secondary: getColor('#62677B', '#A5A8B6'),
         disabled: getColor('#D2D4DC', '#62677B'),
         muted: getColor('#A5A8B6', '#8E92A3'),
+        tooltip: getColor('#fff', '#000'),
       },
       background: {
         default: getColor('#F1F1F3', '#1B2030'),
         paper: getColor('#FFFFFF', '#292E41'),
         surface: getColor('#F7F7F9', '#383D51'),
-        header: getColor('#2B2D3C', '#1B2030'),
+        header: getColor('#111', '#1B2030'),
+        tooltip: getColor('#333', '#eee'),
       },
       divider: getColor('#EAEBEF', '#EBEBEF14'),
       action: {

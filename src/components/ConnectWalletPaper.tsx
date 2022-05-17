@@ -3,7 +3,7 @@ import { CircularProgress, Paper, PaperProps, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import { ConnectWalletButton } from './WalletConnection/ConnectWalletButton';
 
-import LoveGhost from '/public/loveGhost.svg';
+import Empty from '/public/empty.svg';
 
 interface ConnectWalletPaperProps extends PaperProps {
   loading?: boolean;
@@ -27,22 +27,23 @@ export const ConnectWalletPaper = ({
         textAlign: 'center',
         p: 4,
         flex: 1,
+        borderRadius: '8px',
         ...sx,
       }}
     >
-      <LoveGhost style={{ marginBottom: '16px' }} />
+      <Empty style={{ marginBottom: '16px' }} />
       <>
         {loading ? (
           <CircularProgress />
         ) : (
           <>
             <Typography variant="h2" sx={{ mb: 2 }}>
-              <Trans>Please, connect your wallet</Trans>
+              <Trans>Connect Your Wallet</Trans>
             </Typography>
-            <Typography sx={{ mb: 6 }} color="text.secondary">
+            <Typography sx={{ mb: 6, maxWidth: '300px' }} color="text.secondary">
               {description || (
                 <Trans>
-                  Please connect your wallet to see your supplies, borrowings, and open positions.
+                  Conncet your wallet to see your supplies, borrowings and open positions.
                 </Trans>
               )}
             </Typography>

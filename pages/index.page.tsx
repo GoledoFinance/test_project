@@ -67,7 +67,12 @@ export default function Home() {
         {currentAccount && !isPermissionsLoading ? (
           <DashboardContentWrapper isBorrow={mode === 'borrow'} />
         ) : (
-          <ConnectWalletPaper loading={web3Loading} />
+          <ConnectWalletPaper
+            loading={web3Loading}
+            sx={{
+              py: '131px',
+            }}
+          />
         )}
       </ContentContainer>
     </>

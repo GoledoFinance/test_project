@@ -1,8 +1,6 @@
 {
   "locales": [
-    "en",
-    "es",
-    "fr"
+    "en"
   ],
   "catalogs": [
     {

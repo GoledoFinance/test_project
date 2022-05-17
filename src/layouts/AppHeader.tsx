@@ -7,7 +7,7 @@ import { Link } from '../components/primitives/Link';
 import { uiConfig } from '../uiConfig';
 import { NavItems } from './components/NavItems';
 import { MobileMenu } from './MobileMenu';
-import { SettingsMenu } from './SettingsMenu';
+// import { SettingsMenu } from './SettingsMenu';
 import WalletWidget from './WalletWidget';
 
 interface Props {
@@ -41,7 +41,7 @@ export function AppHeader() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [md]);
 
-  const headerHeight = 48;
+  const headerHeight = 60;
 
   return (
     <HideOnScroll>
@@ -70,10 +70,10 @@ export function AppHeader() {
           component={Link}
           href="/"
           aria-label="Go to homepage"
-          sx={{ lineHeight: 0, mr: 7, transition: '0.3s ease all', '&:hover': { opacity: 0.7 } }}
+          sx={{ lineHeight: 0, mr: 8, transition: '0.3s ease all', '&:hover': { opacity: 0.7 } }}
           onClick={() => setMobileMenuOpen(false)}
         >
-          <img src={uiConfig.appLogo} alt="An SVG of an eye" height={20} />
+          <img src={uiConfig.appLogo} alt="An SVG of an eye" height={34} />
         </Box>
 
         <Box sx={{ display: { xs: 'none', md: 'block' } }}>
@@ -91,9 +91,9 @@ export function AppHeader() {
           />
         )}
 
-        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+        {/* <Box sx={{ display: { xs: 'none', md: 'block' } }}>
           <SettingsMenu />
-        </Box>
+        </Box> */}
 
         {!walletWidgetOpen && (
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

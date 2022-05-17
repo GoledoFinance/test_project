@@ -16,12 +16,12 @@ import React, { ReactNode, useEffect, useState } from 'react';
 
 import { Link } from '../components/primitives/Link';
 import { moreNavigation } from '../ui-config/menu-items';
-import { DarkModeSwitcher } from './components/DarkModeSwitcher';
+// import { DarkModeSwitcher } from './components/DarkModeSwitcher';
 import { DrawerWrapper } from './components/DrawerWrapper';
-import { LanguageListItem, LanguagesList } from './components/LanguageSwitcher';
+// import { LanguageListItem, LanguagesList } from './components/LanguageSwitcher';
 import { MobileCloseButton } from './components/MobileCloseButton';
 import { NavItems } from './components/NavItems';
-import { TestNetModeSwitcher } from './components/TestNetModeSwitcher';
+// import { TestNetModeSwitcher } from './components/TestNetModeSwitcher';
 
 interface MobileMenuProps {
   open: boolean;
@@ -71,13 +71,13 @@ export const MobileMenu = ({ open, setOpen, headerHeight }: MobileMenuProps) => 
             <MenuItemsWrapper title={<Trans>Menu</Trans>}>
               <NavItems setOpen={setOpen} />
             </MenuItemsWrapper>
-            <MenuItemsWrapper title={<Trans>Global settings</Trans>}>
+            {/* <MenuItemsWrapper title={<Trans>Global settings</Trans>}>
               <List>
                 <DarkModeSwitcher />
                 <TestNetModeSwitcher />
                 <LanguageListItem onClick={() => setIsLanguagesListOpen(true)} />
               </List>
-            </MenuItemsWrapper>
+            </MenuItemsWrapper> */}
             <MenuItemsWrapper title={<Trans>Links</Trans>}>
               <List>
                 {moreNavigation.map((item, index) => (
@@ -94,7 +94,7 @@ export const MobileMenu = ({ open, setOpen, headerHeight }: MobileMenuProps) => 
           </>
         ) : (
           <List sx={{ px: 2 }}>
-            <LanguagesList onClick={() => setIsLanguagesListOpen(false)} />
+            {/* <LanguagesList onClick={() => setIsLanguagesListOpen(false)} /> */}
           </List>
         )}
       </DrawerWrapper>
