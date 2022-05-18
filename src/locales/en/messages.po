@@ -28,6 +28,9 @@ msgstr "ACTIVATE COOLDOWN"
 
 #: src/components/incentives/IncentivesTooltipContent.tsx
 #: src/components/incentives/IncentivesTooltipContent.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListItem.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListItem.tsx
 msgid "APR"
 msgstr "APR"
 
@@ -242,6 +245,7 @@ msgstr "Available to supply"
 #: src/components/transactions/AssetInput.tsx
 #: src/components/transactions/ClaimRewards/ClaimRewardsModalContent.tsx
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
@@ -937,6 +941,15 @@ msgstr "Network not supported for this wallet"
 msgid "New APY"
 msgstr "New APY"
 
+#: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
+msgid "No Borrows"
+msgstr "No Borrows"
+
+#: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
+msgid "No Supplies"
+msgstr "No Supplies"
+
 #: src/components/transactions/StakeRewardClaim/StakeRewardClaimModalContent.tsx
 msgid "No rewards to claim"
 msgstr "No rewards to claim"
@@ -974,17 +987,9 @@ msgstr "Not enough voting power to participate in this proposal"
 msgid "Not reached"
 msgstr "Not reached"
 
-#: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
-msgid "Nothing borrowed yet"
-msgstr "Nothing borrowed yet"
-
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 msgid "Nothing staked"
 msgstr "Nothing staked"
-
-#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
-msgid "Nothing supplied yet"
-msgstr "Nothing supplied yet"
 
 #: src/components/transactions/FlowCommons/Success.tsx
 msgid "Ok, Close"
@@ -1141,6 +1146,8 @@ msgid "Reward(s) to claim"
 msgstr "Reward(s) to claim"
 
 #: src/modules/dashboard/DashboardTopPanel.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
 msgid "Rewards"
 msgstr "Rewards"
 
@@ -1651,6 +1658,10 @@ msgstr "Variable debt supply is not zero"
 msgid "Variable interest rate will <0>fluctuate</0> based on the market conditions. Recommended for short-term loans."
 msgstr "Variable interest rate will <0>fluctuate</0> based on the market conditions. Recommended for short-term loans."
 
+#: src/modules/dashboard/lists/RewardsList/RewardsListItem.tsx
+msgid "Vest 0.001 GOLEDO"
+msgstr "Vest 0.001 GOLEDO"
+
 #: src/modules/markets/AssetsListMobileItem.tsx
 msgid "View details"
 msgstr "View details"
@@ -1843,9 +1854,17 @@ msgstr "Your healrh factor an loan to value determine the assurance of your coll
 msgid "Your info"
 msgstr "Your info"
 
+#: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+msgid "Your locked balance"
+msgstr "Your locked balance"
+
 #: src/components/transactions/ClaimRewards/ClaimRewardsModalContent.tsx
 msgid "Your reward balance is 0"
 msgstr "Your reward balance is 0"
+
+#: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+msgid "Your staked balance"
+msgstr "Your staked balance"
 
 #: src/modules/governance/proposal/VoteInfo.tsx
 msgid "Your voting info"
