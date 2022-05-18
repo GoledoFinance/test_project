@@ -14,7 +14,7 @@ interface ListItemWrapperProps {
   name: string;
   detailsAddress: string;
   children: ReactNode;
-  currentMarket: CustomMarket;
+  currentMarket?: CustomMarket;
 }
 
 export const ListItemWrapper = ({
@@ -30,7 +30,7 @@ export const ListItemWrapper = ({
     <ListItem {...rest}>
       <ListColumn maxWidth={160} isRow>
         <Link
-          href={ROUTES.reserveOverview(detailsAddress, currentMarket)}
+          href={currentMarket ? ROUTES.reserveOverview(detailsAddress, currentMarket) : '#'}
           noWrap
           sx={{ display: 'inline-flex', alignItems: 'center' }}
         >

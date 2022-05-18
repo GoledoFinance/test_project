@@ -10,16 +10,17 @@ interface ListLoaderProps {
   title: ReactNode;
   withTopMargin?: boolean;
   head: ReactNode[];
+  assetsTitle?: ReactNode | string;
 }
 
-export const ListLoader = ({ title, withTopMargin, head }: ListLoaderProps) => {
+export const ListLoader = ({ title, withTopMargin, head, assetsTitle }: ListLoaderProps) => {
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
   return (
     <ListWrapper title={title} withTopMargin={withTopMargin}>
       <>
-        {!downToXSM && <ListHeader head={head} />}
+        {!downToXSM && <ListHeader head={head} assetsTitle={assetsTitle} />}
         {!downToXSM ? (
           <>
             <ListItemLoader />

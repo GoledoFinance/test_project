@@ -202,15 +202,15 @@ msgstr "Asset to delegate"
 msgid "Assets"
 msgstr "Assets"
 
+#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
+#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
+msgid "Assets to Supply"
+msgstr "Assets to Supply"
+
 #: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsList.tsx
 #: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsList.tsx
 msgid "Assets to borrow"
 msgstr "Assets to borrow"
-
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
-msgid "Assets to supply"
-msgstr "Assets to supply"
 
 #: pages/governance/proposal/[proposalId].governance.tsx
 msgid "Author"
@@ -244,6 +244,7 @@ msgstr "Available to supply"
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
+#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
 msgid "Balance"
 msgstr "Balance"
 
@@ -365,10 +366,6 @@ msgstr "Can be executed"
 msgid "Cap reached. Lower supply amount"
 msgstr "Cap reached. Lower supply amount"
 
-#: src/modules/dashboard/DashboardTopPanel.tsx
-msgid "Claim"
-msgstr "Claim"
-
 #: src/modules/staking/StakingPanel.tsx
 msgid "Claim AAVE"
 msgstr "Claim AAVE"
@@ -428,10 +425,6 @@ msgstr "Collateral usage"
 msgid "Collateral usage is limited because of Isolation mode."
 msgstr "Collateral usage is limited because of Isolation mode."
 
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
-msgid "Collateral usage is limited because of isolation mode. <0>Learn More</0>"
-msgstr "Collateral usage is limited because of isolation mode. <0>Learn More</0>"
-
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
 msgid "Collateralization"
 msgstr "Collateralization"
@@ -441,16 +434,13 @@ msgid "Conncet your wallet to see your supplies, borrowings and open positions."
 msgstr "Conncet your wallet to see your supplies, borrowings and open positions."
 
 #: src/components/WalletConnection/ConnectWalletButton.tsx
+#: src/layouts/WalletWidget.tsx
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
 #: src/components/ConnectWalletPaper.tsx
 msgid "Connect Your Wallet"
 msgstr "Connect Your Wallet"
-
-#: src/layouts/WalletWidget.tsx
-msgid "Connect wallet"
-msgstr "Connect wallet"
 
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 #: src/modules/staking/StakingPanel.tsx
@@ -720,11 +710,11 @@ msgid "Governance"
 msgstr "Governance"
 
 #: src/modules/dashboard/DashboardTopPanel.tsx
+#: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
 msgid "Health Factor"
 msgstr "Health Factor"
 
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
-#: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
 msgid "Health factor"
 msgstr "Health factor"
 
@@ -822,7 +812,6 @@ msgid "Language"
 msgstr "Language"
 
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
-#: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
 msgid "Learn more"
 msgstr "Learn more"
 
@@ -842,6 +831,10 @@ msgstr "Links"
 msgid "Liquidation <0/> threshold"
 msgstr "Liquidation <0/> threshold"
 
+#: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
+msgid "Liquidation Risk Parametres"
+msgstr "Liquidation Risk Parametres"
+
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
 msgid "Liquidation at"
 msgstr "Liquidation at"
@@ -850,10 +843,6 @@ msgstr "Liquidation at"
 #: src/modules/reserve-overview/ReserveConfiguration.tsx
 msgid "Liquidation penalty"
 msgstr "Liquidation penalty"
-
-#: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
-msgid "Liquidation risk parametres"
-msgstr "Liquidation risk parametres"
 
 #: src/modules/reserve-overview/ReserveConfiguration.tsx
 #: src/modules/reserve-overview/ReserveConfiguration.tsx
@@ -1168,8 +1157,8 @@ msgid "SEE CHARTS"
 msgstr "SEE CHARTS"
 
 #: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
-msgid "Safety of your deposited collateral against the borrowed assets and its underlying value."
-msgstr "Safety of your deposited collateral against the borrowed assets and its underlying value."
+msgid "Safety of your deposited collateral against the borrow assets and its underlying value."
+msgstr "Safety of your deposited collateral against the borrow assets and its underlying value."
 
 #: src/components/transactions/Warnings/ChangeNetworkWarning.tsx
 msgid "Seems like we can't switch the network automatically. Please check if you can change it from the wallet."
@@ -1180,8 +1169,8 @@ msgid "Select APY type to switch"
 msgstr "Select APY type to switch"
 
 #: src/components/MarketSwitcher.tsx
-msgid "Select Aave Market"
-msgstr "Select Aave Market"
+msgid "Select Market"
+msgstr "Select Market"
 
 #: src/layouts/components/LanguageSwitcher.tsx
 msgid "Select language"
@@ -1695,7 +1684,6 @@ msgstr "Voting results"
 
 #: pages/faucet.page.tsx
 #: src/components/transactions/Repay/RepayTypeSelector.tsx
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
 #: src/modules/reserve-overview/ReserveActions.tsx
 msgid "Wallet balance"
 msgstr "Wallet balance"
@@ -1832,16 +1820,21 @@ msgstr "You {action} <0/> {symbol}"
 
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
-msgid "Your borrows"
-msgstr "Your borrows"
+msgid "Your Borrows"
+msgstr "Your Borrows"
+
+#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
+#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
+msgid "Your Supplies"
+msgstr "Your Supplies"
 
 #: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
 msgid "Your current loan to value based on your collateral supplied."
 msgstr "Your current loan to value based on your collateral supplied."
 
 #: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
-msgid "Your health factor and loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."
-msgstr "Your health factor and loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."
+msgid "Your healrh factor an loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."
+msgstr "Your healrh factor an loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."
 
 #: pages/reserve-overview.page.tsx
 #: src/modules/governance/VotingPowerInfoPanel.tsx
@@ -1854,16 +1847,10 @@ msgstr "Your info"
 msgid "Your reward balance is 0"
 msgstr "Your reward balance is 0"
 
-#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
-#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
-msgid "Your supplies"
-msgstr "Your supplies"
-
 #: src/modules/governance/proposal/VoteInfo.tsx
 msgid "Your voting info"
 msgstr "Your voting info"
 
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
 #: src/modules/reserve-overview/ReserveActions.tsx
 msgid "Your {networkName} wallet is empty. Purchase or transfer assets"
 msgstr "Your {networkName} wallet is empty. Purchase or transfer assets"
@@ -1913,7 +1900,6 @@ msgstr "on"
 msgid "or"
 msgstr "or"
 
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
 #: src/modules/reserve-overview/ReserveActions.tsx
 msgid "or use <0>{0}</0> to transfer your ETH assets."
 msgstr "or use <0>{0}</0> to transfer your ETH assets."
@@ -1954,6 +1940,10 @@ msgstr "v3 markets"
 #: src/components/transactions/Withdraw/WithdrawModalContent.tsx
 msgid "withdrew"
 msgstr "withdrew"
+
+#: src/components/infoTooltips/RewardsTooltip.tsx
+msgid "xxxxxx"
+msgstr "xxxxxx"
 
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx

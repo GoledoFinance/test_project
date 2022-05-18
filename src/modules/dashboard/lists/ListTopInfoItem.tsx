@@ -8,22 +8,29 @@ interface ListTopInfoItemProps {
   value: number | string;
   percent?: boolean;
   tooltip?: ReactNode;
+  size?: 'small' | 'medium';
 }
 
-export const ListTopInfoItem = ({ title, value, percent, tooltip }: ListTopInfoItemProps) => {
+export const ListTopInfoItem = ({
+  size = 'medium',
+  title,
+  value,
+  percent,
+  tooltip,
+}: ListTopInfoItemProps) => {
   return (
     <Paper
       variant="outlined"
       sx={{
         mr: 2,
-        p: '2px 4px',
+        p: size === 'small' ? '0px 4px' : '2px 4px',
         display: 'flex',
         alignItems: 'center',
         boxShadow: 'none',
         bgcolor: 'transparent',
       }}
     >
-      <Typography color="text.secondary" sx={{ mr: 1 }} noWrap>
+      <Typography color="text.secondary" noWrap>
         {title}
       </Typography>
       <FormattedNumber value={value} percent={percent} variant="secondary14" symbol="USD" />

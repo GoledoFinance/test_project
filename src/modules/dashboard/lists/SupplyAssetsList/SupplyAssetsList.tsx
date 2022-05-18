@@ -195,7 +195,7 @@ export const SupplyAssetsList = () => {
             sx={{
               display: 'flex',
               direction: 'row',
-              justifyContent: 'space-between',
+              justifyContent: filteredSupplyReserves.length >= 1 ? 'space-between' : 'end',
               alignItems: 'center',
             }}
           >
@@ -208,7 +208,7 @@ export const SupplyAssetsList = () => {
               />
             )}
             <Button
-              sx={{ mr: 6 }}
+              sx={{ mx: 6 }}
               size="small"
               variant="outlined"
               startIcon={

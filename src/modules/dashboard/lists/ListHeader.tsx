@@ -8,14 +8,15 @@ import { ListButtonsColumn } from './ListButtonsColumn';
 
 interface ListHeaderProps {
   head: ReactNode[];
+  assetsTitle?: ReactNode | string;
 }
 
-export const ListHeader = ({ head }: ListHeaderProps) => {
+export const ListHeader = ({ head, assetsTitle }: ListHeaderProps) => {
   return (
     <ListHeaderWrapper>
       <ListColumn maxWidth={160} isRow>
         <ListHeaderTitle>
-          <Trans>Assets</Trans>
+          {typeof assetsTitle !== 'undefined' ? assetsTitle : <Trans>Assets</Trans>}
         </ListHeaderTitle>
       </ListColumn>
 

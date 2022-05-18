@@ -14,7 +14,7 @@ export const ListColumn = ({
   children,
   minWidth,
   maxWidth,
-  align = 'center',
+  align = 'left',
 }: ListColumnProps) => {
   return (
     <Box

@@ -92,7 +92,7 @@ export const SuppliedPositionsList = () => {
           )}
         </>
       ) : (
-        <DashboardContentNoData text={<Trans>Nothing supplied yet</Trans>} />
+        <DashboardContentNoData text={<Trans>No Supplies</Trans>} />
       )}
     </ListWrapper>
   );

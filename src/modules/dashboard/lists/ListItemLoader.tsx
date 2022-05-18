@@ -27,8 +27,8 @@ export const ListItemLoader = () => {
       </ListColumn>
 
       <ListButtonsColumn>
-        <Skeleton height={38} width={74} />
-        <Skeleton height={38} width={74} sx={{ ml: '6px' }} />
+        <Skeleton height={32} width={74} />
+        <Skeleton height={32} width={74} sx={{ ml: '6px' }} />
       </ListButtonsColumn>
     </ListItem>
   );
