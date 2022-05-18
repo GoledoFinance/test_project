@@ -17,10 +17,6 @@ msgstr ""
 msgid "<0>Ampleforth</0> is an asset affected by rebasing. Visit the <1>documentation</1> or <2>Ampleforth's FAQ</2> to learn more."
 msgstr "<0>Ampleforth</0> is an asset affected by rebasing. Visit the <1>documentation</1> or <2>Ampleforth's FAQ</2> to learn more."
 
-#: src/modules/staking/StakingHeader.tsx
-msgid "AAVE holders can stake their AAVE in the Safety Module to add more security to the protocol and earn Safety Incentives. In the case of a shortfall event, up to 30% of your stake can be slashed to cover the deficit, providing an additional layer of protection for the protocol."
-msgstr "AAVE holders can stake their AAVE in the Safety Module to add more security to the protocol and earn Safety Incentives. In the case of a shortfall event, up to 30% of your stake can be slashed to cover the deficit, providing an additional layer of protection for the protocol."
-
 #: src/components/transactions/StakeCooldown/StakeCooldownActions.tsx
 #: src/components/transactions/StakeCooldown/StakeCooldownActions.tsx
 msgid "ACTIVATE COOLDOWN"
@@ -625,6 +621,11 @@ msgstr "Executed"
 msgid "Expires"
 msgstr "Expires"
 
+#: src/modules/staking/LocksList.tsx
+#: src/modules/staking/VestList1.tsx
+msgid "Expiry"
+msgstr "Expiry"
+
 #: src/ui-config/menu-items/index.tsx
 msgid "FAQ"
 msgstr "FAQ"
@@ -654,10 +655,6 @@ msgstr "Forum discussion"
 #: src/layouts/components/LanguageSwitcher.tsx
 msgid "French"
 msgstr "French"
-
-#: src/modules/staking/StakingHeader.tsx
-msgid "Funds in the Safety Module"
-msgstr "Funds in the Safety Module"
 
 #: src/ui-config/menu-items/index.tsx
 msgid "Github"
@@ -778,10 +775,6 @@ msgstr "Language"
 msgid "Learn more"
 msgstr "Learn more"
 
-#: src/modules/staking/StakingHeader.tsx
-msgid "Learn more about risks involved"
-msgstr "Learn more about risks involved"
-
 #: src/components/isolationMode/IsolatedTooltip.tsx
 msgid "Learn more in our <0>FAQ guide</0>"
 msgstr "Learn more in our <0>FAQ guide</0>"
@@ -817,6 +810,10 @@ msgstr "Liquidation value"
 #: src/modules/reserve-overview/BorrowActions.tsx
 msgid "Loan to Value"
 msgstr "Loan to Value"
+
+#: src/modules/staking/LocksList.tsx
+msgid "Locked"
+msgstr "Locked"
 
 #: src/ui-config/errorMapping.tsx
 msgid "Ltv validation failed"
@@ -1183,19 +1180,12 @@ msgid "Stablecoin"
 msgstr "Stablecoin"
 
 #: src/components/transactions/Stake/StakeActions.tsx
+#: src/modules/staking/StakingHeader.tsx
 #: src/modules/staking/StakingPanel.tsx
 #: src/modules/staking/StakingPanel.tsx
 #: src/ui-config/menu-items/index.tsx
 msgid "Stake"
 msgstr "Stake"
-
-#: pages/staking.staking.tsx
-msgid "Stake Aave"
-msgstr "Stake Aave"
-
-#: pages/staking.staking.tsx
-msgid "Stake Aave/ETH BPT"
-msgstr "Stake Aave/ETH BPT"
 
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 msgid "Stake cooldown activated"
@@ -1208,7 +1198,6 @@ msgid "Staked"
 msgstr "Staked"
 
 #: src/components/transactions/Stake/StakeActions.tsx
-#: src/modules/staking/StakingHeader.tsx
 msgid "Staking"
 msgstr "Staking"
 
@@ -1326,10 +1315,6 @@ msgstr "Testnet mode"
 #: src/components/infoTooltips/BorrowPowerTooltip.tsx
 msgid "The % of your total borrowing power used. This is based on the amount of your collateral supplied and the total amount that you can borrow."
 msgstr "The % of your total borrowing power used. This is based on the amount of your collateral supplied and the total amount that you can borrow."
-
-#: pages/staking.staking.tsx
-msgid "The Balancer Pool Token (BPT) is a liquidity pool token. You can receive BPT by depositing a combination of AAVE + ETH in the <0>Balancer liquidity pool</0>. You can then stake your BPT in the Safety Module to secure the protocol and earn Safety Incentives."
-msgstr "The Balancer Pool Token (BPT) is a liquidity pool token. You can receive BPT by depositing a combination of AAVE + ETH in the <0>Balancer liquidity pool</0>. You can then stake your BPT in the Safety Module to secure the protocol and earn Safety Incentives."
 
 #: src/components/infoTooltips/MaxLTVTooltip.tsx
 msgid "The Maximum LTV ratio represents the maximum borrowing power of a specific collateral. For example, if a collateral has an LTV of 75%, the user can borrow up to 0.75 worth of ETH in the principal currency for every 1 ETH worth of collateral."
@@ -1483,6 +1468,11 @@ msgstr "Total Borrowed"
 msgid "Total Borrows"
 msgstr "Total Borrows"
 
+#: src/modules/staking/LocksList.tsx
+#: src/modules/staking/VestList1.tsx
+msgid "Total Goledo Vesiting"
+msgstr "Total Goledo Vesiting"
+
 #: src/modules/markets/MarketsTopPanel.tsx
 msgid "Total Market Size"
 msgstr "Total Market Size"
@@ -1491,13 +1481,14 @@ msgstr "Total Market Size"
 msgid "Total Supplied"
 msgstr "Total Supplied"
 
+#: src/modules/staking/LocksList.tsx
+#: src/modules/staking/VestList1.tsx
+msgid "Total Value"
+msgstr "Total Value"
+
 #: src/modules/markets/AssetsListMobileItem.tsx
 msgid "Total borrowed"
 msgstr "Total borrowed"
-
-#: src/modules/staking/StakingHeader.tsx
-msgid "Total emission per day"
-msgstr "Total emission per day"
 
 #: src/modules/markets/AssetsListMobileItem.tsx
 msgid "Total supplied"
@@ -1606,6 +1597,10 @@ msgstr "Variable interest rate will <0>fluctuate</0> based on the market conditi
 #: src/modules/markets/AssetsListItem.tsx
 msgid "Vest 0.001 GOLEDO"
 msgstr "Vest 0.001 GOLEDO"
+
+#: src/modules/staking/VestList1.tsx
+msgid "Vesting"
+msgstr "Vesting"
 
 #: src/modules/markets/AssetsListMobileItem.tsx
 msgid "View details"
@@ -1784,10 +1779,30 @@ msgstr "You {action} <0/> {symbol}"
 msgid "Your Borrows"
 msgstr "Your Borrows"
 
+#: src/modules/staking/StakingHeader.tsx
+msgid "Your Daily Penalty Fees"
+msgstr "Your Daily Penalty Fees"
+
+#: src/modules/staking/StakingHeader.tsx
+msgid "Your Daily Platform Fees"
+msgstr "Your Daily Platform Fees"
+
+#: src/modules/staking/StakingHeader.tsx
+msgid "Your Daily Revenue"
+msgstr "Your Daily Revenue"
+
+#: src/modules/staking/StakingHeader.tsx
+msgid "Your Locked + staked Goledo"
+msgstr "Your Locked + staked Goledo"
+
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 msgid "Your Supplies"
 msgstr "Your Supplies"
+
+#: src/modules/staking/StakingHeader.tsx
+msgid "Your Weeklu Revenue"
+msgstr "Your Weeklu Revenue"
 
 #: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
 msgid "Your current loan to value based on your collateral supplied."

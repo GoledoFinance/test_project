@@ -316,7 +316,7 @@ export const LabelList = ({
 }: {
   arr: Array<{ key: string; label: string | ReactNode; value: ReactNode | string }>;
 } & StackProps) => (
-  <Stack {...rest} spacing={3} sx={{ color: '#111', ...(rest?.sx || {}) }}>
+  <Stack spacing={3} {...rest} sx={{ color: '#111', ...(rest?.sx || {}) }}>
     {arr.map((item) => {
       return (
         <Box

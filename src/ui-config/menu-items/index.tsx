@@ -36,6 +36,10 @@ export const navigation: Navigation[] = [
     title: t`Governance`,
     isVisible: () => process.env.NEXT_PUBLIC_ENABLE_GOVERNANCE === 'true',
   },
+  {
+    link: ROUTES.more,
+    title: t`More`,
+  },
 ];
 
 interface MoreMenuItem extends Navigation {

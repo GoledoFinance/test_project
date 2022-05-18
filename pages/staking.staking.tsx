@@ -9,6 +9,7 @@ import {
   Button,
   Grid,
   Divider,
+  StackProps,
 } from '@mui/material';
 import { ReactNode } from 'react';
 import { ContentContainer } from 'src/components/ContentContainer';
@@ -211,12 +212,13 @@ const Title = ({ img, title, desc }: { img?: string; title: ReactNode; desc?: Re
   </Box>
 );
 
-const LabelList = ({
+export const LabelList = ({
   arr,
+  ...rest
 }: {
   arr: Array<{ key: string; label: string | ReactNode; value: ReactNode | string }>;
-}) => (
-  <Stack divider={<Divider />} spacing={3} sx={{ color: '#111' }}>
+} & StackProps) => (
+  <Stack divider={<Divider />} spacing={3} {...rest} sx={{ color: '#111', ...(rest?.sx || {}) }}>
     {arr.map((item) => {
       return (
         <Box
