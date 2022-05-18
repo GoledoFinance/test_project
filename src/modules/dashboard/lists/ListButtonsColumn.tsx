@@ -3,9 +3,11 @@ import { ReactNode } from 'react';
 
 interface ListButtonsColumnProps {
   children?: ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  sx?: any;
 }
 
-export const ListButtonsColumn = ({ children }: ListButtonsColumnProps) => {
+export const ListButtonsColumn = ({ children, sx }: ListButtonsColumnProps) => {
   return (
     <Box
       sx={{
@@ -18,6 +20,7 @@ export const ListButtonsColumn = ({ children }: ListButtonsColumnProps) => {
         '.MuiButton-root': {
           ml: '6px',
         },
+        ...sx,
       }}
     >
       {children}

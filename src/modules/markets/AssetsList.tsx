@@ -2,7 +2,7 @@ import { API_ETH_MOCK_ADDRESS } from '@aave/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { useMediaQuery } from '@mui/material';
 import { useState } from 'react';
-import { StableAPYTooltip } from 'src/components/infoTooltips/StableAPYTooltip';
+// import { StableAPYTooltip } from 'src/components/infoTooltips/StableAPYTooltip';
 import { VariableAPYTooltip } from 'src/components/infoTooltips/VariableAPYTooltip';
 import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
@@ -62,7 +62,7 @@ export default function AssetsList() {
       sortKey: 'symbol',
     },
     {
-      title: <Trans>Total supplied</Trans>,
+      title: <Trans>Total Supplied</Trans>,
       sortKey: 'totalLiquidityUSD',
     },
     {
@@ -70,7 +70,7 @@ export default function AssetsList() {
       sortKey: 'supplyAPY',
     },
     {
-      title: <Trans>Total borrowed</Trans>,
+      title: <Trans>Total Borrowed</Trans>,
       sortKey: 'totalDebtUSD',
     },
     {
@@ -83,23 +83,13 @@ export default function AssetsList() {
       ),
       sortKey: 'variableBorrowAPY',
     },
-    {
-      title: (
-        <StableAPYTooltip
-          text={<Trans>Borrow APY, stable</Trans>}
-          key="APY_list_stable_type"
-          variant="subheader2"
-        />
-      ),
-      sortKey: 'stableBorrowAPY',
-    },
   ];
 
   return (
     <ListWrapper
       title={
         <>
-          {currentMarketData.marketTitle} <Trans>assets</Trans>
+          {currentMarketData.marketTitle} <Trans>Assets</Trans>
         </>
       }
       captionSize="h2"
@@ -123,7 +113,7 @@ export default function AssetsList() {
               </ListHeaderTitle>
             </ListColumn>
           ))}
-          <ListColumn maxWidth={95} minWidth={95} />
+          <ListColumn maxWidth={270} minWidth={270} />
         </ListHeaderWrapper>
       )}
 

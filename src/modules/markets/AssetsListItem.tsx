@@ -12,6 +12,7 @@ import { FormattedNumber } from '../../components/primitives/FormattedNumber';
 import { Link, ROUTES } from '../../components/primitives/Link';
 import { TokenIcon } from '../../components/primitives/TokenIcon';
 import { ComputedReserveData } from '../../hooks/app-data-provider/useAppDataProvider';
+import { ListButtonsColumn } from 'src/modules/dashboard/lists/ListButtonsColumn';
 
 export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
   const router = useRouter();
@@ -57,6 +58,7 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
           variant="main16"
           symbolsVariant="secondary16"
         />
+        <ReserveSubheader value={reserve.totalDebtUSD} />
       </ListColumn>
 
       <ListColumn>
@@ -72,27 +74,27 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
           variant="main16"
           symbolsVariant="secondary16"
         />
+        <ReserveSubheader value={reserve.totalDebtUSD} />
       </ListColumn>
 
-      <ListColumn>
-        <IncentivesCard
-          value={reserve.stableBorrowRateEnabled ? reserve.stableBorrowAPY : -1}
-          incentives={reserve.sIncentivesData || []}
-          symbol={reserve.symbol}
-          variant="main16"
-          symbolsVariant="secondary16"
-        />
-      </ListColumn>
-
-      <ListColumn maxWidth={95} minWidth={95} align="right">
+      <ListButtonsColumn sx={{ maxWidth: 270, minWidth: 270 }}>
         <Button
+          // disabled={!isActive || isFreezed || Number(walletBalance) <= 0}
+          variant="contained"
+          // onClick={() => openSupply(underlyingAsset)}
+          sx={{ mr: 1.5, height: 32 }}
+        >
+          <Trans>Vest 0.001 GOLEDO</Trans>
+        </Button>
+        <Button
+          sx={{ height: 32 }}
           variant="outlined"
           component={Link}
           href={ROUTES.reserveOverview(reserve.underlyingAsset, currentMarket)}
         >
           <Trans>Details</Trans>
         </Button>
-      </ListColumn>
+      </ListButtonsColumn>
     </ListItem>
   );
 };
