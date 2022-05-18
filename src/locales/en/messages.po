@@ -191,6 +191,7 @@ msgstr "Asset to delegate"
 
 #: pages/faucet.page.tsx
 #: src/modules/dashboard/lists/ListHeader.tsx
+#: src/modules/markets/AssetsList.tsx
 msgid "Assets"
 msgstr "Assets"
 
@@ -265,7 +266,6 @@ msgstr "Borrow"
 msgid "Borrow APY rate"
 msgstr "Borrow APY rate"
 
-#: src/modules/markets/AssetsList.tsx
 #: src/modules/markets/AssetsListMobileItem.tsx
 msgid "Borrow APY, stable"
 msgstr "Borrow APY, stable"
@@ -1472,27 +1472,33 @@ msgid "Total Amount"
 msgstr "Total Amount"
 
 #: src/modules/markets/MarketsTopPanel.tsx
-msgid "Total available"
-msgstr "Total available"
+msgid "Total Available"
+msgstr "Total Available"
 
 #: src/modules/markets/AssetsList.tsx
+msgid "Total Borrowed"
+msgstr "Total Borrowed"
+
+#: src/modules/markets/MarketsTopPanel.tsx
+msgid "Total Borrows"
+msgstr "Total Borrows"
+
+#: src/modules/markets/MarketsTopPanel.tsx
+msgid "Total Market Size"
+msgstr "Total Market Size"
+
+#: src/modules/markets/AssetsList.tsx
+msgid "Total Supplied"
+msgstr "Total Supplied"
+
 #: src/modules/markets/AssetsListMobileItem.tsx
 msgid "Total borrowed"
 msgstr "Total borrowed"
-
-#: src/modules/markets/MarketsTopPanel.tsx
-msgid "Total borrows"
-msgstr "Total borrows"
 
 #: src/modules/staking/StakingHeader.tsx
 msgid "Total emission per day"
 msgstr "Total emission per day"
 
-#: src/modules/markets/MarketsTopPanel.tsx
-msgid "Total market size"
-msgstr "Total market size"
-
-#: src/modules/markets/AssetsList.tsx
 #: src/modules/markets/AssetsListMobileItem.tsx
 msgid "Total supplied"
 msgstr "Total supplied"
@@ -1597,6 +1603,7 @@ msgid "Variable interest rate will <0>fluctuate</0> based on the market conditio
 msgstr "Variable interest rate will <0>fluctuate</0> based on the market conditions. Recommended for short-term loans."
 
 #: src/modules/dashboard/lists/RewardsList/RewardsListItem.tsx
+#: src/modules/markets/AssetsListItem.tsx
 msgid "Vest 0.001 GOLEDO"
 msgstr "Vest 0.001 GOLEDO"
 
@@ -1817,10 +1824,6 @@ msgstr "Your wallet balance"
 #: src/ui-config/errorMapping.tsx
 msgid "Zero address not valid"
 msgstr "Zero address not valid"
-
-#: src/modules/markets/AssetsList.tsx
-msgid "assets"
-msgstr "assets"
 
 #: src/modules/governance/proposal/ProposalTopPanel.tsx
 msgid "back"

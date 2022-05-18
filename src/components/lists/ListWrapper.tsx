@@ -53,19 +53,21 @@ export const ListWrapper = ({
           // mb: noData || (collapsed && !topInfo) ? 0 : 4,
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: { xs: 'flex-start', xsm: 'center' },
-            py: '3.6px',
-            flexDirection: { xs: 'column', xsm: 'row' },
-          }}
-        >
-          <Typography component="div" variant={captionSize} sx={{ mr: 4 }}>
-            {title}
-          </Typography>
-          {subTitleComponent}
-        </Box>
+        {title && (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: { xs: 'flex-start', xsm: 'center' },
+              py: '3.6px',
+              flexDirection: { xs: 'column', xsm: 'row' },
+            }}
+          >
+            <Typography component="div" variant={captionSize} sx={{ mr: 4 }}>
+              {title}
+            </Typography>
+            {subTitleComponent}
+          </Box>
+        )}
 
         {!!localStorageName && !noData && (
           <Box

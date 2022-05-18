@@ -1,88 +1,108 @@
 import { Trans } from '@lingui/macro';
-import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Typography, useMediaQuery, useTheme, Divider } from '@mui/material';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import { TopInfoPanel } from 'src/components/TopInfoPanel/TopInfoPanel';
 
-import { Link } from '../../components/primitives/Link';
 import { TopInfoPanelItem } from '../../components/TopInfoPanel/TopInfoPanelItem';
-import EmissionIcon from '../../../public/icons/staking/emission-staking-icon.svg';
-import TrustIcon from '../../../public/icons/staking/trust-staking-icon.svg';
 
 interface StakingHeaderProps {
-  tvl: string;
-  stkEmission: string;
+  // tvl: string;
+  // stkEmission: string;
   loading: boolean;
 }
 
-export const StakingHeader: React.FC<StakingHeaderProps> = ({ tvl, stkEmission, loading }) => {
+export const StakingHeader: React.FC<StakingHeaderProps> = ({ loading }) => {
   const theme = useTheme();
   const upToLG = useMediaQuery(theme.breakpoints.up('lg'));
   const downToSM = useMediaQuery(theme.breakpoints.down('sm'));
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
   const valueTypographyVariant = downToSM ? 'main16' : 'main21';
-  const symbolsTypographyVariant = downToSM ? 'secondary16' : 'secondary21';
+  const symbolsVariant = downToSM ? 'secondary16' : 'secondary21';
 
   return (
     <TopInfoPanel
       titleComponent={
         <Box mb={4}>
           <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
-            <img src={`/logo.svg`} width="32px" height="32px" alt="" />
-            <Typography
-              variant={downToXSM ? 'h2' : upToLG ? 'display1' : 'h1'}
-              sx={{ ml: 2, mr: 3 }}
-            >
-              <Trans>Staking</Trans>
+            <Typography variant={downToXSM ? 'h2' : upToLG ? 'display1' : 'h1'}>
+              <Trans>Stake</Trans>
             </Typography>
           </Box>
-
-          <Typography sx={{ color: '#8E92A3', maxWidth: '824px' }}>
-            <Trans>
-              AAVE holders can stake their AAVE in the Safety Module to add more security to the
-              protocol and earn Safety Incentives. In the case of a shortfall event, up to 30% of
-              your stake can be slashed to cover the deficit, providing an additional layer of
-              protection for the protocol.
-            </Trans>{' '}
-            <Link
-              href="https://docs.aave.com/faq/migration-and-staking"
-              sx={{ textDecoration: 'underline', color: '#8E92A3' }}
-            >
-              <Trans>Learn more about risks involved</Trans>
-            </Link>
-          </Typography>
         </Box>
       }
     >
       <TopInfoPanelItem
-        icon={<TrustIcon />}
-        title={<Trans>Funds in the Safety Module</Trans>}
+        hideIcon
+        title={<Trans>Your Locked + staked Goledo</Trans>}
         loading={loading}
       >
-        {/** TBD value */}
         <FormattedNumber
-          value={tvl || 0}
+          value={0.9}
           symbol="USD"
           variant={valueTypographyVariant}
-          symbolsVariant={symbolsTypographyVariant}
-          symbolsColor="#A5A8B6"
           visibleDecimals={2}
+          compact
+          symbolsColor="#fff"
+          symbolsVariant={symbolsVariant}
+        />
+        <Typography sx={{ color: '#ccc', fontSize: 12 }} variant={'description'} component="div">
+          Locked 1 Goledo
+          <br />
+          Staked 2.01 Goledo
+        </Typography>
+      </TopInfoPanelItem>
+      <TopInfoPanelItem hideIcon title={<Trans>Your Daily Revenue</Trans>} loading={loading}>
+        <FormattedNumber
+          value={0.0001}
+          symbol="USD"
+          variant={valueTypographyVariant}
+          visibleDecimals={2}
+          compact
+          symbolsColor="#fff"
+          symbolsVariant={symbolsVariant}
+        />
+      </TopInfoPanelItem>
+      <TopInfoPanelItem hideIcon title={<Trans>Your Weeklu Revenue</Trans>} loading={loading}>
+        <FormattedNumber
+          value={0.001}
+          symbol="USD"
+          variant={valueTypographyVariant}
+          visibleDecimals={2}
+          compact
+          symbolsColor="#fff"
+          symbolsVariant={symbolsVariant}
+        />
+        <Typography sx={{ color: '#ccc', fontSize: 12 }} variant={'description'} component="div">
+          {'<$0.01 / month'}
+          <br />
+          $0.05 / year
+        </Typography>
+      </TopInfoPanelItem>
+
+      <Divider orientation="vertical" flexItem sx={{ borderColor: '#ccc' }} />
+
+      <TopInfoPanelItem hideIcon title={<Trans>Your Daily Platform Fees</Trans>} loading={loading}>
+        <FormattedNumber
+          value={0.001}
+          symbol="USD"
+          variant={valueTypographyVariant}
+          visibleDecimals={2}
+          compact
+          symbolsColor="#fff"
+          symbolsVariant={symbolsVariant}
         />
       </TopInfoPanelItem>
 
-      <TopInfoPanelItem
-        icon={<EmissionIcon />}
-        title={<Trans>Total emission per day</Trans>}
-        loading={loading}
-      >
-        {/** TBD value */}
+      <TopInfoPanelItem hideIcon title={<Trans>Your Daily Penalty Fees</Trans>} loading={loading}>
         <FormattedNumber
-          value={stkEmission || 0}
-          symbol="AAVE"
+          value={0.001}
+          symbol="USD"
           variant={valueTypographyVariant}
-          symbolsVariant={symbolsTypographyVariant}
-          symbolsColor="#A5A8B6"
           visibleDecimals={2}
+          compact
+          symbolsColor="#fff"
+          symbolsVariant={symbolsVariant}
         />
       </TopInfoPanelItem>
     </TopInfoPanel>
