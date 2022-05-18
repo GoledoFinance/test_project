@@ -25,7 +25,7 @@ export const TopInfoPanel = ({
       }}
     >
       <Container sx={{ pb: 0 }}>
-        <Box sx={{ px: { xs: 4, xsm: 6 } }}>
+        <Box sx={{ px: 0 }}>
           {!titleComponent && (
             <PageTitle
               pageTitle={pageTitle}
@@ -39,7 +39,7 @@ export const TopInfoPanel = ({
           <Box
             sx={{
               display: 'flex',
-              alignItems: 'center',
+              alignItems: 'flex-start',
               gap: { xs: 3, xsm: 14 },
               flexWrap: 'wrap',
               width: '100%',

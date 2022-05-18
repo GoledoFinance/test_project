@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import {
-  Box,
   Button,
   CircularProgress,
   Paper,
@@ -10,7 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import {
   ComputedReserveData,
@@ -25,42 +24,14 @@ import { Row } from '../../components/primitives/Row';
 import { ConnectWalletButton } from 'src/components/WalletConnection/ConnectWalletButton';
 import { ListButtonsColumn } from '../dashboard/lists/ListButtonsColumn';
 import { ListItemUsedAsCollateral } from '../dashboard/lists/ListItemUsedAsCollateral';
-
-export const PaperWrapper = ({
-  children,
-  title,
-  subTitle,
-}: {
-  children: ReactNode;
-  title: ReactNode;
-  subTitle?: ReactNode;
-}) => {
-  return (
-    <Paper sx={{ pt: 4, pb: { xs: 4, xsm: 6 }, px: { xs: 4, xsm: 6 } }}>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          mb: { xs: 3, xsm: 4 },
-        }}
-      >
-        <Typography variant="h3">
-          <Trans>{title}</Trans>
-        </Typography>
-        {subTitle}
-      </Box>
-
-      {children}
-    </Paper>
-  );
-};
+import { PaperWrapper } from './ReserveActions';
+import { HealthFactorNumber } from 'src/components/HealthFactorNumber';
 
 interface ReserveActionsProps {
   underlyingAsset: string;
 }
 
-export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
+export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
@@ -71,24 +42,7 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const { walletBalances, loading: loadingBalance } = useWalletBalances();
   const { isPermissionsLoading } = usePermissions();
 
-  if (!currentAccount && !isPermissionsLoading)
-    return (
-      <Paper sx={{ pt: 4, pb: { xs: 4, xsm: 6 }, px: { xs: 4, xsm: 6 } }}>
-        {web3Loading ? (
-          <CircularProgress />
-        ) : (
-          <>
-            <Typography variant="h3" sx={{ mb: { xs: 6, xsm: 10 } }}>
-              <Trans>Deposits</Trans>
-            </Typography>
-            <Typography sx={{ mb: 6 }} color="text.secondary">
-              <Trans>Please connect a wallet to view your personal information here.</Trans>
-            </Typography>
-            <ConnectWalletButton />
-          </>
-        )}
-      </Paper>
-    );
+  if (!currentAccount && !isPermissionsLoading) return null;
 
   if (loadingReserves || loadingBalance)
     return (
@@ -129,35 +83,8 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
   ).toString();
 
   return (
-    <PaperWrapper
-      title="Deposits"
-      subTitle={
-        <ListButtonsColumn>
-          <Button
-            sx={{ height: 32 }}
-            // disabled={!isActive}
-            variant="contained"
-            // onClick={() => openWithdraw(underlyingAsset)}
-          >
-            <Trans>Deposite</Trans>
-          </Button>
-          <Button
-            sx={{ height: 32 }}
-            // disabled={!isActive || isFrozen}
-            variant="outlined"
-            // onClick={() => openSupply(underlyingAsset)}
-          >
-            <Trans>Withdraw</Trans>
-          </Button>
-        </ListButtonsColumn>
-      }
-    >
-      <Row
-        caption={<Trans>Your wallet balance</Trans>}
-        align="flex-start"
-        mb={3}
-        captionVariant="description"
-      >
+    <PaperWrapper title="Borrows">
+      <Row caption={<Trans>Borrowed</Trans>} align="flex-start" mb={3} captionVariant="description">
         <FormattedNumber
           value={balance?.amount || 0}
           variant="secondary14"
@@ -165,24 +92,32 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
         />
       </Row>
 
-      <Row caption={<Trans>You already deposited</Trans>} mb={1} captionVariant="description">
+      <Row caption={<Trans>Health Factor</Trans>} mb={3} captionVariant="description">
+        <HealthFactorNumber
+          value={'1.1' || '-1'}
+          variant={'secondary14'}
+          // onInfoClick={() => setOpen(true)}
+        />
+      </Row>
+
+      <Row caption={<Trans>Loan to Value</Trans>} mb={3} captionVariant="description">
+        <FormattedNumber
+          value={12}
+          variant={'secondary14'}
+          visibleDecimals={2}
+          compact
+          symbol="USD"
+          symbolsColor="#fff"
+          symbolsVariant={'description'}
+          data-cy={'Claim_Value'}
+        />
+      </Row>
+
+      <Row caption={<Trans>Available to you</Trans>} mb={1} captionVariant="description">
         <FormattedNumber
           value={maxAmountToSupply}
           variant="secondary14"
           symbol={poolReserve.symbol}
-        />
-      </Row>
-
-      <Row caption={<Trans>Use as coliateral</Trans>} captionVariant="description">
-        <ListItemUsedAsCollateral
-          isIsolated={false}
-          usageAsCollateralEnabledOnUser={true}
-          canBeEnabledAsCollateral={true}
-          // onToggleSwitch={() => openCollateralChange(underlyingAsset)}
-          onToggleSwitch={() => {
-            return false;
-          }}
-          data-cy={`collateralStatus`}
         />
       </Row>
     </PaperWrapper>

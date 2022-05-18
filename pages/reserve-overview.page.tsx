@@ -1,12 +1,4 @@
-import { Trans } from '@lingui/macro';
-import {
-  Box,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Box, Stack, useMediaQuery, useTheme } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import {
@@ -17,8 +9,9 @@ import { MainLayout } from 'src/layouts/MainLayout';
 import { ReserveActions } from 'src/modules/reserve-overview/ReserveActions';
 import { ReserveConfiguration } from 'src/modules/reserve-overview/ReserveConfiguration';
 import { ReserveTopDetails } from 'src/modules/reserve-overview/ReserveTopDetails';
-
-import { ContentContainer } from '../src/components/ContentContainer';
+import { BorrowActions } from 'src/modules/reserve-overview/BorrowActions';
+import { ContentContainer } from 'src/components/ContentContainer';
+import { BorrowList } from 'src/modules/reserve-overview/BorrowList';
 
 export default function ReserveOverview() {
   const router = useRouter();
@@ -45,33 +38,6 @@ export default function ReserveOverview() {
       <ReserveTopDetails underlyingAsset={underlyingAsset} />
 
       <ContentContainer>
-        <Box
-          sx={{
-            display: { xs: 'flex', lg: 'none' },
-            justifyContent: { xs: 'center', xsm: 'flex-start' },
-            mb: { xs: 3, xsm: 4 },
-          }}
-        >
-          <ToggleButtonGroup
-            color="primary"
-            value={mode}
-            exclusive
-            onChange={(_, value) => setMode(value)}
-            sx={{ width: { xs: '100%', xsm: '359px' }, height: '44px' }}
-          >
-            <ToggleButton value="overview" disabled={mode === 'overview'}>
-              <Typography variant="subheader1">
-                <Trans>Overview</Trans>
-              </Typography>
-            </ToggleButton>
-            <ToggleButton value="actions" disabled={mode === 'actions'}>
-              <Typography variant="subheader1">
-                <Trans>Your info</Trans>
-              </Typography>
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </Box>
-
         <Box sx={{ display: 'flex' }}>
           {/** Main status and configuration panel*/}
           <Box
@@ -85,14 +51,17 @@ export default function ReserveOverview() {
           </Box>
 
           {/** Right panel with actions*/}
-          <Box
+          <Stack
             sx={{
               display: { xs: isOverview ? 'none' : 'block', lg: 'block' },
               width: { xs: '100%', lg: '416px' },
             }}
+            spacing={2.5}
           >
             <ReserveActions underlyingAsset={underlyingAsset} />
-          </Box>
+            <BorrowActions underlyingAsset={underlyingAsset} />
+            <BorrowList />
+          </Stack>
         </Box>
       </ContentContainer>
     </>
