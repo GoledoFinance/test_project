@@ -699,17 +699,9 @@ msgstr "I acknowledge the risks involved."
 msgid "I understand how cooldown ({0}) and unstaking ({1}) work"
 msgstr "I understand how cooldown ({0}) and unstaking ({1}) work"
 
-#: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
-msgid "If the health factor goes below 1, the liquidation of your collateral might be triggered."
-msgstr "If the health factor goes below 1, the liquidation of your collateral might be triggered."
-
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 msgid "If you DO NOT unstake within {0} of unstake window, you will need to activate cooldown process again."
 msgstr "If you DO NOT unstake within {0} of unstake window, you will need to activate cooldown process again."
-
-#: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
-msgid "If your loan to value goes above the liquidation threshold your collateral supplied may be liquidated."
-msgstr "If your loan to value goes above the liquidation threshold your collateral supplied may be liquidated."
 
 #: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsList.tsx
 msgid "In E-Mode some assets are not borrowable. Exit E-Mode to get access to all assets"
@@ -894,6 +886,11 @@ msgstr "New APY"
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
 msgid "No Borrows"
 msgstr "No Borrows"
+
+#: src/modules/staking/LocksList.tsx
+#: src/modules/staking/VestList1.tsx
+msgid "No Data"
+msgstr "No Data"
 
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
@@ -1112,8 +1109,8 @@ msgid "SEE CHARTS"
 msgstr "SEE CHARTS"
 
 #: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
-msgid "Safety of your deposited collateral against the borrow assets and its underlying value."
-msgstr "Safety of your deposited collateral against the borrow assets and its underlying value."
+msgid "Safety of your deposited collateral against the borrow assets and its underlying value. If the health factor goes below 1, the liquidation of your collateral might be triggered."
+msgstr "Safety of your deposited collateral against the borrow assets and its underlying value. If the health factor goes below 1, the liquidation of your collateral might be triggered."
 
 #: src/components/transactions/Warnings/ChangeNetworkWarning.tsx
 msgid "Seems like we can't switch the network automatically. Please check if you can change it from the wallet."
@@ -1810,8 +1807,8 @@ msgid "Your Weeklu Revenue"
 msgstr "Your Weeklu Revenue"
 
 #: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
-msgid "Your current loan to value based on your collateral supplied."
-msgstr "Your current loan to value based on your collateral supplied."
+msgid "Your current loan to value based on your collateral supplied. If your loan to value goes above the liquidation threshold your collateral supplied may be liquidated."
+msgstr "Your current loan to value based on your collateral supplied. If your loan to value goes above the liquidation threshold your collateral supplied may be liquidated."
 
 #: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
 msgid "Your healrh factor an loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."

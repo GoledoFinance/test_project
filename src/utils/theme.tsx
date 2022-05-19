@@ -389,7 +389,7 @@ export function getThemedComponents(theme: Theme) {
         },
         styleOverrides: {
           root: {
-            borderRadius: '4px',
+            borderRadius: '8px',
           },
           sizeLarge: {
             ...theme.typography.buttonL,
@@ -538,7 +538,7 @@ export function getThemedComponents(theme: Theme) {
       MuiPaper: {
         styleOverrides: {
           root: {
-            borderRadius: '4px',
+            borderRadius: '8px',
           },
         },
         variants: [
