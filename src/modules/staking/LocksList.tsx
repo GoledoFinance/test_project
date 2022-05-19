@@ -7,6 +7,7 @@ import { ListHeaderTitle } from '../../components/lists/ListHeaderTitle';
 import { ListHeaderWrapper } from '../../components/lists/ListHeaderWrapper';
 import { VestListItem } from './VestListItem';
 import { VestListItemLoader } from './VestListItemLoader';
+import { DashboardContentNoData } from 'src/modules/dashboard/DashboardContentNoData';
 
 export function LocksList() {
   const { loading } = useAppDataContext();
@@ -51,10 +52,12 @@ export function LocksList() {
             <VestListItemLoader />
           </>
         )
-      ) : (
+      ) : filteredData?.length > 0 ? (
         filteredData.map((reserve) =>
           isTableChangedToCards ? null : <VestListItem key={reserve.id} />
         )
+      ) : (
+        <DashboardContentNoData text={<Trans>No Data</Trans>} />
       )}
     </>
   );

@@ -14,7 +14,7 @@ export const BasicModal = ({
   open,
   setOpen,
   withCloseButton = true,
-  contentMaxWidth = 420,
+  contentMaxWidth = 500,
   children,
   ...props
 }: BasicModalProps) => {

@@ -4,10 +4,10 @@ import { Typography } from '@mui/material';
 import { HealthFactorNumber } from '../../../components/HealthFactorNumber';
 import { BasicModal } from '../../../components/primitives/BasicModal';
 import { FormattedNumber } from '../../../components/primitives/FormattedNumber';
-import { Link } from '../../../components/primitives/Link';
-import { HFContent } from './components/HFContent';
+// import { Link } from '../../../components/primitives/Link';
+// import { HFContent } from './components/HFContent';
 import { InfoWrapper } from './components/InfoWrapper';
-import { LTVContent } from './components/LTVContent';
+// import { LTVContent } from './components/LTVContent';
 
 interface LiquidationRiskParametresInfoModalProps {
   open: boolean;
@@ -49,61 +49,51 @@ export const LiquidationRiskParametresInfoModal = ({
       <InfoWrapper
         topTitle={<Trans>Health Factor</Trans>}
         topDescription={
-          <Trans>
-            Safety of your deposited collateral against the borrow assets and its underlying value.
-          </Trans>
+          <>
+            <Trans>
+              Safety of your deposited collateral against the borrow assets and its underlying
+              value. If the health factor goes below 1, the liquidation of your collateral might be
+              triggered.
+            </Trans>
+          </>
         }
         topValue={
           <HealthFactorNumber
+            fontSize={24}
+            fontWeight={600}
+            lineHeight={1.5}
             value={healthFactor}
             variant="main12"
-            // sx={{ color: 'common.black' }}
           />
-        }
-        bottomText={
-          <Trans>
-            If the health factor goes below 1, the liquidation of your collateral might be
-            triggered.
-          </Trans>
         }
         isWarning={+healthFactor <= 3 && +healthFactor > 1.1}
         isError={+healthFactor <= 1.1}
-      >
-        <HFContent healthFactor={healthFactor} />
-      </InfoWrapper>
+      />
 
       <InfoWrapper
         topTitle={<Trans>Current LTV</Trans>}
         topDescription={
-          <Trans>Your current loan to value based on your collateral supplied.</Trans>
+          <Trans>
+            Your current loan to value based on your collateral supplied. If your loan to value goes
+            above the liquidation threshold your collateral supplied may be liquidated.
+          </Trans>
         }
         topValue={
           <FormattedNumber
             value={loanToValue}
             percent
-            variant="main12"
+            fontSize={24}
+            fontWeight={600}
             color="success.main" // TODO: 加判断  红色 黄色 绿色
             symbolsColor="success.main" // TODO: 加判断  红色 黄色 绿色
           />
-        }
-        bottomText={
-          <Trans>
-            If your loan to value goes above the liquidation threshold your collateral supplied may
-            be liquidated.
-          </Trans>
         }
         isWarning={
           +loanToValue * 100 < +currentLoanToValue * 100 &&
           +loanToValue * 100 > +currentLoanToValue * 100 - (+currentLoanToValue * 100) / 2
         }
         isError={+loanToValue * 100 > +currentLiquidationThreshold * 100}
-      >
-        <LTVContent
-          loanToValue={loanToValue}
-          currentLoanToValue={currentLoanToValue}
-          currentLiquidationThreshold={currentLiquidationThreshold}
-        />
-      </InfoWrapper>
+      />
     </BasicModal>
   );
 };

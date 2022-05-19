@@ -851,6 +851,7 @@ msgid "Minimum received"
 msgstr "Minimum received"
 
 #: src/layouts/MoreMenu.tsx
+#: src/ui-config/menu-items/index.tsx
 msgid "More"
 msgstr "More"
 
@@ -999,6 +1000,10 @@ msgstr "Proposals"
 #: src/modules/governance/VotingPowerInfoPanel.tsx
 msgid "Proposition power"
 msgstr "Proposition power"
+
+#: src/modules/more/MoreTopPanel.tsx
+msgid "Protocol Owned DEX Liquidity Module"
+msgstr "Protocol Owned DEX Liquidity Module"
 
 #: pages/governance/proposal/[proposalId].governance.tsx
 #: src/modules/governance/ProposalListItem.tsx
