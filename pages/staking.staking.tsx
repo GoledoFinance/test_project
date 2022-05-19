@@ -61,7 +61,7 @@ export default function Staking() {
                 <Typography sx={{ my: 4, color: '#666', fontSize: 14 }}>
                   Stake Goledo and earn platform fees with no lockup period.
                 </Typography>
-                <Button fullWidth variant="contained">
+                <Button fullWidth variant="contained" size="large" sx={{ height: 40 }}>
                   Stake
                 </Button>
               </Paper>
@@ -84,7 +84,7 @@ export default function Staking() {
                   Locked Goledo is subjext to a three month lock and will continue to earn fees
                   after the locks expire if you do not withdraw.
                 </Typography>
-                <Button fullWidth variant="contained">
+                <Button fullWidth variant="contained" size="large" sx={{ height: 40 }}>
                   Lock
                 </Button>
               </Paper>
@@ -160,17 +160,17 @@ export default function Staking() {
 
                 <Grid spacing={2} container>
                   <Grid item xs={4}>
-                    <Button fullWidth variant="contained">
+                    <Button fullWidth variant="contained" size="large" sx={{ height: 40 }}>
                       Stake
                     </Button>
                   </Grid>
                   <Grid item xs={4}>
-                    <Button fullWidth variant="contained">
+                    <Button fullWidth variant="contained" size="large" sx={{ height: 40 }}>
                       UnStake
                     </Button>
                   </Grid>
                   <Grid item xs={4}>
-                    <Button fullWidth variant="contained">
+                    <Button fullWidth variant="contained" size="large" sx={{ height: 40 }}>
                       Vest
                     </Button>
                   </Grid>

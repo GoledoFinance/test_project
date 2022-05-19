@@ -4,10 +4,13 @@ import * as React from 'react';
 
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 
-export const WithdrawModalContentNext = ({ symbol }: ModalWrapperProps) => {
+export const DepositeModalContentNext = ({ symbol }: ModalWrapperProps) => {
   return (
     <>
-      <Typography variant="description" color={'#666'}>
+      <Typography variant="main14" mt={5}>
+        Deposit Overview
+      </Typography>
+      <Typography color="#666" variant="main12" mt={2.5}>
         These are your transaction details. Make sure to check if this is correct before submitting.
       </Typography>
 
@@ -78,7 +81,7 @@ const sleep = (time = 1) =>
     }, 1000 * time);
   });
 
-const steps = ['Approve', 'Withdraw', 'Finished'];
+const steps = ['Deposit', 'Finished'];
 const StepBox = () => {
   const [isLoading, setLoading] = React.useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
@@ -128,32 +131,13 @@ const StepBox = () => {
       <LinearProgress variant="determinate" value={((activeStep + 1) / steps.length) * 100} />
       <Box p={4}>
         {activeStep === steps.length - 1 ? (
-          <Typography sx={{ mt: 1, mb: 5, textAlign: 'center' }}>3/3 Finished</Typography>
-        ) : activeStep === 0 ? (
-          <React.Fragment>
-            <Typography sx={{ mt: 1, mb: 5, textAlign: 'center' }}>
-              1/3 Approve <br />
-              Please Approve before withdrawal
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <LoadingButton
-                size="large"
-                variant="contained"
-                fullWidth
-                sx={{ height: 40 }}
-                onClick={onApprove}
-                loading={isLoading}
-              >
-                Approve
-              </LoadingButton>
-            </Box>
-          </React.Fragment>
+          <Typography sx={{ mt: 1, mb: 5, textAlign: 'center' }}>2/2 Finished</Typography>
         ) : (
           <React.Fragment>
             <Typography sx={{ mt: 1, mb: 5, textAlign: 'center' }}>
-              2/3 Withdraw
+              1/2 Deposit
               <br />
-              Please submit to withdraw
+              Please submit to deposit
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               <LoadingButton
@@ -164,7 +148,7 @@ const StepBox = () => {
                 onClick={onWithdraw}
                 loading={isLoading}
               >
-                Withdraw
+                Deposit
               </LoadingButton>
             </Box>
           </React.Fragment>

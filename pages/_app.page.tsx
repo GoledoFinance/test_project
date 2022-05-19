@@ -16,6 +16,7 @@ import { RateSwitchModal } from 'src/components/transactions/RateSwitch/RateSwit
 import { RepayModal } from 'src/components/transactions/Repay/RepayModal';
 import { SupplyModal } from 'src/components/transactions/Supply/SupplyModal';
 import { WithdrawModal } from 'src/components/transactions/Withdraw/WithdrawModal';
+import { DepositeModal } from 'src/components/transactions/Deposite/DepositeModal';
 import { BackgroundDataProvider } from 'src/hooks/app-data-provider/BackgroundDataProvider';
 import { AppDataProvider } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { ConnectionStatusProvider } from 'src/hooks/useConnectionStatusContext';
@@ -81,6 +82,7 @@ export default function MyApp(props: MyAppProps) {
                                   {getLayout(<Component {...pageProps} />)}
                                   <SupplyModal />
                                   <WithdrawModal />
+                                  <DepositeModal />
                                   <BorrowModal />
                                   <RepayModal />
                                   <CollateralChangeModal />

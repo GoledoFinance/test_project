@@ -16,6 +16,7 @@ import {
   ComputedReserveData,
   useAppDataContext,
 } from 'src/hooks/app-data-provider/useAppDataProvider';
+import { useModalContext } from 'src/hooks/useModal';
 import { useWalletBalances } from 'src/hooks/app-data-provider/useWalletBalances';
 import { usePermissions } from 'src/hooks/usePermissions';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
@@ -64,7 +65,7 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
-  // const { openBorrow, openSupply } = useModalContext();
+  const { openWithdraw, openDeposite } = useModalContext();
 
   const { currentAccount, loading: web3Loading } = useWeb3Context();
   const { reserves, loading: loadingReserves } = useAppDataContext();
@@ -137,7 +138,7 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
             sx={{ height: 32 }}
             // disabled={!isActive}
             variant="contained"
-            // onClick={() => openWithdraw(underlyingAsset)}
+            onClick={() => openDeposite(underlyingAsset)}
           >
             <Trans>Deposite</Trans>
           </Button>
@@ -145,7 +146,7 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
             sx={{ height: 32 }}
             // disabled={!isActive || isFrozen}
             variant="outlined"
-            // onClick={() => openSupply(underlyingAsset)}
+            onClick={() => openWithdraw(underlyingAsset)}
           >
             <Trans>Withdraw</Trans>
           </Button>

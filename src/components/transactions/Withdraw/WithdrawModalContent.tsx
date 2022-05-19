@@ -44,6 +44,7 @@ export const AInput = ({ symbol }: { symbol: string }) => (
       sx: {
         backgroundColor: '#f1f1f1',
         borderColor: 'transparent !important',
+        height: 40,
       },
       placeholder: 'Amount',
       startAdornment: (
@@ -96,7 +97,13 @@ export const WithdrawModalContent = ({
         </Typography>
       </Box>
       <AInput symbol={symbol} />
-      <Button variant="contained" fullWidth sx={{ mt: 10, height: 40 }} onClick={onSubmit}>
+      <Button
+        variant="contained"
+        size="large"
+        fullWidth
+        sx={{ mt: 10, height: 40 }}
+        onClick={onSubmit}
+      >
         Continue
       </Button>
     </>

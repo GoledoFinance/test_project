@@ -74,12 +74,14 @@ export const ActionList = () => {
             // disabled={!isActive || isFreezed || Number(walletBalance) <= 0}
             variant="contained"
             // onClick={() => openSupply(underlyingAsset)}
-            sx={{ mr: 1.5, height: 40, width: 100 }}
+            sx={{ mr: 1.5, height: 40, width: 100, p: 0 }}
+            size="large"
           >
             Approve
           </Button>
           <Button
-            sx={{ height: 40, width: 100 }}
+            sx={{ height: 40, width: 100, p: 0 }}
+            size="large"
             variant="outlined"
             disabled
             // component={Link}

@@ -86,6 +86,7 @@ const ListItem = ({
         variant="contained"
         onClick={claimFn}
         disabled={disabled}
+        size="large"
       >
         Claim Goledo
       </Button>

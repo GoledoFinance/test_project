@@ -691,7 +691,7 @@ msgid "Hide"
 msgstr "Hide"
 
 #: src/components/transactions/Borrow/BorrowModalContent.tsx
-#: src/components/transactions/Withdraw/WithdrawModalContent.tsx
+#: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
 msgid "I acknowledge the risks involved."
 msgstr "I acknowledge the risks involved."
 
@@ -1033,7 +1033,7 @@ msgstr "Rejected connection request"
 msgid "Remaining debt"
 msgstr "Remaining debt"
 
-#: src/components/transactions/Withdraw/WithdrawModalContent.tsx
+#: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
 msgid "Remaining supply"
 msgstr "Remaining supply"
 
@@ -1394,7 +1394,7 @@ msgstr "There is not enough collateral to cover a new borrow"
 msgid "There was some error. Please try changing the parameters or <0><1>copy the error</1></0>"
 msgstr "There was some error. Please try changing the parameters or <0><1>copy the error</1></0>"
 
-#: src/components/transactions/Withdraw/WithdrawModalContent.tsx
+#: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
 msgid "These funds have been borrowed and are not available for withdrawal at this time."
 msgstr "These funds have been borrowed and are not available for withdrawal at this time."
 
@@ -1675,7 +1675,7 @@ msgstr "Withdraw"
 msgid "Withdraw {symbol}"
 msgstr "Withdraw {symbol}"
 
-#: src/components/transactions/Withdraw/WithdrawModalContent.tsx
+#: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
 msgid "Withdrawing this amount will reduce your health factor and increase risk of liquidation."
 msgstr "Withdrawing this amount will reduce your health factor and increase risk of liquidation."
 
@@ -1719,7 +1719,7 @@ msgstr "You can not switch usage as collateral mode for this currency, because i
 msgid "You can not use this currency as collateral"
 msgstr "You can not use this currency as collateral"
 
-#: src/components/transactions/Withdraw/WithdrawModalContent.tsx
+#: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
 msgid "You can not withdraw this amount because it will cause collateral call"
 msgstr "You can not withdraw this amount because it will cause collateral call"
 
@@ -1912,7 +1912,7 @@ msgstr "v2 markets"
 msgid "v3 markets"
 msgstr "v3 markets"
 
-#: src/components/transactions/Withdraw/WithdrawModalContent.tsx
+#: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
 msgid "withdrew"
 msgstr "withdrew"
 

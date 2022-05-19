@@ -389,11 +389,13 @@ export function getThemedComponents(theme: Theme) {
         },
         styleOverrides: {
           root: {
-            borderRadius: '8px',
+            borderRadius: '4px',
           },
           sizeLarge: {
             ...theme.typography.buttonL,
-            padding: '10px 24px',
+            // padding: '10px 24px',
+            borderRadius: '8px',
+            fontSize: 14,
           },
           sizeMedium: {
             ...theme.typography.buttonM,
