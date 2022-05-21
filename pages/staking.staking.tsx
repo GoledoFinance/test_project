@@ -2,8 +2,8 @@ import { Trans } from '@lingui/macro';
 import {
   Box,
   Paper,
-  useMediaQuery,
-  useTheme,
+  // useMediaQuery,
+  // useTheme,
   Stack,
   Typography,
   Button,
@@ -24,6 +24,7 @@ import { StakeTxBuilderProvider } from 'src/providers/StakeTxBuilderProvider';
 import { VestList } from 'src/modules/staking/VestList1';
 import { LocksList } from 'src/modules/staking/LocksList';
 import { ActionList } from 'src/modules/staking/ActionList';
+import { useModalContext } from 'src/hooks/useModal';
 
 import { ConnectWalletPaper } from '../src/components/ConnectWalletPaper';
 import { useWeb3Context } from '../src/libs/hooks/useWeb3Context';
@@ -33,10 +34,10 @@ import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
 export default function Staking() {
   const { currentAccount, loading } = useWeb3Context();
   const data = useStakeData();
-  // const { openStake, openStakeCooldown, openUnstake, openStakeRewardsClaim } = useModalContext();
+  const { openStake, openStakeCooldown, openUnstake } = useModalContext();
 
-  const { breakpoints } = useTheme();
-  const lg = useMediaQuery(breakpoints.up('lg'));
+  // const { breakpoints } = useTheme();
+  // const lg = useMediaQuery(breakpoints.up('lg'));
 
   return (
     <>
@@ -61,7 +62,15 @@ export default function Staking() {
                 <Typography sx={{ my: 4, color: '#666', fontSize: 14 }}>
                   Stake Goledo and earn platform fees with no lockup period.
                 </Typography>
-                <Button fullWidth variant="contained" size="large" sx={{ height: 40 }}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  sx={{ height: 40 }}
+                  onClick={() => {
+                    openStake('stake');
+                  }}
+                >
                   Stake
                 </Button>
               </Paper>
@@ -84,7 +93,13 @@ export default function Staking() {
                   Locked Goledo is subjext to a three month lock and will continue to earn fees
                   after the locks expire if you do not withdraw.
                 </Typography>
-                <Button fullWidth variant="contained" size="large" sx={{ height: 40 }}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  sx={{ height: 40 }}
+                  onClick={() => openStake('lock')}
+                >
                   Lock
                 </Button>
               </Paper>
@@ -160,17 +175,35 @@ export default function Staking() {
 
                 <Grid spacing={2} container>
                   <Grid item xs={4}>
-                    <Button fullWidth variant="contained" size="large" sx={{ height: 40 }}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      size="large"
+                      sx={{ height: 40 }}
+                      onClick={() => openStake('stake')}
+                    >
                       Stake
                     </Button>
                   </Grid>
                   <Grid item xs={4}>
-                    <Button fullWidth variant="contained" size="large" sx={{ height: 40 }}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      size="large"
+                      sx={{ height: 40 }}
+                      onClick={() => openUnstake('stake')}
+                    >
                       UnStake
                     </Button>
                   </Grid>
                   <Grid item xs={4}>
-                    <Button fullWidth variant="contained" size="large" sx={{ height: 40 }}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      size="large"
+                      sx={{ height: 40 }}
+                      // onClick={() => openStakeRewardsClaim('aave')}
+                    >
                       Vest
                     </Button>
                   </Grid>

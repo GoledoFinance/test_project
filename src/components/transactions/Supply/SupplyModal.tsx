@@ -6,11 +6,14 @@ import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal
 import { BasicModal } from '../../primitives/BasicModal';
 import { ModalWrapper } from '../FlowCommons/ModalWrapper';
 import { SupplyModalContent } from './SupplyModalContent';
+import { SupplyModalContentNext } from './SupplyModalContentNext';
 
 export const SupplyModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
     underlyingAsset: string;
   }>;
+
+  const [step, setStep] = React.useState(1);
 
   return (
     <BasicModal open={type === ModalType.Supply} setOpen={close}>
@@ -19,7 +22,18 @@ export const SupplyModal = () => {
         underlyingAsset={args.underlyingAsset}
         requiredPermission={PERMISSION.DEPOSITOR}
       >
-        {(params) => <SupplyModalContent {...params} />}
+        {(params) =>
+          step !== 2 ? (
+            <SupplyModalContent
+              {...params}
+              onSubmit={async () => {
+                setStep(2);
+              }}
+            />
+          ) : (
+            <SupplyModalContentNext {...params} />
+          )
+        }
       </ModalWrapper>
     </BasicModal>
   );

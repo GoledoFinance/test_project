@@ -500,6 +500,10 @@ msgstr "Deposite"
 msgid "Deposits"
 msgstr "Deposits"
 
+#: src/components/transactions/Deposite/DepositeModal.tsx
+msgid "Desposit"
+msgstr "Desposit"
+
 #: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsListItem.tsx
 #: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsListMobileItem.tsx
 #: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsListItem.tsx

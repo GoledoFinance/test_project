@@ -37,7 +37,15 @@ const NumberFormatCustom = forwardRef<NumberFormatProps, CustomProps>(function N
   );
 });
 
-export const AInput = ({ symbol }: { symbol: string }) => (
+export const AInput = ({
+  symbol,
+  max = true,
+  placeholder,
+}: {
+  symbol: string;
+  max?: boolean;
+  placeholder?: string;
+}) => (
   <TextField
     sx={{ width: '100%', mt: 2.5 }}
     InputProps={{
@@ -46,7 +54,7 @@ export const AInput = ({ symbol }: { symbol: string }) => (
         borderColor: 'transparent !important',
         height: 40,
       },
-      placeholder: 'Amount',
+      placeholder: placeholder || 'Amount',
       startAdornment: (
         <InputAdornment position="start">
           <img
@@ -57,7 +65,7 @@ export const AInput = ({ symbol }: { symbol: string }) => (
           />
         </InputAdornment>
       ),
-      endAdornment: (
+      endAdornment: max && (
         <InputAdornment position="end">
           <Typography
             sx={{ cursor: 'pointer', color: '#2D88F2' }}
