@@ -1,11 +1,11 @@
 import { Trans } from '@lingui/macro';
 import {
-  Button,
-  CircularProgress,
-  Paper,
+  // Button,
+  // CircularProgress,
+  // Paper,
   Skeleton,
   Stack,
-  Typography,
+  // Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
@@ -21,9 +21,9 @@ import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
 import { getMaxAmountAvailableToSupply } from 'src/utils/getMaxAmountAvailableToSupply';
 
 import { Row } from '../../components/primitives/Row';
-import { ConnectWalletButton } from 'src/components/WalletConnection/ConnectWalletButton';
-import { ListButtonsColumn } from '../dashboard/lists/ListButtonsColumn';
-import { ListItemUsedAsCollateral } from '../dashboard/lists/ListItemUsedAsCollateral';
+// import { ConnectWalletButton } from 'src/components/WalletConnection/ConnectWalletButton';
+// import { ListButtonsColumn } from '../dashboard/lists/ListButtonsColumn';
+// import { ListItemUsedAsCollateral } from '../dashboard/lists/ListItemUsedAsCollateral';
 import { PaperWrapper } from './ReserveActions';
 import { HealthFactorNumber } from 'src/components/HealthFactorNumber';
 
@@ -37,7 +37,7 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
 
   // const { openBorrow, openSupply } = useModalContext();
 
-  const { currentAccount, loading: web3Loading } = useWeb3Context();
+  const { currentAccount } = useWeb3Context();
   const { reserves, loading: loadingReserves } = useAppDataContext();
   const { walletBalances, loading: loadingBalance } = useWalletBalances();
   const { isPermissionsLoading } = usePermissions();

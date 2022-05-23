@@ -1,0 +1,11 @@
+{
+    "build": {
+        "image": "fleek/next-js:node-16",
+        "command": "yarn install && yarn build:static",
+        "publicDir": "out",
+        "baseDir": "",
+        "environment": {
+            "SOME_ENV": "prod"
+        }
+    }
+}

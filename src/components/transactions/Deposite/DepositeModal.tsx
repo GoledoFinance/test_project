@@ -13,7 +13,7 @@ export const DepositeModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
     underlyingAsset: string;
   }>;
-  const [withdrawUnWrapped, setWithdrawUnWrapped] = useState(true);
+  const [withdrawUnWrapped] = useState(true);
   const [step, setStep] = useState(1);
 
   return (

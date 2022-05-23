@@ -334,7 +334,7 @@ msgstr "Can be collateral"
 msgid "Can be executed"
 msgstr "Can be executed"
 
-#: src/components/transactions/Supply/SupplyModalContent.tsx
+#: src/components/transactions/Supply/SupplyModalContent_old.tsx
 msgid "Cap reached. Lower supply amount"
 msgstr "Cap reached. Lower supply amount"
 
@@ -918,7 +918,7 @@ msgstr "None"
 msgid "Not a valid address"
 msgstr "Not a valid address"
 
-#: src/components/transactions/Stake/StakeModalContent.tsx
+#: src/components/transactions/Stake/StakeModalContent_old.tsx
 msgid "Not enough balance on your wallet"
 msgstr "Not enough balance on your wallet"
 
@@ -1033,7 +1033,7 @@ msgid "Rejected connection request"
 msgstr "Rejected connection request"
 
 #: src/components/transactions/Repay/CollateralRepayModalContent.tsx
-#: src/components/transactions/Repay/RepayModalContent.tsx
+#: src/components/transactions/Repay/RepayModalContent_old.tsx
 msgid "Remaining debt"
 msgstr "Remaining debt"
 
@@ -1197,7 +1197,7 @@ msgstr "Stake"
 msgid "Stake cooldown activated"
 msgstr "Stake cooldown activated"
 
-#: src/components/transactions/Stake/StakeModalContent.tsx
+#: src/components/transactions/Stake/StakeModalContent_old.tsx
 #: src/components/transactions/UnStake/UnStakeModalContent.tsx
 #: src/modules/staking/StakingPanel.tsx
 msgid "Staked"
@@ -1207,7 +1207,7 @@ msgstr "Staked"
 msgid "Staking"
 msgstr "Staking"
 
-#: src/components/transactions/Stake/StakeModalContent.tsx
+#: src/components/transactions/Stake/StakeModalContent_old.tsx
 #: src/modules/staking/StakingPanel.tsx
 msgid "Staking APR"
 msgstr "Staking APR"
@@ -1220,7 +1220,7 @@ msgstr "Started"
 msgid "State"
 msgstr "State"
 
-#: src/components/transactions/Supply/SupplyModalContent.tsx
+#: src/components/transactions/Supply/SupplyModalContent_old.tsx
 msgid "Supplied"
 msgstr "Supplied"
 
@@ -1233,7 +1233,7 @@ msgstr "Supplied"
 msgid "Supply"
 msgstr "Supply"
 
-#: src/components/transactions/Supply/SupplyModalContent.tsx
+#: src/components/transactions/Supply/SupplyModalContent_old.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsListMobileItem.tsx
 #: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsListMobileItem.tsx
 #: src/modules/markets/AssetsList.tsx
@@ -1747,7 +1747,7 @@ msgstr "You did not participate in this proposal"
 msgid "You do not have supplies in this currency"
 msgstr "You do not have supplies in this currency"
 
-#: src/components/transactions/Repay/RepayModalContent.tsx
+#: src/components/transactions/Repay/RepayModalContent_old.tsx
 msgid "You don’t have enough funds in your wallet to repay the full amount. If you proceed to repay with your current amount of funds, you will still have a small borrowing position in your dashboard."
 msgstr "You don’t have enough funds in your wallet to repay the full amount. If you proceed to repay with your current amount of funds, you will still have a small borrowing position in your dashboard."
 
@@ -1888,7 +1888,7 @@ msgid "please check that the amount you want to supply is not currently being us
 msgstr "please check that the amount you want to supply is not currently being used for staking. If it is being used for staking, your transaction might fail."
 
 #: src/components/transactions/Repay/CollateralRepayModalContent.tsx
-#: src/components/transactions/Repay/RepayModalContent.tsx
+#: src/components/transactions/Repay/RepayModalContent_old.tsx
 msgid "repaid"
 msgstr "repaid"
 

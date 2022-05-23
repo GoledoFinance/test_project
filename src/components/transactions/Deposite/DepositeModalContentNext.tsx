@@ -90,17 +90,6 @@ const StepBox = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  const onApprove = async () => {
-    setLoading(true);
-    try {
-      await sleep();
-      await handleNext();
-    } catch (e) {
-      console.error(e);
-    }
-    setLoading(false);
-  };
-
   const onWithdraw = async () => {
     setLoading(true);
     try {

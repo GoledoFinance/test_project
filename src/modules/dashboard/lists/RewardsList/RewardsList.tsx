@@ -1,7 +1,7 @@
-import { API_ETH_MOCK_ADDRESS } from '@aave/contract-helpers';
+// import { API_ETH_MOCK_ADDRESS } from '@aave/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { useMediaQuery, useTheme } from '@mui/material';
-import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
+// import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
 
 import { ListWrapper } from '../../../../components/lists/ListWrapper';

@@ -8,6 +8,7 @@ module.exports = {
   ],
   plugins: ['prettier', 'import', /* 'simple-import-sort', */ '@typescript-eslint'],
   rules: {
+    '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     'prettier/prettier': 'warn',

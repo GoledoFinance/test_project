@@ -34,7 +34,7 @@ import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
 export default function Staking() {
   const { currentAccount, loading } = useWeb3Context();
   const data = useStakeData();
-  const { openStake, openStakeCooldown, openUnstake } = useModalContext();
+  const { openStake, openUnstake } = useModalContext();
 
   // const { breakpoints } = useTheme();
   // const lg = useMediaQuery(breakpoints.up('lg'));
