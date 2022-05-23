@@ -35,7 +35,7 @@ import { Web3ReactProvider } from '@web3-react/core';
 import { providers } from 'ethers';
 import { WalletModalContextProvider } from 'src/hooks/useWalletModal';
 import { PermissionProvider } from 'src/hooks/usePermissions';
-import MetaImage from 'public/Logo-text.svg';
+import MetaImage from 'public/logo-text.svg';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
