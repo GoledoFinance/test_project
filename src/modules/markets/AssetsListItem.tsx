@@ -81,10 +81,14 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
         <Button
           // disabled={!isActive || isFreezed || Number(walletBalance) <= 0}
           variant="contained"
-          // onClick={() => openSupply(underlyingAsset)}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            // ...
+          }}
           sx={{ mr: 1.5, height: 32 }}
         >
-          <Trans>Vest 0.001 GOLEDO</Trans>
+          <Trans>Vest 0.002 GOLEDO</Trans>
         </Button>
         <Button
           sx={{ height: 32 }}

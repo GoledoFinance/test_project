@@ -926,7 +926,7 @@ msgstr "Not enough balance on your wallet"
 msgid "Not enough collateral to repay this amount of debt with"
 msgstr "Not enough collateral to repay this amount of debt with"
 
-#: src/components/transactions/UnStake/UnStakeModalContent.tsx
+#: src/components/transactions/UnStake/UnStakeModalContent_old.tsx
 msgid "Not enough staked balance"
 msgstr "Not enough staked balance"
 
@@ -1198,7 +1198,7 @@ msgid "Stake cooldown activated"
 msgstr "Stake cooldown activated"
 
 #: src/components/transactions/Stake/StakeModalContent_old.tsx
-#: src/components/transactions/UnStake/UnStakeModalContent.tsx
+#: src/components/transactions/UnStake/UnStakeModalContent_old.tsx
 #: src/modules/staking/StakingPanel.tsx
 msgid "Staked"
 msgstr "Staked"

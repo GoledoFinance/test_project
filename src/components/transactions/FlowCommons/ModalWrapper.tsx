@@ -84,9 +84,9 @@ export const ModalWrapper: React.FC<{
   }) as ComputedUserReserveData;
 
   const symbol =
-    poolReserve.isWrappedBaseAsset && !keepWrappedSymbol
+    poolReserve?.isWrappedBaseAsset && !keepWrappedSymbol
       ? currentNetworkConfig.baseAssetSymbol
-      : poolReserve.symbol;
+      : poolReserve?.symbol;
 
   return (
     <>
@@ -101,8 +101,8 @@ export const ModalWrapper: React.FC<{
       )}
       {children({
         isWrongNetwork,
-        nativeBalance: walletBalances[API_ETH_MOCK_ADDRESS.toLowerCase()]?.amount || '0',
-        tokenBalance: walletBalances[poolReserve.underlyingAsset.toLowerCase()]?.amount || '0',
+        nativeBalance: walletBalances?.[API_ETH_MOCK_ADDRESS.toLowerCase()]?.amount || '0',
+        tokenBalance: walletBalances?.[poolReserve?.underlyingAsset?.toLowerCase()]?.amount || '0',
         poolReserve,
         symbol,
         underlyingAsset,

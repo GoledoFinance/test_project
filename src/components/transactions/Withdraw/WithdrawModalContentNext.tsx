@@ -1,6 +1,7 @@
 import { Box, Typography, Stepper, Step, LinearProgress } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import * as React from 'react';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 
@@ -71,6 +72,37 @@ export const WithdrawModalContentNext = ({ symbol }: ModalWrapperProps) => {
   );
 };
 
+export const CompleteIcon = () => (
+  <Typography color="#2D88F2" minWidth={'160px'} textAlign="center">
+    <CheckCircleOutlineIcon sx={{ fontSize: 14, verticalAlign: 'middle', mr: 1.5 }} />
+    Complete
+  </Typography>
+);
+
+export const StepHeader = ({ activeStep, steps }: { steps: string[]; activeStep: number }) => (
+  <>
+    <Stepper
+      activeStep={activeStep}
+      sx={{ height: 46, display: 'flex', justifyContent: 'space-between' }}
+      connector={null}
+    >
+      {steps.map((label: string, index: number) => {
+        const stepProps: { completed?: boolean } = {};
+        return (
+          <Step
+            key={label}
+            {...stepProps}
+            sx={{ flex: 1, textAlign: 'center', fontWeight: activeStep < index ? 400 : 600 }}
+          >
+            {index + 1}.{label}
+          </Step>
+        );
+      })}
+    </Stepper>
+    <LinearProgress variant="determinate" value={((activeStep + 1) / steps.length) * 100} />
+  </>
+);
+
 const sleep = (time = 1) =>
   new Promise((r) => {
     setTimeout(() => {
@@ -111,27 +143,25 @@ const StepBox = () => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Stepper
-        activeStep={activeStep}
-        sx={{ height: 46, display: 'flex', justifyContent: 'space-between' }}
-        connector={null}
-      >
-        {steps.map((label, index) => {
-          const stepProps: { completed?: boolean } = {};
-          return (
-            <Step key={label} {...stepProps} sx={{ flex: 1, textAlign: 'center' }}>
-              {index + 1}.{label}
-            </Step>
-          );
-        })}
-      </Stepper>
-      <LinearProgress variant="determinate" value={((activeStep + 1) / steps.length) * 100} />
+      <StepHeader activeStep={activeStep} steps={steps} />
       <Box p={4}>
         {activeStep === steps.length - 1 ? (
-          <Typography sx={{ mt: 1, mb: 5, textAlign: 'center' }}>3/3 Finished</Typography>
+          <Box
+            display={'flex'}
+            justifyContent="center"
+            alignItems={'center'}
+            sx={{ mt: 1, mb: 5 }}
+            flexDirection="column"
+          >
+            <Typography sx={{ mb: 5, textAlign: 'center', fontWeight: 600 }}>
+              3/3 Withdraw <br />
+              Finished
+            </Typography>
+            <CompleteIcon />
+          </Box>
         ) : activeStep === 0 ? (
           <React.Fragment>
-            <Typography sx={{ mt: 1, mb: 5, textAlign: 'center' }}>
+            <Typography sx={{ mt: 1, mb: 5, textAlign: 'center', fontWeight: 600 }}>
               1/3 Approve <br />
               Please Approve before withdrawal
             </Typography>
@@ -150,7 +180,7 @@ const StepBox = () => {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Typography sx={{ mt: 1, mb: 5, textAlign: 'center' }}>
+            <Typography sx={{ mt: 1, mb: 5, textAlign: 'center', fontWeight: 600 }}>
               2/3 Withdraw
               <br />
               Please submit to withdraw

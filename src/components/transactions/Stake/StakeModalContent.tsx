@@ -1,8 +1,9 @@
-import { Box, Typography, Stepper, Step, LinearProgress, Stack } from '@mui/material';
+import { Box, Typography, Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import * as React from 'react';
 
 import { AInput } from '../Withdraw/WithdrawModalContent';
+import { CompleteIcon, StepHeader } from '../Withdraw/WithdrawModalContentNext';
 
 export const StakeModalContent = ({ type }: { type: 'lock' | 'stake' }) => {
   return (
@@ -83,24 +84,23 @@ const StepBox = ({ type }: { type: 'lock' | 'stake' }) => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Stepper
-        activeStep={activeStep}
-        sx={{ height: 46, display: 'flex', justifyContent: 'space-between' }}
-        connector={null}
-      >
-        {steps[type].map((label, index) => {
-          const stepProps: { completed?: boolean } = {};
-          return (
-            <Step key={label} {...stepProps} sx={{ flex: 1, textAlign: 'center' }}>
-              {index + 1}.{label}
-            </Step>
-          );
-        })}
-      </Stepper>
-      <LinearProgress variant="determinate" value={((activeStep + 1) / steps[type].length) * 100} />
+      <StepHeader activeStep={activeStep} steps={steps[type]} />
       <Box p={4}>
         {activeStep === steps[type].length - 1 ? (
-          <Typography sx={{ mt: 1, mb: 5, textAlign: 'center' }}>2/2 Finished</Typography>
+          <Box
+            display={'flex'}
+            justifyContent="space-between"
+            alignItems={'center'}
+            sx={{ mt: 1, mb: 1 }}
+            flexDirection="row"
+          >
+            <Typography sx={{ textAlign: 'left', fontWeight: 600 }}>
+              2/2 {type === 'stake' ? 'Stake' : 'Lock'}
+              <br />
+              Finished
+            </Typography>
+            <CompleteIcon />
+          </Box>
         ) : (
           <Box
             sx={{
@@ -110,7 +110,7 @@ const StepBox = ({ type }: { type: 'lock' | 'stake' }) => {
               alignItems: 'center',
             }}
           >
-            <Typography sx={{ textAlign: 'left' }}>
+            <Typography sx={{ textAlign: 'left', fontWeight: 600 }}>
               1/2 {type === 'lock' ? 'Lock' : 'Stake'} Goledo
               <br />
               Please submit to {type}

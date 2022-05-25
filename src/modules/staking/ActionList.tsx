@@ -1,10 +1,10 @@
 import { Divider, Stack, Box, Typography, Button } from '@mui/material';
 import { ReactNode } from 'react';
 
-import { useModalContext } from 'src/hooks/useModal';
+// import { useModalContext } from 'src/hooks/useModal';
 
 export const ActionList = () => {
-  const { openStakeRewardsClaim } = useModalContext();
+  // const { openStakeRewardsClaim } = useModalContext();
 
   return (
     <Stack divider={<Divider />} spacing={3}>
@@ -13,7 +13,7 @@ export const ActionList = () => {
         desc={'Staked Goledo and expried Goledo vests'}
         num={2}
         claimFn={() => {
-          openStakeRewardsClaim('aave');
+          // openStakeRewardsClaim('aave');
         }}
         disabled={false}
       />
@@ -28,9 +28,6 @@ export const ActionList = () => {
           </>
         }
         num={2}
-        claimFn={() => {
-          openStakeRewardsClaim('aave');
-        }}
       />
       <ListItem
         title={'Claim all of the above'}
@@ -42,14 +39,16 @@ export const ActionList = () => {
             </Typography>
           </>
         }
-        num={2}
+        claimFn={() => {
+          // openStakeRewardsClaim('aave');
+        }}
       />
       <ListItem
         title={'Expired locked Goledo'}
         desc={'Goledo locks that have exceeded the 3 month lock period and are now withdrawable'}
         num={2}
         claimFn={() => {
-          openStakeRewardsClaim('aave');
+          // openStakeRewardsClaim('aave');
         }}
         disabled
       />

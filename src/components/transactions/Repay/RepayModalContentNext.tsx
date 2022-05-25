@@ -1,8 +1,9 @@
-import { Box, Typography, Stepper, Step, LinearProgress } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import * as React from 'react';
 
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
+import { CompleteIcon, StepHeader } from '../Withdraw/WithdrawModalContentNext';
 
 export const RepayModalContentNext = ({ symbol }: ModalWrapperProps) => {
   return (
@@ -111,27 +112,25 @@ const StepBox = () => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Stepper
-        activeStep={activeStep}
-        sx={{ height: 46, display: 'flex', justifyContent: 'space-between' }}
-        connector={null}
-      >
-        {steps.map((label, index) => {
-          const stepProps: { completed?: boolean } = {};
-          return (
-            <Step key={label} {...stepProps} sx={{ flex: 1, textAlign: 'center' }}>
-              {index + 1}.{label}
-            </Step>
-          );
-        })}
-      </Stepper>
-      <LinearProgress variant="determinate" value={((activeStep + 1) / steps.length) * 100} />
+      <StepHeader activeStep={activeStep} steps={steps} />
       <Box p={4}>
         {activeStep === steps.length - 1 ? (
-          <Typography sx={{ mt: 1, mb: 5, textAlign: 'center' }}>2/2 Finished</Typography>
+          <Box
+            display={'flex'}
+            justifyContent="center"
+            alignItems={'center'}
+            sx={{ mt: 1, mb: 5 }}
+            flexDirection="column"
+          >
+            <Typography sx={{ mb: 5, textAlign: 'center', fontWeight: 600 }}>
+              2/2 Repay <br />
+              Finished
+            </Typography>
+            <CompleteIcon />
+          </Box>
         ) : (
           <React.Fragment>
-            <Typography sx={{ mt: 1, mb: 5, textAlign: 'center' }}>
+            <Typography sx={{ mt: 1, mb: 5, textAlign: 'center', fontWeight: 600 }}>
               1/2 Repay
               <br />
               Please submit to repay

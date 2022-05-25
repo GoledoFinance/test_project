@@ -1,7 +1,9 @@
 import { Trans } from '@lingui/macro';
 import { useMediaQuery, useTheme, Paper, Button } from '@mui/material';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
+import { InterestRate } from '@aave/contract-helpers';
 
+import { useModalContext } from 'src/hooks/useModal';
 import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { DashboardContentNoData } from 'src/modules/dashboard/DashboardContentNoData';
 import { ListHeader } from 'src/modules/dashboard/lists/ListHeader';
@@ -16,6 +18,7 @@ const ListItem = ({
   underlyingAsset,
   underlyingBalance,
   underlyingBalanceUSD,
+  borrowRateMode,
 }: {
   symbol: string;
   iconSymbol: string;
@@ -23,7 +26,9 @@ const ListItem = ({
   underlyingAsset: string;
   underlyingBalance: string | number;
   underlyingBalanceUSD: string | number;
+  borrowRateMode: InterestRate;
 }) => {
+  const { openBorrow, openRepay } = useModalContext();
   return (
     <ListItemWrapper
       symbol={symbol}
@@ -43,7 +48,7 @@ const ListItem = ({
           sx={{ height: 26 }}
           //   disabled={borrowButtonDisable}
           variant="contained"
-          //   onClick={() => openBorrow(underlyingAsset)}
+          onClick={() => openBorrow(underlyingAsset)}
         >
           <Trans>Borrow</Trans>
         </Button>
@@ -52,6 +57,7 @@ const ListItem = ({
           variant="outlined"
           //   component={Link}
           //   href={ROUTES.reserveOverview(underlyingAsset, currentMarket)}
+          onClick={() => openRepay(underlyingAsset, borrowRateMode)}
         >
           <Trans>Repay</Trans>
         </Button>
@@ -68,14 +74,15 @@ export const BorrowList = () => {
 
   const data = [
     {
-      underlyingAsset: 'ETH',
+      underlyingAsset: '0xe22da380ee6b445bb8273c81944adeb6e8450422',
       underlyingBalance: 20.04,
       underlyingBalanceUSD: 17.19,
       ...fetchIconSymbolAndName({
         symbol: 'ETH',
-        underlyingAsset: '',
+        underlyingAsset: '0xe22da380ee6b445bb8273c81944adeb6e8450422',
       }),
       supplyAPR: 0.0111,
+      borrowRateMode: 'Stable',
     },
   ];
 
