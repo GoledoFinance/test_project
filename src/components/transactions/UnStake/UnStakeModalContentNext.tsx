@@ -2,50 +2,47 @@ import { Box, Typography, Stepper, Step, LinearProgress, Stack } from '@mui/mate
 import { LoadingButton } from '@mui/lab';
 import * as React from 'react';
 
-import { AInput } from '../Withdraw/WithdrawModalContent';
-
-export const StakeModalContent = ({ type }: { type: 'lock' | 'stake' }) => {
+export const UnStakeModalContentNext = ({ type }: { type?: 'lock' | 'stake' }) => {
   return (
     <>
-      <Typography variant="main16" textTransform={'capitalize'}>
-        {type} Goledo
+      <Typography variant="main16">Your transaction overview</Typography>
+      <Typography variant="description" color={'#666'}>
+        These are your transaction details. Make sure to check if this is correct before submitting.
       </Typography>
-      <Typography variant="description" color={'#666'} mt={1} textTransform={'capitalize'}>
-        {type} Goledo and earn platform fees with no lockup period.
-      </Typography>
-
       <Box
         mt={2.5}
         borderRadius="8px"
         borderColor={'rgba(229, 229, 229, 1)'}
-        sx={{ borderWidth: '1px', p: 4, borderStyle: 'solid', background: '#F8F8F8' }}
+        sx={{ borderWidth: '1px', p: 4, borderStyle: 'solid' }}
       >
-        <Box display={'flex'} justifyContent="space-between" alignItems={'start'}>
-          <Typography variant="main14">Wallet Balance:</Typography>
-          <Box>
-            <Typography variant="main14" textAlign={'right'}>
-              7.162 Goledo
+        {[
+          <>
+            <Typography variant="description" color={'#666'}>
+              Un{type} Goledo
             </Typography>
-            <Typography variant="main12" color="#666" textAlign={'right'}>
-              $0.289
-            </Typography>
-          </Box>
-        </Box>
+            <Typography variant="main14">1 GoledoFTM</Typography>
+          </>,
+        ].map((item, index) => {
+          return (
+            <Box
+              key={index}
+              display={'flex'}
+              justifyContent="space-between"
+              alignItems={'center'}
+              mt={index === 0 ? 0 : 2.5}
+            >
+              {item}
+            </Box>
+          );
+        })}
       </Box>
-      <Typography variant="main16" mt={5}>
-        Stake Overview
-      </Typography>
-      <Typography variant="description" color={'#666'}>
-        These are your transaction details. Make sure to check if this is correct before submitting.
-      </Typography>
-      <AInput symbol={'goledo'} max={false} placeholder="Enter Amount" />
       <Box
         mt={2.5}
         borderRadius="8px"
         borderColor={'rgba(229, 229, 229, 1)'}
         sx={{ borderWidth: '1px', borderStyle: 'solid' }}
       >
-        <StepBox type={type} />
+        {type && <StepBox type={type} />}
       </Box>
     </>
   );
@@ -59,8 +56,8 @@ const sleep = (time = 1) =>
   });
 
 const steps = {
-  lock: ['Lock Goledo', 'Finished'],
-  stake: ['Stake Goledo', 'Finished'],
+  lock: ['Unlock Goledo', 'Finished'],
+  stake: ['Unstake Goledo', 'Finished'],
 };
 const StepBox = ({ type }: { type: 'lock' | 'stake' }) => {
   const [isLoading, setLoading] = React.useState(false);
@@ -111,9 +108,9 @@ const StepBox = ({ type }: { type: 'lock' | 'stake' }) => {
             }}
           >
             <Typography sx={{ textAlign: 'left' }}>
-              1/2 {type === 'lock' ? 'Lock' : 'Stake'} Goledo
+              1/2 Un{type === 'lock' ? 'Lock' : 'Stake'} Goledo
               <br />
-              Please submit to {type}
+              Please submit to un{type}
             </Typography>
             <Stack
               sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}
@@ -127,7 +124,7 @@ const StepBox = ({ type }: { type: 'lock' | 'stake' }) => {
                 onClick={onStake}
                 loading={isLoading}
               >
-                {type}
+                Un{type}
               </LoadingButton>
               <LoadingButton
                 size="large"
