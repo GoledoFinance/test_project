@@ -1600,9 +1600,12 @@ msgid "Variable interest rate will <0>fluctuate</0> based on the market conditio
 msgstr "Variable interest rate will <0>fluctuate</0> based on the market conditions. Recommended for short-term loans."
 
 #: src/modules/dashboard/lists/RewardsList/RewardsListItem.tsx
-#: src/modules/markets/AssetsListItem.tsx
 msgid "Vest 0.001 GOLEDO"
 msgstr "Vest 0.001 GOLEDO"
+
+#: src/modules/markets/AssetsListItem.tsx
+msgid "Vest 0.002 GOLEDO"
+msgstr "Vest 0.002 GOLEDO"
 
 #: src/modules/staking/VestList1.tsx
 msgid "Vesting"

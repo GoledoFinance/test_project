@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { useMediaQuery, useTheme, Paper, Button } from '@mui/material';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
-import { InterestRate } from '@aave/contract-helpers';
 
 import { useModalContext } from 'src/hooks/useModal';
 import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
@@ -26,7 +25,7 @@ const ListItem = ({
   underlyingAsset: string;
   underlyingBalance: string | number;
   underlyingBalanceUSD: string | number;
-  borrowRateMode: InterestRate;
+  borrowRateMode: string;
 }) => {
   const { openBorrow, openRepay } = useModalContext();
   return (
