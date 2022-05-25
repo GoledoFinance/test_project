@@ -54,9 +54,8 @@ const ListItem = ({
         <Button
           sx={{ height: 26 }}
           variant="outlined"
-          //   component={Link}
-          //   href={ROUTES.reserveOverview(underlyingAsset, currentMarket)}
-          onClick={() => openRepay(underlyingAsset, borrowRateMode)}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onClick={() => openRepay(underlyingAsset, borrowRateMode as any)}
         >
           <Trans>Repay</Trans>
         </Button>
