@@ -3,6 +3,8 @@ import { Box, Button, Typography, TextField, InputAdornment } from '@mui/materia
 // import BigNumber from 'bignumber.js';
 import { forwardRef } from 'react';
 
+import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
+
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 
 interface CustomProps {
@@ -100,9 +102,15 @@ export const WithdrawModalContent = ({
 
       <Box display={'flex'} justifyContent="space-between" alignItems={'center'} mt={10}>
         <Typography variant="main14">Available to withdaw</Typography>
-        <Typography variant="description" color={'#666'}>
-          20.101 ETH
-        </Typography>
+
+        <FormattedNumber
+          variant="description"
+          symbol="ETH"
+          value={20.101}
+          visibleDecimals={4}
+          symbolsColor="#666"
+          sx={{ color: '#666' }}
+        />
       </Box>
       <AInput symbol={symbol} />
       <Button

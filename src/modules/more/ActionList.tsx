@@ -1,5 +1,6 @@
 import { Box, Paper, TextField, Typography, Button } from '@mui/material';
 
+import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import { LabelList } from '../../../pages/staking.staking';
 
 export const ActionList = () => {
@@ -17,7 +18,15 @@ export const ActionList = () => {
             {
               key: '1',
               label: <Typography fontWeight={600}>Current LP Token Price</Typography>,
-              value: <Typography fontWeight={600}>$0.23</Typography>,
+              value: (
+                <FormattedNumber
+                  variant="main14"
+                  symbol="usd"
+                  value={0.21}
+                  visibleDecimals={2}
+                  symbolsColor="#111"
+                />
+              ),
             },
             {
               key: '2',
@@ -28,7 +37,13 @@ export const ActionList = () => {
               ),
               value: (
                 <Typography fontWeight={600}>
-                  $0.23{' '}
+                  <FormattedNumber
+                    variant="main14"
+                    symbol="usd"
+                    value={0.21}
+                    visibleDecimals={2}
+                    symbolsColor="#111"
+                  />{' '}
                   <Typography component={'span'} color="green">
                     +$0.02
                   </Typography>
@@ -46,12 +61,28 @@ export const ActionList = () => {
           {
             key: '1',
             label: <Typography fontWeight={600}>Your Balance</Typography>,
-            value: <Typography>100 GoledoFTM</Typography>,
+            value: (
+              <FormattedNumber
+                variant="description"
+                symbol="GoledoFTM"
+                value={61.9202}
+                visibleDecimals={4}
+                symbolsColor="#111"
+              />
+            ),
           },
           {
             key: '2',
             label: <Typography color={'#666'}>Based on your locked Goledo, you can buy</Typography>,
-            value: <Typography>100 FTM</Typography>,
+            value: (
+              <FormattedNumber
+                variant="description"
+                symbol="FTM"
+                value={61.9202}
+                visibleDecimals={4}
+                symbolsColor="#111"
+              />
+            ),
           },
         ]}
       />

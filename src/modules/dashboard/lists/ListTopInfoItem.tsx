@@ -28,6 +28,7 @@ export const ListTopInfoItem = ({
         alignItems: 'center',
         boxShadow: 'none',
         bgcolor: 'transparent',
+        borderRadius: '4px',
       }}
     >
       <Typography color="text.secondary" noWrap>

@@ -25,6 +25,7 @@ import { VestList } from 'src/modules/staking/VestList1';
 import { LocksList } from 'src/modules/staking/LocksList';
 import { ActionList } from 'src/modules/staking/ActionList';
 import { useModalContext } from 'src/hooks/useModal';
+import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 
 import { ConnectWalletPaper } from '../src/components/ConnectWalletPaper';
 import { useWeb3Context } from '../src/libs/hooks/useWeb3Context';
@@ -112,12 +113,28 @@ export default function Staking() {
                       {
                         key: '1',
                         label: <Typography sx={{ color: '#666' }}>Staking APR</Typography>,
-                        value: <Typography>140.08%</Typography>,
+                        value: (
+                          <FormattedNumber
+                            variant="description"
+                            percent
+                            value={1.4008}
+                            visibleDecimals={2}
+                            symbolsColor="#111"
+                          />
+                        ),
                       },
                       {
                         key: '2',
                         label: <Typography sx={{ color: '#666' }}>LP Token Price</Typography>,
-                        value: <Typography>$0.15</Typography>,
+                        value: (
+                          <FormattedNumber
+                            variant="description"
+                            symbol="usd"
+                            value={0.15}
+                            visibleDecimals={2}
+                            symbolsColor="#111"
+                          />
+                        ),
                       },
                       {
                         key: '3',
@@ -128,10 +145,22 @@ export default function Staking() {
                         ),
                         value: (
                           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
-                            <Typography>6.54M Goledo</Typography>
-                            <Typography sx={{ color: '#666', fontSize: 12 }}>
-                              $920,001.01
-                            </Typography>
+                            <FormattedNumber
+                              variant="description"
+                              value={6540000000}
+                              symbol="Goledo"
+                              visibleDecimals={2}
+                              symbolsColor="#111"
+                            />
+                            <FormattedNumber
+                              variant="caption"
+                              value={920001.01}
+                              symbol="usd"
+                              compact={false}
+                              visibleDecimals={2}
+                              symbolsColor="#666"
+                              sx={{ color: '#666' }}
+                            />
                           </Box>
                         ),
                       },
@@ -145,10 +174,22 @@ export default function Staking() {
                         ),
                         value: (
                           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
-                            <Typography>6.54M Goledo</Typography>
-                            <Typography sx={{ color: '#666', fontSize: 12 }}>
-                              $920,001.01
-                            </Typography>
+                            <FormattedNumber
+                              variant="description"
+                              value={6540000000}
+                              symbol="Goledo"
+                              visibleDecimals={2}
+                              symbolsColor="#111"
+                            />
+                            <FormattedNumber
+                              variant="caption"
+                              value={920001.01}
+                              symbol="usd"
+                              compact={false}
+                              visibleDecimals={2}
+                              symbolsColor="#666"
+                              sx={{ color: '#666' }}
+                            />
                           </Box>
                         ),
                       },
@@ -162,10 +203,22 @@ export default function Staking() {
                         ),
                         value: (
                           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
-                            <Typography>6.54M Goledo</Typography>
-                            <Typography sx={{ color: '#666', fontSize: 12 }}>
-                              $920,001.01
-                            </Typography>
+                            <FormattedNumber
+                              variant="description"
+                              value={6540000000}
+                              symbol="Goledo"
+                              visibleDecimals={2}
+                              symbolsColor="#111"
+                            />
+                            <FormattedNumber
+                              variant="caption"
+                              value={920001.01}
+                              symbol="usd"
+                              compact={false}
+                              visibleDecimals={2}
+                              symbolsColor="#666"
+                              sx={{ color: '#666' }}
+                            />
                           </Box>
                         ),
                       },

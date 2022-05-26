@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Trans } from '@lingui/macro';
+import { BigNumber } from 'bignumber.js';
 import {
   Card,
   CardHeader,
@@ -17,6 +18,7 @@ import {
 } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { ComputedReserveData } from 'src/hooks/app-data-provider/useAppDataProvider';
+import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 // TODO: 记得替换
 import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
 
@@ -182,9 +184,9 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                 ),
                 value: (
                   <Box>
-                    231,465,798
+                    {new BigNumber(231465798).toFormat(0)}
                     <Box component={'span'} sx={{ color: '#888' }}>
-                      ($320,102,399)
+                      (${new BigNumber(231465798).toFormat(0)})
                     </Box>
                   </Box>
                 ),
@@ -214,9 +216,9 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                 ),
                 value: (
                   <Box>
-                    231,465,798
+                    {new BigNumber(231465798).toFormat(0)}
                     <Box component={'span'} sx={{ color: '#888' }}>
-                      ($320,102,399)
+                      (${new BigNumber(231465798).toFormat(0)})
                     </Box>
                   </Box>
                 ),
@@ -236,7 +238,7 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                     <NetAPYTooltip />
                   </Box>
                 ),
-                value: <Box>$638,192,190</Box>,
+                value: <Box>${new BigNumber(231465798).toFormat(0)}</Box>,
               },
               {
                 key: '4',
@@ -267,7 +269,17 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                     {
                       key: '1',
                       label: <Box sx={{ color: '#666' }}>Deposit APY</Box>,
-                      value: <Box>1.51%</Box>,
+                      value: (
+                        <Box>
+                          <FormattedNumber
+                            variant="description"
+                            percent
+                            value={0.0151}
+                            visibleDecimals={2}
+                            symbolsColor="#111"
+                          />
+                        </Box>
+                      ),
                     },
                     {
                       key: '2',
@@ -287,7 +299,17 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                     {
                       key: '1',
                       label: <Box sx={{ color: '#666' }}>Borrow APY</Box>,
-                      value: <Box>1.51%</Box>,
+                      value: (
+                        <Box>
+                          <FormattedNumber
+                            variant="description"
+                            percent
+                            value={0.0151}
+                            visibleDecimals={2}
+                            symbolsColor="#111"
+                          />
+                        </Box>
+                      ),
                     },
                     {
                       key: '2',
@@ -297,7 +319,17 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                     {
                       key: '3',
                       label: <Box sx={{ color: '#666' }}>% over total</Box>,
-                      value: <Box>100.00%</Box>,
+                      value: (
+                        <Box>
+                          <FormattedNumber
+                            variant="description"
+                            percent
+                            value={1}
+                            visibleDecimals={2}
+                            symbolsColor="#111"
+                          />
+                        </Box>
+                      ),
                     },
                   ]}
                 />

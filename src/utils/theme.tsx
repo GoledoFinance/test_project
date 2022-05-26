@@ -626,7 +626,7 @@ export function getThemedComponents(theme: Theme) {
           },
           thumb: {
             color: theme.palette.common.white,
-            borderRadius: '6px',
+            borderRadius: '100%',
             width: '16px',
             height: '16px',
             boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.12)',
@@ -634,7 +634,7 @@ export function getThemedComponents(theme: Theme) {
           track: {
             opacity: 1,
             backgroundColor: theme.palette.action.active,
-            borderRadius: '8px',
+            borderRadius: '16px',
           },
         },
       },

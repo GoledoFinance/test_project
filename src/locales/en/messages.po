@@ -191,15 +191,15 @@ msgstr "Asset to delegate"
 msgid "Assets"
 msgstr "Assets"
 
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
-msgid "Assets to Supply"
-msgstr "Assets to Supply"
+#: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsList.tsx
+#: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsList.tsx
+msgid "Assets to Borrow"
+msgstr "Assets to Borrow"
 
-#: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsList.tsx
-#: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsList.tsx
-msgid "Assets to borrow"
-msgstr "Assets to borrow"
+#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
+#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
+msgid "Assets to Deposit"
+msgstr "Assets to Deposit"
 
 #: pages/governance/proposal/[proposalId].governance.tsx
 msgid "Author"
@@ -258,7 +258,7 @@ msgstr "Before supplying, you need to approve its usage by the Aave protocol. Yo
 msgid "Borrow"
 msgstr "Borrow"
 
-#: src/components/transactions/Borrow/BorrowModalContent.tsx
+#: src/components/transactions/Borrow/BorrowModalContent_old.tsx
 msgid "Borrow APY rate"
 msgstr "Borrow APY rate"
 
@@ -287,13 +287,13 @@ msgstr "Borrow power used"
 msgid "Borrow {symbol}"
 msgstr "Borrow {symbol}"
 
-#: src/components/transactions/Borrow/BorrowModalContent.tsx
+#: src/components/transactions/Borrow/BorrowModalContent_old.tsx
 #: src/modules/reserve-overview/BorrowActions.tsx
 #: src/modules/reserve-overview/BorrowList.tsx
 msgid "Borrowed"
 msgstr "Borrowed"
 
-#: src/components/transactions/Borrow/BorrowModalContent.tsx
+#: src/components/transactions/Borrow/BorrowModalContent_old.tsx
 msgid "Borrowing is currently unavailable for {0}."
 msgstr "Borrowing is currently unavailable for {0}."
 
@@ -305,7 +305,7 @@ msgstr "Borrowing is not enabled"
 msgid "Borrowing power and assets are limited due to Isolation mode."
 msgstr "Borrowing power and assets are limited due to Isolation mode."
 
-#: src/components/transactions/Borrow/BorrowModalContent.tsx
+#: src/components/transactions/Borrow/BorrowModalContent_old.tsx
 msgid "Borrowing this amount will reduce your health factor and increase risk of liquidation."
 msgstr "Borrowing this amount will reduce your health factor and increase risk of liquidation."
 
@@ -491,6 +491,10 @@ msgstr "Delegating"
 #: src/components/transactions/GovDelegation/GovDelegationModalContent.tsx
 msgid "Delegation"
 msgstr "Delegation"
+
+#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsListItem.tsx
+msgid "Deposit"
+msgstr "Deposit"
 
 #: src/modules/reserve-overview/ReserveActions.tsx
 msgid "Deposite"
@@ -694,7 +698,7 @@ msgstr "Health factor is not below the threshold"
 msgid "Hide"
 msgstr "Hide"
 
-#: src/components/transactions/Borrow/BorrowModalContent.tsx
+#: src/components/transactions/Borrow/BorrowModalContent_old.tsx
 #: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
 msgid "I acknowledge the risks involved."
 msgstr "I acknowledge the risks involved."
@@ -1156,7 +1160,7 @@ msgstr "Since this is a test network, you can get any of the assets if you have 
 msgid "Spanish"
 msgstr "Spanish"
 
-#: src/components/transactions/Borrow/BorrowModalContent.tsx
+#: src/components/transactions/Borrow/BorrowModalContent_old.tsx
 #: src/components/transactions/RateSwitch/RateSwitchModalContent.tsx
 msgid "Stable"
 msgstr "Stable"
@@ -1226,9 +1230,6 @@ msgstr "Supplied"
 
 #: pages/index.page.tsx
 #: src/components/transactions/Supply/SupplyModal.tsx
-#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsListItem.tsx
-#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsListMobileItem.tsx
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsListItem.tsx
 #: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsListMobileItem.tsx
 msgid "Supply"
 msgstr "Supply"
@@ -1326,7 +1327,7 @@ msgstr "The % of your total borrowing power used. This is based on the amount of
 msgid "The Maximum LTV ratio represents the maximum borrowing power of a specific collateral. For example, if a collateral has an LTV of 75%, the user can borrow up to 0.75 worth of ETH in the principal currency for every 1 ETH worth of collateral."
 msgstr "The Maximum LTV ratio represents the maximum borrowing power of a specific collateral. For example, if a collateral has an LTV of 75%, the user can borrow up to 0.75 worth of ETH in the principal currency for every 1 ETH worth of collateral."
 
-#: src/components/transactions/Borrow/BorrowModalContent.tsx
+#: src/components/transactions/Borrow/BorrowModalContent_old.tsx
 msgid "The Stable Rate is not enabled for this currency"
 msgstr "The Stable Rate is not enabled for this currency"
 
@@ -1386,7 +1387,7 @@ msgstr "The weighted average of APY for all borrowed assets, including incentive
 msgid "The weighted average of APY for all supplied assets, including incentives."
 msgstr "The weighted average of APY for all supplied assets, including incentives."
 
-#: src/components/transactions/Borrow/BorrowModalContent.tsx
+#: src/components/transactions/Borrow/BorrowModalContent_old.tsx
 msgid "There are not enough funds in the{0}reserve to borrow"
 msgstr "There are not enough funds in the{0}reserve to borrow"
 
@@ -1586,7 +1587,7 @@ msgstr "VOTE NAY"
 msgid "VOTE YAE"
 msgstr "VOTE YAE"
 
-#: src/components/transactions/Borrow/BorrowModalContent.tsx
+#: src/components/transactions/Borrow/BorrowModalContent_old.tsx
 #: src/components/transactions/RateSwitch/RateSwitchModalContent.tsx
 msgid "Variable"
 msgstr "Variable"
@@ -1706,7 +1707,7 @@ msgstr "You already deposited"
 msgid "You are entering Isolation mode"
 msgstr "You are entering Isolation mode"
 
-#: src/components/transactions/Borrow/BorrowModalContent.tsx
+#: src/components/transactions/Borrow/BorrowModalContent_old.tsx
 msgid "You can borrow this asset with a stable rate only if you borrow more than the amount you are supplying as collateral."
 msgstr "You can borrow this asset with a stable rate only if you borrow more than the amount you are supplying as collateral."
 
@@ -1800,14 +1801,14 @@ msgstr "Your Daily Platform Fees"
 msgid "Your Daily Revenue"
 msgstr "Your Daily Revenue"
 
+#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
+#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
+msgid "Your Deposits"
+msgstr "Your Deposits"
+
 #: src/modules/staking/StakingHeader.tsx
 msgid "Your Locked + staked Goledo"
 msgstr "Your Locked + staked Goledo"
-
-#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
-#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
-msgid "Your Supplies"
-msgstr "Your Supplies"
 
 #: src/modules/staking/StakingHeader.tsx
 msgid "Your Weeklu Revenue"

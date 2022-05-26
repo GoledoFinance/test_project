@@ -1,7 +1,9 @@
 import { Box, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import * as React from 'react';
+import { BigNumber } from 'bignumber.js';
 
+import { HealthFactorNumber } from 'src/components/HealthFactorNumber';
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 import { CompleteIcon, StepHeader } from '../Withdraw/WithdrawModalContentNext';
 
@@ -24,9 +26,9 @@ export const SupplyModalContentNext = ({ symbol }: ModalWrapperProps) => {
               Amount
             </Typography>
             <Typography variant="main14">
-              231,465,798 {symbol}
+              {new BigNumber(123123213).toFormat(0)} {symbol}
               <Typography component={'span'} color={'#666'}>
-                ($320,102,399)
+                (${new BigNumber(123123123).toFormat(0)})
               </Typography>
             </Typography>
           </>,
@@ -42,9 +44,7 @@ export const SupplyModalContentNext = ({ symbol }: ModalWrapperProps) => {
             <Typography variant="description" color={'#666'}>
               New health factor
             </Typography>
-            <Typography variant="main14" color={'#3AC170'}>
-              2.62
-            </Typography>
+            <HealthFactorNumber value={'2.62'} variant="main14" />
           </>,
         ].map((item, index) => {
           return (

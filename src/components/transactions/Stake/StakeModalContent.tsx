@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { AInput } from '../Withdraw/WithdrawModalContent';
 import { CompleteIcon, StepHeader } from '../Withdraw/WithdrawModalContentNext';
+import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 
 export const StakeModalContent = ({ type }: { type: 'lock' | 'stake' }) => {
   return (
@@ -23,13 +24,23 @@ export const StakeModalContent = ({ type }: { type: 'lock' | 'stake' }) => {
       >
         <Box display={'flex'} justifyContent="space-between" alignItems={'start'}>
           <Typography variant="main14">Wallet Balance:</Typography>
-          <Box>
-            <Typography variant="main14" textAlign={'right'}>
-              7.162 Goledo
-            </Typography>
-            <Typography variant="main12" color="#666" textAlign={'right'}>
-              $0.289
-            </Typography>
+          <Box display={'flex'} flexDirection="column" alignItems={'flex-end'}>
+            <FormattedNumber
+              variant="main14"
+              symbol="Goledo"
+              value={7.162}
+              visibleDecimals={5}
+              symbolsColor="#111"
+            />
+            <FormattedNumber
+              variant="main12"
+              symbol="usd"
+              compact={false}
+              value={5339.12341}
+              visibleDecimals={5}
+              symbolsColor="#666"
+              sx={{ color: '#666' }}
+            />
           </Box>
         </Box>
       </Box>

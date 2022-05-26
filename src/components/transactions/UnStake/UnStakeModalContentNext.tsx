@@ -3,6 +3,7 @@ import { LoadingButton } from '@mui/lab';
 import * as React from 'react';
 
 import { CompleteIcon, StepHeader } from '../Withdraw/WithdrawModalContentNext';
+import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 
 export const UnStakeModalContentNext = ({ type }: { type?: 'lock' | 'stake' }) => {
   return (
@@ -22,7 +23,14 @@ export const UnStakeModalContentNext = ({ type }: { type?: 'lock' | 'stake' }) =
             <Typography variant="description" color={'#666'}>
               Un{type} Goledo
             </Typography>
-            <Typography variant="main14">1 GoledoFTM</Typography>
+
+            <FormattedNumber
+              variant="main14"
+              symbol="GoledoFTM"
+              value={1}
+              visibleDecimals={0}
+              symbolsColor="#111"
+            />
           </>,
         ].map((item, index) => {
           return (

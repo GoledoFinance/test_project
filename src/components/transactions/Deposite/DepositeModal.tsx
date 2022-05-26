@@ -1,7 +1,7 @@
 import { PERMISSION } from '@aave/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { Typography, Box, Stack } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, ReactNode } from 'react';
 import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal';
 
 import { BasicModal } from '../../primitives/BasicModal';
@@ -9,6 +9,7 @@ import { ModalWrapper } from '../FlowCommons/ModalWrapper';
 import { DepositeModalContent } from './DepositeModalContent';
 import { DepositeModalContentNext } from './DepositeModalContentNext';
 import { useStep } from '../Withdraw/WithdrawModal';
+import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 
 export const DepositeModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
@@ -46,19 +47,42 @@ export const DepositeModal = () => {
                   {[
                     {
                       label: 'Utilization rate',
-                      value: '76.23%',
+                      value: (
+                        <FormattedNumber
+                          variant="main14"
+                          percent
+                          value={0.714}
+                          visibleDecimals={2}
+                          symbolsColor="#111"
+                        />
+                      ),
                     },
                     {
                       label: 'Available liquidity',
-                      value: '5,332,889.12341',
+                      value: (
+                        <FormattedNumber
+                          variant="main14"
+                          value={5332889.12341}
+                          visibleDecimals={5}
+                          compact={false}
+                        />
+                      ),
                     },
                     {
                       label: 'Deposite APY',
-                      value: '76.23%',
+                      value: (
+                        <FormattedNumber
+                          variant="main14"
+                          percent
+                          value={0.714}
+                          visibleDecimals={2}
+                          symbolsColor="#111"
+                        />
+                      ),
                     },
                     {
                       label: 'Can be used as coliateral',
-                      value: 'Yes',
+                      value: <Typography variant="main14">Yes</Typography>,
                     },
                   ].map((item, index) => (
                     <List key={index} {...item} />
@@ -68,19 +92,51 @@ export const DepositeModal = () => {
                   {[
                     {
                       label: 'Asset price',
-                      value: '$1 USD',
+                      value: (
+                        <FormattedNumber
+                          variant="main14"
+                          symbol="usd"
+                          value={5332889.12341}
+                          visibleDecimals={5}
+                          symbolsColor="#111"
+                        />
+                      ),
                     },
                     {
                       label: 'Maximum LTV',
-                      value: '75%',
+                      value: (
+                        <FormattedNumber
+                          variant="main14"
+                          percent
+                          value={0.714}
+                          visibleDecimals={2}
+                          symbolsColor="#111"
+                        />
+                      ),
                     },
                     {
                       label: 'Liquidation threshold',
-                      value: '76.23%',
+                      value: (
+                        <FormattedNumber
+                          variant="main14"
+                          percent
+                          value={0.714}
+                          visibleDecimals={2}
+                          symbolsColor="#111"
+                        />
+                      ),
                     },
                     {
                       label: 'Liquidation penalty',
-                      value: '5%',
+                      value: (
+                        <FormattedNumber
+                          variant="main14"
+                          percent
+                          value={0.714}
+                          visibleDecimals={2}
+                          symbolsColor="#111"
+                        />
+                      ),
                     },
                   ].map((item, index) => (
                     <List key={index} {...item} />
@@ -105,9 +161,9 @@ export const DepositeModal = () => {
   );
 };
 
-const List = (props: { label: string; value: string }) => (
+const List = (props: { label: string; value: ReactNode }) => (
   <Box display={'flex'} justifyContent={'space-between'} alignItems="center">
     <Typography color="#666">{props?.label}</Typography>
-    <Typography variant="main14">{props?.value}</Typography>
+    {props?.value}
   </Box>
 );

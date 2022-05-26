@@ -92,9 +92,10 @@ export const BorrowList = () => {
     <Paper
       sx={(theme) => ({
         border: `1px solid ${theme.palette.divider}`,
+        overflow: 'hidden',
       })}
     >
-      {data.length ? (
+      {data?.length > 0 ? (
         <>
           {!downToXSM && (
             <ListHeader

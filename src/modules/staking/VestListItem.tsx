@@ -1,4 +1,5 @@
 import { Typography } from '@mui/material';
+import dayjs from 'dayjs';
 
 import { ListColumn } from '../../components/lists/ListColumn';
 import { ListItem } from '../../components/lists/ListItem';
@@ -8,11 +9,17 @@ export const VestListItem = () => {
   return (
     <ListItem px={0} minHeight={36} sx={{ cursor: 'pointer' }} button>
       <ListColumn>
-        <Typography>9.80 FTM</Typography>
+        <FormattedNumber
+          variant="description"
+          value={9.8}
+          symbol="FTM"
+          visibleDecimals={2}
+          symbolsColor="palette.text"
+        />
       </ListColumn>
 
       <ListColumn>
-        <Typography>Monday Jun 14, 2022 11:12PM</Typography>
+        <Typography>{dayjs(Date.now()).format('dddd MMM DD, YYYY hh:mmA')}</Typography>
       </ListColumn>
 
       <ListColumn>
