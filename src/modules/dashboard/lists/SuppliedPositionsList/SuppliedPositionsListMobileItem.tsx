@@ -9,7 +9,7 @@ import {
 } from '../../../../hooks/app-data-provider/useAppDataProvider';
 import { useModalContext } from '../../../../hooks/useModal';
 import { useProtocolDataContext } from '../../../../hooks/useProtocolDataContext';
-import { isFeatureEnabled } from '../../../../utils/marketsAndNetworksConfig';
+// import { isFeatureEnabled } from '../../../../utils/marketsAndNetworksConfig';
 import { ListItemUsedAsCollateral } from '../ListItemUsedAsCollateral';
 import { ListMobileItemWrapper } from '../ListMobileItemWrapper';
 import { ListValueRow } from '../ListValueRow';
@@ -24,9 +24,9 @@ export const SuppliedPositionsListMobileItem = ({
 }: ComputedUserReserveData & { user: ExtendedFormattedUser }) => {
   const { symbol, iconSymbol, name, supplyAPY, isIsolated, aIncentivesData, isFrozen, isActive } =
     reserve;
-  const { currentMarketData, currentMarket } = useProtocolDataContext();
-  const { openSupply, openWithdraw, openCollateralChange } = useModalContext();
-  const isSwapButton = isFeatureEnabled.liquiditySwap(currentMarketData);
+  const { currentMarket } = useProtocolDataContext();
+  const { openWithdraw, openCollateralChange } = useModalContext();
+  // const isSwapButton = isFeatureEnabled.liquiditySwap(currentMarketData);
 
   const canBeEnabledAsCollateral =
     reserve.usageAsCollateralEnabled &&
@@ -88,25 +88,14 @@ export const SuppliedPositionsListMobileItem = ({
           <Trans>Withdraw</Trans>
         </Button>
 
-        {isSwapButton ? (
-          <Button
-            disabled={!isActive || isFrozen}
-            variant="outlined"
-            onClick={() => console.log('TODO: should be swap modal')}
-            fullWidth
-          >
-            <Trans>Swap</Trans>
-          </Button>
-        ) : (
-          <Button
-            disabled={!isActive || isFrozen}
-            variant="outlined"
-            onClick={() => openSupply(underlyingAsset)}
-            fullWidth
-          >
-            <Trans>Supply</Trans>
-          </Button>
-        )}
+        <Button
+          disabled={!isActive || isFrozen}
+          variant="outlined"
+          onClick={() => console.log('TODO: should be swap modal')}
+          fullWidth
+        >
+          <Trans>Swap</Trans>
+        </Button>
       </Box>
     </ListMobileItemWrapper>
   );

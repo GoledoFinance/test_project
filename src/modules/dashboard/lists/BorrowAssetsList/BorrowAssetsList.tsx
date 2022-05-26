@@ -100,13 +100,13 @@ export const BorrowAssetsList = () => {
   ];
 
   if (loading)
-    return <ListLoader title={<Trans>Assets to borrow</Trans>} head={head} withTopMargin />;
+    return <ListLoader title={<Trans>Assets to Borrow</Trans>} head={head} withTopMargin />;
 
   return (
     <>
       {!!tokensToBorrow.length && (
         <ListWrapper
-          title={<Trans>Assets to borrow</Trans>}
+          title={<Trans>Assets to Borrow</Trans>}
           localStorageName="borrowAssetsDashboardTableCollapse"
           withTopMargin
           subChildrenComponent={

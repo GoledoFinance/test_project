@@ -32,7 +32,7 @@ export const SupplyAssetsListItem = ({
   detailsAddress,
 }: SupplyAssetsItem) => {
   const { currentMarket } = useProtocolDataContext();
-  const { openSupply } = useModalContext();
+  const { openDeposit } = useModalContext();
   return (
     <ListItemWrapper
       symbol={symbol}
@@ -72,9 +72,9 @@ export const SupplyAssetsListItem = ({
           sx={{ height: 32 }}
           disabled={!isActive || isFreezed || Number(walletBalance) <= 0}
           variant="contained"
-          onClick={() => openSupply(underlyingAsset)}
+          onClick={() => openDeposit(underlyingAsset)}
         >
-          <Trans>Supply</Trans>
+          <Trans>Deposit</Trans>
         </Button>
         <Button
           sx={{ height: 32 }}

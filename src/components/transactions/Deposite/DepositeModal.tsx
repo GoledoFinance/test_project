@@ -8,13 +8,14 @@ import { BasicModal } from '../../primitives/BasicModal';
 import { ModalWrapper } from '../FlowCommons/ModalWrapper';
 import { DepositeModalContent } from './DepositeModalContent';
 import { DepositeModalContentNext } from './DepositeModalContentNext';
+import { useStep } from '../Withdraw/WithdrawModal';
 
 export const DepositeModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
     underlyingAsset: string;
   }>;
   const [withdrawUnWrapped] = useState(true);
-  const [step, setStep] = useState(1);
+  const { step, setStep } = useStep(type);
 
   return (
     <BasicModal open={type === ModalType.Deposite} setOpen={close} contentMaxWidth={740}>

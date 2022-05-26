@@ -16,7 +16,6 @@ import {
 import { useWalletBalances } from '../../../../hooks/app-data-provider/useWalletBalances';
 import { useProtocolDataContext } from '../../../../hooks/useProtocolDataContext';
 import { DashboardListTopPanel } from '../../DashboardListTopPanel';
-import { ListBottomText } from '../ListBottomText';
 import { ListHeader } from '../ListHeader';
 import { ListLoader } from '../ListLoader';
 import { SupplyAssetsListItem } from './SupplyAssetsListItem';
@@ -36,7 +35,7 @@ export const SupplyAssetsList = () => {
 
   const {
     bridge,
-    isTestnet,
+    // isTestnet,
     baseAssetSymbol,
     //  name: networkName
   } = currentNetworkConfig;
@@ -156,14 +155,12 @@ export const SupplyAssetsList = () => {
   ];
 
   if (loadingReserves || loading)
-    return <ListLoader title={<Trans>Assets to Supply</Trans>} head={head} withTopMargin />;
+    return <ListLoader title={<Trans>Assets to Deposit</Trans>} head={head} withTopMargin />;
 
   return (
     <ListWrapper
-      title={<Trans>Assets to Supply</Trans>}
-      localStorageName="supplyAssetsDashboardTableCollapse"
-      // TODO: 可以删掉
-      bottomComponent={isTestnet ? <ListBottomText /> : undefined}
+      title={<Trans>Assets to Deposit</Trans>}
+      localStorageName="depositAssetsDashboardTableCollapse"
       withTopMargin
       subChildrenComponent={
         <>

@@ -44,7 +44,7 @@ export type TxStateType = {
 export interface ModalContextType<T extends ModalArgsType> {
   openSupply: (underlyingAsset: string) => void;
   openWithdraw: (underlyingAsset: string) => void;
-  openDeposite: (underlyingAsset: string) => void;
+  openDeposit: (underlyingAsset: string) => void;
   openBorrow: (underlyingAsset: string) => void;
   openRepay: (underlyingAsset: string, currentRateMode: InterestRate) => void;
   openCollateralChange: (underlyingAsset: string) => void;
@@ -104,7 +104,7 @@ export const ModalContextProvider: React.FC = ({ children }) => {
           setType(ModalType.Withdraw);
           setArgs({ underlyingAsset });
         },
-        openDeposite: (underlyingAsset) => {
+        openDeposit: (underlyingAsset) => {
           setType(ModalType.Deposite);
           setArgs({ underlyingAsset });
         },

@@ -3,10 +3,12 @@ import { ModalType, useModalContext } from 'src/hooks/useModal';
 import { BasicModal } from '../../primitives/BasicModal';
 import { UnStakeModalContent } from './UnStakeModalContent';
 import { UnStakeModalContentNext } from './UnStakeModalContentNext';
+import { useStep } from '../Withdraw/WithdrawModal';
 
 export const UnStakeModal = () => {
   const { type, close, args } = useModalContext();
-  const [step, setStep] = React.useState(1);
+  const { step, setStep } = useStep(type);
+
   return (
     <BasicModal open={type === ModalType.Unstake} setOpen={close}>
       {step !== 2 ? (

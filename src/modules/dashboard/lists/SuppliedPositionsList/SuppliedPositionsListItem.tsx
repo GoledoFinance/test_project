@@ -8,7 +8,7 @@ import { useModalContext } from 'src/hooks/useModal';
 
 import { ListColumn } from '../../../../components/lists/ListColumn';
 import { useProtocolDataContext } from '../../../../hooks/useProtocolDataContext';
-import { isFeatureEnabled } from '../../../../utils/marketsAndNetworksConfig';
+// import { isFeatureEnabled } from '../../../../utils/marketsAndNetworksConfig';
 import { ListAPRColumn } from '../ListAPRColumn';
 import { ListButtonsColumn } from '../ListButtonsColumn';
 import { ListItemUsedAsCollateral } from '../ListItemUsedAsCollateral';
@@ -24,9 +24,9 @@ export const SuppliedPositionsListItem = ({
   user,
 }: ComputedUserReserveData & { user: ExtendedFormattedUser }) => {
   const { isIsolated, aIncentivesData, isFrozen, isActive } = reserve;
-  const { currentMarketData, currentMarket } = useProtocolDataContext();
-  const { openSupply, openWithdraw, openCollateralChange, openSwap } = useModalContext();
-  const isSwapButton = isFeatureEnabled.liquiditySwap(currentMarketData);
+  const { currentMarket } = useProtocolDataContext();
+  const { openWithdraw, openCollateralChange } = useModalContext();
+  // const isSwapButton = isFeatureEnabled.liquiditySwap(currentMarketData);
 
   const canBeEnabledAsCollateral =
     reserve.usageAsCollateralEnabled &&
@@ -78,26 +78,15 @@ export const SuppliedPositionsListItem = ({
           <Trans>Withdraw</Trans>
         </Button>
 
-        {isSwapButton ? (
-          <Button
-            sx={{ height: 32 }}
-            disabled={!isActive || isFrozen}
-            variant="outlined"
-            onClick={() => openSwap(underlyingAsset)}
-            data-cy={`swapButton`}
-          >
-            <Trans>Swap</Trans>
-          </Button>
-        ) : (
-          <Button
-            sx={{ height: 32 }}
-            disabled={!isActive || isFrozen}
-            variant="outlined"
-            onClick={() => openSupply(underlyingAsset)}
-          >
-            <Trans>Supply</Trans>
-          </Button>
-        )}
+        <Button
+          sx={{ height: 32 }}
+          disabled={!isActive || isFrozen}
+          variant="outlined"
+          // onClick={() => openSwap(underlyingAsset)}
+          data-cy={`swapButton`}
+        >
+          <Trans>Swap</Trans>
+        </Button>
       </ListButtonsColumn>
     </ListItemWrapper>
   );

@@ -1,11 +1,12 @@
 import { InterestRate, PERMISSION } from '@aave/contract-helpers';
 import { Trans } from '@lingui/macro';
-import React, { useState } from 'react';
+import React from 'react';
 import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal';
 import { BasicModal } from '../../primitives/BasicModal';
 import { ModalWrapper } from '../FlowCommons/ModalWrapper';
 import { RepayModalContent } from './RepayModalContent';
 import { RepayModalContentNext } from './RepayModalContentNext';
+import { useStep } from '../Withdraw/WithdrawModal';
 
 export const RepayModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
@@ -13,7 +14,7 @@ export const RepayModal = () => {
     currentRateMode: InterestRate;
   }>;
 
-  const [step, setStep] = useState(1);
+  const { step, setStep } = useStep(type);
 
   return (
     <BasicModal open={type === ModalType.Repay} setOpen={close}>

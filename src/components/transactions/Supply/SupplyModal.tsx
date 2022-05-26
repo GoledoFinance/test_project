@@ -7,13 +7,14 @@ import { BasicModal } from '../../primitives/BasicModal';
 import { ModalWrapper } from '../FlowCommons/ModalWrapper';
 import { SupplyModalContent } from './SupplyModalContent';
 import { SupplyModalContentNext } from './SupplyModalContentNext';
+import { useStep } from '../Withdraw/WithdrawModal';
 
 export const SupplyModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
     underlyingAsset: string;
   }>;
 
-  const [step, setStep] = React.useState(1);
+  const { step, setStep } = useStep(type);
 
   return (
     <BasicModal open={type === ModalType.Supply} setOpen={close}>

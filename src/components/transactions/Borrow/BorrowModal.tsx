@@ -1,29 +1,40 @@
 import { PERMISSION } from '@aave/contract-helpers';
 import { Trans } from '@lingui/macro';
-import React, { useState } from 'react';
+import React from 'react';
 import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal';
 
 import { BasicModal } from '../../primitives/BasicModal';
 import { ModalWrapper } from '../FlowCommons/ModalWrapper';
 import { BorrowModalContent } from './BorrowModalContent';
+import { BorrowModalContentNext } from './BorrowModalContentNext';
+import { useStep } from '../Withdraw/WithdrawModal';
 
 export const BorrowModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
     underlyingAsset: string;
   }>;
-  const [borrowUnWrapped, setBorrowUnWrapped] = useState(true);
+  const { step, setStep } = useStep(type);
 
   return (
     <BasicModal open={type === ModalType.Borrow} setOpen={close}>
       <ModalWrapper
         title={<Trans>Borrow</Trans>}
         underlyingAsset={args.underlyingAsset}
-        keepWrappedSymbol={!borrowUnWrapped}
+        keepWrappedSymbol={!true}
         requiredPermission={PERMISSION.BORROWER}
       >
-        {(params) => (
-          <BorrowModalContent {...params} unwrap={borrowUnWrapped} setUnwrap={setBorrowUnWrapped} />
-        )}
+        {(params) =>
+          step !== 2 ? (
+            <BorrowModalContent
+              {...params}
+              onSubmit={async () => {
+                setStep(2);
+              }}
+            />
+          ) : (
+            <BorrowModalContentNext {...params} />
+          )
+        }
       </ModalWrapper>
     </BasicModal>
   );

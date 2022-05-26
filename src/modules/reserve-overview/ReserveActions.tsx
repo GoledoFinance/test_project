@@ -65,7 +65,7 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
-  const { openWithdraw, openDeposite } = useModalContext();
+  const { openWithdraw, openDeposit } = useModalContext();
 
   const { currentAccount, loading: web3Loading } = useWeb3Context();
   const { reserves, loading: loadingReserves } = useAppDataContext();
@@ -138,7 +138,7 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
             sx={{ height: 32 }}
             // disabled={!isActive}
             variant="contained"
-            onClick={() => openDeposite(underlyingAsset)}
+            onClick={() => openDeposit(underlyingAsset)}
           >
             <Trans>Deposite</Trans>
           </Button>
