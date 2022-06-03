@@ -64,7 +64,7 @@ export function usePoolDataRPC(
           __typename: 'Query',
           protocolData: {
             __typename: 'ProtocolData',
-            ethPrice: reservesResponse.ethPrice,
+            marketReferencePriceInUsd: reservesResponse.marketReferencePriceInUsd,
             emissionEndTimestamp: reservesResponse.emissionEndTimestamp,
             reserves: reservesResponse.reservesData.map((reserve) => ({
               ...reserve,

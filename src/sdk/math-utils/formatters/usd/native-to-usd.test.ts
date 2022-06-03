@@ -6,7 +6,7 @@ describe('nativeToUSD', () => {
     const dec18 = nativeToUSD({
       amount: new BigNumber(1).shiftedBy(18),
       currencyDecimals: 18,
-      priceInMarketReferenceCurrency: new BigNumber(1).shiftedBy(18),
+      priceInEth: new BigNumber(1).shiftedBy(18),
       marketReferenceCurrencyDecimals: 18,
       normalizedMarketReferencePriceInUsd: new BigNumber(1),
     });
@@ -16,7 +16,7 @@ describe('nativeToUSD', () => {
     const dec8 = nativeToUSD({
       amount: new BigNumber(1).shiftedBy(8),
       currencyDecimals: 8,
-      priceInMarketReferenceCurrency: new BigNumber(1).shiftedBy(18),
+      priceInEth: new BigNumber(1).shiftedBy(18),
       marketReferenceCurrencyDecimals: 18,
       normalizedMarketReferencePriceInUsd: new BigNumber(1),
     });
@@ -26,7 +26,7 @@ describe('nativeToUSD', () => {
     const price2 = nativeToUSD({
       amount: new BigNumber(1).shiftedBy(8),
       currencyDecimals: 8,
-      priceInMarketReferenceCurrency: new BigNumber(1).shiftedBy(18),
+      priceInEth: new BigNumber(1).shiftedBy(18),
       marketReferenceCurrencyDecimals: 18,
       normalizedMarketReferencePriceInUsd: new BigNumber(2),
     });
@@ -36,7 +36,7 @@ describe('nativeToUSD', () => {
     const valuep5 = nativeToUSD({
       amount: new BigNumber(1).shiftedBy(8),
       currencyDecimals: 8,
-      priceInMarketReferenceCurrency: new BigNumber(0.5).shiftedBy(18),
+      priceInEth: new BigNumber(0.5).shiftedBy(18),
       marketReferenceCurrencyDecimals: 18,
       normalizedMarketReferencePriceInUsd: new BigNumber(2),
     });

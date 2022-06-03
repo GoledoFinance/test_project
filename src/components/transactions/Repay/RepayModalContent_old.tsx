@@ -1,8 +1,4 @@
-import {
-  API_ETH_MOCK_ADDRESS,
-  InterestRate,
-  synthetixProxyByChainId,
-} from '@goledo-sdk/contract-helpers';
+import { API_ETH_MOCK_ADDRESS, InterestRate } from '@goledo-sdk/contract-helpers';
 import {
   calculateHealthFactorFromBalancesBigUnits,
   USD_DECIMALS,
@@ -67,7 +63,7 @@ export const RepayModalContent = ({
       ? userReserve?.stableBorrows || '0'
       : userReserve?.variableBorrows || '0';
   const debtUSD = new BigNumber(debt)
-    .multipliedBy(poolReserve.formattedPriceInMarketReferenceCurrency)
+    .multipliedBy(poolReserve.formattedPriceInETH)
     .multipliedBy(marketReferencePriceInUsd)
     .shiftedBy(-USD_DECIMALS);
 
@@ -95,12 +91,7 @@ export const RepayModalContent = ({
     amountRef.current = maxSelected ? maxAmountToRepay.toString(10) : value;
     setAmount(value);
     if (maxSelected && (repayWithATokens || maxAmountToRepay.eq(debt))) {
-      if (
-        tokenToRepayWith.address === API_ETH_MOCK_ADDRESS.toLowerCase() ||
-        (synthetixProxyByChainId[currentChainId] &&
-          synthetixProxyByChainId[currentChainId].toLowerCase() ===
-            reserve.underlyingAsset.toLowerCase())
-      ) {
+      if (tokenToRepayWith.address === API_ETH_MOCK_ADDRESS.toLowerCase()) {
         // for native token and synthetix (only mainnet) we can't send -1 as
         // contract does not accept max unit256
         setRepayMax(safeAmountToRepayAll.toString(10));
@@ -173,7 +164,7 @@ export const RepayModalContent = ({
     .toString(10);
   const displayAmountAfterRepay = BigNumber.min(amountAfterRepay, maxAmountToRepay);
   const displayAmountAfterRepayInUsd = displayAmountAfterRepay
-    .multipliedBy(poolReserve.formattedPriceInMarketReferenceCurrency)
+    .multipliedBy(poolReserve.formattedPriceInETH)
     .multipliedBy(marketReferencePriceInUsd)
     .shiftedBy(-USD_DECIMALS);
 

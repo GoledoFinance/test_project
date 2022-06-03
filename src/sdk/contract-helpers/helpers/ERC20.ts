@@ -7,14 +7,7 @@ import {
   transactionType,
 } from '../commons/types';
 import { API_ETH_MOCK_ADDRESS, valueToWei, SUPER_BIG_ALLOWANCE_NUMBER } from '../commons/utils';
-import { ERC20Validator } from '../commons/validators/methodValidators';
-import {
-  isEthAddress,
-  isPositiveAmount,
-  isPositiveOrMinusOneAmount,
-} from '../commons/validators/paramValidators';
-import { ERC20 as ERC20Contract } from '../typechain/ERC20';
-import { ERC20__factory } from '../typechain/factories/ERC20__factory';
+import { ERC20 as ERC20Contract, ERC20__factory } from '../typechain';
 
 export interface IERC20ServiceInterface {
   decimalsOf: (token: tEthereumAddress) => Promise<number>;
@@ -52,14 +45,7 @@ export class ERC20Service extends BaseService<ERC20Contract> implements IERC20Se
     this.decimalsOf = this.decimalsOf.bind(this);
   }
 
-  @ERC20Validator
-  public approve(
-    @isEthAddress('user')
-    @isEthAddress('token')
-    @isEthAddress('spender')
-    @isPositiveAmount('amount')
-    { user, token, spender, amount }: ApproveType
-  ): EthereumTransactionTypeExtended {
+  public approve({ user, token, spender, amount }: ApproveType): EthereumTransactionTypeExtended {
     const erc20Contract: ERC20Contract = this.getContractInstance(token);
 
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
@@ -74,14 +60,7 @@ export class ERC20Service extends BaseService<ERC20Contract> implements IERC20Se
     };
   }
 
-  @ERC20Validator
-  public async isApproved(
-    @isEthAddress('user')
-    @isEthAddress('token')
-    @isEthAddress('spender')
-    @isPositiveOrMinusOneAmount('amount')
-    { user, token, spender, amount }: ApproveType
-  ): Promise<boolean> {
+  public async isApproved({ user, token, spender, amount }: ApproveType): Promise<boolean> {
     if (token.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) return true;
     const decimals = await this.decimalsOf(token);
     const erc20Contract: ERC20Contract = this.getContractInstance(token);
@@ -93,8 +72,7 @@ export class ERC20Service extends BaseService<ERC20Contract> implements IERC20Se
     return allowance.gte(amountBNWithDecimals);
   }
 
-  @ERC20Validator
-  public async decimalsOf(@isEthAddress() token: tEthereumAddress): Promise<number> {
+  public async decimalsOf(token: tEthereumAddress): Promise<number> {
     if (token.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) return 18;
     if (!this.tokenDecimals[token]) {
       const erc20Contract = this.getContractInstance(token);
@@ -104,8 +82,7 @@ export class ERC20Service extends BaseService<ERC20Contract> implements IERC20Se
     return this.tokenDecimals[token];
   }
 
-  @ERC20Validator
-  public async getTokenData(@isEthAddress() token: tEthereumAddress): Promise<TokenMetadataType> {
+  public async getTokenData(token: tEthereumAddress): Promise<TokenMetadataType> {
     if (token.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
       return {
         name: 'Ethereum',

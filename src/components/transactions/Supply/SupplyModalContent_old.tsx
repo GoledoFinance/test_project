@@ -76,9 +76,7 @@ export const SupplyModalContent = ({
   };
 
   // Calculation of future HF
-  const amountIntEth = new BigNumber(amount).multipliedBy(
-    poolReserve.formattedPriceInMarketReferenceCurrency
-  );
+  const amountIntEth = new BigNumber(amount).multipliedBy(poolReserve.formattedPriceInETH);
   // TODO: is it correct to ut to -1 if user doesnt exist?
   const amountInUsd = amountIntEth.multipliedBy(marketReferencePriceInUsd).shiftedBy(-USD_DECIMALS);
   const totalCollateralMarketReferenceCurrencyAfter = user

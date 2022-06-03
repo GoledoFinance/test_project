@@ -10,7 +10,6 @@ import { Meta } from 'src/components/Meta';
 import { BorrowModal } from 'src/components/transactions/Borrow/BorrowModal';
 import { ClaimRewardsModal } from 'src/components/transactions/ClaimRewards/ClaimRewardsModal';
 import { CollateralChangeModal } from 'src/components/transactions/CollateralChange/CollateralChangeModal';
-import { EmodeModal } from 'src/components/transactions/Emode/EmodeModal';
 import { GasStationProvider } from 'src/components/transactions/GasStation/GasStationProvider';
 import { RateSwitchModal } from 'src/components/transactions/RateSwitch/RateSwitchModal';
 import { RepayModal } from 'src/components/transactions/Repay/RepayModal';
@@ -29,12 +28,10 @@ import createEmotionCache from '../src/createEmotionCache';
 import { ProtocolDataProvider } from '../src/hooks/useProtocolDataContext';
 import { AppGlobalStyles } from '../src/layouts/AppGlobalStyles';
 import { LanguageProvider } from '../src/libs/LanguageProvider';
-import { SwapModal } from 'src/components/transactions/Swap/SwapModal';
 import { Web3ContextProvider } from 'src/libs/web3-data-provider/Web3Provider';
 import { Web3ReactProvider } from '@web3-react/core';
 import { providers } from 'ethers';
 import { WalletModalContextProvider } from 'src/hooks/useWalletModal';
-import { PermissionProvider } from 'src/hooks/usePermissions';
 import MetaImage from 'public/logo-text.svg';
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -72,31 +69,27 @@ export default function MyApp(props: MyAppProps) {
               <ProtocolDataProvider>
                 <ConnectionStatusProvider>
                   <AppGlobalStyles>
-                    <PermissionProvider>
-                      <ModalContextProvider>
-                        <BackgroundDataProvider>
-                          <AppDataProvider>
-                            <TxBuilderProvider>
-                              <WalletModalContextProvider>
-                                <GasStationProvider>
-                                  {getLayout(<Component {...pageProps} />)}
-                                  <SupplyModal />
-                                  <WithdrawModal />
-                                  <DepositeModal />
-                                  <BorrowModal />
-                                  <RepayModal />
-                                  <CollateralChangeModal />
-                                  <RateSwitchModal />
-                                  <ClaimRewardsModal />
-                                  <EmodeModal />
-                                  <SwapModal />
-                                </GasStationProvider>
-                              </WalletModalContextProvider>
-                            </TxBuilderProvider>
-                          </AppDataProvider>
-                        </BackgroundDataProvider>
-                      </ModalContextProvider>
-                    </PermissionProvider>
+                    <ModalContextProvider>
+                      <BackgroundDataProvider>
+                        <AppDataProvider>
+                          <TxBuilderProvider>
+                            <WalletModalContextProvider>
+                              <GasStationProvider>
+                                {getLayout(<Component {...pageProps} />)}
+                                <SupplyModal />
+                                <WithdrawModal />
+                                <DepositeModal />
+                                <BorrowModal />
+                                <RepayModal />
+                                <CollateralChangeModal />
+                                <RateSwitchModal />
+                                <ClaimRewardsModal />
+                              </GasStationProvider>
+                            </WalletModalContextProvider>
+                          </TxBuilderProvider>
+                        </AppDataProvider>
+                      </BackgroundDataProvider>
+                    </ModalContextProvider>
                   </AppGlobalStyles>
                 </ConnectionStatusProvider>
               </ProtocolDataProvider>

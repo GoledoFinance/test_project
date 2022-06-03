@@ -29,7 +29,6 @@ export const StakeActions = ({
 
   const { action, approval, requiresApproval, loadingTxns, approvalTxState, mainTxState } =
     useTransactionHandler({
-      tryPermit: false,
       handleGetTxns: async () => {
         return stakingService.stake(currentAccount, amountToStake.toString());
       },

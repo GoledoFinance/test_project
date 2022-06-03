@@ -25,7 +25,6 @@ export const GovDelegationActions = ({
   const { currentAccount } = useWeb3Context();
 
   const { action, loadingTxns, mainTxState, requiresApproval } = useTransactionHandler({
-    tryPermit: false,
     handleGetTxns: async () => {
       return governanceDelegationService.delegateByType({
         user: currentAccount,

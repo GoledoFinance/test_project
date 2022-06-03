@@ -1,14 +1,13 @@
 import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
 import { USD_DECIMALS, valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
-import { Button, Box, useMediaQuery, useTheme, SvgIcon } from '@mui/material';
-import BigNumber from 'bignumber.js';
+import { Button, Box, useMediaQuery, useTheme, SvgIcon, Alert } from '@mui/material';
 import { useState } from 'react';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
 import LaunchIcon from '@mui/icons-material/Launch';
 
 import { ListWrapper } from '../../../../components/lists/ListWrapper';
-// import { Link } from '../../../../components/primitives/Link';
+import { Link } from '../../../../components/primitives/Link';
 import {
   ComputedReserveData,
   useAppDataContext,
@@ -23,24 +22,14 @@ import { SupplyAssetsListMobileItem } from './SupplyAssetsListMobileItem';
 
 export const SupplyAssetsList = () => {
   const { currentNetworkConfig } = useProtocolDataContext();
-  const {
-    user,
-    reserves,
-    marketReferencePriceInUsd,
-    loading: loadingReserves,
-  } = useAppDataContext();
+  const { reserves, marketReferencePriceInUsd, loading: loadingReserves } = useAppDataContext();
   const { walletBalances, loading } = useWalletBalances();
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
   console.log('walletBalances', walletBalances, loading);
 
-  const {
-    bridge,
-    // isTestnet,
-    baseAssetSymbol,
-    //  name: networkName
-  } = currentNetworkConfig;
+  const { bridge, baseAssetSymbol, name: networkName } = currentNetworkConfig;
 
   const localStorageName = 'showSupplyZeroAssets';
   const [isShowZeroAssets, setIsShowZeroAssets] = useState(
@@ -53,43 +42,28 @@ export const SupplyAssetsList = () => {
       const walletBalance = walletBalances[reserve.underlyingAsset]?.amount;
       const walletBalanceUSD = walletBalances[reserve.underlyingAsset]?.amountUSD;
 
-      let availableToDeposit = valueToBigNumber(walletBalance);
-      if (reserve.supplyCap !== '0') {
-        availableToDeposit = BigNumber.min(
-          availableToDeposit,
-          new BigNumber(reserve.supplyCap).minus(reserve.totalLiquidity).multipliedBy('0.995')
-        );
-      }
+      const availableToDeposit = valueToBigNumber(walletBalance);
       const availableToDepositUSD = valueToBigNumber(availableToDeposit)
-        .multipliedBy(reserve.priceInMarketReferenceCurrency)
+        .multipliedBy(reserve.priceInEth)
         .multipliedBy(marketReferencePriceInUsd)
         .shiftedBy(-USD_DECIMALS)
         .toString();
-
-      const isIsolated = reserve.isIsolated;
-      const hasDifferentCollateral = user?.userReservesData.find(
-        (userRes) => userRes.usageAsCollateralEnabledOnUser && userRes.reserve.id !== reserve.id
+      console.log(
+        'usd',
+        reserve.name,
+        walletBalance?.toString(),
+        availableToDeposit?.toString(),
+        reserve.priceInEth,
+        marketReferencePriceInUsd
       );
 
-      const usageAsCollateralEnabledOnUser = !user?.isInIsolationMode
-        ? reserve.usageAsCollateralEnabled &&
-          (!isIsolated || (isIsolated && !hasDifferentCollateral))
-        : !isIsolated
-        ? false
-        : !hasDifferentCollateral;
-
+      const usageAsCollateralEnabledOnUser = reserve.usageAsCollateralEnabled;
       if (reserve.isWrappedBaseAsset) {
-        let baseAvailableToDeposit = valueToBigNumber(
+        const baseAvailableToDeposit = valueToBigNumber(
           walletBalances[API_ETH_MOCK_ADDRESS.toLowerCase()]?.amount
         );
-        if (reserve.supplyCap !== '0') {
-          baseAvailableToDeposit = BigNumber.min(
-            baseAvailableToDeposit,
-            new BigNumber(reserve.supplyCap).minus(reserve.totalLiquidity).multipliedBy('0.995')
-          );
-        }
         const baseAvailableToDepositUSD = valueToBigNumber(baseAvailableToDeposit)
-          .multipliedBy(reserve.priceInMarketReferenceCurrency)
+          .multipliedBy(reserve.priceInEth)
           .multipliedBy(marketReferencePriceInUsd)
           .shiftedBy(-USD_DECIMALS)
           .toString();
@@ -140,9 +114,10 @@ export const SupplyAssetsList = () => {
   const sortedSupplyReserves = tokensToSupply.sort((a, b) =>
     +a.walletBalanceUSD > +b.walletBalanceUSD ? -1 : 1
   );
-  const filteredSupplyReserves = sortedSupplyReserves.filter(
-    (reserve) => reserve.availableToDepositUSD !== '0'
-  );
+  const filteredSupplyReserves = sortedSupplyReserves.filter((reserve) => {
+    console.log('filter', reserve.name, reserve.availableToDepositUSD);
+    return reserve.availableToDepositUSD !== '0';
+  });
 
   const supplyReserves = isShowZeroAssets
     ? sortedSupplyReserves
@@ -167,29 +142,21 @@ export const SupplyAssetsList = () => {
       subChildrenComponent={
         <>
           {/* TODO: 是否需要？ */}
-          {/* <Box sx={{ px: 6 }}>
-            {user?.isInIsolationMode && (
-              <Alert severity="warning">
-                <Trans>
-                  Collateral usage is limited because of isolation mode.{' '}
-                  <Link href="https://docs.aave.com/faq/" target="_blank">
-                    Learn More
-                  </Link>
-                </Trans>
-              </Alert>
-            )}
-            {filteredSupplyReserves.length === 0 && (
-              <Alert severity="info">
-                <Trans>Your {networkName} wallet is empty. Purchase or transfer assets</Trans>{' '}
-                {bridge && (
-                  <Trans>
-                    or use {<Link href={bridge.url}>{bridge.name}</Link>} to transfer your ETH
-                    assets.
-                  </Trans>
-                )}
-              </Alert>
-            )}
-          </Box> */}
+          {
+            <Box sx={{ px: 6 }}>
+              {filteredSupplyReserves.length === 0 && (
+                <Alert severity="info">
+                  <Trans>Your {networkName} wallet is empty. Purchase or transfer assets</Trans>{' '}
+                  {bridge && (
+                    <Trans>
+                      or use {<Link href={bridge.url}>{bridge.name}</Link>} to transfer your ETH
+                      assets.
+                    </Trans>
+                  )}
+                </Alert>
+              )}
+            </Box>
+          }
           <Box
             sx={{
               display: 'flex',

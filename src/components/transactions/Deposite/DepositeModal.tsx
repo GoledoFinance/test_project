@@ -1,4 +1,3 @@
-import { PERMISSION } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { Typography, Box, Stack } from '@mui/material';
 import React, { useState, ReactNode } from 'react';
@@ -24,7 +23,6 @@ export const DepositeModal = () => {
         title={<Trans>Desposit</Trans>}
         underlyingAsset={args.underlyingAsset}
         keepWrappedSymbol={!withdrawUnWrapped}
-        requiredPermission={PERMISSION.DEPOSITOR}
       >
         {(params) => {
           return (

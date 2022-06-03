@@ -131,7 +131,7 @@ export const BorrowModalContent = ({
 
   // health factor calculations
   const amountToBorrowInUsd = valueToBigNumber(amount)
-    .multipliedBy(poolReserve.formattedPriceInMarketReferenceCurrency)
+    .multipliedBy(poolReserve.formattedPriceInETH)
     .multipliedBy(marketReferencePriceInUsd)
     .shiftedBy(-USD_DECIMALS);
 

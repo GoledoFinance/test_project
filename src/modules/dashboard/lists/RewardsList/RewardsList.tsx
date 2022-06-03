@@ -67,7 +67,7 @@ export const RewardsList = () => {
           )}
         </>
       ) : (
-        <DashboardContentNoData text={<Trans>No Supplies</Trans>} />
+        <DashboardContentNoData text={<Trans>Nothing supplied yet</Trans>} />
       )}
     </ListWrapper>
   );

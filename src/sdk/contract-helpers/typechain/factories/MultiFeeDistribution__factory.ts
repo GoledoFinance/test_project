@@ -296,7 +296,7 @@ const _abi = [
     name: "incentivesController",
     outputs: [
       {
-        internalType: "contract IChefIncentivesController",
+        internalType: "contract IIncentivesController",
         name: "",
         type: "address",
       },
@@ -605,7 +605,7 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "contract IChefIncentivesController",
+        internalType: "contract IIncentivesController",
         name: "_controller",
         type: "address",
       },

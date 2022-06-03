@@ -1,34 +1,32 @@
-import { StakingService } from '@goledo-sdk/contract-helpers';
+import {
+  IncentivesController,
+  IncentivesControllerInterface,
+  MasterChef,
+  MasterChefInterface,
+  MultiFeeDistribution,
+  MultiFeeDistributionInterface,
+} from '@goledo-sdk/contract-helpers';
 import React, { ReactElement } from 'react';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
-import { getStakeConfig } from 'src/ui-config/stakeConfig';
-import { getProvider } from 'src/utils/marketsAndNetworksConfig';
 
 export interface StakeTxBuilderContextInterface {
-  stakingServices: Record<string, StakingService>;
+  staking: MultiFeeDistributionInterface;
+  masterChef: MasterChefInterface;
+  incentivesController: IncentivesControllerInterface;
 }
 export const StakeTxBuilderContext = React.createContext({} as StakeTxBuilderContextInterface);
 
 export const StakeTxBuilderProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
-  const stakeConfig = getStakeConfig();
-  const { jsonRpcProvider, currentNetworkConfig } = useProtocolDataContext();
+  const { jsonRpcProvider } = useProtocolDataContext();
 
-  const isStakeFork =
-    currentNetworkConfig.isFork && currentNetworkConfig.underlyingChainId === stakeConfig.chainId;
-  const rpcProvider = isStakeFork ? jsonRpcProvider : getProvider(stakeConfig.chainId);
-
-  const stakingServices: Record<string, StakingService> = {};
-
-  Object.keys(stakeConfig.tokens).forEach((tokenName) => {
-    const service = new StakingService(rpcProvider, {
-      TOKEN_STAKING_ADDRESS: stakeConfig.tokens[tokenName].TOKEN_STAKING,
-    });
-
-    stakingServices[tokenName] = service;
-  });
+  const staking = new MultiFeeDistribution(jsonRpcProvider);
+  const masterChef: MasterChefInterface = new MasterChef(jsonRpcProvider);
+  const incentivesController: IncentivesControllerInterface = new IncentivesController(
+    jsonRpcProvider
+  );
 
   return (
-    <StakeTxBuilderContext.Provider value={{ stakingServices }}>
+    <StakeTxBuilderContext.Provider value={{ staking, masterChef, incentivesController }}>
       {children}
     </StakeTxBuilderContext.Provider>
   );

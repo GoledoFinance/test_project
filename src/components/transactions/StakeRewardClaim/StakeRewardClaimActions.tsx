@@ -27,7 +27,6 @@ export const StakeRewardClaimActions = ({
   const stakingService = useStakeTxBuilderContext(selectedToken);
 
   const { action, loadingTxns, mainTxState, requiresApproval } = useTransactionHandler({
-    tryPermit: false,
     handleGetTxns: async () => {
       return stakingService.claimRewards(currentAccount, amountToClaim);
     },

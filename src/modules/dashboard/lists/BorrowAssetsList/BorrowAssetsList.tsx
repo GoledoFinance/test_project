@@ -38,7 +38,7 @@ export const BorrowAssetsList = () => {
         : 0;
 
       const availableBorrowsInUSD = valueToBigNumber(availableBorrows)
-        .multipliedBy(reserve.formattedPriceInMarketReferenceCurrency)
+        .multipliedBy(reserve.formattedPriceInETH)
         .multipliedBy(marketReferencePriceInUsd)
         .shiftedBy(-USD_DECIMALS)
         .toFixed(2);

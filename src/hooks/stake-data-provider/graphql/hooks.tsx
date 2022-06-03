@@ -17,14 +17,6 @@ export type Scalars = {
   Float: number;
 };
 
-export type BaseCurrencyData = {
-  __typename?: 'BaseCurrencyData';
-  marketReferenceCurrencyDecimals: Scalars['Float'];
-  marketReferenceCurrencyPriceInUsd: Scalars['String'];
-  networkBaseTokenPriceDecimals: Scalars['Float'];
-  networkBaseTokenPriceInUsd: Scalars['String'];
-};
-
 export type IncentiveData = {
   __typename?: 'IncentiveData';
   incentiveControllerAddress: Scalars['String'];
@@ -34,8 +26,9 @@ export type IncentiveData = {
 
 export type ProtocolData = {
   __typename?: 'ProtocolData';
-  baseCurrencyData: BaseCurrencyData;
   reserves: Array<ReserveData>;
+  marketReferencePriceInUsd: Scalars['String'];
+  emissionEndTimestamp: Scalars['Int'];
 };
 
 export type Query = {
@@ -79,15 +72,8 @@ export type QueryUserIncentivesArgs = {
 export type ReserveData = {
   __typename?: 'ReserveData';
   aTokenAddress: Scalars['String'];
-  accruedToTreasury: Scalars['String'];
   availableLiquidity: Scalars['String'];
   averageStableRate: Scalars['String'];
-  baseLTVasCollateral: Scalars['String'];
-  baseStableBorrowRate: Scalars['String'];
-  baseVariableBorrowRate: Scalars['String'];
-  borrowCap: Scalars['String'];
-  borrowableInIsolation: Scalars['Boolean'];
-  borrowingEnabled: Scalars['Boolean'];
   debtCeiling: Scalars['String'];
   debtCeilingDecimals: Scalars['Float'];
   decimals: Scalars['Float'];
@@ -101,15 +87,11 @@ export type ReserveData = {
   interestRateStrategyAddress: Scalars['String'];
   isActive: Scalars['Boolean'];
   isFrozen: Scalars['Boolean'];
-  isPaused: Scalars['Boolean'];
-  isolationModeTotalDebt: Scalars['String'];
   lastUpdateTimestamp: Scalars['Float'];
   liquidityIndex: Scalars['String'];
   liquidityRate: Scalars['String'];
   name: Scalars['String'];
-  optimalUsageRatio: Scalars['String'];
-  priceInMarketReferenceCurrency: Scalars['String'];
-  priceOracle: Scalars['String'];
+  priceInEth: Scalars['String'];
   reserveFactor: Scalars['String'];
   reserveLiquidationBonus: Scalars['String'];
   reserveLiquidationThreshold: Scalars['String'];
@@ -123,7 +105,6 @@ export type ReserveData = {
   symbol: Scalars['String'];
   totalPrincipalStableDebt: Scalars['String'];
   totalScaledVariableDebt: Scalars['String'];
-  unbacked: Scalars['String'];
   underlyingAsset: Scalars['String'];
   usageAsCollateralEnabled: Scalars['Boolean'];
   variableBorrowIndex: Scalars['String'];

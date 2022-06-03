@@ -187,7 +187,7 @@ describe('pool math', () => {
   it('should convert balances to MarketReferenceCurrency and USD', () => {
     const balanceRequest = {
       balance: 10 ** 19, // 10
-      priceInMarketReferenceCurrency: 10 ** 18, // 1
+      priceInEth: 10 ** 18, // 1
       marketReferenceCurrencyDecimals: 18,
       decimals: 18,
       marketReferencePriceInUsdNormalized: 2.5,

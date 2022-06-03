@@ -14,15 +14,6 @@ import {
   API_ETH_MOCK_ADDRESS,
   DEFAULT_APPROVE_AMOUNT,
 } from '../../commons/utils';
-import {
-  LPFlashLiquidationValidator,
-  LPValidator,
-} from '../../commons/validators/methodValidators';
-import {
-  isEthAddress,
-  isPositiveAmount,
-  isPositiveOrMinusOneAmount,
-} from '../../commons/validators/paramValidators';
 import { ERC20Service, IERC20ServiceInterface } from '../ERC20';
 import { WETHGatewayInterface, WETHGatewayService } from '../WETHGateway';
 import {
@@ -35,8 +26,7 @@ import {
   LPWithdrawParamsType,
   LPFlashLiquidation,
 } from './types';
-import { LendingPool as LendingPoolContract } from '../../typechain/LendingPool';
-import { LendingPool__factory } from '../../typechain/factories/LendingPool__factory';
+import { LendingPool__factory, LendingPool as LendingPoolContract } from '../../typechain';
 
 export interface LendingPoolInterface {
   deposit: (args: LPDepositParamsType) => Promise<EthereumTransactionTypeExtended[]>;
@@ -83,14 +73,13 @@ export class LendingPool extends BaseService<LendingPoolContract> implements Len
     this.wethGatewayService = new WETHGatewayService(provider, this.erc20Service, WETH_GATEWAY);
   }
 
-  @LPValidator
-  public async deposit(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
-    @isPositiveAmount('amount')
-    @isEthAddress('onBehalfOf')
-    { user, reserve, amount, onBehalfOf, referralCode }: LPDepositParamsType
-  ): Promise<EthereumTransactionTypeExtended[]> {
+  public async deposit({
+    user,
+    reserve,
+    amount,
+    onBehalfOf,
+    referralCode,
+  }: LPDepositParamsType): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
       return this.wethGatewayService.depositETH({
         lendingPool: this.lendingPoolAddress,
@@ -148,15 +137,13 @@ export class LendingPool extends BaseService<LendingPoolContract> implements Len
     return txs;
   }
 
-  @LPValidator
-  public async withdraw(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
-    @isPositiveOrMinusOneAmount('amount')
-    @isEthAddress('onBehalfOf')
-    @isEthAddress('aTokenAddress')
-    { user, reserve, amount, onBehalfOf, aTokenAddress }: LPWithdrawParamsType
-  ): Promise<EthereumTransactionTypeExtended[]> {
+  public async withdraw({
+    user,
+    reserve,
+    amount,
+    onBehalfOf,
+    aTokenAddress,
+  }: LPWithdrawParamsType): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
       if (!aTokenAddress) {
         throw new Error('To withdraw ETH you need to pass the aWETH token address');
@@ -201,23 +188,15 @@ export class LendingPool extends BaseService<LendingPoolContract> implements Len
     ];
   }
 
-  @LPValidator
-  public async borrow(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
-    @isPositiveAmount('amount')
-    @isEthAddress('debtTokenAddress')
-    @isEthAddress('onBehalfOf')
-    {
-      user,
-      reserve,
-      amount,
-      interestRateMode,
-      debtTokenAddress,
-      onBehalfOf,
-      referralCode,
-    }: LPBorrowParamsType
-  ): Promise<EthereumTransactionTypeExtended[]> {
+  public async borrow({
+    user,
+    reserve,
+    amount,
+    interestRateMode,
+    debtTokenAddress,
+    onBehalfOf,
+    referralCode,
+  }: LPBorrowParamsType): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
       if (!debtTokenAddress) {
         throw new Error(
@@ -264,14 +243,13 @@ export class LendingPool extends BaseService<LendingPoolContract> implements Len
     ];
   }
 
-  @LPValidator
-  public async repay(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
-    @isPositiveOrMinusOneAmount('amount')
-    @isEthAddress('onBehalfOf')
-    { user, reserve, amount, interestRateMode, onBehalfOf }: LPRepayParamsType
-  ): Promise<EthereumTransactionTypeExtended[]> {
+  public async repay({
+    user,
+    reserve,
+    amount,
+    interestRateMode,
+    onBehalfOf,
+  }: LPRepayParamsType): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
       return this.wethGatewayService.repayETH({
         lendingPool: this.lendingPoolAddress,
@@ -326,12 +304,11 @@ export class LendingPool extends BaseService<LendingPoolContract> implements Len
     return txs;
   }
 
-  @LPValidator
-  public swapBorrowRateMode(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
-    { user, reserve, interestRateMode }: LPSwapBorrowRateMode
-  ): EthereumTransactionTypeExtended[] {
+  public swapBorrowRateMode({
+    user,
+    reserve,
+    interestRateMode,
+  }: LPSwapBorrowRateMode): EthereumTransactionTypeExtended[] {
     const numericRateMode = interestRateMode === InterestRate.Variable ? 2 : 1;
 
     const lendingPoolContract = this.getContractInstance(this.lendingPoolAddress);
@@ -350,12 +327,11 @@ export class LendingPool extends BaseService<LendingPoolContract> implements Len
     ];
   }
 
-  @LPValidator
-  public setUsageAsCollateral(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
-    { user, reserve, usageAsCollateral }: LPSetUsageAsCollateral
-  ): EthereumTransactionTypeExtended[] {
+  public setUsageAsCollateral({
+    user,
+    reserve,
+    usageAsCollateral,
+  }: LPSetUsageAsCollateral): EthereumTransactionTypeExtended[] {
     const lendingPoolContract = this.getContractInstance(this.lendingPoolAddress);
 
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
@@ -376,23 +352,15 @@ export class LendingPool extends BaseService<LendingPoolContract> implements Len
     ];
   }
 
-  @LPValidator
-  public async liquidationCall(
-    @isEthAddress('liquidator')
-    @isEthAddress('liquidatedUser')
-    @isEthAddress('debtReserve')
-    @isEthAddress('collateralReserve')
-    @isPositiveAmount('purchaseAmount')
-    {
-      liquidator,
-      liquidatedUser,
-      debtReserve,
-      collateralReserve,
-      purchaseAmount,
-      getAToken,
-      liquidateAll,
-    }: LPLiquidationCall
-  ): Promise<EthereumTransactionTypeExtended[]> {
+  public async liquidationCall({
+    liquidator,
+    liquidatedUser,
+    debtReserve,
+    collateralReserve,
+    purchaseAmount,
+    getAToken,
+    liquidateAll,
+  }: LPLiquidationCall): Promise<EthereumTransactionTypeExtended[]> {
     const txs: EthereumTransactionTypeExtended[] = [];
     const { isApproved, approve, decimalsOf }: IERC20ServiceInterface = this.erc20Service;
 
@@ -444,23 +412,15 @@ export class LendingPool extends BaseService<LendingPoolContract> implements Len
     return txs;
   }
 
-  @LPFlashLiquidationValidator
-  public async flashLiquidation(
-    @isEthAddress('user')
-    @isEthAddress('collateralAsset')
-    @isEthAddress('borrowedAsset')
-    @isPositiveAmount('debtTokenCover')
-    @isEthAddress('initiator')
-    {
-      user,
-      collateralAsset,
-      borrowedAsset,
-      debtTokenCover,
-      liquidateAll,
-      initiator,
-      useEthPath,
-    }: LPFlashLiquidation
-  ): Promise<EthereumTransactionTypeExtended[]> {
+  public async flashLiquidation({
+    user,
+    collateralAsset,
+    borrowedAsset,
+    debtTokenCover,
+    liquidateAll,
+    initiator,
+    useEthPath,
+  }: LPFlashLiquidation): Promise<EthereumTransactionTypeExtended[]> {
     const addSurplus = (amount: string): string => {
       return (Number(amount) + (Number(amount) * Number(amount)) / 100).toString();
     };

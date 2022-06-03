@@ -1,9 +1,12 @@
 // services
-export * from './helpers/LendingPool';
-export * from './helpers/UiPoolDataProvider';
-export * from './helpers/WalletBalanceProvider';
 export * from './helpers/BaseDebtToken';
 export * from './helpers/ERC20';
+export * from './helpers/IncentivesController';
+export * from './helpers/LendingPool';
+export * from './helpers/MasterChef';
+export * from './helpers/MultiFeeDistribution';
+export * from './helpers/UiPoolDataProvider';
+export * from './helpers/WalletBalanceProvider';
 export * from './helpers/WETHGateway';
 
 // commons

@@ -1,8 +1,10 @@
 import { providers } from 'ethers';
 import { isAddress } from 'ethers/lib/utils';
 import { ReservesHelperInput, UserReservesHelperInput } from '../../index';
-import { UiPoolDataProvider as UiPoolDataProviderContract } from '../../typechain/UiPoolDataProvider';
-import { UiPoolDataProvider__factory } from '../../typechain/factories/UiPoolDataProvider__factory';
+import {
+  UiPoolDataProvider as UiPoolDataProviderContract,
+  UiPoolDataProvider__factory,
+} from '../../typechain';
 import {
   ReservesData,
   UserReserveData,
@@ -99,7 +101,7 @@ export class UiPoolDataProvider implements UiPoolDataProviderInterface {
   }: ReservesHelperInput): Promise<ReservesDataHumanized> {
     const {
       0: reservesRaw,
-      1: ethPrice,
+      1: marketReferencePriceInUsd,
       2: emissionEndTimestamp,
     }: ReservesData = await this.getReservesData({
       lendingPoolAddressProvider,
@@ -144,7 +146,7 @@ export class UiPoolDataProvider implements UiPoolDataProviderInterface {
 
     return {
       reservesData,
-      ethPrice: ethPrice.toString(),
+      marketReferencePriceInUsd: marketReferencePriceInUsd.toString(),
       emissionEndTimestamp: emissionEndTimestamp.toNumber(),
     };
   }

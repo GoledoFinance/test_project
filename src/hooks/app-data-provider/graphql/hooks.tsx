@@ -34,8 +34,9 @@ export type IncentiveData = {
 
 export type ProtocolData = {
   __typename?: 'ProtocolData';
-  baseCurrencyData: BaseCurrencyData;
   reserves: Array<ReserveData>;
+  marketReferencePriceInUsd: Scalars['String'];
+  emissionEndTimestamp: Scalars['Int'];
 };
 
 export type Query = {
@@ -79,17 +80,14 @@ export type QueryUserIncentivesArgs = {
 export type ReserveData = {
   __typename?: 'ReserveData';
   aTokenAddress: Scalars['String'];
-  accruedToTreasury: Scalars['String'];
   availableLiquidity: Scalars['String'];
   averageStableRate: Scalars['String'];
   baseLTVasCollateral: Scalars['String'];
   baseStableBorrowRate: Scalars['String'];
-  baseVariableBorrowRate: Scalars['String'];
   borrowCap: Scalars['String'];
   borrowableInIsolation: Scalars['Boolean'];
   borrowingEnabled: Scalars['Boolean'];
   debtCeiling: Scalars['String'];
-  debtCeilingDecimals: Scalars['Float'];
   decimals: Scalars['Float'];
   eModeCategoryId: Scalars['Float'];
   eModeLabel: Scalars['String'];
@@ -101,15 +99,11 @@ export type ReserveData = {
   interestRateStrategyAddress: Scalars['String'];
   isActive: Scalars['Boolean'];
   isFrozen: Scalars['Boolean'];
-  isPaused: Scalars['Boolean'];
-  isolationModeTotalDebt: Scalars['String'];
   lastUpdateTimestamp: Scalars['Float'];
   liquidityIndex: Scalars['String'];
   liquidityRate: Scalars['String'];
   name: Scalars['String'];
-  optimalUsageRatio: Scalars['String'];
-  priceInMarketReferenceCurrency: Scalars['String'];
-  priceOracle: Scalars['String'];
+  priceInEth: Scalars['String'];
   reserveFactor: Scalars['String'];
   reserveLiquidationBonus: Scalars['String'];
   reserveLiquidationThreshold: Scalars['String'];
@@ -123,7 +117,6 @@ export type ReserveData = {
   symbol: Scalars['String'];
   totalPrincipalStableDebt: Scalars['String'];
   totalScaledVariableDebt: Scalars['String'];
-  unbacked: Scalars['String'];
   underlyingAsset: Scalars['String'];
   usageAsCollateralEnabled: Scalars['Boolean'];
   variableBorrowIndex: Scalars['String'];
@@ -472,13 +465,8 @@ export type ReserveDataFragmentFragment = {
   totalPrincipalStableDebt: string;
   totalScaledVariableDebt: string;
   lastUpdateTimestamp: number;
-  priceInMarketReferenceCurrency: string;
-  isPaused: boolean;
-  accruedToTreasury: string;
-  unbacked: string;
-  isolationModeTotalDebt: string;
+  priceInEth: string;
   debtCeiling: string;
-  debtCeilingDecimals: number;
   eModeCategoryId: number;
   borrowCap: string;
   supplyCap: string;
@@ -489,9 +477,6 @@ export type ReserveDataFragmentFragment = {
   eModeLabel: string;
   borrowableInIsolation: boolean;
   baseStableBorrowRate: string;
-  baseVariableBorrowRate: string;
-  optimalUsageRatio: string;
-  priceOracle: string;
 };
 
 export type BaseCurrencyDataFragmentFragment = {
@@ -548,7 +533,7 @@ export type C_ProtocolDataQuery = {
       stableRateSlope1: string;
       stableRateSlope2: string;
     }>;
-    ethPrice: string;
+    marketReferencePriceInUsd: string;
     emissionEndTimestamp: number;
   };
 };
@@ -599,7 +584,7 @@ export type C_ProtocolDataUpdateSubscription = {
       stableRateSlope1: string;
       stableRateSlope2: string;
     }>;
-    ethPrice: string;
+    marketReferencePriceInUsd: string;
     emissionEndTimestamp: number;
   };
 };
@@ -863,26 +848,7 @@ export const ReserveDataFragmentFragmentDoc = gql`
     totalPrincipalStableDebt
     totalScaledVariableDebt
     lastUpdateTimestamp
-    priceInMarketReferenceCurrency
-    isPaused
-    accruedToTreasury
-    unbacked
-    isolationModeTotalDebt
-    debtCeiling
-    debtCeilingDecimals
-    eModeCategoryId
-    borrowCap
-    supplyCap
-    eModeLtv
-    eModeLiquidationThreshold
-    eModeLiquidationBonus
-    eModePriceSource
-    eModeLabel
-    borrowableInIsolation
-    baseStableBorrowRate
-    baseVariableBorrowRate
-    optimalUsageRatio
-    priceOracle
+    priceInEth
   }
 `;
 export const BaseCurrencyDataFragmentFragmentDoc = gql`
@@ -1051,9 +1017,8 @@ export const C_ProtocolDataDocument = gql`
       reserves {
         ...ReserveDataFragment
       }
-      baseCurrencyData {
-        ...BaseCurrencyDataFragment
-      }
+      marketReferencePriceInUsd
+      emissionEndTimestamp
     }
   }
   ${ReserveDataFragmentFragmentDoc}
@@ -1110,9 +1075,8 @@ export const C_ProtocolDataUpdateDocument = gql`
       reserves {
         ...ReserveDataFragment
       }
-      baseCurrencyData {
-        ...BaseCurrencyDataFragment
-      }
+      marketReferencePriceInUsd
+      emissionEndTimestamp
     }
   }
   ${ReserveDataFragmentFragmentDoc}

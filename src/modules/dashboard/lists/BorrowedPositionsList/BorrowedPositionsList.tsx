@@ -128,7 +128,7 @@ export const BorrowedPositionsList = () => {
           )}
         </>
       ) : (
-        <DashboardContentNoData text={<Trans>No Borrows</Trans>} />
+        <DashboardContentNoData text={<Trans>Nothing borrowed yet</Trans>} />
       )}
     </ListWrapper>
   );

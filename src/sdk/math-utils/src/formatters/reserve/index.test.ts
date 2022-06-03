@@ -65,7 +65,7 @@ describe('formatReserve', () => {
     const formattedReserve = formatReserveUSD({
       reserve: {
         ...reserve.reserve,
-        priceInMarketReferenceCurrency: normalize(2, -8), // 2
+        priceInEth: normalize(2, -8), // 2
       },
       currentTimestamp: reserve.reserve.lastUpdateTimestamp,
       marketReferencePriceInUsd: normalize(1, -8), // 1

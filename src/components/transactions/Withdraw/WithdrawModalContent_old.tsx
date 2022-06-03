@@ -68,7 +68,7 @@ export const WithdrawModalContent = ({
     }
     maxAmountToWithdraw = BigNumber.min(
       maxAmountToWithdraw,
-      maxCollateralToWithdrawInETH.dividedBy(poolReserve.formattedPriceInMarketReferenceCurrency)
+      maxCollateralToWithdrawInETH.dividedBy(poolReserve.formattedPriceInETH)
     );
   }
 
@@ -95,7 +95,7 @@ export const WithdrawModalContent = ({
 
   if (userReserve?.usageAsCollateralEnabledOnUser && poolReserve.usageAsCollateralEnabled) {
     const amountToWithdrawInEth = valueToBigNumber(amount).multipliedBy(
-      poolReserve.formattedPriceInMarketReferenceCurrency
+      poolReserve.formattedPriceInETH
     );
     totalCollateralInETHAfterWithdraw =
       totalCollateralInETHAfterWithdraw.minus(amountToWithdrawInEth);

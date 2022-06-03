@@ -18,7 +18,6 @@ import {
 } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { useModalContext } from 'src/hooks/useModal';
 import { useWalletBalances } from 'src/hooks/app-data-provider/useWalletBalances';
-import { usePermissions } from 'src/hooks/usePermissions';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
 import { getMaxAmountAvailableToSupply } from 'src/utils/getMaxAmountAvailableToSupply';
 
@@ -70,9 +69,8 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const { currentAccount, loading: web3Loading } = useWeb3Context();
   const { reserves, loading: loadingReserves } = useAppDataContext();
   const { walletBalances, loading: loadingBalance } = useWalletBalances();
-  const { isPermissionsLoading } = usePermissions();
 
-  if (!currentAccount && !isPermissionsLoading)
+  if (!currentAccount)
     return (
       <Paper sx={{ pt: 4, pb: { xs: 4, xsm: 6 }, px: { xs: 4, xsm: 6 } }}>
         {web3Loading ? (

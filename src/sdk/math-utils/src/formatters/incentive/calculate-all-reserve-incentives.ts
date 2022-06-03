@@ -46,7 +46,7 @@ export function calculateAllReserveIncentives({
           totalLiquidity: reserve.totalLiquidity,
           totalVariableDebt: reserve.totalVariableDebt,
           totalStableDebt: reserve.totalStableDebt,
-          priceInMarketReferenceCurrency: reserve.formattedPriceInMarketReferenceCurrency,
+          priceInEth: reserve.formattedPriceInETH,
           decimals: reserve.decimals,
           marketReferenceCurrencyDecimals,
         });

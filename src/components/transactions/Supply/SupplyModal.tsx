@@ -1,4 +1,3 @@
-import { PERMISSION } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import React from 'react';
 import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal';
@@ -18,11 +17,7 @@ export const SupplyModal = () => {
 
   return (
     <BasicModal open={type === ModalType.Supply} setOpen={close}>
-      <ModalWrapper
-        title={<Trans>Supply</Trans>}
-        underlyingAsset={args.underlyingAsset}
-        requiredPermission={PERMISSION.DEPOSITOR}
-      >
+      <ModalWrapper title={<Trans>Supply</Trans>} underlyingAsset={args.underlyingAsset}>
         {(params) =>
           step !== 2 ? (
             <SupplyModalContent

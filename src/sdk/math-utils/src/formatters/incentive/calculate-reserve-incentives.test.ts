@@ -37,7 +37,7 @@ describe('calculateReserveIncentives', () => {
         totalVariableDebt: calculateReserveDebtResult.totalVariableDebt.toString(),
         totalStableDebt: calculateReserveDebtResult.totalStableDebt.toString(),
         decimals: 18,
-        priceInMarketReferenceCurrency: userReserveMock.reserve.priceInMarketReferenceCurrency,
+        priceInEth: userReserveMock.reserve.priceInEth,
         marketReferenceCurrencyDecimals: 8,
       });
       expect(result.aIncentivesData[0].incentiveAPR).toBe('0.00000000000015768');

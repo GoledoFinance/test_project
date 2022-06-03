@@ -250,7 +250,7 @@ export function formatReserve({
 }
 
 export type ReserveDataWithPrice = ReserveData & {
-  priceInMarketReferenceCurrency: string;
+  priceInEth: string;
 };
 
 export interface FormatReserveUSDRequest {
@@ -269,8 +269,8 @@ export interface FormatReserveUSDResponse extends FormatReserveResponse {
   borrowCapUSD: string;
   supplyCapUSD: string;
   unbackedUSD: string;
-  priceInMarketReferenceCurrency: string;
-  formattedPriceInMarketReferenceCurrency: string;
+  priceInEth: string;
+  formattedPriceInETH: string;
   priceInUSD: string;
 }
 
@@ -300,54 +300,51 @@ export function formatReserveUSD({
       amount: computedFields.totalLiquidity,
       currencyDecimals: reserve.decimals,
       marketReferenceCurrencyDecimals,
-      priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+      priceInEth: reserve.priceInEth,
       normalizedMarketReferencePriceInUsd,
     }),
     availableLiquidityUSD: nativeToUSD({
       amount: computedFields.formattedAvailableLiquidity,
       currencyDecimals: reserve.decimals,
       marketReferenceCurrencyDecimals,
-      priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+      priceInEth: reserve.priceInEth,
       normalizedMarketReferencePriceInUsd,
     }),
     totalDebtUSD: nativeToUSD({
       amount: computedFields.totalDebt,
       currencyDecimals: reserve.decimals,
       marketReferenceCurrencyDecimals,
-      priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+      priceInEth: reserve.priceInEth,
       normalizedMarketReferencePriceInUsd,
     }),
     totalVariableDebtUSD: nativeToUSD({
       amount: computedFields.totalVariableDebt,
       currencyDecimals: reserve.decimals,
       marketReferenceCurrencyDecimals,
-      priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+      priceInEth: reserve.priceInEth,
       normalizedMarketReferencePriceInUsd,
     }),
     totalStableDebtUSD: nativeToUSD({
       amount: computedFields.totalStableDebt,
       currencyDecimals: reserve.decimals,
       marketReferenceCurrencyDecimals,
-      priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+      priceInEth: reserve.priceInEth,
       normalizedMarketReferencePriceInUsd,
     }),
     // isolationModeTotalDebtUSD: nativeToUSD({
     //   amount: computedFields.totalStableDebt,
     //   currencyDecimals: reserve.decimals,
     //   marketReferenceCurrencyDecimals,
-    //   priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+    //   priceInEth: reserve.priceInEth,
     //   marketReferencePriceInUsd,
     // }),
-    formattedPriceInMarketReferenceCurrency: normalize(
-      reserve.priceInMarketReferenceCurrency,
-      marketReferenceCurrencyDecimals
-    ),
-    priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+    formattedPriceInETH: normalize(reserve.priceInEth, marketReferenceCurrencyDecimals),
+    priceInEth: reserve.priceInEth,
     priceInUSD: nativeToUSD({
       amount: new BigNumber(1).shiftedBy(reserve.decimals),
       currencyDecimals: reserve.decimals,
       marketReferenceCurrencyDecimals,
-      priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+      priceInEth: reserve.priceInEth,
       normalizedMarketReferencePriceInUsd,
     }),
     // v3
@@ -430,7 +427,7 @@ export function formatReservesAndIncentives<T extends ReserveDataWithPrice>({
       totalLiquidity: normalize(reserve.totalLiquidity, -reserve.decimals),
       totalVariableDebt: normalize(reserve.totalVariableDebt, -reserve.decimals),
       totalStableDebt: normalize(reserve.totalStableDebt, -reserve.decimals),
-      priceInMarketReferenceCurrency: reserve.formattedPriceInMarketReferenceCurrency,
+      priceInEth: reserve.formattedPriceInETH,
       decimals: reserve.decimals,
       marketReferenceCurrencyDecimals,
     });

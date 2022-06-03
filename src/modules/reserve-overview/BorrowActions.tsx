@@ -16,7 +16,6 @@ import {
   useAppDataContext,
 } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { useWalletBalances } from 'src/hooks/app-data-provider/useWalletBalances';
-import { usePermissions } from 'src/hooks/usePermissions';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
 import { getMaxAmountAvailableToSupply } from 'src/utils/getMaxAmountAvailableToSupply';
 
@@ -40,9 +39,8 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const { currentAccount } = useWeb3Context();
   const { reserves, loading: loadingReserves } = useAppDataContext();
   const { walletBalances, loading: loadingBalance } = useWalletBalances();
-  const { isPermissionsLoading } = usePermissions();
 
-  if (!currentAccount && !isPermissionsLoading) return null;
+  if (!currentAccount) return null;
 
   if (loadingReserves || loadingBalance)
     return (

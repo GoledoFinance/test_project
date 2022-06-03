@@ -11,11 +11,11 @@ describe('calculateIncentiveAPR', () => {
       emissionPerSecond:
         reserveIncentiveMock.reserveIncentive.aIncentiveData.rewardsTokenInformation[0]
           .emissionPerSecond,
-      rewardTokenPriceInMarketReferenceCurrency:
+      rewardTokenPriceInETH:
         reserveIncentiveMock.reserveIncentive.aIncentiveData.rewardsTokenInformation[0]
           .rewardPriceFeed,
       totalTokenSupply: totalLiquidity.toString(),
-      priceInMarketReferenceCurrency: userReserveMock.reserve.priceInMarketReferenceCurrency,
+      priceInEth: userReserveMock.reserve.priceInEth,
       decimals: userReserveMock.reserve.decimals,
       rewardTokenDecimals:
         reserveIncentiveMock.reserveIncentive.aIncentiveData.rewardsTokenInformation[0]

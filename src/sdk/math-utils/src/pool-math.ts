@@ -215,7 +215,7 @@ export function calculateAvailableBorrowsMarketReferenceCurrency({
 
 interface MarketReferenceCurrencyAndUsdBalanceRequest {
   balance: BigNumberValue;
-  priceInMarketReferenceCurrency: BigNumberValue;
+  priceInEth: BigNumberValue;
   marketReferenceCurrencyDecimals: number;
   decimals: number;
   marketReferencePriceInUsdNormalized: BigNumberValue;
@@ -230,13 +230,13 @@ interface MarketReferenceAndUsdBalanceResponse {
  */
 export function getMarketReferenceCurrencyAndUsdBalance({
   balance,
-  priceInMarketReferenceCurrency,
+  priceInEth,
   marketReferenceCurrencyDecimals,
   decimals,
   marketReferencePriceInUsdNormalized,
 }: MarketReferenceCurrencyAndUsdBalanceRequest): MarketReferenceAndUsdBalanceResponse {
   const marketReferenceCurrencyBalance = valueToZDBigNumber(balance)
-    .multipliedBy(priceInMarketReferenceCurrency)
+    .multipliedBy(priceInEth)
     .shiftedBy(decimals * -1);
   const usdBalance = marketReferenceCurrencyBalance
     .multipliedBy(marketReferencePriceInUsdNormalized)

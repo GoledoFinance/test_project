@@ -121,7 +121,7 @@ describe('formatUserSummaryAndIncentives', () => {
   const marketReferenceCurrencyDecimals = 18;
   const reserveMock = new ReserveMock();
   const formattedReserves = formatReserves({
-    reserves: [{ ...reserveMock.reserve, priceInMarketReferenceCurrency: '0' }],
+    reserves: [{ ...reserveMock.reserve, priceInEth: '0' }],
     currentTimestamp: 0,
     marketReferenceCurrencyDecimals: 0,
     marketReferencePriceInUsd: '1',

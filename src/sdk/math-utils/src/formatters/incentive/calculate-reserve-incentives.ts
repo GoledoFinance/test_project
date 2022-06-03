@@ -5,14 +5,14 @@ import { ReservesIncentiveDataHumanized, RewardInfoHumanized } from './types';
 export interface CalculateReserveIncentivesRequest {
   reserves: Array<{
     underlyingAsset: string;
-    formattedPriceInMarketReferenceCurrency: string;
+    formattedPriceInETH: string;
   }>;
   reserveIncentiveData: ReservesIncentiveDataHumanized;
   totalLiquidity: string;
   totalVariableDebt: string;
   totalStableDebt: string;
   decimals: number;
-  priceInMarketReferenceCurrency: string; // Can be priced in ETH or USD depending on market
+  priceInEth: string; // Can be priced in ETH or USD depending on market
   marketReferenceCurrencyDecimals: number;
 }
 
@@ -31,7 +31,7 @@ export interface CalculateReserveIncentivesResponse {
 export function calculateRewardTokenPrice(
   reserves: Array<{
     underlyingAsset: string;
-    formattedPriceInMarketReferenceCurrency: string;
+    formattedPriceInETH: string;
   }>,
   address: string,
   priceFeed: string,
@@ -53,7 +53,7 @@ export function calculateRewardTokenPrice(
     (reserve) => reserve.underlyingAsset.toLowerCase() === address
   );
   if (rewardReserve) {
-    return rewardReserve.formattedPriceInMarketReferenceCurrency;
+    return rewardReserve.formattedPriceInETH;
   }
 
   return '0';
@@ -76,20 +76,20 @@ export function calculateReserveIncentives({
   totalVariableDebt,
   totalStableDebt,
   decimals,
-  priceInMarketReferenceCurrency,
+  priceInEth,
 }: CalculateReserveIncentivesRequest): CalculateReserveIncentivesResponse {
   const aIncentivesData: ReserveIncentiveResponse[] =
     reserveIncentiveData.aIncentiveData.rewardsTokenInformation.map((reward) => {
       const aIncentivesAPR = rewardEmissionActive(reward)
         ? calculateIncentiveAPR({
             emissionPerSecond: reward.emissionPerSecond,
-            rewardTokenPriceInMarketReferenceCurrency: calculateRewardTokenPrice(
+            rewardTokenPriceInETH: calculateRewardTokenPrice(
               reserves,
               reward.rewardTokenAddress,
               reward.rewardPriceFeed,
               reward.priceFeedDecimals
             ),
-            priceInMarketReferenceCurrency,
+            priceInEth,
             totalTokenSupply: totalLiquidity,
             decimals,
             rewardTokenDecimals: reward.rewardTokenDecimals,
@@ -107,13 +107,13 @@ export function calculateReserveIncentives({
       const vIncentivesAPR = rewardEmissionActive(reward)
         ? calculateIncentiveAPR({
             emissionPerSecond: reward.emissionPerSecond,
-            rewardTokenPriceInMarketReferenceCurrency: calculateRewardTokenPrice(
+            rewardTokenPriceInETH: calculateRewardTokenPrice(
               reserves,
               reward.rewardTokenAddress,
               reward.rewardPriceFeed,
               reward.priceFeedDecimals
             ),
-            priceInMarketReferenceCurrency,
+            priceInEth,
             totalTokenSupply: totalVariableDebt,
             decimals,
             rewardTokenDecimals: reward.rewardTokenDecimals,
@@ -131,13 +131,13 @@ export function calculateReserveIncentives({
       const sIncentivesAPR = rewardEmissionActive(reward)
         ? calculateIncentiveAPR({
             emissionPerSecond: reward.emissionPerSecond,
-            rewardTokenPriceInMarketReferenceCurrency: calculateRewardTokenPrice(
+            rewardTokenPriceInETH: calculateRewardTokenPrice(
               reserves,
               reward.rewardTokenAddress,
               reward.rewardPriceFeed,
               reward.priceFeedDecimals
             ),
-            priceInMarketReferenceCurrency,
+            priceInEth,
             totalTokenSupply: totalStableDebt,
             decimals,
             rewardTokenDecimals: reward.rewardTokenDecimals,

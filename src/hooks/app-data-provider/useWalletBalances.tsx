@@ -68,7 +68,7 @@ export const useWalletBalances = () => {
   // process data
   const walletBalances = balances?.walletBalances || [];
   const reserves = reservesData?.protocolData.reserves || [];
-  const ethPrice = reservesData?.protocolData.ethPrice || '0';
+  const marketReferencePriceInUsd = reservesData?.protocolData.marketReferencePriceInUsd || '0';
   let hasEmptyWallet = true;
   const aggregatedBalance = walletBalances.reduce((acc, reserve) => {
     const poolReserve = reserves.find((poolReserve) => {
@@ -87,9 +87,9 @@ export const useWalletBalances = () => {
         amountUSD: nativeToUSD({
           amount: new BigNumber(reserve.amount),
           currencyDecimals: poolReserve.decimals,
-          priceInMarketReferenceCurrency: poolReserve.priceInEth,
+          priceInEth: poolReserve.priceInEth,
           marketReferenceCurrencyDecimals: 18,
-          normalizedMarketReferencePriceInUsd: normalize(ethPrice, 18),
+          normalizedMarketReferencePriceInUsd: normalize(marketReferencePriceInUsd, 18),
         }),
       };
     }

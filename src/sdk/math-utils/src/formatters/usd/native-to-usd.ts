@@ -4,7 +4,7 @@ import { BigNumberValue, valueToBigNumber } from '../../bignumber';
 interface NativeToUSD {
   amount: BigNumber;
   currencyDecimals: number;
-  priceInMarketReferenceCurrency: BigNumberValue;
+  priceInEth: BigNumberValue;
   marketReferenceCurrencyDecimals: number;
   normalizedMarketReferencePriceInUsd: BigNumberValue;
 }
@@ -12,12 +12,12 @@ interface NativeToUSD {
 export function nativeToUSD({
   amount,
   currencyDecimals,
-  priceInMarketReferenceCurrency,
+  priceInEth,
   marketReferenceCurrencyDecimals,
   normalizedMarketReferencePriceInUsd,
 }: NativeToUSD) {
   return valueToBigNumber(amount.toString())
-    .multipliedBy(priceInMarketReferenceCurrency)
+    .multipliedBy(priceInEth)
     .multipliedBy(normalizedMarketReferencePriceInUsd)
     .dividedBy(new BigNumber(1).shiftedBy(currencyDecimals + marketReferenceCurrencyDecimals))
     .toString();

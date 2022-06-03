@@ -9,17 +9,9 @@ import {
   transactionType,
 } from '../commons/types';
 import { valueToWei } from '../commons/utils';
-import { WETHValidator } from '../commons/validators/methodValidators';
-import {
-  is0OrPositiveAmount,
-  isEthAddress,
-  isPositiveAmount,
-  isPositiveOrMinusOneAmount,
-} from '../commons/validators/paramValidators';
 import { BaseDebtToken, BaseDebtTokenInterface } from './BaseDebtToken';
 import { IERC20ServiceInterface } from './ERC20';
-import { WETHGateway } from '../typechain/WETHGateway';
-import { WETHGateway__factory } from '../typechain/factories/WETHGateway__factory';
+import { WETHGateway, WETHGateway__factory } from '../typechain';
 
 export type WETHDepositParamsType = {
   lendingPool: tEthereumAddress;
@@ -86,15 +78,13 @@ export class WETHGatewayService extends BaseService<WETHGateway> implements WETH
     this.borrowETH = this.borrowETH.bind(this);
   }
 
-  @WETHValidator
-  public depositETH(
-    @isEthAddress('lendingPool')
-    @isEthAddress('user')
-    @isEthAddress('onBehalfOf')
-    @isPositiveAmount('amount')
-    @is0OrPositiveAmount('referralCode')
-    { lendingPool, user, amount, onBehalfOf, referralCode }: WETHDepositParamsType
-  ): EthereumTransactionTypeExtended[] {
+  public depositETH({
+    lendingPool,
+    user,
+    amount,
+    onBehalfOf,
+    referralCode,
+  }: WETHDepositParamsType): EthereumTransactionTypeExtended[] {
     const convertedAmount: string = valueToWei(amount, 18);
 
     const wethGatewayContract: WETHGateway = this.getContractInstance(this.wethGatewayAddress);
@@ -118,22 +108,14 @@ export class WETHGatewayService extends BaseService<WETHGateway> implements WETH
     ];
   }
 
-  @WETHValidator
-  public async borrowETH(
-    @isEthAddress('lendingPool')
-    @isEthAddress('user')
-    @isPositiveAmount('amount')
-    @isEthAddress('debtTokenAddress')
-    @is0OrPositiveAmount('referralCode')
-    {
-      lendingPool,
-      user,
-      amount,
-      debtTokenAddress,
-      interestRateMode,
-      referralCode,
-    }: WETHBorrowParamsType
-  ): Promise<EthereumTransactionTypeExtended[]> {
+  public async borrowETH({
+    lendingPool,
+    user,
+    amount,
+    debtTokenAddress,
+    interestRateMode,
+    referralCode,
+  }: WETHBorrowParamsType): Promise<EthereumTransactionTypeExtended[]> {
     const txs: EthereumTransactionTypeExtended[] = [];
     const convertedAmount: string = valueToWei(amount, 18);
     const numericRateMode = interestRateMode === InterestRate.Variable ? 2 : 1;
@@ -179,15 +161,13 @@ export class WETHGatewayService extends BaseService<WETHGateway> implements WETH
     return txs;
   }
 
-  @WETHValidator
-  public async withdrawETH(
-    @isEthAddress('lendingPool')
-    @isEthAddress('user')
-    @isEthAddress('onBehalfOf')
-    @isPositiveOrMinusOneAmount('amount')
-    @isEthAddress('aTokenAddress')
-    { lendingPool, user, amount, onBehalfOf, aTokenAddress }: WETHWithdrawParamsType
-  ): Promise<EthereumTransactionTypeExtended[]> {
+  public async withdrawETH({
+    lendingPool,
+    user,
+    amount,
+    onBehalfOf,
+    aTokenAddress,
+  }: WETHWithdrawParamsType): Promise<EthereumTransactionTypeExtended[]> {
     const txs: EthereumTransactionTypeExtended[] = [];
     const { isApproved, approve }: IERC20ServiceInterface = this.erc20Service;
     const convertedAmount: string =
@@ -231,14 +211,13 @@ export class WETHGatewayService extends BaseService<WETHGateway> implements WETH
     return txs;
   }
 
-  @WETHValidator
-  public repayETH(
-    @isEthAddress('lendingPool')
-    @isEthAddress('user')
-    @isEthAddress('onBehalfOf')
-    @isPositiveAmount('amount')
-    { lendingPool, user, amount, interestRateMode, onBehalfOf }: WETHRepayParamsType
-  ): EthereumTransactionTypeExtended[] {
+  public repayETH({
+    lendingPool,
+    user,
+    amount,
+    interestRateMode,
+    onBehalfOf,
+  }: WETHRepayParamsType): EthereumTransactionTypeExtended[] {
     const convertedAmount: string = valueToWei(amount, 18);
     const numericRateMode = interestRateMode === InterestRate.Variable ? 2 : 1;
     const wethGatewayContract: WETHGateway = this.getContractInstance(this.wethGatewayAddress);

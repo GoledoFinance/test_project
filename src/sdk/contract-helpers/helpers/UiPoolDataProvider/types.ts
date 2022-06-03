@@ -92,7 +92,7 @@ export interface ReserveDataHumanized {
 
 export interface ReservesDataHumanized {
   reservesData: ReserveDataHumanized[];
-  ethPrice: string;
+  marketReferencePriceInUsd: string;
   emissionEndTimestamp: number;
 }
 

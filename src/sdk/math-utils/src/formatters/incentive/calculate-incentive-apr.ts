@@ -3,9 +3,9 @@ import { SECONDS_PER_YEAR, WEI_DECIMALS } from '../../constants';
 
 export interface CalculateIncentiveAPRRequest {
   emissionPerSecond: string;
-  rewardTokenPriceInMarketReferenceCurrency: string; // Can be priced in ETH or USD depending on market
+  rewardTokenPriceInETH: string; // Can be priced in ETH or USD depending on market
   totalTokenSupply: string;
-  priceInMarketReferenceCurrency: string; // Can be priced in ETH or USD depending on market
+  priceInEth: string; // Can be priced in ETH or USD depending on market
   decimals: number;
   rewardTokenDecimals: number;
 }
@@ -13,13 +13,13 @@ export interface CalculateIncentiveAPRRequest {
 // Calculate the APR for an incentive emission
 export function calculateIncentiveAPR({
   emissionPerSecond,
-  rewardTokenPriceInMarketReferenceCurrency,
-  priceInMarketReferenceCurrency,
+  rewardTokenPriceInETH,
+  priceInEth,
   totalTokenSupply,
   decimals,
 }: CalculateIncentiveAPRRequest): string {
   const emissionPerSecondNormalized = normalizeBN(emissionPerSecond, WEI_DECIMALS).multipliedBy(
-    rewardTokenPriceInMarketReferenceCurrency
+    rewardTokenPriceInETH
   );
 
   if (emissionPerSecondNormalized.eq(0)) {
@@ -30,7 +30,7 @@ export function calculateIncentiveAPR({
 
   const totalSupplyNormalized = valueToBigNumber(
     normalize(totalTokenSupply, decimals)
-  ).multipliedBy(priceInMarketReferenceCurrency);
+  ).multipliedBy(priceInEth);
 
   return emissionPerYear.dividedBy(totalSupplyNormalized).toFixed();
 }
