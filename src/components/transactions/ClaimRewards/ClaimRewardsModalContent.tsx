@@ -1,4 +1,4 @@
-import { normalize, UserIncentiveData } from '@aave/math-utils';
+import { normalize, UserIncentiveData } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Box, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';

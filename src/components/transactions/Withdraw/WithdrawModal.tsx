@@ -1,4 +1,4 @@
-import { PERMISSION } from '@aave/contract-helpers';
+import { PERMISSION } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import React, { useState, useEffect } from 'react';
 import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal';

@@ -1,4 +1,4 @@
-import { normalize, UserIncentiveData, valueToBigNumber } from '@aave/math-utils';
+import { normalize, UserIncentiveData, valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import * as React from 'react';

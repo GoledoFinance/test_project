@@ -1,5 +1,5 @@
-import { InterestRate } from '@aave/contract-helpers';
-import { USD_DECIMALS, valueToBigNumber } from '@aave/math-utils';
+import { InterestRate } from '@goledo-sdk/contract-helpers';
+import { USD_DECIMALS, valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { useRef, useState } from 'react';
 import {

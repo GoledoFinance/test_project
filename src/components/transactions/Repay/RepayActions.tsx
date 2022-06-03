@@ -1,4 +1,4 @@
-import { InterestRate, Pool } from '@aave/contract-helpers';
+import { InterestRate, Pool } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { BoxProps } from '@mui/material';
 import { utils } from 'ethers';

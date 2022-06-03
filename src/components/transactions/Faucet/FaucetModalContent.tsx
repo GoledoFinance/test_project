@@ -1,5 +1,5 @@
-import { mintAmountsPerToken } from '@aave/contract-helpers';
-import { normalize } from '@aave/math-utils';
+import { mintAmountsPerToken } from '@goledo-sdk/contract-helpers';
+import { normalize } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { useModalContext } from 'src/hooks/useModal';
 import { ERC20TokenType } from 'src/libs/web3-data-provider/Web3Provider';

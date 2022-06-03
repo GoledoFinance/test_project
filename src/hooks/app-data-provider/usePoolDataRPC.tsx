@@ -3,7 +3,7 @@ import {
   ReservesDataHumanized,
   UiPoolDataProvider,
   UserReserveDataHumanized,
-} from '@aave/contract-helpers';
+} from '@goledo-sdk/contract-helpers';
 import { useApolloClient } from '@apollo/client';
 import { useState } from 'react';
 import { getProvider } from 'src/utils/marketsAndNetworksConfig';
@@ -64,10 +64,8 @@ export function usePoolDataRPC(
           __typename: 'Query',
           protocolData: {
             __typename: 'ProtocolData',
-            baseCurrencyData: {
-              ...reservesResponse.baseCurrencyData,
-              __typename: 'BaseCurrencyData',
-            },
+            ethPrice: reservesResponse.ethPrice,
+            emissionEndTimestamp: reservesResponse.emissionEndTimestamp,
             reserves: reservesResponse.reservesData.map((reserve) => ({
               ...reserve,
               __typename: 'ReserveData',

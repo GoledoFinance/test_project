@@ -2,21 +2,6 @@
 # yarn lockfile v1
 
 
-"@aave/contract-helpers@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@aave/contract-helpers/-/contract-helpers-1.2.1.tgz#c6f3e217a5ebe09d6ddc4479fa3653f585283b8b"
-  integrity sha512-3hjPQOJojOPcK0sLh3v2DOqOWzgnYD1QvwxrlP72RShXkmnHFkQaCDDsSwKPIVSQP6wJD0RFETeLacmTYl8Plg==
-  dependencies:
-    isomorphic-unfetch "^3.1.0"
-
-"@aave/math-utils@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@aave/math-utils/-/math-utils-1.2.1.tgz#ef3c68c119606e39f16f6fb0714c18c120a443e0"
-  integrity sha512-fMAY23mKYsnHaASIdIiW42nLYFivpuvegbrslgEbL7PRPQJ9akAg1c/FovLUZ/xBFxxtpMy74zeAsZm5JIjDgg==
-  dependencies:
-    bignumber.js "^9.0.1"
-    tslib "^2.3.1"
-
 "@ampproject/remapping@^2.1.0":
   version "2.1.2"
   resolved "https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.1.2.tgz"
@@ -8754,7 +8739,7 @@ isomorphic-fetch@^3.0.0:
 
 isomorphic-unfetch@^3.1.0:
   version "3.1.0"
-  resolved "https://registry.npmjs.org/isomorphic-unfetch/-/isomorphic-unfetch-3.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/isomorphic-unfetch/-/isomorphic-unfetch-3.1.0.tgz#87341d5f4f7b63843d468438128cb087b7c3e98f"
   integrity sha512-geDJjpoZ8N0kWexiwkX8F9NkTsXhetLPVbZFQ+JTW239QNOwvB0gniuR1Wc6f0AMTn7/mFGyXvHTifrCp/GH8Q==
   dependencies:
     node-fetch "^2.6.1"
@@ -12309,7 +12294,7 @@ tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2, tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.3.1, tslib@~2.3.0:
+tslib@^2, tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@~2.3.0:
   version "2.3.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
@@ -12414,7 +12399,7 @@ undici@^4.9.3:
 
 unfetch@^4.2.0:
   version "4.2.0"
-  resolved "https://registry.npmjs.org/unfetch/-/unfetch-4.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/unfetch/-/unfetch-4.2.0.tgz#7e21b0ef7d363d8d9af0fb929a5555f6ef97a3be"
   integrity sha512-F9p7yYCn6cIW9El1zi0HI6vqpeIvBsr3dSuRO6Xuppb1u5rXpCPmMvLSyECLhybr9isec8Ohl0hPekMVrEinDA==
 
 unicode-canonical-property-names-ecmascript@^2.0.0:

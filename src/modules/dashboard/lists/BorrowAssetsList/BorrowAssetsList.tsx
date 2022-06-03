@@ -1,5 +1,5 @@
-import { API_ETH_MOCK_ADDRESS, InterestRate } from '@aave/contract-helpers';
-import { USD_DECIMALS, valueToBigNumber } from '@aave/math-utils';
+import { API_ETH_MOCK_ADDRESS, InterestRate } from '@goledo-sdk/contract-helpers';
+import { USD_DECIMALS, valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Alert, Box, useMediaQuery, useTheme } from '@mui/material';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';

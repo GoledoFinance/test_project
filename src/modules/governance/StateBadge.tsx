@@ -1,4 +1,4 @@
-import { ProposalState } from '@aave/contract-helpers';
+import { ProposalState } from '@goledo-sdk/contract-helpers';
 import { alpha, experimental_sx, Skeleton, styled } from '@mui/material';
 
 interface StateBadgeProps {

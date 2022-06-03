@@ -1,5 +1,5 @@
-import { API_ETH_MOCK_ADDRESS, WalletBalanceProvider } from '@aave/contract-helpers';
-import { nativeToUSD, normalize, USD_DECIMALS } from '@aave/math-utils';
+import { API_ETH_MOCK_ADDRESS, WalletBalanceProvider } from '@goledo-sdk/contract-helpers';
+import { nativeToUSD, normalize } from '@goledo-sdk/math-utils';
 import { useApolloClient, useQuery } from '@apollo/client';
 import { BigNumber } from 'bignumber.js';
 import { gql } from 'graphql-tag';
@@ -68,12 +68,7 @@ export const useWalletBalances = () => {
   // process data
   const walletBalances = balances?.walletBalances || [];
   const reserves = reservesData?.protocolData.reserves || [];
-  const baseCurrencyData = reservesData?.protocolData.baseCurrencyData || {
-    marketReferenceCurrencyDecimals: 0,
-    marketReferenceCurrencyPriceInUsd: '0',
-    networkBaseTokenPriceInUsd: '0',
-    networkBaseTokenPriceDecimals: 0,
-  };
+  const ethPrice = reservesData?.protocolData.ethPrice || '0';
   let hasEmptyWallet = true;
   const aggregatedBalance = walletBalances.reduce((acc, reserve) => {
     const poolReserve = reserves.find((poolReserve) => {
@@ -92,12 +87,9 @@ export const useWalletBalances = () => {
         amountUSD: nativeToUSD({
           amount: new BigNumber(reserve.amount),
           currencyDecimals: poolReserve.decimals,
-          priceInMarketReferenceCurrency: poolReserve.priceInMarketReferenceCurrency,
-          marketReferenceCurrencyDecimals: baseCurrencyData.marketReferenceCurrencyDecimals,
-          normalizedMarketReferencePriceInUsd: normalize(
-            baseCurrencyData.marketReferenceCurrencyPriceInUsd,
-            USD_DECIMALS
-          ),
+          priceInMarketReferenceCurrency: poolReserve.priceInEth,
+          marketReferenceCurrencyDecimals: 18,
+          normalizedMarketReferencePriceInUsd: normalize(ethPrice, 18),
         }),
       };
     }
@@ -116,7 +108,7 @@ export const useUpdateWalletBalances = () => {
   const { currentMarketData, jsonRpcProvider, currentChainId } = useProtocolDataContext();
 
   const fetchWalletData = useCallback(async () => {
-    if (!currentAccount) return;
+    if (!currentAccount || !jsonRpcProvider || !cache) return;
     const contract = new WalletBalanceProvider({
       walletBalanceProviderAddress: currentMarketData.addresses.WALLET_BALANCE_PROVIDER,
       provider: jsonRpcProvider,
@@ -142,7 +134,14 @@ export const useUpdateWalletBalances = () => {
         chainId: currentChainId,
       },
     });
-  }, [currentChainId, currentAccount, currentMarketData.addresses.LENDING_POOL_ADDRESS_PROVIDER]);
+  }, [
+    currentChainId,
+    cache,
+    currentAccount,
+    jsonRpcProvider,
+    currentMarketData.addresses.WALLET_BALANCE_PROVIDER,
+    currentMarketData.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+  ]);
 
   usePolling(fetchWalletData, 30000, !currentAccount, [
     currentAccount,

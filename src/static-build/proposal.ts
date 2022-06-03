@@ -1,4 +1,4 @@
-import { Proposal as ProposalType } from '@aave/contract-helpers';
+import { Proposal as ProposalType } from '@goledo-sdk/contract-helpers';
 import lodash from 'lodash';
 import { JSONFileSync, LowSync } from 'lowdb';
 import { join } from 'path';

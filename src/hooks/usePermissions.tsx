@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { PermissionManager, PERMISSION } from '@aave/contract-helpers';
+import { PermissionManager, PERMISSION } from '@goledo-sdk/contract-helpers';
 
 import { useProtocolDataContext } from './useProtocolDataContext';
 import { getProvider, isFeatureEnabled } from 'src/utils/marketsAndNetworksConfig';

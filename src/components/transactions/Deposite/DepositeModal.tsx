@@ -1,4 +1,4 @@
-import { PERMISSION } from '@aave/contract-helpers';
+import { PERMISSION } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { Typography, Box, Stack } from '@mui/material';
 import React, { useState, ReactNode } from 'react';

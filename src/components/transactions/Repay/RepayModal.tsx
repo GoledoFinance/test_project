@@ -1,4 +1,4 @@
-import { InterestRate, PERMISSION } from '@aave/contract-helpers';
+import { InterestRate, PERMISSION } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import React from 'react';
 import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal';

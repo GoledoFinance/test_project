@@ -1,5 +1,5 @@
-import { InterestRate } from '@aave/contract-helpers';
-import { FormatUserSummaryAndIncentivesResponse, valueToBigNumber } from '@aave/math-utils';
+import { InterestRate } from '@goledo-sdk/contract-helpers';
+import { FormatUserSummaryAndIncentivesResponse, valueToBigNumber } from '@goledo-sdk/math-utils';
 import BigNumber from 'bignumber.js';
 
 import {

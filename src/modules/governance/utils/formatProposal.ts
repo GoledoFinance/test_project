@@ -1,5 +1,5 @@
-import { ChainId, Proposal } from '@aave/contract-helpers';
-import { normalizeBN } from '@aave/math-utils';
+import { ChainId, Proposal } from '@goledo-sdk/contract-helpers';
+import { normalizeBN } from '@goledo-sdk/math-utils';
 import BigNumber from 'bignumber.js';
 import { getProvider } from 'src/utils/marketsAndNetworksConfig';
 

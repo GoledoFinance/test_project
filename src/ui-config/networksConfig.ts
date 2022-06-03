@@ -1,4 +1,4 @@
-import { ChainId } from '@aave/contract-helpers';
+import { ChainId } from '@goledo-sdk/contract-helpers';
 
 export type ExplorerLinkBuilderProps = {
   tx?: string;
@@ -329,6 +329,23 @@ export const networkConfigs: Record<string, BaseNetworkConfig> = {
       icon: '/icons/bridge/fantom.svg',
       name: 'Fantom Bridge',
       url: 'https://app.multichain.org/#/router',
+    },
+  },
+  [ChainId.conflux_espace_testnet]: {
+    name: 'Conflux eSpace Testnet',
+    publicJsonRPCUrl: ['https://evmtestnet.confluxrpc.com/'],
+    publicJsonRPCWSUrl: '',
+    baseUniswapAdapter: '0x0',
+    baseAssetSymbol: 'CFX',
+    wrappedBaseAssetSymbol: 'WCFX',
+    baseAssetDecimals: 18,
+    explorerLink: 'https://evmtestnet.confluxscan.net/',
+    isTestnet: true,
+    networkLogoPath: '/icons/networks/conflux.svg',
+    bridge: {
+      icon: '/icons/networks/conflux.svg',
+      name: 'Conflux Bridge',
+      url: 'https://conflux.multichain.org/',
     },
   },
 } as const;

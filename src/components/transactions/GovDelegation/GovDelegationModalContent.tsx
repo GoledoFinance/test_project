@@ -1,4 +1,4 @@
-import { canBeEnsAddress } from '@aave/contract-helpers';
+import { canBeEnsAddress } from '@goledo-sdk/contract-helpers';
 import { Trans, t } from '@lingui/macro';
 import { FormControl, TextField, Typography } from '@mui/material';
 import { utils } from 'ethers';

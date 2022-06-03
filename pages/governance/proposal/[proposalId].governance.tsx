@@ -1,4 +1,4 @@
-import { normalize } from '@aave/math-utils';
+import { normalize } from '@goledo-sdk/math-utils';
 import { DownloadIcon, ExternalLinkIcon } from '@heroicons/react/solid';
 import { Trans } from '@lingui/macro';
 import { Twitter } from '@mui/icons-material';

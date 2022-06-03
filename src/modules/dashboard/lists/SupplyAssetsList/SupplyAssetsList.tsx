@@ -1,5 +1,5 @@
-import { API_ETH_MOCK_ADDRESS } from '@aave/contract-helpers';
-import { USD_DECIMALS, valueToBigNumber } from '@aave/math-utils';
+import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
+import { USD_DECIMALS, valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Button, Box, useMediaQuery, useTheme, SvgIcon } from '@mui/material';
 import BigNumber from 'bignumber.js';
@@ -32,6 +32,8 @@ export const SupplyAssetsList = () => {
   const { walletBalances, loading } = useWalletBalances();
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
+
+  console.log('walletBalances', walletBalances, loading);
 
   const {
     bridge,

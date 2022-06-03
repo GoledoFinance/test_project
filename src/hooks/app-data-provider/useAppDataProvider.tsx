@@ -1,11 +1,11 @@
-import { ReserveDataHumanized } from '@aave/contract-helpers';
+import { ReserveDataHumanized } from '@goledo-sdk/contract-helpers';
 import {
   ComputedUserReserve,
   formatReservesAndIncentives,
   formatUserSummaryAndIncentives,
   FormatUserSummaryAndIncentivesResponse,
   UserReserveData,
-} from '@aave/math-utils';
+} from '@goledo-sdk/math-utils';
 import BigNumber from 'bignumber.js';
 import React, { useContext } from 'react';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
