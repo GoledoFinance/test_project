@@ -14,16 +14,11 @@ export const DepositeModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
     underlyingAsset: string;
   }>;
-  const [withdrawUnWrapped] = useState(true);
   const { step, setStep } = useStep(type);
 
   return (
     <BasicModal open={type === ModalType.Deposite} setOpen={close} contentMaxWidth={740}>
-      <ModalWrapper
-        title={<Trans>Desposit</Trans>}
-        underlyingAsset={args.underlyingAsset}
-        keepWrappedSymbol={!withdrawUnWrapped}
-      >
+      <ModalWrapper title={<Trans>Desposit</Trans>} underlyingAsset={args.underlyingAsset}>
         {(params) => {
           return (
             <>

@@ -12,9 +12,7 @@ export type SupplyAssetsItem = {
   supplyAPY: number | string;
   aIncentivesData?: ReserveIncentiveResponse[];
   isFreezed?: boolean;
-  isIsolated: boolean;
   totalLiquidity: string;
-  supplyCap: string;
   isActive?: boolean;
   usageAsCollateralEnabledOnUser: boolean;
   detailsAddress: string;

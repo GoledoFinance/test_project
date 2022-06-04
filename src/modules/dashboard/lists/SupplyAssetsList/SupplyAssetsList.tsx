@@ -48,14 +48,6 @@ export const SupplyAssetsList = () => {
         .multipliedBy(marketReferencePriceInUsd)
         .shiftedBy(-USD_DECIMALS)
         .toString();
-      console.log(
-        'usd',
-        reserve.name,
-        walletBalance?.toString(),
-        availableToDeposit?.toString(),
-        reserve.priceInEth,
-        marketReferencePriceInUsd
-      );
 
       const usageAsCollateralEnabledOnUser = reserve.usageAsCollateralEnabled;
       if (reserve.isWrappedBaseAsset) {
@@ -147,9 +139,12 @@ export const SupplyAssetsList = () => {
               {filteredSupplyReserves.length === 0 && (
                 <Alert severity="info">
                   <Trans>Your {networkName} wallet is empty. Purchase or transfer assets</Trans>{' '}
-                  {bridge && (
+                  {bridge.length > 0 && (
                     <Trans>
-                      or use {<Link href={bridge.url}>{bridge.name}</Link>} to transfer your ETH
+                      {/* TODO: change to bridge.map */}
+                      or use {<Link href={bridge[0].url}>{bridge[0].name}</Link>},{' '}
+                      {<Link href={bridge[1].url}>{bridge[1].name}</Link>} or{' '}
+                      {<Link href={bridge[2].url}>{bridge[2].name}</Link>} to transfer your ETH
                       assets.
                     </Trans>
                   )}

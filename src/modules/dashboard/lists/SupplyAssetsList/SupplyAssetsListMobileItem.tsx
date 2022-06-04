@@ -19,11 +19,9 @@ export const SupplyAssetsListMobileItem = ({
   name,
   walletBalance,
   walletBalanceUSD,
-  supplyCap,
   totalLiquidity,
   supplyAPY,
   aIncentivesData,
-  isIsolated,
   usageAsCollateralEnabledOnUser,
   isActive,
   isFreezed,
@@ -49,7 +47,7 @@ export const SupplyAssetsListMobileItem = ({
         capsComponent={
           <CapsHint
             capType={CapType.supplyCap}
-            capAmount={supplyCap}
+            capAmount={'0'}
             totalAmount={totalLiquidity}
             withoutText
           />
@@ -77,7 +75,7 @@ export const SupplyAssetsListMobileItem = ({
         mb={2}
       >
         <ListItemCanBeCollateral
-          isIsolated={isIsolated}
+          isIsolated={false}
           usageAsCollateralEnabled={usageAsCollateralEnabledOnUser}
         />
       </Row>
