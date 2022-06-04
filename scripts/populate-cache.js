@@ -36958,7 +36958,7 @@ var require_IUiPoolDataProviderV3_factory = __commonJS({
               },
               {
                 internalType: "uint256",
-                name: "priceInMarketReferenceCurrency",
+                name: "priceInEth",
                 type: "uint256"
               },
               {
@@ -37315,7 +37315,7 @@ var require_v3_UiPoolDataProvider_contract = __commonJS({
             averageStableRate: reserveRaw.averageStableRate.toString(),
             stableDebtLastUpdateTimestamp: reserveRaw.stableDebtLastUpdateTimestamp.toNumber(),
             totalScaledVariableDebt: reserveRaw.totalScaledVariableDebt.toString(),
-            priceInMarketReferenceCurrency: reserveRaw.priceInMarketReferenceCurrency.toString(),
+            priceInEth: reserveRaw.priceInEth.toString(),
             priceOracle: reserveRaw.priceOracle,
             variableRateSlope1: reserveRaw.variableRateSlope1.toString(),
             variableRateSlope2: reserveRaw.variableRateSlope2.toString(),
@@ -60363,8 +60363,8 @@ var require_pool_math = __commonJS({
       return availableBorrowsMarketReferenceCurrency.gt("0") ? availableBorrowsMarketReferenceCurrency : (0, bignumber_1.valueToZDBigNumber)("0");
     }
     exports2.calculateAvailableBorrowsMarketReferenceCurrency = calculateAvailableBorrowsMarketReferenceCurrency;
-    function getMarketReferenceCurrencyAndUsdBalance({ balance, priceInMarketReferenceCurrency, marketReferenceCurrencyDecimals, decimals, marketReferencePriceInUsdNormalized }) {
-      const marketReferenceCurrencyBalance = (0, bignumber_1.valueToZDBigNumber)(balance).multipliedBy(priceInMarketReferenceCurrency).shiftedBy(decimals * -1);
+    function getMarketReferenceCurrencyAndUsdBalance({ balance, priceInEth, marketReferenceCurrencyDecimals, decimals, marketReferencePriceInUsdNormalized }) {
+      const marketReferenceCurrencyBalance = (0, bignumber_1.valueToZDBigNumber)(balance).multipliedBy(priceInEth).shiftedBy(decimals * -1);
       const usdBalance = marketReferenceCurrencyBalance.multipliedBy(marketReferencePriceInUsdNormalized).shiftedBy(marketReferenceCurrencyDecimals * -1);
       return { marketReferenceCurrencyBalance, usdBalance };
     }
@@ -60549,13 +60549,13 @@ var require_calculate_incentive_apr = __commonJS({
     exports2.calculateIncentiveAPR = void 0;
     var bignumber_1 = require_bignumber3();
     var constants_1 = require_constants2();
-    function calculateIncentiveAPR({ emissionPerSecond, rewardTokenPriceInMarketReferenceCurrency, priceInMarketReferenceCurrency, totalTokenSupply, decimals }) {
-      const emissionPerSecondNormalized = (0, bignumber_1.normalizeBN)(emissionPerSecond, constants_1.WEI_DECIMALS).multipliedBy(rewardTokenPriceInMarketReferenceCurrency);
+    function calculateIncentiveAPR({ emissionPerSecond, rewardTokenPriceInETH, priceInEth, totalTokenSupply, decimals }) {
+      const emissionPerSecondNormalized = (0, bignumber_1.normalizeBN)(emissionPerSecond, constants_1.WEI_DECIMALS).multipliedBy(rewardTokenPriceInETH);
       if (emissionPerSecondNormalized.eq(0)) {
         return "0";
       }
       const emissionPerYear = emissionPerSecondNormalized.multipliedBy(constants_1.SECONDS_PER_YEAR);
-      const totalSupplyNormalized = (0, bignumber_1.valueToBigNumber)((0, bignumber_1.normalize)(totalTokenSupply, decimals)).multipliedBy(priceInMarketReferenceCurrency);
+      const totalSupplyNormalized = (0, bignumber_1.valueToBigNumber)((0, bignumber_1.normalize)(totalTokenSupply, decimals)).multipliedBy(priceInEth);
       return emissionPerYear.dividedBy(totalSupplyNormalized).toFixed();
     }
     exports2.calculateIncentiveAPR = calculateIncentiveAPR;
@@ -60580,17 +60580,17 @@ var require_calculate_reserve_incentives = __commonJS({
       }
       const rewardReserve = reserves.find((reserve) => reserve.underlyingAsset.toLowerCase() === address);
       if (rewardReserve) {
-        return rewardReserve.formattedPriceInMarketReferenceCurrency;
+        return rewardReserve.formattedPriceInETH;
       }
       return "0";
     }
     exports2.calculateRewardTokenPrice = calculateRewardTokenPrice;
-    function calculateReserveIncentives({ reserves, reserveIncentiveData, totalLiquidity, totalVariableDebt, totalStableDebt, decimals, priceInMarketReferenceCurrency }) {
+    function calculateReserveIncentives({ reserves, reserveIncentiveData, totalLiquidity, totalVariableDebt, totalStableDebt, decimals, priceInEth }) {
       const aIncentivesData = reserveIncentiveData.aIncentiveData.rewardsTokenInformation.map((reward) => {
         const aIncentivesAPR = (0, calculate_incentive_apr_1.calculateIncentiveAPR)({
           emissionPerSecond: reward.emissionPerSecond,
-          rewardTokenPriceInMarketReferenceCurrency: calculateRewardTokenPrice(reserves, reward.rewardTokenAddress, reward.rewardPriceFeed, reward.priceFeedDecimals),
-          priceInMarketReferenceCurrency,
+          rewardTokenPriceInETH: calculateRewardTokenPrice(reserves, reward.rewardTokenAddress, reward.rewardPriceFeed, reward.priceFeedDecimals),
+          priceInEth,
           totalTokenSupply: totalLiquidity,
           decimals,
           rewardTokenDecimals: reward.rewardTokenDecimals
@@ -60605,8 +60605,8 @@ var require_calculate_reserve_incentives = __commonJS({
       const vIncentivesData = reserveIncentiveData.vIncentiveData.rewardsTokenInformation.map((reward) => {
         const vIncentivesAPR = (0, calculate_incentive_apr_1.calculateIncentiveAPR)({
           emissionPerSecond: reward.emissionPerSecond,
-          rewardTokenPriceInMarketReferenceCurrency: calculateRewardTokenPrice(reserves, reward.rewardTokenAddress, reward.rewardPriceFeed, reward.priceFeedDecimals),
-          priceInMarketReferenceCurrency,
+          rewardTokenPriceInETH: calculateRewardTokenPrice(reserves, reward.rewardTokenAddress, reward.rewardPriceFeed, reward.priceFeedDecimals),
+          priceInEth,
           totalTokenSupply: totalVariableDebt,
           decimals,
           rewardTokenDecimals: reward.rewardTokenDecimals
@@ -60621,8 +60621,8 @@ var require_calculate_reserve_incentives = __commonJS({
       const sIncentivesData = reserveIncentiveData.sIncentiveData.rewardsTokenInformation.map((reward) => {
         const sIncentivesAPR = (0, calculate_incentive_apr_1.calculateIncentiveAPR)({
           emissionPerSecond: reward.emissionPerSecond,
-          rewardTokenPriceInMarketReferenceCurrency: calculateRewardTokenPrice(reserves, reward.rewardTokenAddress, reward.rewardPriceFeed, reward.priceFeedDecimals),
-          priceInMarketReferenceCurrency,
+          rewardTokenPriceInETH: calculateRewardTokenPrice(reserves, reward.rewardTokenAddress, reward.rewardPriceFeed, reward.priceFeedDecimals),
+          priceInEth,
           totalTokenSupply: totalStableDebt,
           decimals,
           rewardTokenDecimals: reward.rewardTokenDecimals
@@ -60663,7 +60663,7 @@ var require_calculate_all_reserve_incentives = __commonJS({
             totalLiquidity: reserve.totalLiquidity,
             totalVariableDebt: reserve.totalVariableDebt,
             totalStableDebt: reserve.totalStableDebt,
-            priceInMarketReferenceCurrency: reserve.formattedPriceInMarketReferenceCurrency,
+            priceInEth: reserve.formattedPriceInETH,
             decimals: reserve.decimals,
             marketReferenceCurrencyDecimals
           });
@@ -60840,7 +60840,7 @@ var require_generate_user_reserve_summary = __commonJS({
     var pool_math_1 = require_pool_math();
     function generateUserReserveSummary({ userReserve, marketReferencePriceInUsdNormalized, marketReferenceCurrencyDecimals, currentTimestamp }) {
       const poolReserve = userReserve.reserve;
-      const { priceInMarketReferenceCurrency, decimals } = poolReserve;
+      const { priceInEth, decimals } = poolReserve;
       const underlyingBalance = (0, pool_math_1.getLinearBalance)({
         balance: userReserve.scaledATokenBalance,
         index: poolReserve.liquidityIndex,
@@ -60850,7 +60850,7 @@ var require_generate_user_reserve_summary = __commonJS({
       });
       const { marketReferenceCurrencyBalance: underlyingBalanceMarketReferenceCurrency, usdBalance: underlyingBalanceUSD } = (0, pool_math_1.getMarketReferenceCurrencyAndUsdBalance)({
         balance: underlyingBalance,
-        priceInMarketReferenceCurrency,
+        priceInEth,
         marketReferenceCurrencyDecimals,
         decimals,
         marketReferencePriceInUsdNormalized
@@ -60864,7 +60864,7 @@ var require_generate_user_reserve_summary = __commonJS({
       });
       const { marketReferenceCurrencyBalance: variableBorrowsMarketReferenceCurrency, usdBalance: variableBorrowsUSD } = (0, pool_math_1.getMarketReferenceCurrencyAndUsdBalance)({
         balance: variableBorrows,
-        priceInMarketReferenceCurrency,
+        priceInEth,
         marketReferenceCurrencyDecimals,
         decimals,
         marketReferencePriceInUsdNormalized
@@ -60877,7 +60877,7 @@ var require_generate_user_reserve_summary = __commonJS({
       });
       const { marketReferenceCurrencyBalance: stableBorrowsMarketReferenceCurrency, usdBalance: stableBorrowsUSD } = (0, pool_math_1.getMarketReferenceCurrencyAndUsdBalance)({
         balance: stableBorrows,
-        priceInMarketReferenceCurrency,
+        priceInEth,
         marketReferenceCurrencyDecimals,
         decimals,
         marketReferencePriceInUsdNormalized
@@ -60988,8 +60988,8 @@ var require_native_to_usd = __commonJS({
     var tslib_1 = require_tslib();
     var bignumber_js_1 = (0, tslib_1.__importDefault)(require_bignumber2());
     var bignumber_1 = require_bignumber3();
-    function nativeToUSD({ amount, currencyDecimals, priceInMarketReferenceCurrency, marketReferenceCurrencyDecimals, normalizedMarketReferencePriceInUsd }) {
-      return (0, bignumber_1.valueToBigNumber)(amount.toString()).multipliedBy(priceInMarketReferenceCurrency).multipliedBy(normalizedMarketReferencePriceInUsd).dividedBy(new bignumber_js_1.default(1).shiftedBy(currencyDecimals + marketReferenceCurrencyDecimals)).toString();
+    function nativeToUSD({ amount, currencyDecimals, priceInEth, marketReferenceCurrencyDecimals, normalizedMarketReferencePriceInUsd }) {
+      return (0, bignumber_1.valueToBigNumber)(amount.toString()).multipliedBy(priceInEth).multipliedBy(normalizedMarketReferencePriceInUsd).dividedBy(new bignumber_js_1.default(1).shiftedBy(currencyDecimals + marketReferenceCurrencyDecimals)).toString();
     }
     exports2.nativeToUSD = nativeToUSD;
   }
@@ -61150,44 +61150,44 @@ var require_reserve = __commonJS({
           amount: computedFields.totalLiquidity,
           currencyDecimals: reserve.decimals,
           marketReferenceCurrencyDecimals,
-          priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+          priceInEth: reserve.priceInEth,
           normalizedMarketReferencePriceInUsd
         }),
         availableLiquidityUSD: (0, native_to_usd_1.nativeToUSD)({
           amount: computedFields.formattedAvailableLiquidity,
           currencyDecimals: reserve.decimals,
           marketReferenceCurrencyDecimals,
-          priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+          priceInEth: reserve.priceInEth,
           normalizedMarketReferencePriceInUsd
         }),
         totalDebtUSD: (0, native_to_usd_1.nativeToUSD)({
           amount: computedFields.totalDebt,
           currencyDecimals: reserve.decimals,
           marketReferenceCurrencyDecimals,
-          priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+          priceInEth: reserve.priceInEth,
           normalizedMarketReferencePriceInUsd
         }),
         totalVariableDebtUSD: (0, native_to_usd_1.nativeToUSD)({
           amount: computedFields.totalVariableDebt,
           currencyDecimals: reserve.decimals,
           marketReferenceCurrencyDecimals,
-          priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+          priceInEth: reserve.priceInEth,
           normalizedMarketReferencePriceInUsd
         }),
         totalStableDebtUSD: (0, native_to_usd_1.nativeToUSD)({
           amount: computedFields.totalStableDebt,
           currencyDecimals: reserve.decimals,
           marketReferenceCurrencyDecimals,
-          priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+          priceInEth: reserve.priceInEth,
           normalizedMarketReferencePriceInUsd
         }),
-        formattedPriceInMarketReferenceCurrency: (0, bignumber_1.normalize)(reserve.priceInMarketReferenceCurrency, marketReferenceCurrencyDecimals),
-        priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+        formattedPriceInETH: (0, bignumber_1.normalize)(reserve.priceInEth, marketReferenceCurrencyDecimals),
+        priceInEth: reserve.priceInEth,
         priceInUSD: (0, native_to_usd_1.nativeToUSD)({
           amount: new bignumber_js_1.default(1).shiftedBy(reserve.decimals),
           currencyDecimals: reserve.decimals,
           marketReferenceCurrencyDecimals,
-          priceInMarketReferenceCurrency: reserve.priceInMarketReferenceCurrency,
+          priceInEth: reserve.priceInEth,
           normalizedMarketReferencePriceInUsd
         }),
         borrowCapUSD: (0, normalized_to_usd_1.normalizedToUsd)(new bignumber_js_1.default(reserve.borrowCap), marketReferencePriceInUsd, marketReferenceCurrencyDecimals).toString(),
@@ -61225,7 +61225,7 @@ var require_reserve = __commonJS({
           totalLiquidity: (0, bignumber_1.normalize)(reserve.totalLiquidity, -reserve.decimals),
           totalVariableDebt: (0, bignumber_1.normalize)(reserve.totalVariableDebt, -reserve.decimals),
           totalStableDebt: (0, bignumber_1.normalize)(reserve.totalStableDebt, -reserve.decimals),
-          priceInMarketReferenceCurrency: reserve.formattedPriceInMarketReferenceCurrency,
+          priceInEth: reserve.formattedPriceInETH,
           decimals: reserve.decimals,
           marketReferenceCurrencyDecimals
         });

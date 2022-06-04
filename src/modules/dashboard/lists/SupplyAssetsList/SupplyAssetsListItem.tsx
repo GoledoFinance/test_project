@@ -20,19 +20,17 @@ export const SupplyAssetsListItem = ({
   name,
   walletBalance,
   walletBalanceUSD,
-  supplyCap,
   totalLiquidity,
   supplyAPY,
   aIncentivesData,
   underlyingAsset,
   isActive,
   isFreezed,
-  isIsolated,
   usageAsCollateralEnabledOnUser,
   detailsAddress,
 }: SupplyAssetsItem) => {
   const { currentMarket } = useProtocolDataContext();
-  const { openDeposit } = useModalContext();
+  const { openSupply } = useModalContext();
   return (
     <ListItemWrapper
       symbol={symbol}
@@ -51,7 +49,7 @@ export const SupplyAssetsListItem = ({
         capsComponent={
           <CapsHint
             capType={CapType.supplyCap}
-            capAmount={supplyCap}
+            capAmount={'0'}
             totalAmount={totalLiquidity}
             withoutText
           />
@@ -62,7 +60,7 @@ export const SupplyAssetsListItem = ({
 
       <ListColumn>
         <ListItemCanBeCollateral
-          isIsolated={isIsolated}
+          isIsolated={false}
           usageAsCollateralEnabled={usageAsCollateralEnabledOnUser}
         />
       </ListColumn>
@@ -72,9 +70,9 @@ export const SupplyAssetsListItem = ({
           sx={{ height: 32 }}
           disabled={!isActive || isFreezed || Number(walletBalance) <= 0}
           variant="contained"
-          onClick={() => openDeposit(underlyingAsset)}
+          onClick={() => openSupply(underlyingAsset)}
         >
-          <Trans>Deposit</Trans>
+          <Trans>Supply</Trans>
         </Button>
         <Button
           sx={{ height: 32 }}

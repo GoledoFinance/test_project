@@ -3,7 +3,7 @@ import {
   ReservesIncentiveDataHumanized,
   UiIncentiveDataProvider,
   UserReservesIncentivesDataHumanized,
-} from '@aave/contract-helpers';
+} from '@goledo-sdk/contract-helpers';
 import { useApolloClient } from '@apollo/client';
 import { useState } from 'react';
 import { getProvider } from 'src/utils/marketsAndNetworksConfig';

@@ -1,4 +1,4 @@
-import { ChainId } from '@aave/contract-helpers';
+import { ChainId } from '@goledo-sdk/contract-helpers';
 import makeBlockie from 'ethereum-blockies-base64';
 import { utils } from 'ethers';
 import { useEffect, useState } from 'react';

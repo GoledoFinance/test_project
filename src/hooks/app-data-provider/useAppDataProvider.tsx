@@ -1,11 +1,11 @@
-import { ReserveDataHumanized } from '@aave/contract-helpers';
+import { ReserveDataHumanized } from '@goledo-sdk/contract-helpers';
 import {
   ComputedUserReserve,
   formatReservesAndIncentives,
   formatUserSummaryAndIncentives,
   FormatUserSummaryAndIncentivesResponse,
   UserReserveData,
-} from '@aave/math-utils';
+} from '@goledo-sdk/math-utils';
 import BigNumber from 'bignumber.js';
 import React, { useContext } from 'react';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
@@ -32,7 +32,6 @@ export const unPrefixSymbol = (symbol: string, prefix: string) => {
 export type ComputedReserveData = ReturnType<typeof formatReservesAndIncentives>[0] &
   ReserveDataHumanized & {
     iconSymbol: string;
-    isEmodeEnabled: boolean;
     isWrappedBaseAsset: boolean;
   };
 
@@ -89,12 +88,7 @@ export const AppDataProvider: React.FC = ({ children }) => {
   });
 
   const reserves: ReserveDataHumanized[] = reservesData?.protocolData.reserves || [];
-  const baseCurrencyData = reservesData?.protocolData.baseCurrencyData || {
-    marketReferenceCurrencyDecimals: 0,
-    marketReferenceCurrencyPriceInUsd: '0',
-    networkBaseTokenPriceInUsd: '0',
-    networkBaseTokenPriceDecimals: 0,
-  };
+  const marketReferencePriceInUsd = reservesData?.protocolData.marketReferencePriceInUsd || '0';
   const { data: reservesIncentivesData } = useC_ReservesIncentivesQuery({
     variables: {
       lendingPoolAddressProvider: currentMarketData.addresses.LENDING_POOL_ADDRESS_PROVIDER,
@@ -114,14 +108,13 @@ export const AppDataProvider: React.FC = ({ children }) => {
   const formattedPoolReserves = formatReservesAndIncentives({
     reserves,
     currentTimestamp,
-    marketReferenceCurrencyDecimals: baseCurrencyData.marketReferenceCurrencyDecimals,
-    marketReferencePriceInUsd: baseCurrencyData.marketReferenceCurrencyPriceInUsd,
+    marketReferenceCurrencyDecimals: 18,
+    marketReferencePriceInUsd: marketReferencePriceInUsd,
     reserveIncentives: reservesIncentivesData?.reservesIncentives || [],
   })
     .map((r) => ({
       ...r,
       ...fetchIconSymbolAndName(r),
-      isEmodeEnabled: r.eModeCategoryId !== 0,
       isWrappedBaseAsset:
         r.symbol.toLowerCase() === currentNetworkConfig.wrappedBaseAssetSymbol?.toLowerCase(),
     }))
@@ -133,8 +126,8 @@ export const AppDataProvider: React.FC = ({ children }) => {
 
   const user = formatUserSummaryAndIncentives({
     currentTimestamp,
-    marketReferencePriceInUsd: baseCurrencyData.marketReferenceCurrencyPriceInUsd,
-    marketReferenceCurrencyDecimals: baseCurrencyData.marketReferenceCurrencyDecimals,
+    marketReferencePriceInUsd: marketReferencePriceInUsd,
+    marketReferenceCurrencyDecimals: 18,
     userReserves,
     formattedReserves: formattedPoolReserves,
     userEmodeCategoryId: userEmodeCategoryId,
@@ -229,8 +222,8 @@ export const AppDataProvider: React.FC = ({ children }) => {
         },
         userReserves,
         isUserHasDeposits,
-        marketReferencePriceInUsd: baseCurrencyData.marketReferenceCurrencyPriceInUsd,
-        marketReferenceCurrencyDecimals: baseCurrencyData.marketReferenceCurrencyDecimals,
+        marketReferencePriceInUsd: marketReferencePriceInUsd,
+        marketReferenceCurrencyDecimals: 18,
       }}
     >
       {children}

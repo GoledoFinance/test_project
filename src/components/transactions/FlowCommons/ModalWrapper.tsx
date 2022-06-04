@@ -1,4 +1,4 @@
-import { API_ETH_MOCK_ADDRESS, PERMISSION } from '@aave/contract-helpers';
+import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
 import React from 'react';
 import { ReactElement } from 'react-markdown/lib/react-markdown';
 import {
@@ -8,10 +8,9 @@ import {
 } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { useWalletBalances } from 'src/hooks/app-data-provider/useWalletBalances';
 import { useModalContext } from 'src/hooks/useModal';
-import { usePermissions } from 'src/hooks/usePermissions';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
-import { getNetworkConfig, isFeatureEnabled } from 'src/utils/marketsAndNetworksConfig';
+import { getNetworkConfig } from 'src/utils/marketsAndNetworksConfig';
 import { TxModalTitle } from '../FlowCommons/TxModalTitle';
 import { ChangeNetworkWarning } from '../Warnings/ChangeNetworkWarning';
 import { TxErrorView } from './Error';
@@ -33,7 +32,6 @@ export const ModalWrapper: React.FC<{
   // if true wETH will stay wETH otherwise wETH will be returned as ETH
   keepWrappedSymbol?: boolean;
   hideTitleSymbol?: boolean;
-  requiredPermission?: PERMISSION;
   children: (props: ModalWrapperProps) => React.ReactNode;
 }> = ({
   hideTitleSymbol,
@@ -41,31 +39,16 @@ export const ModalWrapper: React.FC<{
   children,
   requiredChainId: _requiredChainId,
   title,
-  requiredPermission,
   keepWrappedSymbol,
 }) => {
   const { chainId: connectedChainId } = useWeb3Context();
   const { walletBalances } = useWalletBalances();
-  const {
-    currentChainId: marketChainId,
-    currentNetworkConfig,
-    currentMarketData,
-  } = useProtocolDataContext();
+  const { currentChainId: marketChainId, currentNetworkConfig } = useProtocolDataContext();
   const { user, reserves } = useAppDataContext();
   const { txError, mainTxState } = useModalContext();
-  const { permissions } = usePermissions();
 
   if (txError && txError.blocking) {
     return <TxErrorView txError={txError} />;
-  }
-
-  if (
-    requiredPermission &&
-    isFeatureEnabled.permissions(currentMarketData) &&
-    !permissions.includes(requiredPermission) &&
-    currentMarketData.permissionComponent
-  ) {
-    return <>{currentMarketData.permissionComponent}</>;
   }
 
   const requiredChainId = _requiredChainId ? _requiredChainId : marketChainId;

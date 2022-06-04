@@ -10,22 +10,23 @@ interface BridgeButtonProps extends Pick<NetworkConfig, 'bridge'>, ButtonProps<t
 }
 
 export const BridgeButton = ({ bridge, withoutIcon, ...rest }: BridgeButtonProps) => {
-  if (!bridge) return null;
+  if (bridge.length === 0) return null;
+  const _bridge = bridge[0];
 
   return (
     <Button
       component={Link}
       size="small"
-      href={bridge.url || ''}
+      href={_bridge.url || ''}
       sx={{ p: '2px 4px', ...rest.sx }}
       {...rest}
     >
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         {!withoutIcon && (
-          <img src={bridge.icon} alt={bridge.name} style={{ width: 14, height: 14 }} />
+          <img src={_bridge.icon} alt={_bridge.name} style={{ width: 14, height: 14 }} />
         )}
 
-        <Typography sx={{ mx: 1 }}>{withoutIcon ? <Trans>Bridge</Trans> : bridge.name}</Typography>
+        <Typography sx={{ mx: 1 }}>{withoutIcon ? <Trans>Bridge</Trans> : _bridge.name}</Typography>
         <SvgIcon sx={{ fontSize: 14 }}>
           <ExternalLinkIcon />
         </SvgIcon>

@@ -1,4 +1,4 @@
-import { API_ETH_MOCK_ADDRESS } from '@aave/contract-helpers';
+import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { useMediaQuery } from '@mui/material';
 import { useState } from 'react';

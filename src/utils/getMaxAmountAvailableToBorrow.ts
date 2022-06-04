@@ -1,5 +1,5 @@
-import { InterestRate } from '@aave/contract-helpers';
-import { FormatUserSummaryAndIncentivesResponse, valueToBigNumber } from '@aave/math-utils';
+import { InterestRate } from '@goledo-sdk/contract-helpers';
+import { FormatUserSummaryAndIncentivesResponse, valueToBigNumber } from '@goledo-sdk/math-utils';
 import BigNumber from 'bignumber.js';
 
 import {
@@ -23,7 +23,7 @@ export function getMaxAmountAvailableToBorrow(
 
   let maxUserAmountToBorrow = BigNumber.min(
     valueToBigNumber(user?.availableBorrowsMarketReferenceCurrency || 0).div(
-      poolReserve.formattedPriceInMarketReferenceCurrency
+      poolReserve.formattedPriceInETH
     ),
     poolReserve.formattedAvailableLiquidity
   );

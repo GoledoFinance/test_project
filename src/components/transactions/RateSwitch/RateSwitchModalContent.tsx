@@ -1,5 +1,5 @@
-import { InterestRate } from '@aave/contract-helpers';
-import { valueToBigNumber } from '@aave/math-utils';
+import { InterestRate } from '@goledo-sdk/contract-helpers';
+import { valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Alert } from '@mui/material';
 import { useModalContext } from 'src/hooks/useModal';

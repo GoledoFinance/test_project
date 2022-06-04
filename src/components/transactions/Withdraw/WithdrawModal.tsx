@@ -1,4 +1,3 @@
-import { PERMISSION } from '@aave/contract-helpers';
 import { Trans } from '@lingui/macro';
 import React, { useState, useEffect } from 'react';
 import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal';
@@ -36,7 +35,6 @@ export const WithdrawModal = () => {
         title={<Trans>Withdraw</Trans>}
         underlyingAsset={args.underlyingAsset}
         keepWrappedSymbol={!withdrawUnWrapped}
-        requiredPermission={PERMISSION.DEPOSITOR}
       >
         {(params) =>
           step !== 2 ? (

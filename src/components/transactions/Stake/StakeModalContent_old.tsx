@@ -1,4 +1,4 @@
-import { normalize, valueToBigNumber } from '@aave/math-utils';
+import { normalize, valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Typography } from '@mui/material';
 import React, { useRef, useState } from 'react';

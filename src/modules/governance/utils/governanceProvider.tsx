@@ -1,4 +1,4 @@
-import { AaveGovernanceService } from '@aave/contract-helpers';
+import { AaveGovernanceService } from '@goledo-sdk/contract-helpers';
 import { governanceConfig } from '../../../ui-config/governanceConfig';
 import { getProvider } from '../../../utils/marketsAndNetworksConfig';
 

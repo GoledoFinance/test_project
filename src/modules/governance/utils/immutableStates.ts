@@ -1,4 +1,4 @@
-import { ProposalState } from '@aave/contract-helpers';
+import { ProposalState } from '@goledo-sdk/contract-helpers';
 
 export const isProposalStateImmutable = (proposal: { state: ProposalState }) =>
   ![

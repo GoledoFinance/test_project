@@ -21,7 +21,6 @@ export const GovVoteActions = ({
   const { currentAccount } = useWeb3Context();
 
   const { action, loadingTxns, mainTxState, requiresApproval } = useTransactionHandler({
-    tryPermit: false,
     handleGetTxns: async () => {
       return governanceService.submitVote({
         proposalId: Number(proposalId),

@@ -19,12 +19,16 @@
     "typeRoots": ["./node_modules/@types"],
     "lib": ["dom", "es2017"],
     "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
     "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
     "useUnknownInCatchVariables": false,
-    "types": ["cypress"]
+    "types": ["cypress"],
+    "paths": {
+      "@goledo-sdk/*": ["src/sdk/*"],
+    },
   },
   "exclude": [
     "dist",

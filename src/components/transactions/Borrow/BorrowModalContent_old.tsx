@@ -1,9 +1,9 @@
-import { API_ETH_MOCK_ADDRESS, InterestRate } from '@aave/contract-helpers';
+import { API_ETH_MOCK_ADDRESS, InterestRate } from '@goledo-sdk/contract-helpers';
 import {
   calculateHealthFactorFromBalancesBigUnits,
   USD_DECIMALS,
   valueToBigNumber,
-} from '@aave/math-utils';
+} from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Alert, Box, Checkbox, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
@@ -131,7 +131,7 @@ export const BorrowModalContent = ({
 
   // health factor calculations
   const amountToBorrowInUsd = valueToBigNumber(amount)
-    .multipliedBy(poolReserve.formattedPriceInMarketReferenceCurrency)
+    .multipliedBy(poolReserve.formattedPriceInETH)
     .multipliedBy(marketReferencePriceInUsd)
     .shiftedBy(-USD_DECIMALS);
 

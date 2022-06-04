@@ -3,24 +3,28 @@ import { Box, Button, Typography } from '@mui/material';
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 import { AInput } from '../Withdraw/WithdrawModalContent';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
+import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
 
 export const SupplyModalContent = ({
+  underlyingAsset,
+  nativeBalance,
+  tokenBalance,
   symbol,
   onSubmit,
 }: ModalWrapperProps & { onSubmit: () => Promise<void> }) => {
   return (
     <>
-      <Typography variant="description" color={'#666'}>
-        How much do you want to supply?
-      </Typography>
-
       <Box display={'flex'} justifyContent="space-between" alignItems={'center'} mt={10}>
         <Typography variant="main14">Available to supply</Typography>
         <FormattedNumber
           variant="description"
-          symbol="ETH"
-          value={20.101}
-          visibleDecimals={4}
+          symbol={symbol}
+          value={
+            underlyingAsset.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()
+              ? nativeBalance
+              : tokenBalance
+          }
+          visibleDecimals={2}
           symbolsColor="#666"
           sx={{ color: '#666' }}
         />

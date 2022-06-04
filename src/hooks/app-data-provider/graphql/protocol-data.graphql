@@ -32,34 +32,7 @@ fragment ReserveDataFragment on ReserveData {
   totalPrincipalStableDebt
   totalScaledVariableDebt
   lastUpdateTimestamp
-  priceInMarketReferenceCurrency
-  # v3 only
-  isPaused
-  accruedToTreasury
-  unbacked
-  isolationModeTotalDebt
-  debtCeiling
-  debtCeilingDecimals
-  eModeCategoryId
-  borrowCap
-  supplyCap
-  eModeLtv
-  eModeLiquidationThreshold
-  eModeLiquidationBonus
-  eModePriceSource
-  eModeLabel
-  borrowableInIsolation
-  baseStableBorrowRate
-  baseVariableBorrowRate
-  optimalUsageRatio
-  priceOracle
-}
-
-fragment BaseCurrencyDataFragment on BaseCurrencyData {
-  marketReferenceCurrencyDecimals
-  marketReferenceCurrencyPriceInUsd
-  networkBaseTokenPriceInUsd
-  networkBaseTokenPriceDecimals
+  priceInEth
 }
 
 query C_ProtocolData($lendingPoolAddressProvider: String!, $chainId: Int!) {
@@ -67,9 +40,8 @@ query C_ProtocolData($lendingPoolAddressProvider: String!, $chainId: Int!) {
     reserves {
       ...ReserveDataFragment
     }
-    baseCurrencyData {
-      ...BaseCurrencyDataFragment
-    }
+    marketReferencePriceInUsd
+    emissionEndTimestamp
   }
 }
 
@@ -78,8 +50,7 @@ subscription C_ProtocolDataUpdate($lendingPoolAddressProvider: String!, $chainId
     reserves {
       ...ReserveDataFragment
     }
-    baseCurrencyData {
-      ...BaseCurrencyDataFragment
-    }
+    marketReferencePriceInUsd
+    emissionEndTimestamp
   }
 }

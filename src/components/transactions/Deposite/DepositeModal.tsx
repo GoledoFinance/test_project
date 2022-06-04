@@ -1,4 +1,3 @@
-import { PERMISSION } from '@aave/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { Typography, Box, Stack } from '@mui/material';
 import React, { useState, ReactNode } from 'react';
@@ -15,17 +14,11 @@ export const DepositeModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
     underlyingAsset: string;
   }>;
-  const [withdrawUnWrapped] = useState(true);
   const { step, setStep } = useStep(type);
 
   return (
     <BasicModal open={type === ModalType.Deposite} setOpen={close} contentMaxWidth={740}>
-      <ModalWrapper
-        title={<Trans>Desposit</Trans>}
-        underlyingAsset={args.underlyingAsset}
-        keepWrappedSymbol={!withdrawUnWrapped}
-        requiredPermission={PERMISSION.DEPOSITOR}
-      >
+      <ModalWrapper title={<Trans>Desposit</Trans>} underlyingAsset={args.underlyingAsset}>
         {(params) => {
           return (
             <>

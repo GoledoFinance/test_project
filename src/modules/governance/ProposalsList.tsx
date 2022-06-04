@@ -1,4 +1,4 @@
-import { ProposalState } from '@aave/contract-helpers';
+import { ProposalState } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import {
   Box,

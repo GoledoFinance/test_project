@@ -96,10 +96,6 @@ msgstr "Add {0} to the wallet"
 msgid "Address is not a contract"
 msgstr "Address is not a contract"
 
-#: src/components/transactions/Emode/EmodeModalContent.tsx
-msgid "All"
-msgstr "All"
-
 #: src/components/transactions/FlowCommons/Success.tsx
 msgid "All done!"
 msgstr "All done!"
@@ -125,7 +121,6 @@ msgid "Already on cooldown"
 msgstr "Already on cooldown"
 
 #: src/components/transactions/AssetInput.tsx
-#: src/components/transactions/Faucet/FaucetModalContent.tsx
 #: src/components/transactions/StakeRewardClaim/StakeRewardClaimModalContent.tsx
 msgid "Amount"
 msgstr "Amount"
@@ -162,13 +157,10 @@ msgstr "Approving {symbol}..."
 msgid "Array parameters that should be equal length are not"
 msgstr "Array parameters that should be equal length are not"
 
-#: pages/faucet.page.tsx
 #: src/modules/markets/AssetsList.tsx
 msgid "Asset"
 msgstr "Asset"
 
-#: src/components/transactions/Emode/EmodeModalContent.tsx
-#: src/components/transactions/Emode/EmodeSelect.tsx
 #: src/modules/dashboard/DashboardEModeButton.tsx
 msgid "Asset category"
 msgstr "Asset category"
@@ -185,7 +177,6 @@ msgstr "Asset is not listed"
 msgid "Asset to delegate"
 msgstr "Asset to delegate"
 
-#: pages/faucet.page.tsx
 #: src/modules/dashboard/lists/ListHeader.tsx
 #: src/modules/markets/AssetsList.tsx
 msgid "Assets"
@@ -201,17 +192,9 @@ msgstr "Assets to Borrow"
 msgid "Assets to Deposit"
 msgstr "Assets to Deposit"
 
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Author"
-msgstr "Author"
-
 #: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsList.tsx
 msgid "Available"
 msgstr "Available"
-
-#: src/components/transactions/Emode/EmodeModalContent.tsx
-msgid "Available assets"
-msgstr "Available assets"
 
 #: src/components/caps/CapsHint.tsx
 #: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsListMobileItem.tsx
@@ -379,10 +362,6 @@ msgstr "Close"
 msgid "Collateral"
 msgstr "Collateral"
 
-#: src/components/transactions/Repay/CollateralRepayModalContent.tsx
-msgid "Collateral amount to repay with"
-msgstr "Collateral amount to repay with"
-
 #: src/ui-config/errorMapping.tsx
 msgid "Collateral is (mostly) the same currency that is being borrowed"
 msgstr "Collateral is (mostly) the same currency that is being borrowed"
@@ -433,21 +412,9 @@ msgstr "Copy address"
 msgid "Copy error text"
 msgstr "Copy error text"
 
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Created"
-msgstr "Created"
-
 #: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
 msgid "Current LTV"
 msgstr "Current LTV"
-
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Current differential"
-msgstr "Current differential"
-
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Current votes"
-msgstr "Current votes"
 
 #: src/layouts/components/DarkModeSwitcher.tsx
 msgid "Dark mode"
@@ -462,10 +429,6 @@ msgstr "Dashboard"
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsListMobileItem.tsx
 msgid "Debt"
 msgstr "Debt"
-
-#: src/components/transactions/Repay/CollateralRepayModalContent.tsx
-msgid "Debt amount to repay"
-msgstr "Debt amount to repay"
 
 #: src/ui-config/errorMapping.tsx
 msgid "Debt ceiling is exceeded"
@@ -520,12 +483,10 @@ msgstr "Details"
 msgid "Developers"
 msgstr "Developers"
 
-#: pages/governance/proposal/[proposalId].governance.tsx
 #: src/modules/governance/ProposalListItem.tsx
 msgid "Differential"
 msgstr "Differential"
 
-#: src/components/transactions/Emode/EmodeActions.tsx
 #: src/modules/dashboard/DashboardEModeButton.tsx
 msgid "Disable E-Mode"
 msgstr "Disable E-Mode"
@@ -538,10 +499,6 @@ msgstr "Disable {symbol} as collateral"
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
 msgid "Disabled"
 msgstr "Disabled"
-
-#: src/components/transactions/Emode/EmodeActions.tsx
-msgid "Disabling E-Mode"
-msgstr "Disabling E-Mode"
 
 #: src/components/transactions/CollateralChange/CollateralChangeModalContent.tsx
 msgid "Disabling this asset as collateral affects your borrowing power and Health Factor."
@@ -571,11 +528,6 @@ msgstr "E-Mode increases your LTV for a selected category of assets up to<0/>. <
 msgid "Efficiency mode (E-Mode)"
 msgstr "Efficiency mode (E-Mode)"
 
-#: src/components/transactions/Emode/EmodeModalContent.tsx
-msgid "Emode"
-msgstr "Emode"
-
-#: src/components/transactions/Emode/EmodeActions.tsx
 #: src/modules/dashboard/DashboardEModeButton.tsx
 msgid "Enable E-Mode"
 msgstr "Enable E-Mode"
@@ -592,14 +544,6 @@ msgstr "Enabled"
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
 msgid "Enabled in isolation"
 msgstr "Enabled in isolation"
-
-#: src/components/transactions/Emode/EmodeActions.tsx
-msgid "Enabling E-Mode"
-msgstr "Enabling E-Mode"
-
-#: src/components/transactions/Emode/EmodeModalContent.tsx
-msgid "Enabling E-Mode only allows you to borrow assets belonging to the selected category Stablecoins. Please visit our <0>FAQ guide</0> to learn more about how it works and the applied restrictions."
-msgstr "Enabling E-Mode only allows you to borrow assets belonging to the selected category Stablecoins. Please visit our <0>FAQ guide</0> to learn more about how it works and the applied restrictions."
 
 #: src/components/transactions/CollateralChange/CollateralChangeModalContent.tsx
 msgid "Enabling this asset as collateral increases your borrowing power and Health Factor. However, it can get liquidated if your health factor drops below 1."
@@ -621,10 +565,6 @@ msgstr "Enter an amount"
 msgid "Error connecting. Try refreshing the page."
 msgstr "Error connecting. Try refreshing the page."
 
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Executed"
-msgstr "Executed"
-
 #: src/modules/governance/FormattedProposalTime.tsx
 msgid "Expires"
 msgstr "Expires"
@@ -638,15 +578,9 @@ msgstr "Expiry"
 msgid "FAQ"
 msgstr "FAQ"
 
-#: pages/faucet.page.tsx
-#: src/components/transactions/Faucet/FaucetModal.tsx
 #: src/modules/dashboard/lists/ListBottomText.tsx
 msgid "Faucet"
 msgstr "Faucet"
-
-#: src/components/transactions/Faucet/FaucetActions.tsx
-msgid "Faucet {0}"
-msgstr "Faucet {0}"
 
 #: src/modules/governance/ProposalsList.tsx
 msgid "Filter"
@@ -655,10 +589,6 @@ msgstr "Filter"
 #: src/ui-config/errorMapping.tsx
 msgid "For repayment of a specific type of debt, the user needs to have debt that type"
 msgstr "For repayment of a specific type of debt, the user needs to have debt that type"
-
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Forum discussion"
-msgstr "Forum discussion"
 
 #: src/layouts/components/LanguageSwitcher.tsx
 msgid "French"
@@ -718,10 +648,6 @@ msgstr "In E-Mode some assets are not borrowable. Exit E-Mode to get access to a
 #: src/components/transactions/Warnings/IsolationModeWarning.tsx
 msgid "In Isolation mode, you cannot supply other assets as collateral. A global debt ceiling limits the borrowing power of the isolated asset. Read more in our <0>FAQ</0>"
 msgstr "In Isolation mode, you cannot supply other assets as collateral. A global debt ceiling limits the borrowing power of the isolated asset. Read more in our <0>FAQ</0>"
-
-#: src/components/transactions/Emode/EmodeModalContent.tsx
-msgid "In order to change E-Mode from asset category{0}you will need to close your position in your current category. See our <0>FAQ</0> to learn more."
-msgstr "In order to change E-Mode from asset category{0}you will need to close your position in your current category. See our <0>FAQ</0> to learn more."
 
 #: src/ui-config/errorMapping.tsx
 msgid "Inconsistent flashloan parameters"
@@ -836,19 +762,9 @@ msgstr "Max"
 msgid "Max slashing"
 msgstr "Max slashing"
 
-#: src/components/transactions/Repay/CollateralRepayModalContent.tsx
-#: src/components/transactions/Swap/SwapModalContent.tsx
-msgid "Max slippage rate"
-msgstr "Max slippage rate"
-
 #: src/layouts/MobileMenu.tsx
 msgid "Menu"
 msgstr "Menu"
-
-#: src/components/transactions/Repay/CollateralRepayModalContent.tsx
-#: src/components/transactions/Swap/SwapModalContent.tsx
-msgid "Minimum received"
-msgstr "Minimum received"
 
 #: src/layouts/MoreMenu.tsx
 #: src/ui-config/menu-items/index.tsx
@@ -891,20 +807,10 @@ msgstr "Network not supported for this wallet"
 msgid "New APY"
 msgstr "New APY"
 
-#: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
-msgid "No Borrows"
-msgstr "No Borrows"
-
 #: src/modules/staking/LocksList.tsx
 #: src/modules/staking/VestList1.tsx
 msgid "No Data"
 msgstr "No Data"
-
-#: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
-#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
-#: src/modules/reserve-overview/BorrowList.tsx
-msgid "No Supplies"
-msgstr "No Supplies"
 
 #: src/components/transactions/StakeRewardClaim/StakeRewardClaimModalContent.tsx
 msgid "No rewards to claim"
@@ -914,10 +820,6 @@ msgstr "No rewards to claim"
 msgid "No voting power"
 msgstr "No voting power"
 
-#: src/components/transactions/Emode/EmodeModalContent.tsx
-msgid "None"
-msgstr "None"
-
 #: src/components/transactions/GovDelegation/GovDelegationModalContent.tsx
 msgid "Not a valid address"
 msgstr "Not a valid address"
@@ -925,10 +827,6 @@ msgstr "Not a valid address"
 #: src/components/transactions/Stake/StakeModalContent_old.tsx
 msgid "Not enough balance on your wallet"
 msgstr "Not enough balance on your wallet"
-
-#: src/components/transactions/Repay/CollateralRepayModalContent.tsx
-msgid "Not enough collateral to repay this amount of debt with"
-msgstr "Not enough collateral to repay this amount of debt with"
 
 #: src/components/transactions/UnStake/UnStakeModalContent_old.tsx
 msgid "Not enough staked balance"
@@ -938,14 +836,19 @@ msgstr "Not enough staked balance"
 msgid "Not enough voting power to participate in this proposal"
 msgstr "Not enough voting power to participate in this proposal"
 
-#: pages/governance/proposal/[proposalId].governance.tsx
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Not reached"
-msgstr "Not reached"
+#: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
+msgid "Nothing borrowed yet"
+msgstr "Nothing borrowed yet"
 
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 msgid "Nothing staked"
 msgstr "Nothing staked"
+
+#: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
+#: src/modules/reserve-overview/BorrowList.tsx
+msgid "Nothing supplied yet"
+msgstr "Nothing supplied yet"
 
 #: src/components/transactions/FlowCommons/Success.tsx
 msgid "Ok, Close"
@@ -968,7 +871,6 @@ msgid "Participating in this {symbol} reserve gives annualized rewards."
 msgstr "Participating in this {symbol} reserve gives annualized rewards."
 
 #: src/components/transactions/CollateralChange/CollateralChangeActions.tsx
-#: src/components/transactions/Faucet/FaucetActions.tsx
 msgid "Pending..."
 msgstr "Pending..."
 
@@ -984,19 +886,6 @@ msgstr "Please switch to {networkName}."
 msgid "Pool addresses provider is not registered"
 msgstr "Pool addresses provider is not registered"
 
-#: src/components/transactions/Repay/CollateralRepayModalContent.tsx
-#: src/components/transactions/Swap/SwapModalContent.tsx
-msgid "Price impact"
-msgstr "Price impact"
-
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Proposal details"
-msgstr "Proposal details"
-
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Proposal overview"
-msgstr "Proposal overview"
-
 #: src/modules/governance/ProposalsList.tsx
 msgid "Proposals"
 msgstr "Proposals"
@@ -1010,23 +899,9 @@ msgstr "Proposition power"
 msgid "Protocol Owned DEX Liquidity Module"
 msgstr "Protocol Owned DEX Liquidity Module"
 
-#: pages/governance/proposal/[proposalId].governance.tsx
 #: src/modules/governance/ProposalListItem.tsx
 msgid "Quorum"
 msgstr "Quorum"
-
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Raw-Ipfs"
-msgstr "Raw-Ipfs"
-
-#: pages/governance/proposal/[proposalId].governance.tsx
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Reached"
-msgstr "Reached"
-
-#: src/components/transactions/Faucet/FaucetModalContent.tsx
-msgid "Received"
-msgstr "Received"
 
 #: src/components/transactions/GovDelegation/GovDelegationModalContent.tsx
 msgid "Recipient address"
@@ -1036,7 +911,6 @@ msgstr "Recipient address"
 msgid "Rejected connection request"
 msgstr "Rejected connection request"
 
-#: src/components/transactions/Repay/CollateralRepayModalContent.tsx
 #: src/components/transactions/Repay/RepayModalContent_old.tsx
 msgid "Remaining debt"
 msgstr "Remaining debt"
@@ -1056,12 +930,10 @@ msgstr "Repay"
 msgid "Repay with"
 msgstr "Repay with"
 
-#: src/components/transactions/Repay/CollateralRepayActions.tsx
 #: src/components/transactions/Repay/RepayActions.tsx
 msgid "Repay {symbol}"
 msgstr "Repay {symbol}"
 
-#: src/components/transactions/Repay/CollateralRepayActions.tsx
 #: src/components/transactions/Repay/RepayActions.tsx
 msgid "Repaying {symbol}"
 msgstr "Repaying {symbol}"
@@ -1140,10 +1012,6 @@ msgstr "Select language"
 msgid "Setup triggers and receive notifications about your Health Factor status using Hal app."
 msgstr "Setup triggers and receive notifications about your Health Factor status using Hal app."
 
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Share on twitter"
-msgstr "Share on twitter"
-
 #: src/components/lists/ListWrapper.tsx
 msgid "Show"
 msgstr "Show"
@@ -1216,14 +1084,6 @@ msgstr "Staking"
 msgid "Staking APR"
 msgstr "Staking APR"
 
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Started"
-msgstr "Started"
-
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "State"
-msgstr "State"
-
 #: src/components/transactions/Supply/SupplyModalContent_old.tsx
 msgid "Supplied"
 msgstr "Supplied"
@@ -1246,10 +1106,6 @@ msgstr "Supply APY"
 msgid "Supply amount is limited due to Supply Cap"
 msgstr "Supply amount is limited due to Supply Cap"
 
-#: src/components/transactions/Swap/SwapModalContent.tsx
-msgid "Supply apy"
-msgstr "Supply apy"
-
 #: src/components/transactions/CollateralChange/CollateralChangeModalContent.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsListMobileItem.tsx
 #: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsListMobileItem.tsx
@@ -1259,10 +1115,6 @@ msgstr "Supply balance"
 #: src/ui-config/errorMapping.tsx
 msgid "Supply cap is exceeded"
 msgstr "Supply cap is exceeded"
-
-#: src/components/transactions/Swap/SwapModalContent.tsx
-msgid "Supply cap on target reserve reached. Try lowering the amount."
-msgstr "Supply cap on target reserve reached. Try lowering the amount."
 
 #: src/components/transactions/Warnings/SupplyCapWarning.tsx
 msgid "Supply caps limit the amount of a certain asset that can be supplied to the Aave protocol. This helps reducing exposure to the asset and mitigate attacks like infinite minting or price oracle manipulation.<0>FAQ guide</0>."
@@ -1280,20 +1132,10 @@ msgstr "Supplying your"
 msgid "Supplying {symbol}"
 msgstr "Supplying {symbol}"
 
-#: src/components/transactions/Swap/SwapActions.tsx
-#: src/components/transactions/Swap/SwapModal.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsListItem.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsListMobileItem.tsx
 msgid "Swap"
 msgstr "Swap"
-
-#: src/components/transactions/Swap/SwapModalContent.tsx
-msgid "Swapped"
-msgstr "Swapped"
-
-#: src/components/transactions/Swap/SwapActions.tsx
-msgid "Swapping"
-msgstr "Swapping"
 
 #: src/components/transactions/RateSwitch/RateSwitchModal.tsx
 msgid "Switch APY type"
@@ -1358,10 +1200,6 @@ msgstr "The cooldown period is the time required prior to unstaking your tokens(
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 msgid "The cooldown period is {0}. After {1} of cooldown, you will enter unstake window of {2}. You will continue receiving rewards during cooldown and unstake window."
 msgstr "The cooldown period is {0}. After {1} of cooldown, you will enter unstake window of {2}. You will continue receiving rewards during cooldown and unstake window."
-
-#: src/components/transactions/Swap/SwapModalContent.tsx
-msgid "The effects on the health factor would cause liquidation. Try lowering the amount."
-msgstr "The effects on the health factor would cause liquidation. Try lowering the amount."
 
 #: src/ui-config/errorMapping.tsx
 msgid "The requested amount is greater than the max loan size in stable rate mode"
@@ -1501,10 +1339,6 @@ msgstr "Total borrowed"
 msgid "Total supplied"
 msgstr "Total supplied"
 
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Total voting power"
-msgstr "Total voting power"
-
 #: src/components/transactions/ClaimRewards/ClaimRewardsModalContent.tsx
 msgid "Total worth"
 msgstr "Total worth"
@@ -1639,11 +1473,6 @@ msgstr "Vote YAE"
 msgid "Voting power"
 msgstr "Voting power"
 
-#: pages/governance/proposal/[proposalId].governance.tsx
-msgid "Voting results"
-msgstr "Voting results"
-
-#: pages/faucet.page.tsx
 #: src/components/transactions/Repay/RepayTypeSelector.tsx
 msgid "Wallet balance"
 msgstr "Wallet balance"
@@ -1715,10 +1544,6 @@ msgstr "You can borrow this asset with a stable rate only if you borrow more tha
 msgid "You can not change Interest Type to stable as your borrowings are higher than your collateral"
 msgstr "You can not change Interest Type to stable as your borrowings are higher than your collateral"
 
-#: src/components/transactions/Emode/EmodeModalContent.tsx
-msgid "You can not disable E-Mode as your current collateralization level is above 80%, disabling E-Mode can cause liquidation. To exit E-Mode supply or repay borrowed positions."
-msgstr "You can not disable E-Mode as your current collateralization level is above 80%, disabling E-Mode can cause liquidation. To exit E-Mode supply or repay borrowed positions."
-
 #: src/components/transactions/CollateralChange/CollateralChangeModalContent.tsx
 msgid "You can not switch usage as collateral mode for this currency, because it will cause collateral call"
 msgstr "You can not switch usage as collateral mode for this currency, because it will cause collateral call"
@@ -1758,10 +1583,6 @@ msgstr "You don’t have enough funds in your wallet to repay the full amount. I
 #: src/components/transactions/RateSwitch/RateSwitchModalContent.tsx
 msgid "You have not borrow yet using this currency"
 msgstr "You have not borrow yet using this currency"
-
-#: src/components/transactions/Emode/EmodeModalContent.tsx
-msgid "You need to change E-Mode to continue."
-msgstr "You need to change E-Mode to continue."
 
 #: src/components/transactions/FlowCommons/Success.tsx
 msgid "You switched to {0} rate"
@@ -1846,6 +1667,10 @@ msgstr "Your voting info"
 msgid "Your wallet balance"
 msgstr "Your wallet balance"
 
+#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
+msgid "Your {networkName} wallet is empty. Purchase or transfer assets"
+msgstr "Your {networkName} wallet is empty. Purchase or transfer assets"
+
 #: src/ui-config/errorMapping.tsx
 msgid "Zero address not valid"
 msgstr "Zero address not valid"
@@ -1857,11 +1682,6 @@ msgstr "back"
 #: src/components/transactions/FlowCommons/GasEstimationError.tsx
 msgid "copy the error"
 msgstr "copy the error"
-
-#: src/components/transactions/Emode/EmodeSelect.tsx
-#: src/components/transactions/Emode/EmodeSelect.tsx
-msgid "disabled"
-msgstr "disabled"
 
 #: src/components/transactions/Warnings/AMPLWarning.tsx
 msgid "documentation"
@@ -1887,11 +1707,14 @@ msgstr "on"
 msgid "or"
 msgstr "or"
 
+#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
+msgid "or use <0>{0}</0> to transfer your ETH assets."
+msgstr "or use <0>{0}</0> to transfer your ETH assets."
+
 #: src/components/transactions/Warnings/SNXWarning.tsx
 msgid "please check that the amount you want to supply is not currently being used for staking. If it is being used for staking, your transaction might fail."
 msgstr "please check that the amount you want to supply is not currently being used for staking. If it is being used for staking, your transaction might fail."
 
-#: src/components/transactions/Repay/CollateralRepayModalContent.tsx
 #: src/components/transactions/Repay/RepayModalContent_old.tsx
 msgid "repaid"
 msgstr "repaid"
@@ -1937,10 +1760,6 @@ msgstr "{0}"
 #: src/components/transactions/ClaimRewards/ClaimRewardsModalContent.tsx
 msgid "{0} Balance"
 msgstr "{0} Balance"
-
-#: pages/faucet.page.tsx
-msgid "{0} Faucet"
-msgstr "{0} Faucet"
 
 #: src/modules/staking/StakingPanel.tsx
 msgid "{d}d"

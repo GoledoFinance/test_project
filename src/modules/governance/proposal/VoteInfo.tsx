@@ -1,5 +1,5 @@
-import { ProposalState } from '@aave/contract-helpers';
-import { normalize } from '@aave/math-utils';
+import { ProposalState } from '@goledo-sdk/contract-helpers';
+import { normalize } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Alert, Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';

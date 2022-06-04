@@ -27,7 +27,6 @@ export const UnStakeActions = ({
   const stakingService = useStakeTxBuilderContext(selectedToken);
 
   const { action, loadingTxns, mainTxState, requiresApproval } = useTransactionHandler({
-    tryPermit: false,
     handleGetTxns: async () => {
       return stakingService.redeem(currentAccount, amountToUnStake.toString());
     },

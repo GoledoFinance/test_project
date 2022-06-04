@@ -1,17 +1,14 @@
 import {
-  FaucetService,
   IncentivesControllerInterface,
-  IncentivesControllerV2Interface,
+  MasterChefInterface,
   LendingPool,
-  PoolInterface,
-} from '@aave/contract-helpers';
+} from '@goledo-sdk/contract-helpers';
 import React, { useContext } from 'react';
 
 export interface TxBuilderContextInterface {
-  lendingPool: LendingPool | PoolInterface;
-  faucetService: FaucetService;
-  incentivesTxBuilder: IncentivesControllerInterface;
-  incentivesTxBuilderV2: IncentivesControllerV2Interface;
+  lendingPool: LendingPool;
+  masterChef: MasterChefInterface;
+  incentivesController: IncentivesControllerInterface;
 }
 
 export const TxBuilderContext = React.createContext({} as TxBuilderContextInterface);

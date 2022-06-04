@@ -1,4 +1,4 @@
-import { API_ETH_MOCK_ADDRESS } from '@aave/contract-helpers';
+import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
@@ -92,7 +92,7 @@ export const SuppliedPositionsList = () => {
           )}
         </>
       ) : (
-        <DashboardContentNoData text={<Trans>No Supplies</Trans>} />
+        <DashboardContentNoData text={<Trans>Nothing supplied yet</Trans>} />
       )}
     </ListWrapper>
   );

@@ -1,4 +1,4 @@
-import { InterestRate, PERMISSION } from '@aave/contract-helpers';
+import { InterestRate } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import React from 'react';
 import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal';
@@ -18,11 +18,7 @@ export const RepayModal = () => {
 
   return (
     <BasicModal open={type === ModalType.Repay} setOpen={close}>
-      <ModalWrapper
-        title={<Trans>Repay</Trans>}
-        underlyingAsset={args.underlyingAsset}
-        requiredPermission={PERMISSION.BORROWER}
-      >
+      <ModalWrapper title={<Trans>Repay</Trans>} underlyingAsset={args.underlyingAsset}>
         {(params) =>
           step !== 2 ? (
             <RepayModalContent

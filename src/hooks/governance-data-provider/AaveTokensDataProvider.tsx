@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { WalletBalanceProvider } from '@aave/contract-helpers';
-import { normalize } from '@aave/math-utils';
+import { WalletBalanceProvider } from '@goledo-sdk/contract-helpers';
+import { normalize } from '@goledo-sdk/math-utils';
 import { governanceConfig } from 'src/ui-config/governanceConfig';
 import { getProvider } from 'src/utils/marketsAndNetworksConfig';
 import { useProtocolDataContext } from '../useProtocolDataContext';

@@ -1,5 +1,8 @@
-import { API_ETH_MOCK_ADDRESS } from '@aave/contract-helpers';
-import { calculateHealthFactorFromBalancesBigUnits, valueToBigNumber } from '@aave/math-utils';
+import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
+import {
+  calculateHealthFactorFromBalancesBigUnits,
+  valueToBigNumber,
+} from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Alert, Box, Checkbox, Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
@@ -65,7 +68,7 @@ export const WithdrawModalContent = ({
     }
     maxAmountToWithdraw = BigNumber.min(
       maxAmountToWithdraw,
-      maxCollateralToWithdrawInETH.dividedBy(poolReserve.formattedPriceInMarketReferenceCurrency)
+      maxCollateralToWithdrawInETH.dividedBy(poolReserve.formattedPriceInETH)
     );
   }
 
@@ -92,7 +95,7 @@ export const WithdrawModalContent = ({
 
   if (userReserve?.usageAsCollateralEnabledOnUser && poolReserve.usageAsCollateralEnabled) {
     const amountToWithdrawInEth = valueToBigNumber(amount).multipliedBy(
-      poolReserve.formattedPriceInMarketReferenceCurrency
+      poolReserve.formattedPriceInETH
     );
     totalCollateralInETHAfterWithdraw =
       totalCollateralInETHAfterWithdraw.minus(amountToWithdrawInEth);

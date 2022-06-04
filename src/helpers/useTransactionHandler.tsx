@@ -1,10 +1,9 @@
-import { EthereumTransactionTypeExtended, GasType, Pool } from '@aave/contract-helpers';
-import { SignatureLike } from '@ethersproject/bytes';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { EthereumTransactionTypeExtended, GasType } from '@goledo-sdk/contract-helpers';
 import { TransactionResponse } from '@ethersproject/providers';
 import { DependencyList, useEffect, useRef, useState } from 'react';
 import { useBackgroundDataProvider } from 'src/hooks/app-data-provider/BackgroundDataProvider';
 import { useModalContext } from 'src/hooks/useModal';
-import { useTxBuilderContext } from 'src/hooks/useTxBuilder';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
 import { getErrorTextFromError, TxAction } from 'src/ui-config/errorMapping';
 
@@ -12,19 +11,12 @@ export const MOCK_SIGNED_HASH = 'Signed correctly';
 
 interface UseTransactionHandlerProps {
   handleGetTxns: () => Promise<EthereumTransactionTypeExtended[]>;
-  handleGetPermitTxns?: (
-    signature: SignatureLike,
-    deadline: string
-  ) => Promise<EthereumTransactionTypeExtended[]>;
-  tryPermit?: boolean;
   skip?: boolean;
   deps?: DependencyList;
 }
 
 export const useTransactionHandler = ({
   handleGetTxns,
-  handleGetPermitTxns,
-  tryPermit = false,
   skip,
   deps = [],
 }: UseTransactionHandlerProps) => {
@@ -37,15 +29,10 @@ export const useTransactionHandler = ({
     loadingTxns,
     setLoadingTxns,
     setTxError,
-    setRetryWithApproval,
   } = useModalContext();
-  const { signTxData, sendTx, getTxError, currentAccount } = useWeb3Context();
+  const { sendTx, getTxError } = useWeb3Context();
   const { refetchWalletBalances, refetchPoolData, refechIncentiveData } =
     useBackgroundDataProvider();
-  const { lendingPool } = useTxBuilderContext();
-  const [usePermit, setUsePermit] = useState<boolean>(tryPermit);
-  const [signature, setSignature] = useState<SignatureLike>();
-  const [signatureDeadline, setSignatureDeadline] = useState<string>();
 
   const [approvalTx, setApprovalTx] = useState<EthereumTransactionTypeExtended | undefined>();
   const [actionTx, setActionTx] = useState<EthereumTransactionTypeExtended | undefined>();
@@ -102,109 +89,16 @@ export const useTransactionHandler = ({
     }
   };
 
-  const approval = async (amount?: string, underlyingAsset?: string) => {
+  const approval = async () => {
     if (approvalTx) {
-      if (usePermit && amount && underlyingAsset) {
-        setApprovalTxState({ ...approvalTxState, loading: true });
-        try {
-          const newPool: Pool = lendingPool as Pool;
-          // deadline is an hour after signature
-          const deadline = Math.floor(Date.now() / 1000 + 3600).toString();
-          const unsingedPayload = await newPool.signERC20Approval({
-            user: currentAccount,
-            reserve: underlyingAsset,
-            amount,
-            deadline,
-          });
-          try {
-            const signature = await signTxData(unsingedPayload);
-            if (!mounted.current) return;
-            setSignature(signature);
-            setSignatureDeadline(deadline);
-            setApprovalTxState({
-              txHash: MOCK_SIGNED_HASH,
-              loading: false,
-              success: true,
-            });
-            setTxError(undefined);
-          } catch (error) {
-            if (!mounted.current) return;
-            const parsedError = getErrorTextFromError(error, TxAction.APPROVAL, false);
-            setTxError(parsedError);
-
-            setApprovalTxState({
-              txHash: undefined,
-              loading: false,
-            });
-
-            // set use permit to false to retry with normal approval
-            setUsePermit(false);
-            setRetryWithApproval(true);
-          }
-        } catch (error) {
-          if (!mounted.current) return;
-
-          // set use permit to false to retry with normal approval
-          setUsePermit(false);
-          setRetryWithApproval(true);
-
-          const parsedError = getErrorTextFromError(error, TxAction.GAS_ESTIMATION, false);
-          setTxError(parsedError);
-          setApprovalTxState({
-            txHash: undefined,
-            loading: false,
-          });
-        }
-      } else {
-        try {
-          setApprovalTxState({ ...approvalTxState, loading: true });
-          const params = await approvalTx.tx();
-          delete params.gasPrice;
-          await processTx({
-            tx: () => sendTx(params),
-            successCallback: (txnResponse: TransactionResponse) => {
-              setApprovalTxState({
-                txHash: txnResponse.hash,
-                loading: false,
-                success: true,
-              });
-              setTxError(undefined);
-            },
-            errorCallback: (error, hash) => {
-              const parsedError = getErrorTextFromError(error, TxAction.APPROVAL, false);
-              setTxError(parsedError);
-              setApprovalTxState({
-                txHash: hash,
-                loading: false,
-              });
-            },
-            action: TxAction.APPROVAL,
-          });
-        } catch (error) {
-          if (!mounted.current) return;
-          const parsedError = getErrorTextFromError(error, TxAction.GAS_ESTIMATION, false);
-          setTxError(parsedError);
-          setApprovalTxState({
-            txHash: undefined,
-            loading: false,
-          });
-        }
-      }
-    }
-  };
-
-  const action = async () => {
-    if (approvalTx && usePermit && handleGetPermitTxns) {
-      if (!signature || !signatureDeadline) throw new Error('signature needed');
       try {
-        setMainTxState({ ...mainTxState, loading: true });
-        const txns = await handleGetPermitTxns(signature, signatureDeadline);
-        const params = await txns[0].tx();
+        setApprovalTxState({ ...approvalTxState, loading: true });
+        const params = await approvalTx.tx();
         delete params.gasPrice;
-        return processTx({
+        await processTx({
           tx: () => sendTx(params),
           successCallback: (txnResponse: TransactionResponse) => {
-            setMainTxState({
+            setApprovalTxState({
               txHash: txnResponse.hash,
               loading: false,
               success: true,
@@ -212,25 +106,29 @@ export const useTransactionHandler = ({
             setTxError(undefined);
           },
           errorCallback: (error, hash) => {
-            const parsedError = getErrorTextFromError(error, TxAction.MAIN_ACTION);
+            const parsedError = getErrorTextFromError(error, TxAction.APPROVAL, false);
             setTxError(parsedError);
-            setMainTxState({
+            setApprovalTxState({
               txHash: hash,
               loading: false,
             });
           },
-          action: TxAction.MAIN_ACTION,
+          action: TxAction.APPROVAL,
         });
       } catch (error) {
+        if (!mounted.current) return;
         const parsedError = getErrorTextFromError(error, TxAction.GAS_ESTIMATION, false);
         setTxError(parsedError);
-        setMainTxState({
+        setApprovalTxState({
           txHash: undefined,
           loading: false,
         });
       }
     }
-    if ((!usePermit || !approvalTx) && actionTx) {
+  };
+
+  const action = async () => {
+    if (!approvalTx && actionTx) {
       try {
         setMainTxState({ ...mainTxState, loading: true });
         const params = await actionTx.tx();
@@ -318,17 +216,15 @@ export const useTransactionHandler = ({
       setApprovalTx(undefined);
       setActionTx(undefined);
     }
-  }, [skip, ...deps]);
+  }, [skip, handleGetTxns, setGasLimit, setLoadingTxns, setMainTxState, setTxError, ...deps]);
 
   return {
     approval,
     action,
     loadingTxns,
-    setUsePermit,
     requiresApproval: !!approvalTx,
     approvalTxState,
     mainTxState,
-    usePermit,
     actionTx,
     approvalTx,
   };

@@ -3,7 +3,7 @@ import {
   calculateHealthFactorFromBalancesBigUnits,
   valueToBigNumber,
   BigNumberValue,
-} from '@aave/math-utils';
+} from '@goledo-sdk/math-utils';
 import {
   ComputedReserveData,
   ExtendedFormattedUser,
@@ -51,7 +51,7 @@ export function calculateHFAfterSwap({
   if (fromAssetUserData.usageAsCollateralEnabledOnUser && fromAssetData.usageAsCollateralEnabled) {
     hfEffectOfFromAmount = calculateHealthFactorFromBalancesBigUnits({
       collateralBalanceMarketReferenceCurrency: valueToBigNumber(fromAmount).multipliedBy(
-        fromAssetData.formattedPriceInMarketReferenceCurrency
+        fromAssetData.formattedPriceInETH
       ),
       borrowBalanceMarketReferenceCurrency: user.totalBorrowsMarketReferenceCurrency,
       currentLiquidationThreshold: reserveLiquidationThreshold,
@@ -68,7 +68,7 @@ export function calculateHFAfterSwap({
     hfEffectOfToAmount = calculateHealthFactorFromBalancesBigUnits({
       collateralBalanceMarketReferenceCurrency: valueToBigNumber(
         toAmountAfterSlippage
-      ).multipliedBy(toAssetData.formattedPriceInMarketReferenceCurrency),
+      ).multipliedBy(toAssetData.formattedPriceInETH),
       borrowBalanceMarketReferenceCurrency: user.totalBorrowsMarketReferenceCurrency,
       currentLiquidationThreshold: toAssetData.formattedReserveLiquidationThreshold,
     }).toString();
@@ -109,7 +109,7 @@ export const calculateHFAfterRepay = ({
   ) {
     hfInitialEffectOfFromAmount = calculateHealthFactorFromBalancesBigUnits({
       collateralBalanceMarketReferenceCurrency: valueToBigNumber(amountToSwap).multipliedBy(
-        fromAssetData.formattedPriceInMarketReferenceCurrency
+        fromAssetData.formattedPriceInETH
       ),
       borrowBalanceMarketReferenceCurrency: user.totalBorrowsMarketReferenceCurrency,
       currentLiquidationThreshold: reserveLiquidationThreshold,

@@ -1,4 +1,4 @@
-import { Power } from '@aave/contract-helpers';
+import { Power } from '@goledo-sdk/contract-helpers';
 import { gql, useQuery } from '@apollo/client';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
 

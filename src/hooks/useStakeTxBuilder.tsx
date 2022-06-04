@@ -1,4 +1,4 @@
-import { StakingService } from '@aave/contract-helpers';
+import { StakingService } from '@goledo-sdk/contract-helpers';
 import { useContext } from 'react';
 import { StakeTxBuilderContext } from 'src/providers/StakeTxBuilderProvider';
 

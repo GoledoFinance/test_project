@@ -1,4 +1,4 @@
-import { valueToBigNumber } from '@aave/math-utils';
+import { valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { useMediaQuery, useTheme } from '@mui/material';
 import * as React from 'react';

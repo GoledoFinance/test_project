@@ -1,9 +1,9 @@
-import { API_ETH_MOCK_ADDRESS } from '@aave/contract-helpers';
+import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
 import {
   calculateHealthFactorFromBalancesBigUnits,
   USD_DECIMALS,
   valueToBigNumber,
-} from '@aave/math-utils';
+} from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Typography } from '@mui/material';
 import BigNumber from 'bignumber.js';
@@ -76,9 +76,7 @@ export const SupplyModalContent = ({
   };
 
   // Calculation of future HF
-  const amountIntEth = new BigNumber(amount).multipliedBy(
-    poolReserve.formattedPriceInMarketReferenceCurrency
-  );
+  const amountIntEth = new BigNumber(amount).multipliedBy(poolReserve.formattedPriceInETH);
   // TODO: is it correct to ut to -1 if user doesnt exist?
   const amountInUsd = amountIntEth.multipliedBy(marketReferencePriceInUsd).shiftedBy(-USD_DECIMALS);
   const totalCollateralMarketReferenceCurrencyAfter = user

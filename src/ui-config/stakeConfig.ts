@@ -1,4 +1,4 @@
-import { ChainId, Stake } from '@aave/contract-helpers';
+import { ChainId, Stake } from '@goledo-sdk/contract-helpers';
 import { NEXT_PUBLIC_ENABLE_TESTNET } from 'src/utils/marketsAndNetworksConfig';
 
 export interface StakeConfig {
