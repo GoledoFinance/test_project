@@ -1,7 +1,7 @@
 import NumberFormat, { NumberFormatProps } from 'react-number-format';
 import { Box, Button, Typography, TextField, InputAdornment } from '@mui/material';
 // import BigNumber from 'bignumber.js';
-import { forwardRef } from 'react';
+import { forwardRef, useRef, useImperativeHandle, useState } from 'react';
 
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 
@@ -13,24 +13,45 @@ interface CustomProps {
   value: string;
 }
 
-const NumberFormatCustom = forwardRef<NumberFormatProps, CustomProps>(function NumberFormatCustom(
-  props,
-  ref
-) {
+const NumberFormatCustom = forwardRef<
+  {
+    setValue: (v: string) => void;
+    getValue: () => string;
+  } & NumberFormatProps,
+  CustomProps
+>(function NumberFormatCustom(props, ref) {
   const { onChange, ...other } = props;
+
+  const [value, setValue] = useState('');
+
+  useImperativeHandle(ref, () => ({
+    getValue: () => value,
+    setValue: (v: string) => {
+      setValue(v);
+      onChange({
+        target: {
+          name: props.name,
+          value: v,
+        },
+      });
+    },
+  }));
 
   return (
     <NumberFormat
       {...other}
       getInputRef={ref}
+      value={value}
       onValueChange={(values) => {
-        if (values.value !== props.value)
+        if (values.value !== props.value) {
+          setValue(values.value);
           onChange({
             target: {
               name: props.name,
               value: values.value || '',
             },
           });
+        }
       }}
       thousandSeparator
       isNumericString
@@ -39,50 +60,67 @@ const NumberFormatCustom = forwardRef<NumberFormatProps, CustomProps>(function N
   );
 });
 
-export const AInput = ({
-  symbol,
-  max = true,
-  placeholder,
-}: {
-  symbol: string;
-  max?: boolean;
-  placeholder?: string;
-}) => (
-  <TextField
-    sx={{ width: '100%', mt: 2.5 }}
-    InputProps={{
-      sx: {
-        backgroundColor: '#f1f1f1',
-        borderColor: 'transparent !important',
-        height: 40,
-      },
-      placeholder: placeholder || 'Amount',
-      startAdornment: (
-        <InputAdornment position="start">
-          <img
-            src={`/icons/tokens/${symbol?.toLocaleLowerCase()}.svg`}
-            alt="icon"
-            width={20}
-            height={20}
-          />
-        </InputAdornment>
-      ),
-      endAdornment: max && (
-        <InputAdornment position="end">
-          <Typography
-            sx={{ cursor: 'pointer', color: '#2D88F2' }}
-            onClick={() => {
-              console.log('change to max');
-            }}
-          >
-            MAX
-          </Typography>
-        </InputAdornment>
-      ),
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      inputComponent: NumberFormatCustom as any,
-    }}
-  />
+// eslint-disable-next-line react/display-name
+export const AInput = forwardRef(
+  (
+    {
+      symbol,
+      max = false,
+      placeholder,
+    }: {
+      symbol: string;
+      max?: false | number | string;
+      placeholder?: string;
+    },
+    ref1
+  ) => {
+    const ref = useRef(null);
+
+    useImperativeHandle(ref1, () => ({
+      getValue: () => ref.current?.getValue?.(),
+    }));
+
+    return (
+      <TextField
+        sx={{ width: '100%', mt: 2.5 }}
+        inputRef={ref}
+        InputProps={{
+          sx: {
+            backgroundColor: '#f1f1f1',
+            borderColor: 'transparent !important',
+            height: 40,
+          },
+          placeholder: placeholder || 'Amount',
+          startAdornment: (
+            <InputAdornment position="start">
+              <img
+                src={`/icons/tokens/${symbol?.toLocaleLowerCase()}.svg`}
+                alt="icon"
+                width={20}
+                height={20}
+              />
+            </InputAdornment>
+          ),
+          endAdornment: max !== false && (
+            <InputAdornment position="end">
+              <Typography
+                sx={{ cursor: 'pointer', color: '#2D88F2' }}
+                onClick={() => {
+                  if (ref?.current) {
+                    ref.current?.setValue(max);
+                  }
+                }}
+              >
+                MAX
+              </Typography>
+            </InputAdornment>
+          ),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          inputComponent: NumberFormatCustom as any,
+        }}
+      />
+    );
+  }
 );
 
 export enum ErrorType {
@@ -93,7 +131,7 @@ export enum ErrorType {
 export const WithdrawModalContent = ({
   symbol,
   onSubmit,
-}: ModalWrapperProps & { onSubmit: () => Promise<void> }) => {
+}: ModalWrapperProps & { onSubmit: (v?: string) => Promise<void> }) => {
   return (
     <>
       <Typography variant="description" color={'#666'}>
@@ -118,7 +156,9 @@ export const WithdrawModalContent = ({
         size="large"
         fullWidth
         sx={{ mt: 10, height: 40 }}
-        onClick={onSubmit}
+        onClick={() => {
+          onSubmit();
+        }}
       >
         Continue
       </Button>

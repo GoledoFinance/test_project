@@ -1,4 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
+import { useRef } from 'react';
 
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 import { AInput } from '../Withdraw/WithdrawModalContent';
@@ -11,7 +12,13 @@ export const SupplyModalContent = ({
   tokenBalance,
   symbol,
   onSubmit,
-}: ModalWrapperProps & { onSubmit: () => Promise<void> }) => {
+}: ModalWrapperProps & { onSubmit: (v?: string) => Promise<void> }) => {
+  const ref = useRef(null);
+
+  const maxV =
+    underlyingAsset.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()
+      ? nativeBalance
+      : tokenBalance;
   return (
     <>
       <Box display={'flex'} justifyContent="space-between" alignItems={'center'} mt={10}>
@@ -19,23 +26,21 @@ export const SupplyModalContent = ({
         <FormattedNumber
           variant="description"
           symbol={symbol}
-          value={
-            underlyingAsset.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()
-              ? nativeBalance
-              : tokenBalance
-          }
+          value={maxV}
           visibleDecimals={2}
           symbolsColor="#666"
           sx={{ color: '#666' }}
         />
       </Box>
-      <AInput symbol={symbol} />
+      <AInput symbol={symbol} max={maxV} ref={ref} />
       <Button
         variant="contained"
         size="large"
         fullWidth
         sx={{ mt: 10, height: 40 }}
-        onClick={onSubmit}
+        onClick={() => {
+          onSubmit(ref.current?.getValue());
+        }}
       >
         Continue
       </Button>

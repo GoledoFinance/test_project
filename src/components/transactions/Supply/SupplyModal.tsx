@@ -16,7 +16,7 @@ export const SupplyModal = () => {
     underlyingAsset: string;
   }>;
 
-  const { step, setStep } = useStep(type);
+  const { step, setStep, value, setValue } = useStep(type);
 
   return (
     <BasicModal open={type === ModalType.Supply} setOpen={close} contentMaxWidth={740}>
@@ -80,14 +80,14 @@ export const SupplyModal = () => {
                       value: (
                         <>
                           {params.poolReserve.usageAsCollateralEnabled && (
-                            <>
+                            <Box display={'flex'} alignItems="center">
                               <SvgIcon sx={{ color: 'success.main', fontSize: 16, mr: '2px' }}>
                                 <CheckIcon />
                               </SvgIcon>
                               <Typography variant="description" color="success.main">
                                 <Trans>Enabled</Trans>
                               </Typography>
-                            </>
+                            </Box>
                           )}
                           {!params.poolReserve.usageAsCollateralEnabled && (
                             <>
@@ -161,12 +161,13 @@ export const SupplyModal = () => {
               {step !== 2 ? (
                 <SupplyModalContent
                   {...params}
-                  onSubmit={async () => {
+                  onSubmit={async (value) => {
+                    setValue(value || '0');
                     setStep(2);
                   }}
                 />
               ) : (
-                <SupplyModalContentNext {...params} />
+                <SupplyModalContentNext {...params} value={value} />
               )}
             </>
           );

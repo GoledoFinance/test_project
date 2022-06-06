@@ -9,16 +9,20 @@ import { WithdrawModalContentNext } from './WithdrawModalContentNext';
 
 export const useStep = (type?: ModalType) => {
   const [step, setStep] = useState(1);
+  const [value, setValue] = useState('');
 
   useEffect(() => {
     if (type === undefined) {
       setStep(1);
+      setValue('');
     }
   }, [type]);
 
   return {
     step,
     setStep,
+    value,
+    setValue,
   };
 };
 
@@ -27,7 +31,7 @@ export const WithdrawModal = () => {
     underlyingAsset: string;
   }>;
   const [withdrawUnWrapped] = useState(true);
-  const { step, setStep } = useStep(type);
+  const { step, setStep, value, setValue } = useStep(type);
 
   return (
     <BasicModal open={type === ModalType.Withdraw} setOpen={close}>
@@ -40,12 +44,14 @@ export const WithdrawModal = () => {
           step !== 2 ? (
             <WithdrawModalContent
               {...params}
-              onSubmit={async () => {
+              onSubmit={async (value) => {
+                console.log('value:', value);
+                setValue(value);
                 setStep(2);
               }}
             />
           ) : (
-            <WithdrawModalContentNext {...params} />
+            <WithdrawModalContentNext {...params} value={value} />
           )
         }
       </ModalWrapper>

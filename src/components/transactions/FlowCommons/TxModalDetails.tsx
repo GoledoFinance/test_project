@@ -148,24 +148,24 @@ export const DetailsCollateralLine = ({ collateralType }: DetailsCollateralLine)
     <Row caption={<Trans>Collateralization</Trans>} captionVariant="description" mb={4}>
       <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
         {collateralType === CollateralType.ENABLED && (
-          <>
+          <Box display={'flex'} alignItems="center">
             <SvgIcon sx={{ color: 'success.main', fontSize: 16, mr: '2px' }}>
               <CheckIcon />
             </SvgIcon>
             <Typography variant="description" color="success.main">
               <Trans>Enabled</Trans>
             </Typography>
-          </>
+          </Box>
         )}
         {collateralType === CollateralType.ISOLATED_ENABLED && (
-          <>
+          <Box display={'flex'} alignItems="center">
             <SvgIcon sx={{ color: 'warning.main', fontSize: 16, mr: '2px' }}>
               <CheckIcon />
             </SvgIcon>
             <Typography variant="description" color="warning.main">
               <Trans>Enabled in isolation</Trans>
             </Typography>
-          </>
+          </Box>
         )}
         {collateralType === CollateralType.DISABLED && (
           <Typography variant="description" color="grey">

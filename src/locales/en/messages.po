@@ -142,14 +142,17 @@ msgid "Approve confirmed"
 msgstr "Approve confirmed"
 
 #: src/components/transactions/TxActionsWrapper.tsx
+#: src/components/transactions/TxActionsWrapper_old.tsx
 msgid "Approve to continue"
 msgstr "Approve to continue"
 
 #: src/components/transactions/TxActionsWrapper.tsx
+#: src/components/transactions/TxActionsWrapper_old.tsx
 msgid "Approved"
 msgstr "Approved"
 
 #: src/components/transactions/TxActionsWrapper.tsx
+#: src/components/transactions/TxActionsWrapper_old.tsx
 msgid "Approving {symbol}..."
 msgstr "Approving {symbol}..."
 
@@ -317,10 +320,6 @@ msgstr "Can be collateral"
 msgid "Can be executed"
 msgstr "Can be executed"
 
-#: src/components/transactions/Supply/SupplyModalContent_old.tsx
-msgid "Cap reached. Lower supply amount"
-msgstr "Cap reached. Lower supply amount"
-
 #: src/modules/staking/StakingPanel.tsx
 msgid "Claim AAVE"
 msgstr "Claim AAVE"
@@ -455,10 +454,6 @@ msgstr "Delegating"
 msgid "Delegation"
 msgstr "Delegation"
 
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsListItem.tsx
-msgid "Deposit"
-msgstr "Deposit"
-
 #: src/modules/reserve-overview/ReserveActions.tsx
 msgid "Deposite"
 msgstr "Deposite"
@@ -497,6 +492,7 @@ msgstr "Disable {symbol} as collateral"
 
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
+#: src/components/transactions/Supply/SupplyModal.tsx
 msgid "Disabled"
 msgstr "Disabled"
 
@@ -537,6 +533,7 @@ msgid "Enable {symbol} as collateral"
 msgstr "Enable {symbol} as collateral"
 
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
+#: src/components/transactions/Supply/SupplyModal.tsx
 #: src/modules/dashboard/DashboardEModeButton.tsx
 msgid "Enabled"
 msgstr "Enabled"
@@ -558,6 +555,7 @@ msgid "Enter ETH address"
 msgstr "Enter ETH address"
 
 #: src/components/transactions/TxActionsWrapper.tsx
+#: src/components/transactions/TxActionsWrapper_old.tsx
 msgid "Enter an amount"
 msgstr "Enter an amount"
 
@@ -629,7 +627,6 @@ msgid "Hide"
 msgstr "Hide"
 
 #: src/components/transactions/Borrow/BorrowModalContent_old.tsx
-#: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
 msgid "I acknowledge the risks involved."
 msgstr "I acknowledge the risks involved."
 
@@ -807,10 +804,18 @@ msgstr "Network not supported for this wallet"
 msgid "New APY"
 msgstr "New APY"
 
+#: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
+msgid "No Borrows"
+msgstr "No Borrows"
+
 #: src/modules/staking/LocksList.tsx
 #: src/modules/staking/VestList1.tsx
 msgid "No Data"
 msgstr "No Data"
+
+#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
+msgid "No Supplies"
+msgstr "No Supplies"
 
 #: src/components/transactions/StakeRewardClaim/StakeRewardClaimModalContent.tsx
 msgid "No rewards to claim"
@@ -836,16 +841,11 @@ msgstr "Not enough staked balance"
 msgid "Not enough voting power to participate in this proposal"
 msgstr "Not enough voting power to participate in this proposal"
 
-#: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
-msgid "Nothing borrowed yet"
-msgstr "Nothing borrowed yet"
-
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 msgid "Nothing staked"
 msgstr "Nothing staked"
 
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
-#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/reserve-overview/BorrowList.tsx
 msgid "Nothing supplied yet"
 msgstr "Nothing supplied yet"
@@ -915,10 +915,6 @@ msgstr "Rejected connection request"
 msgid "Remaining debt"
 msgstr "Remaining debt"
 
-#: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
-msgid "Remaining supply"
-msgstr "Remaining supply"
-
 #: src/components/transactions/Repay/RepayModal.tsx
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsListItem.tsx
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsListMobileItem.tsx
@@ -951,6 +947,7 @@ msgid "Retry with Approval"
 msgstr "Retry with Approval"
 
 #: src/components/transactions/TxActionsWrapper.tsx
+#: src/components/transactions/TxActionsWrapper_old.tsx
 msgid "Retry with approval"
 msgstr "Retry with approval"
 
@@ -1084,17 +1081,13 @@ msgstr "Staking"
 msgid "Staking APR"
 msgstr "Staking APR"
 
-#: src/components/transactions/Supply/SupplyModalContent_old.tsx
-msgid "Supplied"
-msgstr "Supplied"
-
 #: pages/index.page.tsx
 #: src/components/transactions/Supply/SupplyModal.tsx
+#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsListItem.tsx
 #: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsListMobileItem.tsx
 msgid "Supply"
 msgstr "Supply"
 
-#: src/components/transactions/Supply/SupplyModalContent_old.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsListMobileItem.tsx
 #: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsListMobileItem.tsx
 #: src/modules/markets/AssetsList.tsx
@@ -1236,10 +1229,6 @@ msgstr "There is not enough collateral to cover a new borrow"
 #: src/components/transactions/FlowCommons/GasEstimationError.tsx
 msgid "There was some error. Please try changing the parameters or <0><1>copy the error</1></0>"
 msgstr "There was some error. Please try changing the parameters or <0><1>copy the error</1></0>"
-
-#: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
-msgid "These funds have been borrowed and are not available for withdrawal at this time."
-msgstr "These funds have been borrowed and are not available for withdrawal at this time."
 
 #: src/components/caps/CapsTooltip.tsx
 msgid "This asset has almost reached its borrow cap. There is only {messageValue} available to be borrowed from this market."
@@ -1512,15 +1501,12 @@ msgstr "Withdraw"
 msgid "Withdraw {symbol}"
 msgstr "Withdraw {symbol}"
 
-#: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
-msgid "Withdrawing this amount will reduce your health factor and increase risk of liquidation."
-msgstr "Withdrawing this amount will reduce your health factor and increase risk of liquidation."
-
 #: src/components/transactions/Withdraw/WithdrawActions.tsx
 msgid "Withdrawing {symbol}"
 msgstr "Withdrawing {symbol}"
 
 #: src/components/transactions/TxActionsWrapper.tsx
+#: src/components/transactions/TxActionsWrapper_old.tsx
 msgid "Wrong Network"
 msgstr "Wrong Network"
 
@@ -1551,10 +1537,6 @@ msgstr "You can not switch usage as collateral mode for this currency, because i
 #: src/components/transactions/CollateralChange/CollateralChangeModalContent.tsx
 msgid "You can not use this currency as collateral"
 msgstr "You can not use this currency as collateral"
-
-#: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
-msgid "You can not withdraw this amount because it will cause collateral call"
-msgstr "You can not withdraw this amount because it will cause collateral call"
 
 #: src/modules/staking/StakingPanel.tsx
 msgid "You can only withdraw your assets from the Security Module after the cooldown period ends and the unstake window is active."
@@ -1595,10 +1577,6 @@ msgstr "You unstake here"
 #: src/modules/governance/proposal/VoteInfo.tsx
 msgid "You voted {0}"
 msgstr "You voted {0}"
-
-#: src/components/transactions/CollateralChange/CollateralChangeModalContent.tsx
-msgid "You will exit isolation mode and other tokens can now be used as collateral"
-msgstr "You will exit isolation mode and other tokens can now be used as collateral"
 
 #: src/components/transactions/FlowCommons/Success.tsx
 msgid "You {action} <0/> {symbol}"
@@ -1667,10 +1645,6 @@ msgstr "Your voting info"
 msgid "Your wallet balance"
 msgstr "Your wallet balance"
 
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
-msgid "Your {networkName} wallet is empty. Purchase or transfer assets"
-msgstr "Your {networkName} wallet is empty. Purchase or transfer assets"
-
 #: src/ui-config/errorMapping.tsx
 msgid "Zero address not valid"
 msgstr "Zero address not valid"
@@ -1707,10 +1681,6 @@ msgstr "on"
 msgid "or"
 msgstr "or"
 
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
-msgid "or use <0>{0}</0> to transfer your ETH assets."
-msgstr "or use <0>{0}</0> to transfer your ETH assets."
-
 #: src/components/transactions/Warnings/SNXWarning.tsx
 msgid "please check that the amount you want to supply is not currently being used for staking. If it is being used for staking, your transaction might fail."
 msgstr "please check that the amount you want to supply is not currently being used for staking. If it is being used for staking, your transaction might fail."
@@ -1742,10 +1712,6 @@ msgstr "v2 markets"
 #: src/components/MarketSwitcher.tsx
 msgid "v3 markets"
 msgstr "v3 markets"
-
-#: src/components/transactions/Withdraw/WithdrawModalContent_old.tsx
-msgid "withdrew"
-msgstr "withdrew"
 
 #: src/components/infoTooltips/RewardsTooltip.tsx
 msgid "xxxxxx"
