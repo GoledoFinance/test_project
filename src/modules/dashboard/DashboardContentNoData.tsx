@@ -3,9 +3,10 @@ import { ReactNode } from 'react';
 
 interface DashboardContentNoDataProps {
   text: ReactNode;
+  img?: string | null;
 }
 
-export const DashboardContentNoData = ({ text }: DashboardContentNoDataProps) => {
+export const DashboardContentNoData = ({ text, img }: DashboardContentNoDataProps) => {
   return (
     <Box
       sx={{
@@ -18,6 +19,7 @@ export const DashboardContentNoData = ({ text }: DashboardContentNoDataProps) =>
         pb: { xs: 6, sxm: 7 },
       }}
     >
+      {img !== null && <img src={'/empty-2.svg'} alt="empty img" />}
       <Typography color="#ccc" sx={{ mt: 3.5 }}>
         {text}
       </Typography>

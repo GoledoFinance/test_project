@@ -1,10 +1,9 @@
 import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
 import { USD_DECIMALS, valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
-import { Button, Box, useMediaQuery, useTheme, SvgIcon, Alert } from '@mui/material';
+import { Box, useMediaQuery, useTheme, Alert } from '@mui/material';
 import { useState } from 'react';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
-import LaunchIcon from '@mui/icons-material/Launch';
 
 import { ListWrapper } from '../../../../components/lists/ListWrapper';
 import { Link } from '../../../../components/primitives/Link';
@@ -133,20 +132,30 @@ export const SupplyAssetsList = () => {
       withTopMargin
       subChildrenComponent={
         <>
-          {/* TODO: 是否需要？ */}
           {
             <Box sx={{ px: 6 }}>
               {filteredSupplyReserves.length === 0 && (
                 <Alert severity="info">
-                  <Trans>Your {networkName} wallet is empty. Purchase or transfer assets</Trans>{' '}
+                  Your {networkName} wallet is empty. Purchase or transfer assets{' '}
                   {bridge.length > 0 && (
-                    <Trans>
-                      {/* TODO: change to bridge.map */}
-                      or use {<Link href={bridge[0].url}>{bridge[0].name}</Link>},{' '}
-                      {<Link href={bridge[1].url}>{bridge[1].name}</Link>} or{' '}
-                      {<Link href={bridge[2].url}>{bridge[2].name}</Link>} to transfer your ETH
-                      assets.
-                    </Trans>
+                    <>
+                      or use{' '}
+                      {bridge.map((bridgeItem, index) => {
+                        return (
+                          <>
+                            <Link href={bridgeItem.url} key={bridgeItem.name}>
+                              {bridgeItem.name}
+                            </Link>
+                            {index !== bridge.length - 1
+                              ? index !== bridge.length - 2
+                                ? ', '
+                                : ' or '
+                              : ' '}
+                          </>
+                        );
+                      })}
+                      to transfer your ETH assets.
+                    </>
                   )}
                 </Alert>
               )}
@@ -168,26 +177,6 @@ export const SupplyAssetsList = () => {
                 bridge={bridge}
               />
             )}
-            <Button
-              sx={{ mx: 6 }}
-              size="small"
-              variant="outlined"
-              startIcon={
-                <img
-                  alt="eth logo"
-                  width="14px"
-                  height="14px"
-                  src={'/icons/networks/ethereum.svg'}
-                />
-              }
-              endIcon={
-                <SvgIcon sx={{ fontSize: '12px' }}>
-                  <LaunchIcon />
-                </SvgIcon>
-              }
-            >
-              Ethereum Bridge
-            </Button>
           </Box>
         </>
       }

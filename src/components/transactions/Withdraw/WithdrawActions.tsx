@@ -53,7 +53,7 @@ export const WithdrawActions = ({
       actionInProgressText={<Trans>Withdrawing {symbol}</Trans>}
       actionText={<Trans>Withdraw {symbol}</Trans>}
       handleAction={action}
-      handleApproval={() => approval(amountToWithdraw, poolAddress)}
+      handleApproval={() => approval()}
       requiresApproval={requiresApproval}
       sx={sx}
     />

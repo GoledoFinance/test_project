@@ -11,7 +11,7 @@ import { GasEstimationError } from '../FlowCommons/GasEstimationError';
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 import { TxSuccessView } from '../FlowCommons/Success';
 import { DetailsHFLine, DetailsNumberLine, TxModalDetails } from '../FlowCommons/TxModalDetails';
-import { IsolationModeWarning } from '../Warnings/IsolationModeWarning';
+// import { IsolationModeWarning } from '../Warnings/IsolationModeWarning';
 import { CollateralChangeActions } from './CollateralChangeActions';
 
 export type CollateralChangeModalContentProps = {
@@ -107,12 +107,12 @@ export const CollateralChangeModalContent = ({
         </Alert>
       )}
 
-      {poolReserve.isIsolated && usageAsCollateralModeAfterSwitch && <IsolationModeWarning />}
+      {/* {poolReserve.isIsolated && usageAsCollateralModeAfterSwitch && <IsolationModeWarning />}
       {poolReserve.isIsolated && !usageAsCollateralModeAfterSwitch && (
         <Alert severity="info" icon={false}>
           <Trans>You will exit isolation mode and other tokens can now be used as collateral</Trans>
         </Alert>
-      )}
+      )} */}
 
       <TxModalDetails gasLimit={gasLimit}>
         <DetailsNumberLine

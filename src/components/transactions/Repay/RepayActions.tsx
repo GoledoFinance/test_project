@@ -1,13 +1,13 @@
 import { InterestRate } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { BoxProps } from '@mui/material';
-import { utils } from 'ethers';
+// import { utils } from 'ethers';
 import { useTransactionHandler } from 'src/helpers/useTransactionHandler';
 import { ComputedReserveData } from 'src/hooks/app-data-provider/useAppDataProvider';
-import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
+// import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { useTxBuilderContext } from 'src/hooks/useTxBuilder';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
-import { permitByChainAndToken } from 'src/ui-config/permitConfig';
+// import { permitByChainAndToken } from 'src/ui-config/permitConfig';
 import { TxActionsWrapper } from '../TxActionsWrapper';
 
 export interface RepayActionProps extends BoxProps {

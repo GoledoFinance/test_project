@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { Typography, Box, Stack } from '@mui/material';
-import React, { useState, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal';
 
 import { BasicModal } from '../../primitives/BasicModal';

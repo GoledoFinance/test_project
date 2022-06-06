@@ -33,17 +33,8 @@ const marketToHALAaveVersionUrlParam = (market: CustomMarket): string | undefine
   const exhaustCases = (_: string) => undefined;
 
   switch (market) {
-    case CustomMarket.proto_polygon:
-      return 'aavepolygon';
-    case CustomMarket.proto_avalanche:
-      return 'aaveavalanche';
-    case CustomMarket.proto_mainnet:
-      return 'aavev2';
-
-    case CustomMarket.proto_kovan:
-    case CustomMarket.proto_mumbai:
-    case CustomMarket.proto_fuji:
-      return undefined;
+    // case CustomMarket.proto_espace_testnet:
+    //   return 'espace_testnet';
 
     default:
       return exhaustCases(market);

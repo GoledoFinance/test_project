@@ -27,6 +27,7 @@ export const DashboardListTopPanel = ({
         px: { xs: 4, xsm: 6 },
         // py: 2,
         pl: { xs: '18px', xsm: '27px' },
+        width: '100%',
       }}
     >
       <FormControlLabel

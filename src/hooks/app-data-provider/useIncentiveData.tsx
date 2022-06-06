@@ -5,7 +5,7 @@ import { useConnectionStatusContext } from '../useConnectionStatusContext';
 import { useModalContext } from '../useModal';
 import { useProtocolDataContext } from '../useProtocolDataContext';
 import { useIncentivesDataCached } from './useIncentiveDataCached';
-import { useIncentivesDataRPC } from './useIncentiveDataRPC';
+// import { useIncentivesDataRPC } from './useIncentiveDataRPC';
 
 export interface ReserveIncentiveResponse {
   incentiveAPR: string;
@@ -42,28 +42,28 @@ export const useIncentiveData = (skip = false) => {
       (mainTxState.loading ?? false)
   );
 
-  const {
-    loading: rpcDataLoading,
-    error: rpcDataError,
-    refresh,
-  } = useIncentivesDataRPC(
-    currentMarketData.addresses.LENDING_POOL_ADDRESS_PROVIDER,
-    currentChainId,
-    currentMarketData.addresses.UI_INCENTIVE_DATA_PROVIDER,
-    skip ||
-      !rpcMode ||
-      !currentMarketData.addresses.UI_INCENTIVE_DATA_PROVIDER ||
-      (mainTxState.loading ?? false),
-    currentAccount
-  );
+  // const {
+  //   loading: rpcDataLoading,
+  //   error: rpcDataError,
+  //   refresh,
+  // } = useIncentivesDataRPC(
+  //   currentMarketData.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+  //   currentChainId,
+  //   currentMarketData.addresses.UI_INCENTIVE_DATA_PROVIDER,
+  //   skip ||
+  //     !rpcMode ||
+  //     !currentMarketData.addresses.UI_INCENTIVE_DATA_PROVIDER ||
+  //     (mainTxState.loading ?? false),
+  //   currentAccount
+  // );
 
-  if (rpcMode) {
-    return {
-      loading: rpcDataLoading,
-      error: rpcDataError,
-      refresh,
-    };
-  }
+  // if (rpcMode) {
+  //   return {
+  //     loading: rpcDataLoading,
+  //     error: rpcDataError,
+  //     refresh,
+  //   };
+  // }
 
   return {
     loading: cachedDataLoading,

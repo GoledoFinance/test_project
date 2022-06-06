@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { useIncentiveData } from './useIncentiveData';
+// import { useIncentiveData } from './useIncentiveData';
 import { usePoolData } from './usePoolData';
 import { useUpdateWalletBalances } from './useWalletBalances';
 
@@ -20,13 +20,11 @@ const BackgroundDataProviderContext = React.createContext<BackgroundDataProvider
  * @returns
  */
 export const BackgroundDataProvider: React.FC = ({ children }) => {
-  const { refresh: refechIncentiveData } = useIncentiveData();
+  // const { refresh: refechIncentiveData } = useIncentiveData();
   const { refresh: refetchPoolData } = usePoolData();
   const { refetch: refetchWalletBalances } = useUpdateWalletBalances();
   return (
-    <BackgroundDataProviderContext.Provider
-      value={{ refetchWalletBalances, refechIncentiveData, refetchPoolData }}
-    >
+    <BackgroundDataProviderContext.Provider value={{ refetchWalletBalances, refetchPoolData }}>
       {children}
     </BackgroundDataProviderContext.Provider>
   );
