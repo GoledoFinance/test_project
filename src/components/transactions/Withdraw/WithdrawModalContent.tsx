@@ -1,6 +1,6 @@
 import NumberFormat, { NumberFormatProps } from 'react-number-format';
 import { Box, Button, Typography, TextField, InputAdornment } from '@mui/material';
-// import BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 import { forwardRef, useRef, useImperativeHandle, useState } from 'react';
 
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
@@ -24,6 +24,7 @@ const NumberFormatCustom = forwardRef<
 
   const [value, setValue] = useState('');
 
+  // TODO: 待修复
   useImperativeHandle(ref, () => ({
     getValue: () => value,
     setValue: (v: string) => {
@@ -61,67 +62,63 @@ const NumberFormatCustom = forwardRef<
 });
 
 // eslint-disable-next-line react/display-name
-export const AInput = forwardRef(
-  (
-    {
-      symbol,
-      max = false,
-      placeholder,
-    }: {
-      symbol: string;
-      max?: false | number | string;
-      placeholder?: string;
-    },
-    ref1
-  ) => {
-    const ref = useRef(null);
-
-    useImperativeHandle(ref1, () => ({
-      getValue: () => ref.current?.getValue?.(),
-    }));
-
-    return (
-      <TextField
-        sx={{ width: '100%', mt: 2.5 }}
-        inputRef={ref}
-        InputProps={{
-          sx: {
-            backgroundColor: '#f1f1f1',
-            borderColor: 'transparent !important',
-            height: 40,
-          },
-          placeholder: placeholder || 'Amount',
-          startAdornment: (
-            <InputAdornment position="start">
-              <img
-                src={`/icons/tokens/${symbol?.toLocaleLowerCase()}.svg`}
-                alt="icon"
-                width={20}
-                height={20}
-              />
-            </InputAdornment>
-          ),
-          endAdornment: max !== false && (
-            <InputAdornment position="end">
-              <Typography
-                sx={{ cursor: 'pointer', color: '#2D88F2' }}
-                onClick={() => {
-                  if (ref?.current) {
-                    ref.current?.setValue(max);
-                  }
-                }}
-              >
-                MAX
-              </Typography>
-            </InputAdornment>
-          ),
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          inputComponent: NumberFormatCustom as any,
-        }}
-      />
-    );
+export const AInput = forwardRef<
+  {
+    getValue: () => string;
+  },
+  {
+    symbol: string;
+    max?: false | number | string;
+    placeholder?: string;
   }
-);
+>(({ symbol, max = false, placeholder }, ref1) => {
+  const ref = useRef(null);
+
+  useImperativeHandle(ref1, () => ({
+    getValue: () => ref.current?.getValue?.(),
+  }));
+
+  return (
+    <TextField
+      sx={{ width: '100%', mt: 2.5 }}
+      inputRef={ref}
+      InputProps={{
+        sx: {
+          backgroundColor: '#f1f1f1',
+          borderColor: 'transparent !important',
+          height: 40,
+        },
+        placeholder: placeholder || 'Amount',
+        startAdornment: (
+          <InputAdornment position="start">
+            <img
+              src={`/icons/tokens/${symbol?.toLocaleLowerCase()}.svg`}
+              alt="icon"
+              width={20}
+              height={20}
+            />
+          </InputAdornment>
+        ),
+        endAdornment: max !== false && (
+          <InputAdornment position="end">
+            <Typography
+              sx={{ cursor: 'pointer', color: '#2D88F2' }}
+              onClick={() => {
+                if (ref?.current) {
+                  ref.current?.setValue(max);
+                }
+              }}
+            >
+              MAX
+            </Typography>
+          </InputAdornment>
+        ),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        inputComponent: NumberFormatCustom as any,
+      }}
+    />
+  );
+});
 
 export enum ErrorType {
   CAN_NOT_WITHDRAW_THIS_AMOUNT,
@@ -132,6 +129,10 @@ export const WithdrawModalContent = ({
   symbol,
   onSubmit,
 }: ModalWrapperProps & { onSubmit: (v?: string) => Promise<void> }) => {
+  const ref = useRef(null);
+
+  const maxV = '20.101';
+
   return (
     <>
       <Typography variant="description" color={'#666'}>
@@ -144,20 +145,21 @@ export const WithdrawModalContent = ({
         <FormattedNumber
           variant="description"
           symbol="ETH"
-          value={20.101}
+          value={maxV}
           visibleDecimals={4}
           symbolsColor="#666"
           sx={{ color: '#666' }}
         />
       </Box>
-      <AInput symbol={symbol} />
+      <AInput symbol={symbol} ref={ref} max={maxV} />
       <Button
         variant="contained"
         size="large"
         fullWidth
         sx={{ mt: 10, height: 40 }}
         onClick={() => {
-          onSubmit();
+          const inputV: string = ref.current?.getValue?.() || '0';
+          onSubmit(BigNumber.minimum(inputV, maxV).toString());
         }}
       >
         Continue

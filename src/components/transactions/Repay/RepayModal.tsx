@@ -14,7 +14,7 @@ export const RepayModal = () => {
     currentRateMode: InterestRate;
   }>;
 
-  const { step, setStep } = useStep(type);
+  const { step, setStep, value, setValue } = useStep(type);
 
   return (
     <BasicModal open={type === ModalType.Repay} setOpen={close}>
@@ -23,12 +23,13 @@ export const RepayModal = () => {
           step !== 2 ? (
             <RepayModalContent
               {...params}
-              onSubmit={async () => {
+              onSubmit={async (value) => {
+                setValue(value || '0');
                 setStep(2);
               }}
             />
           ) : (
-            <RepayModalContentNext {...params} />
+            <RepayModalContentNext {...params} value={value} />
           )
         }
       </ModalWrapper>

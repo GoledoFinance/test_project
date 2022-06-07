@@ -124,7 +124,6 @@ export const SupplyAssetsList = () => {
 
   if (loadingReserves || loading)
     return <ListLoader title={<Trans>Assets to Deposit</Trans>} head={head} withTopMargin />;
-
   return (
     <ListWrapper
       title={<Trans>Assets to Deposit</Trans>}

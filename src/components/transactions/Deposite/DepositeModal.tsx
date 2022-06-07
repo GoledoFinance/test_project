@@ -14,7 +14,7 @@ export const DepositeModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
     underlyingAsset: string;
   }>;
-  const { step, setStep } = useStep(type);
+  const { step, setStep, value, setValue } = useStep(type);
 
   return (
     <BasicModal open={type === ModalType.Deposite} setOpen={close} contentMaxWidth={740}>
@@ -139,12 +139,13 @@ export const DepositeModal = () => {
               {step !== 2 ? (
                 <DepositeModalContent
                   {...params}
-                  onSubmit={async () => {
+                  onSubmit={async (value) => {
+                    setValue(value || '0');
                     setStep(2);
                   }}
                 />
               ) : (
-                <DepositeModalContentNext {...params} />
+                <DepositeModalContentNext {...params} value={value} />
               )}
             </>
           );

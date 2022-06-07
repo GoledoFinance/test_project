@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import { useRef } from 'react';
+import BigNumber from 'bignumber.js';
 
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 import { AInput } from '../Withdraw/WithdrawModalContent';
@@ -39,7 +40,8 @@ export const SupplyModalContent = ({
         fullWidth
         sx={{ mt: 10, height: 40 }}
         onClick={() => {
-          onSubmit(ref.current?.getValue());
+          const inputV: string = ref.current?.getValue?.() || '0';
+          onSubmit(BigNumber.minimum(inputV, maxV).toString());
         }}
       >
         Continue

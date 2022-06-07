@@ -12,7 +12,7 @@ export const BorrowModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
     underlyingAsset: string;
   }>;
-  const { step, setStep } = useStep(type);
+  const { step, setStep, value, setValue } = useStep(type);
 
   return (
     <BasicModal open={type === ModalType.Borrow} setOpen={close}>
@@ -25,12 +25,13 @@ export const BorrowModal = () => {
           step !== 2 ? (
             <BorrowModalContent
               {...params}
-              onSubmit={async () => {
+              onSubmit={async (value) => {
+                setValue(value || '0');
                 setStep(2);
               }}
             />
           ) : (
-            <BorrowModalContentNext {...params} />
+            <BorrowModalContentNext {...params} value={value} />
           )
         }
       </ModalWrapper>

@@ -45,8 +45,7 @@ export const WithdrawModal = () => {
             <WithdrawModalContent
               {...params}
               onSubmit={async (value) => {
-                console.log('value:', value);
-                setValue(value);
+                setValue(value || '0');
                 setStep(2);
               }}
             />

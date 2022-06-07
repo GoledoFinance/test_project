@@ -8,7 +8,10 @@ import { HealthFactorNumber } from 'src/components/HealthFactorNumber';
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 import { CompleteIcon, StepHeader } from '../Withdraw/WithdrawModalContentNext';
 
-export const RepayModalContentNext = ({ symbol }: ModalWrapperProps) => {
+export const RepayModalContentNext = ({
+  symbol,
+  value = '0',
+}: ModalWrapperProps & { value: string }) => {
   return (
     <>
       <Typography variant="description" color={'#666'}>
@@ -27,9 +30,10 @@ export const RepayModalContentNext = ({ symbol }: ModalWrapperProps) => {
               Amount to repay
             </Typography>
             <Typography variant="main14">
-              {new BigNumber(123123213).toFormat(0)} {symbol}
+              {/* TODO: 注意按需精度调整 */}
+              {new BigNumber(value).toFormat(0)} {symbol}
               <Typography component={'span'} color={'#666'}>
-                (${new BigNumber(123123123).toFormat(0)})
+                (${new BigNumber(value).toFormat(0)})
               </Typography>
             </Typography>
           </>,

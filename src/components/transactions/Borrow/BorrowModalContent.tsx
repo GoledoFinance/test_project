@@ -1,4 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
+import { useRef } from 'react';
+import BigNumber from 'bignumber.js';
 
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 import { AInput } from '../Withdraw/WithdrawModalContent';
@@ -7,7 +9,9 @@ import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 export const BorrowModalContent = ({
   symbol,
   onSubmit,
-}: ModalWrapperProps & { onSubmit: () => Promise<void> }) => {
+}: ModalWrapperProps & { onSubmit: (v?: string) => Promise<void> }) => {
+  const ref = useRef(null);
+  const maxV = '20.101';
   return (
     <>
       <Typography variant="description" color={'#666'}>
@@ -19,19 +23,22 @@ export const BorrowModalContent = ({
         <FormattedNumber
           variant="description"
           symbol="ETH"
-          value={20.101}
+          value={maxV}
           visibleDecimals={4}
           symbolsColor="#666"
           sx={{ color: '#666' }}
         />
       </Box>
-      <AInput symbol={symbol} />
+      <AInput symbol={symbol} max={maxV} ref={ref} />
       <Button
         variant="contained"
         size="large"
         fullWidth
         sx={{ mt: 10, height: 40 }}
-        onClick={onSubmit}
+        onClick={() => {
+          const inputV: string = ref.current?.getValue?.() || '0';
+          onSubmit(BigNumber.minimum(inputV, maxV).toString());
+        }}
       >
         Continue
       </Button>
