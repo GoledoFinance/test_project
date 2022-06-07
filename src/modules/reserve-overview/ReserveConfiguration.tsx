@@ -19,7 +19,7 @@ import {
 import Paper from '@mui/material/Paper';
 import { ComputedReserveData } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
-// TODO: 记得替换
+// TODO: need to update the tooltip text
 import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
 
 export const PanelRow: React.FC<BoxProps> = (props) => (

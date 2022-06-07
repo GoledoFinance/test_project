@@ -29,7 +29,7 @@ export const SupplyModalContentNext = ({
               Amount
             </Typography>
             <Typography variant="main14">
-              {/* TODO: 注意按需精度调整 */}
+              {/* TODO: please adjust the precision based on the requirement */}
               {new BigNumber(value).toFormat(0)} {symbol}
               <Typography component={'span'} color={'#666'}>
                 (${new BigNumber(value).toFormat(0)})

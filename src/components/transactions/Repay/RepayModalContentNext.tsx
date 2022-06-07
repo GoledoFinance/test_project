@@ -30,7 +30,7 @@ export const RepayModalContentNext = ({
               Amount to repay
             </Typography>
             <Typography variant="main14">
-              {/* TODO: 注意按需精度调整 */}
+              {/* TODO: adjusting the precision based on the requirement */}
               {new BigNumber(value).toFormat(0)} {symbol}
               <Typography component={'span'} color={'#666'}>
                 (${new BigNumber(value).toFormat(0)})

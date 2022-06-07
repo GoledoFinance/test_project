@@ -123,7 +123,7 @@ export const DashboardTopPanel = () => {
           )}
         </TopInfoPanelItem>
 
-        {/* TODO: 是否需要直接显示 */}
+        {/* TODO: need to show? */}
         {/* {currentAccount && user?.healthFactor !== '-1' && ( */}
         <TopInfoPanelItem
           hideIcon
@@ -143,7 +143,7 @@ export const DashboardTopPanel = () => {
         </TopInfoPanelItem>
         {/* )} */}
 
-        {/* TODO: 是否需要直接显示 */}
+        {/* TODO: need to show? */}
         {/* {currentAccount && claimableRewardsUsd > 0 && ( */}
         <TopInfoPanelItem
           title={

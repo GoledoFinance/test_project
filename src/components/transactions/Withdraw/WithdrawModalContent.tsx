@@ -24,7 +24,7 @@ const NumberFormatCustom = forwardRef<
 
   const [value, setValue] = useState('');
 
-  // TODO: 待修复
+  // TODO: can be optimized to remove warnings
   useImperativeHandle(ref, () => ({
     getValue: () => value,
     setValue: (v: string) => {

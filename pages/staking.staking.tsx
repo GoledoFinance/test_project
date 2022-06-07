@@ -29,7 +29,7 @@ import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 
 import { ConnectWalletPaper } from '../src/components/ConnectWalletPaper';
 import { useWeb3Context } from '../src/libs/hooks/useWeb3Context';
-// TODO: 记得替换
+// TODO: need to update tooltip text
 import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
 
 export default function Staking() {
