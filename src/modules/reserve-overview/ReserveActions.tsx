@@ -25,6 +25,9 @@ import { Row } from '../../components/primitives/Row';
 import { ConnectWalletButton } from 'src/components/WalletConnection/ConnectWalletButton';
 import { ListButtonsColumn } from '../dashboard/lists/ListButtonsColumn';
 import { ListItemUsedAsCollateral } from '../dashboard/lists/ListItemUsedAsCollateral';
+import { UserReserveData } from '@goledo-sdk/math-utils';
+import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
+import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
 export const PaperWrapper = ({
   children,
@@ -64,10 +67,11 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
-  const { openWithdraw, openDeposit } = useModalContext();
+  const { openWithdraw, openSupply, openCollateralChange } = useModalContext();
 
   const { currentAccount, loading: web3Loading } = useWeb3Context();
-  const { reserves, loading: loadingReserves } = useAppDataContext();
+  const { currentNetworkConfig } = useProtocolDataContext();
+  const { reserves, userReserves, loading: loadingReserves } = useAppDataContext();
   const { walletBalances, loading: loadingBalance } = useWalletBalances();
 
   if (!currentAccount)
@@ -78,7 +82,7 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
         ) : (
           <>
             <Typography variant="h3" sx={{ mb: { xs: 6, xsm: 10 } }}>
-              <Trans>Deposits</Trans>
+              <Trans>Supplies</Trans>
             </Typography>
             <Typography sx={{ mb: 6 }} color="text.secondary">
               <Trans>Please connect a wallet to view your personal information here.</Trans>
@@ -91,7 +95,7 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
 
   if (loadingReserves || loadingBalance)
     return (
-      <PaperWrapper title="Deposits">
+      <PaperWrapper title="Supplies">
         <Row
           caption={<Skeleton width={100} height={20} />}
           align="flex-start"
@@ -119,30 +123,32 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const poolReserve = reserves.find(
     (reserve) => reserve.underlyingAsset === underlyingAsset
   ) as ComputedReserveData;
+  const userReserve = userReserves.find(
+    (reserve) => reserve.underlyingAsset === underlyingAsset
+  ) as UserReserveData;
 
   const balance = walletBalances[underlyingAsset];
-  const maxAmountToSupply = getMaxAmountAvailableToSupply(
-    balance.amount,
-    poolReserve,
-    underlyingAsset
-  ).toString();
+  const nativeBalance = walletBalances[API_ETH_MOCK_ADDRESS.toLowerCase()];
 
   return (
     <PaperWrapper
-      title="Deposits"
+      title="Supplies"
       subTitle={
         <ListButtonsColumn>
           <Button
             sx={{ height: 32 }}
-            // disabled={!isActive}
+            disabled={
+              (!balance || balance.amount === '0') &&
+              (!poolReserve.isWrappedBaseAsset || !nativeBalance || nativeBalance.amount === '0')
+            }
             variant="contained"
-            onClick={() => openDeposit(underlyingAsset)}
+            onClick={() => openSupply(underlyingAsset)}
           >
-            <Trans>Deposite</Trans>
+            <Trans>Supply</Trans>
           </Button>
           <Button
             sx={{ height: 32 }}
-            // disabled={!isActive || isFrozen}
+            disabled={!userReserve || userReserve.scaledATokenBalance === '0'}
             variant="outlined"
             onClick={() => openWithdraw(underlyingAsset)}
           >
@@ -151,6 +157,20 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
         </ListButtonsColumn>
       }
     >
+      {poolReserve.isWrappedBaseAsset && (
+        <Row
+          caption={<Trans>Your {currentNetworkConfig.baseAssetSymbol} balance</Trans>}
+          align="flex-start"
+          mb={3}
+          captionVariant="description"
+        >
+          <FormattedNumber
+            value={nativeBalance?.amount || 0}
+            variant="secondary14"
+            symbol={currentNetworkConfig.baseAssetSymbol}
+          />
+        </Row>
+      )}
       <Row
         caption={<Trans>Your wallet balance</Trans>}
         align="flex-start"
@@ -166,7 +186,7 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
 
       <Row caption={<Trans>You already deposited</Trans>} mb={1} captionVariant="description">
         <FormattedNumber
-          value={maxAmountToSupply}
+          value={userReserve.scaledATokenBalance}
           variant="secondary14"
           symbol={poolReserve.symbol}
         />
@@ -175,12 +195,9 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
       <Row caption={<Trans>Use as coliateral</Trans>} captionVariant="description">
         <ListItemUsedAsCollateral
           isIsolated={false}
-          usageAsCollateralEnabledOnUser={true}
-          canBeEnabledAsCollateral={true}
-          // onToggleSwitch={() => openCollateralChange(underlyingAsset)}
-          onToggleSwitch={() => {
-            return false;
-          }}
+          usageAsCollateralEnabledOnUser={userReserve.usageAsCollateralEnabledOnUser}
+          canBeEnabledAsCollateral={poolReserve.usageAsCollateralEnabled}
+          onToggleSwitch={() => openCollateralChange(underlyingAsset)}
           data-cy={`collateralStatus`}
         />
       </Row>

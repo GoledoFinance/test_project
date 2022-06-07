@@ -1,10 +1,14 @@
 import { Trans } from '@lingui/macro';
 import {
+  Button,
+  CircularProgress,
+  Paper,
   // Button,
   // CircularProgress,
   // Paper,
   Skeleton,
   Stack,
+  Typography,
   // Typography,
   useMediaQuery,
   useTheme,
@@ -25,6 +29,11 @@ import { Row } from '../../components/primitives/Row';
 // import { ListItemUsedAsCollateral } from '../dashboard/lists/ListItemUsedAsCollateral';
 import { PaperWrapper } from './ReserveActions';
 import { HealthFactorNumber } from 'src/components/HealthFactorNumber';
+import { UserReserveData } from '@goledo-sdk/math-utils';
+import { ListButtonsColumn } from '../dashboard/lists/ListButtonsColumn';
+import { useModalContext } from 'src/hooks/useModal';
+import { ConnectWalletButton } from 'src/components/WalletConnection/ConnectWalletButton';
+import { InterestRate } from '@goledo-sdk/contract-helpers';
 
 interface ReserveActionsProps {
   underlyingAsset: string;
@@ -34,13 +43,35 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
-  // const { openBorrow, openSupply } = useModalContext();
+  const { openBorrow, openRepay } = useModalContext();
 
-  const { currentAccount } = useWeb3Context();
-  const { reserves, loading: loadingReserves } = useAppDataContext();
+  const { currentAccount, loading: web3Loading } = useWeb3Context();
+  const {
+    reserves,
+    userReserves,
+    isUserHasDeposits,
+    loading: loadingReserves,
+  } = useAppDataContext();
   const { walletBalances, loading: loadingBalance } = useWalletBalances();
 
-  if (!currentAccount) return null;
+  if (!currentAccount)
+    return (
+      <Paper sx={{ pt: 4, pb: { xs: 4, xsm: 6 }, px: { xs: 4, xsm: 6 } }}>
+        {web3Loading ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <Typography variant="h3" sx={{ mb: { xs: 6, xsm: 10 } }}>
+              <Trans>Borrows</Trans>
+            </Typography>
+            <Typography sx={{ mb: 6 }} color="text.secondary">
+              <Trans>Please connect a wallet to view your personal information here.</Trans>
+            </Typography>
+            <ConnectWalletButton />
+          </>
+        )}
+      </Paper>
+    );
 
   if (loadingReserves || loadingBalance)
     return (
@@ -72,6 +103,9 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const poolReserve = reserves.find(
     (reserve) => reserve.underlyingAsset === underlyingAsset
   ) as ComputedReserveData;
+  const userReserve = userReserves.find(
+    (reserve) => reserve.underlyingAsset === underlyingAsset
+  ) as UserReserveData;
 
   const balance = walletBalances[underlyingAsset];
   const maxAmountToSupply = getMaxAmountAvailableToSupply(
@@ -81,10 +115,32 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
   ).toString();
 
   return (
-    <PaperWrapper title="Borrows">
+    <PaperWrapper
+      title="Borrows"
+      subTitle={
+        <ListButtonsColumn>
+          <Button
+            sx={{ height: 32 }}
+            disabled={!isUserHasDeposits}
+            variant="contained"
+            onClick={() => openBorrow(underlyingAsset)}
+          >
+            <Trans>Borrow</Trans>
+          </Button>
+          <Button
+            sx={{ height: 32 }}
+            disabled={!userReserve || userReserve.scaledVariableDebt === '0'}
+            variant="outlined"
+            onClick={() => openRepay(underlyingAsset, InterestRate.Variable)}
+          >
+            <Trans>Repay</Trans>
+          </Button>
+        </ListButtonsColumn>
+      }
+    >
       <Row caption={<Trans>Borrowed</Trans>} align="flex-start" mb={3} captionVariant="description">
         <FormattedNumber
-          value={balance?.amount || 0}
+          value={userReserve?.scaledVariableDebt}
           variant="secondary14"
           symbol={poolReserve.symbol}
         />

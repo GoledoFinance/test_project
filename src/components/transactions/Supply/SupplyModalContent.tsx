@@ -1,48 +1,79 @@
-import { Box, Button, Typography } from '@mui/material';
-import { useRef } from 'react';
+import { Button } from '@mui/material';
+import { useRef, useState } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
-import { AInput } from '../Withdraw/WithdrawModalContent';
-import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
+import { getMaxAmountAvailableToSupply } from 'src/utils/getMaxAmountAvailableToSupply';
+import { AssetInput } from '../AssetInput';
+import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
+import { CapType } from 'src/components/caps/helper';
 
 export const SupplyModalContent = ({
   underlyingAsset,
+  poolReserve,
   nativeBalance,
   tokenBalance,
-  symbol,
   onSubmit,
-}: ModalWrapperProps & { onSubmit: (v?: string) => Promise<void> }) => {
-  const ref = useRef(null);
+  onAmountChange,
+  amount,
+}: ModalWrapperProps & {
+  onSubmit: () => Promise<void>;
+  onAmountChange: (v?: string) => Promise<void>;
+  amount?: string;
+}) => {
+  const { currentNetworkConfig } = useProtocolDataContext();
+  const [isMaxSelected, setIsMaxSelected] = useState(false);
 
-  const maxV =
-    underlyingAsset.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()
-      ? nativeBalance
-      : tokenBalance;
+  const amountRef = useRef<string>();
+  const supplyUnWrapped = underlyingAsset.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase();
+  const walletBalance = supplyUnWrapped ? nativeBalance : tokenBalance;
+  const maxAmountToSupply = getMaxAmountAvailableToSupply(
+    walletBalance,
+    poolReserve,
+    underlyingAsset
+  );
+  // Calculation of future HF
+  const amountIntEth = new BigNumber(amount || '0').multipliedBy(poolReserve.formattedPriceInETH);
+
+  const handleChange = (value: string) => {
+    const maxSelected = value === '-1';
+    if (!maxSelected && maxAmountToSupply.lt(new BigNumber(value))) {
+      value = maxAmountToSupply.toString(10);
+    }
+    amountRef.current = maxSelected ? maxAmountToSupply.toString(10) : value;
+    setIsMaxSelected(maxSelected);
+    onAmountChange(amountRef.current);
+  };
+
   return (
     <>
-      <Box display={'flex'} justifyContent="space-between" alignItems={'center'} mt={10}>
-        <Typography variant="main14">Available to supply</Typography>
-        <FormattedNumber
-          variant="description"
-          symbol={symbol}
-          value={maxV}
-          visibleDecimals={2}
-          symbolsColor="#666"
-          sx={{ color: '#666' }}
-        />
-      </Box>
-      <AInput symbol={symbol} max={maxV} ref={ref} />
+      <AssetInput
+        inputTitle={'Available to supply'}
+        value={amount || '0'}
+        onChange={handleChange}
+        usdValue={amountIntEth.toString(10)}
+        symbol={supplyUnWrapped ? currentNetworkConfig.baseAssetSymbol : poolReserve.symbol}
+        assets={[
+          {
+            balance: maxAmountToSupply.toString(10),
+            symbol: supplyUnWrapped ? currentNetworkConfig.baseAssetSymbol : poolReserve.symbol,
+            iconSymbol: supplyUnWrapped
+              ? currentNetworkConfig.baseAssetSymbol
+              : poolReserve.iconSymbol,
+          },
+        ]}
+        capType={CapType.supplyCap}
+        isMaxSelected={isMaxSelected}
+        disabled={false}
+        maxValue={maxAmountToSupply.toString(10)}
+      />
       <Button
         variant="contained"
         size="large"
         fullWidth
         sx={{ mt: 10, height: 40 }}
-        onClick={() => {
-          const inputV: string = ref.current?.getValue?.() || '0';
-          onSubmit(BigNumber.minimum(inputV, maxV).toString());
-        }}
+        onClick={onSubmit}
       >
         Continue
       </Button>

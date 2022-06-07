@@ -15,7 +15,9 @@ import {
   CircularProgress,
   Stack,
   StackProps,
+  Alert,
 } from '@mui/material';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import Paper from '@mui/material/Paper';
 import { ComputedReserveData } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
@@ -100,7 +102,7 @@ export const PanelItem: React.FC<PanelItemProps> = ({ title, children }) => {
   );
 };
 
-export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = () => {
+export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = ({ reserve }) => {
   return (
     <Paper sx={{ py: '20px', px: '20px' }}>
       <Box
@@ -143,7 +145,7 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
             size={120}
           />
           <img
-            src={'/icons/tokens/eth.svg'}
+            src={`/icons/tokens/${reserve.symbol.toLowerCase()}.svg`}
             alt="token img"
             width={96}
             height={96}
@@ -184,9 +186,11 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                 ),
                 value: (
                   <Box>
-                    {new BigNumber(231465798).toFormat(0)}
+                    <FormattedNumber value={reserve.totalDebt} variant="main16" compact />{' '}
                     <Box component={'span'} sx={{ color: '#888' }}>
-                      (${new BigNumber(231465798).toFormat(0)})
+                      (
+                      <FormattedNumber symbol="usd" value={reserve.totalDebtUSD} variant="main16" />
+                      )
                     </Box>
                   </Box>
                 ),
@@ -216,9 +220,15 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                 ),
                 value: (
                   <Box>
-                    {new BigNumber(231465798).toFormat(0)}
+                    <FormattedNumber value={reserve.availableLiquidity} variant="main16" compact />{' '}
                     <Box component={'span'} sx={{ color: '#888' }}>
-                      (${new BigNumber(231465798).toFormat(0)})
+                      (
+                      <FormattedNumber
+                        symbol="usd"
+                        value={reserve.availableLiquidityUSD}
+                        variant="main16"
+                      />
+                      )
                     </Box>
                   </Box>
                 ),
@@ -238,10 +248,74 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                     <NetAPYTooltip />
                   </Box>
                 ),
-                value: <Box>${new BigNumber(231465798).toFormat(0)}</Box>,
+                value: (
+                  <Box>
+                    <FormattedNumber
+                      variant="main14"
+                      percent
+                      value={reserve.formattedBaseLTVasCollateral}
+                      visibleDecimals={2}
+                      symbolsColor="#111"
+                    />
+                  </Box>
+                ),
               },
               {
                 key: '4',
+                label: (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      fontWeight: 600,
+                    }}
+                  >
+                    Liquidation threshold
+                    <NetAPYTooltip />
+                  </Box>
+                ),
+                value: (
+                  <Box>
+                    <FormattedNumber
+                      variant="main14"
+                      percent
+                      value={reserve.formattedReserveLiquidationThreshold}
+                      visibleDecimals={2}
+                      symbolsColor="#111"
+                    />
+                  </Box>
+                ),
+              },
+              {
+                key: '5',
+                label: (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      fontWeight: 600,
+                    }}
+                  >
+                    Liquidation penalty
+                    <NetAPYTooltip />
+                  </Box>
+                ),
+                value: (
+                  <Box>
+                    <FormattedNumber
+                      variant="main14"
+                      percent
+                      value={reserve.formattedReserveLiquidationBonus}
+                      visibleDecimals={2}
+                      symbolsColor="#111"
+                    />
+                  </Box>
+                ),
+              },
+              {
+                key: '6',
                 label: (
                   <Box
                     sx={{
@@ -255,7 +329,30 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                     <NetAPYTooltip />
                   </Box>
                 ),
-                value: <Box>Yes</Box>,
+                value: (
+                  <Box>
+                    <>
+                      {reserve.usageAsCollateralEnabled && (
+                        <Box
+                          sx={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <CheckRoundedIcon fontSize="small" color="success" sx={{ ml: 2 }} />
+                          <Typography variant="subheader1" sx={{ color: '#46BC4B' }}>
+                            <Trans>Can be collateral</Trans>
+                          </Typography>
+                        </Box>
+                      )}
+                      {!reserve.usageAsCollateralEnabled && (
+                        <Alert sx={{ my: '12px' }} severity="warning">
+                          <Trans>Asset cannot be used as collateral.</Trans>
+                        </Alert>
+                      )}
+                    </>
+                  </Box>
+                ),
               },
             ]}
           />

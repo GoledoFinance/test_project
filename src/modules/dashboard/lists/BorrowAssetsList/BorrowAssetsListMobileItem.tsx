@@ -59,7 +59,7 @@ export const BorrowAssetsListMobileItem = ({
       <Row
         caption={
           <VariableAPYTooltip
-            text={<Trans>APY, variable</Trans>}
+            text={<Trans>APY</Trans>}
             key="APY_dash_mob_variable_ type"
             variant="description"
           />
@@ -71,26 +71,6 @@ export const BorrowAssetsListMobileItem = ({
         <IncentivesCard
           value={Number(variableBorrowRate)}
           incentives={vIncentivesData}
-          symbol={symbol}
-          variant="secondary14"
-        />
-      </Row>
-
-      <Row
-        caption={
-          <StableAPYTooltip
-            text={<Trans>APY, stable</Trans>}
-            key="APY_dash_mob_stable_ type"
-            variant="description"
-          />
-        }
-        align="flex-start"
-        captionVariant="description"
-        mb={2}
-      >
-        <IncentivesCard
-          value={Number(stableBorrowRate)}
-          incentives={sIncentivesData}
           symbol={symbol}
           variant="secondary14"
         />

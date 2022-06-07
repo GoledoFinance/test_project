@@ -76,7 +76,7 @@ export default function AssetsList() {
     {
       title: (
         <VariableAPYTooltip
-          text={<Trans>Borrow APY, variable</Trans>}
+          text={<Trans>Borrow APY</Trans>}
           key="APY_list_variable_type"
           variant="subheader2"
         />

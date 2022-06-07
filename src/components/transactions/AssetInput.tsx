@@ -136,6 +136,8 @@ export const AssetInput = <T extends Asset = Asset>({
               style: {
                 fontSize: '21px',
                 lineHeight: '28,01px',
+                // backgroundColor: '#f1f1f1',
+                borderColor: 'transparent !important',
                 padding: 0,
                 height: '28px',
               },

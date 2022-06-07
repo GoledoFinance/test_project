@@ -123,10 +123,10 @@ export const SupplyAssetsList = () => {
   ];
 
   if (loadingReserves || loading)
-    return <ListLoader title={<Trans>Assets to Deposit</Trans>} head={head} withTopMargin />;
+    return <ListLoader title={<Trans>Assets to Supply</Trans>} head={head} withTopMargin />;
   return (
     <ListWrapper
-      title={<Trans>Assets to Deposit</Trans>}
+      title={<Trans>Assets to Supply</Trans>}
       localStorageName="depositAssetsDashboardTableCollapse"
       withTopMargin
       subChildrenComponent={

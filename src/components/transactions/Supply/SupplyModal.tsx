@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useRef } from 'react';
 import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal';
 
 import { BasicModal } from '../../primitives/BasicModal';
@@ -17,6 +17,8 @@ export const SupplyModal = () => {
   }>;
 
   const { step, setStep, value, setValue } = useStep(type);
+
+  console.log('value', value);
 
   return (
     <BasicModal open={type === ModalType.Supply} setOpen={close} contentMaxWidth={740}>
@@ -161,9 +163,14 @@ export const SupplyModal = () => {
               {step !== 2 ? (
                 <SupplyModalContent
                   {...params}
-                  onSubmit={async (value) => {
+                  amount={value}
+                  onAmountChange={async (value) => {
                     setValue(value || '0');
-                    setStep(2);
+                  }}
+                  onSubmit={async () => {
+                    if (value && value !== '0') {
+                      setStep(2);
+                    }
                   }}
                 />
               ) : (

@@ -73,7 +73,7 @@ export const networkConfigs: Record<string, BaseNetworkConfig> = {
     baseAssetSymbol: 'CFX',
     wrappedBaseAssetSymbol: 'WCFX',
     baseAssetDecimals: 18,
-    explorerLink: 'https://evmtestnet.confluxscan.net/',
+    explorerLink: 'https://evmtestnet.confluxscan.net',
     isTestnet: true,
     networkLogoPath: '/icons/networks/conflux.svg',
     bridge: [

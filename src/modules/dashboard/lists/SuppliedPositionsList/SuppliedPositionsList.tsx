@@ -49,11 +49,11 @@ export const SuppliedPositionsList = () => {
     />,
   ];
 
-  if (loading) return <ListLoader title={<Trans>Your Deposits</Trans>} head={head} />;
+  if (loading) return <ListLoader title={<Trans>Your Supplies</Trans>} head={head} />;
 
   return (
     <ListWrapper
-      title={<Trans>Your Deposits</Trans>}
+      title={<Trans>Your Supplies</Trans>}
       localStorageName="suppliedAssetsDashboardTableCollapse"
       noData={!suppliedPosition.length}
       subTitleComponent={

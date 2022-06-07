@@ -70,7 +70,7 @@ export const AssetsListMobileItem = ({ ...reserve }: ComputedReserveData) => {
       <Row
         caption={
           <VariableAPYTooltip
-            text={<Trans>Borrow APY, variable</Trans>}
+            text={<Trans>Borrow APY</Trans>}
             key="APY_list_mob_variable_type"
             variant="description"
           />
@@ -83,26 +83,6 @@ export const AssetsListMobileItem = ({ ...reserve }: ComputedReserveData) => {
           align="flex-end"
           value={reserve.borrowingEnabled ? reserve.variableBorrowAPY : '-1'}
           incentives={reserve.vIncentivesData || []}
-          symbol={reserve.symbol}
-          variant="secondary14"
-        />
-      </Row>
-      <Row
-        caption={
-          <StableAPYTooltip
-            text={<Trans>Borrow APY, stable</Trans>}
-            key="APY_list_mob_stable_type"
-            variant="description"
-          />
-        }
-        captionVariant="description"
-        mb={4}
-        align="flex-start"
-      >
-        <IncentivesCard
-          align="flex-end"
-          value={reserve.stableBorrowRateEnabled ? reserve.stableBorrowAPY : -1}
-          incentives={reserve.sIncentivesData || []}
           symbol={reserve.symbol}
           variant="secondary14"
         />
