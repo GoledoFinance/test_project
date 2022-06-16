@@ -23,6 +23,9 @@ import { ComputedReserveData } from 'src/hooks/app-data-provider/useAppDataProvi
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 // TODO: need to update the tooltip text
 import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
+import { MaxLTVTooltip } from 'src/components/infoTooltips/MaxLTVTooltip';
+import { LiquidationThresholdTooltip } from 'src/components/infoTooltips/LiquidationThresholdTooltip';
+import { LiquidationPenaltyTooltip } from 'src/components/infoTooltips/LiquidationPenaltyTooltip';
 
 export const PanelRow: React.FC<BoxProps> = (props) => (
   <Box
@@ -103,6 +106,15 @@ export const PanelItem: React.FC<PanelItemProps> = ({ title, children }) => {
 };
 
 export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = ({ reserve }) => {
+  const total = new BigNumber(reserve.totalLiquidity);
+  let debtPercentage = 0;
+  let liquidityPercentage = 100;
+  if (reserve.totalLiquidity !== '0') {
+    liquidityPercentage = parseFloat(
+      new BigNumber(reserve.formattedAvailableLiquidity).multipliedBy(100).div(total).toFixed(0)
+    );
+    debtPercentage = 100 - liquidityPercentage;
+  }
   return (
     <Paper sx={{ py: '20px', px: '20px' }}>
       <Box
@@ -141,7 +153,7 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
             variant="determinate"
             color="error"
             sx={{ position: 'relative', zIndex: 2, color: '#FE6060' }}
-            value={75}
+            value={liquidityPercentage}
             size={120}
           />
           <img
@@ -220,7 +232,11 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                 ),
                 value: (
                   <Box>
-                    <FormattedNumber value={reserve.availableLiquidity} variant="main16" compact />{' '}
+                    <FormattedNumber
+                      value={reserve.formattedAvailableLiquidity}
+                      variant="main16"
+                      compact
+                    />{' '}
                     <Box component={'span'} sx={{ color: '#888' }}>
                       (
                       <FormattedNumber
@@ -245,7 +261,7 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                     }}
                   >
                     Maximum LTV
-                    <NetAPYTooltip />
+                    <MaxLTVTooltip />
                   </Box>
                 ),
                 value: (
@@ -272,7 +288,7 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                     }}
                   >
                     Liquidation threshold
-                    <NetAPYTooltip />
+                    <LiquidationThresholdTooltip />
                   </Box>
                 ),
                 value: (
@@ -299,7 +315,7 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                     }}
                   >
                     Liquidation penalty
-                    <NetAPYTooltip />
+                    <LiquidationPenaltyTooltip />
                   </Box>
                 ),
                 value: (
@@ -326,7 +342,6 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                     }}
                   >
                     Used Colloteral
-                    <NetAPYTooltip />
                   </Box>
                 ),
                 value: (
@@ -371,17 +386,12 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                           <FormattedNumber
                             variant="description"
                             percent
-                            value={0.0151}
+                            value={reserve.supplyAPY}
                             visibleDecimals={2}
                             symbolsColor="#111"
                           />
                         </Box>
                       ),
-                    },
-                    {
-                      key: '2',
-                      label: <Box sx={{ color: '#666' }}>Past 30D Avg.</Box>,
-                      value: <Box>-</Box>,
                     },
                   ]}
                 />
@@ -401,27 +411,7 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                           <FormattedNumber
                             variant="description"
                             percent
-                            value={0.0151}
-                            visibleDecimals={2}
-                            symbolsColor="#111"
-                          />
-                        </Box>
-                      ),
-                    },
-                    {
-                      key: '2',
-                      label: <Box sx={{ color: '#666' }}>Past 30D Avg.</Box>,
-                      value: <Box>-</Box>,
-                    },
-                    {
-                      key: '3',
-                      label: <Box sx={{ color: '#666' }}>% over total</Box>,
-                      value: (
-                        <Box>
-                          <FormattedNumber
-                            variant="description"
-                            percent
-                            value={1}
+                            value={reserve.variableBorrowAPY}
                             visibleDecimals={2}
                             symbolsColor="#111"
                           />

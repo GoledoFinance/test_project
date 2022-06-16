@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import {
+  Box,
   Button,
   CircularProgress,
   Paper,
@@ -17,23 +18,21 @@ import React from 'react';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import {
   ComputedReserveData,
+  ComputedUserReserveData,
   useAppDataContext,
 } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { useWalletBalances } from 'src/hooks/app-data-provider/useWalletBalances';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
-import { getMaxAmountAvailableToSupply } from 'src/utils/getMaxAmountAvailableToSupply';
 
 import { Row } from '../../components/primitives/Row';
-// import { ConnectWalletButton } from 'src/components/WalletConnection/ConnectWalletButton';
-// import { ListButtonsColumn } from '../dashboard/lists/ListButtonsColumn';
-// import { ListItemUsedAsCollateral } from '../dashboard/lists/ListItemUsedAsCollateral';
 import { PaperWrapper } from './ReserveActions';
 import { HealthFactorNumber } from 'src/components/HealthFactorNumber';
-import { UserReserveData } from '@goledo-sdk/math-utils';
 import { ListButtonsColumn } from '../dashboard/lists/ListButtonsColumn';
 import { useModalContext } from 'src/hooks/useModal';
 import { ConnectWalletButton } from 'src/components/WalletConnection/ConnectWalletButton';
-import { InterestRate } from '@goledo-sdk/contract-helpers';
+import { API_ETH_MOCK_ADDRESS, InterestRate } from '@goledo-sdk/contract-helpers';
+import { getMaxAmountAvailableToBorrow } from 'src/utils/getMaxAmountAvailableToBorrow';
+import { AvailableTooltip } from 'src/components/infoTooltips/AvailableTooltip';
 
 interface ReserveActionsProps {
   underlyingAsset: string;
@@ -46,12 +45,7 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const { openBorrow, openRepay } = useModalContext();
 
   const { currentAccount, loading: web3Loading } = useWeb3Context();
-  const {
-    reserves,
-    userReserves,
-    isUserHasDeposits,
-    loading: loadingReserves,
-  } = useAppDataContext();
+  const { reserves, user, isUserHasDeposits, loading: loadingReserves } = useAppDataContext();
   const { walletBalances, loading: loadingBalance } = useWalletBalances();
 
   if (!currentAccount)
@@ -103,15 +97,16 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const poolReserve = reserves.find(
     (reserve) => reserve.underlyingAsset === underlyingAsset
   ) as ComputedReserveData;
-  const userReserve = userReserves.find(
-    (reserve) => reserve.underlyingAsset === underlyingAsset
-  ) as UserReserveData;
+  const userReserve = user?.userReservesData.find((userReserve) => {
+    if (underlyingAsset.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase())
+      return userReserve.reserve.isWrappedBaseAsset;
+    return underlyingAsset === userReserve.underlyingAsset;
+  }) as ComputedUserReserveData;
 
-  const balance = walletBalances[underlyingAsset];
-  const maxAmountToSupply = getMaxAmountAvailableToSupply(
-    balance.amount,
+  const maxAmountToBorrow = getMaxAmountAvailableToBorrow(
     poolReserve,
-    underlyingAsset
+    user,
+    InterestRate.Variable
   ).toString();
 
   return (
@@ -140,7 +135,7 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
     >
       <Row caption={<Trans>Borrowed</Trans>} align="flex-start" mb={3} captionVariant="description">
         <FormattedNumber
-          value={userReserve?.scaledVariableDebt}
+          value={userReserve?.variableBorrows}
           variant="secondary14"
           symbol={poolReserve.symbol}
         />
@@ -148,7 +143,7 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
 
       <Row caption={<Trans>Health Factor</Trans>} mb={3} captionVariant="description">
         <HealthFactorNumber
-          value={'1.1' || '-1'}
+          value={user?.healthFactor || '-1'}
           variant={'secondary14'}
           // onInfoClick={() => setOpen(true)}
         />
@@ -156,7 +151,7 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
 
       <Row caption={<Trans>Loan to Value</Trans>} mb={3} captionVariant="description">
         <FormattedNumber
-          value={12}
+          value={user?.currentLoanToValue}
           variant={'secondary14'}
           visibleDecimals={2}
           compact
@@ -167,9 +162,24 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
         />
       </Row>
 
-      <Row caption={<Trans>Available to you</Trans>} mb={1} captionVariant="description">
+      <Row
+        caption={
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Trans>Available to borrow</Trans>
+            <AvailableTooltip />{' '}
+          </Box>
+        }
+        mb={1}
+        captionVariant="description"
+      >
         <FormattedNumber
-          value={maxAmountToSupply}
+          value={maxAmountToBorrow}
           variant="secondary14"
           symbol={poolReserve.symbol}
         />

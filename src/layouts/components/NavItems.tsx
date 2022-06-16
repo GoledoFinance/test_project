@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Link } from '../../components/primitives/Link';
 import { useProtocolDataContext } from '../../hooks/useProtocolDataContext';
 import { navigation } from '../../ui-config/menu-items';
-// import { MoreMenu } from '../MoreMenu';
+import { MoreMenu } from '../MoreMenu';
 
 interface NavItemsProps {
   setOpen?: (value: boolean) => void;
@@ -82,9 +82,9 @@ export const NavItems = ({ setOpen }: NavItemsProps) => {
         </ListItem>
       ))}
 
-      {/* <ListItem sx={{ display: { xs: 'none', md: 'flex' }, width: 'unset' }} disablePadding>
+      <ListItem sx={{ display: { xs: 'none', md: 'flex' }, width: 'unset' }} disablePadding>
         <MoreMenu />
-      </ListItem> */}
+      </ListItem>
     </List>
   );
 };

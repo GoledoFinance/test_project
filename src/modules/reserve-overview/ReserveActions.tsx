@@ -14,18 +14,17 @@ import React, { ReactNode } from 'react';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import {
   ComputedReserveData,
+  ComputedUserReserveData,
   useAppDataContext,
 } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { useModalContext } from 'src/hooks/useModal';
 import { useWalletBalances } from 'src/hooks/app-data-provider/useWalletBalances';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
-import { getMaxAmountAvailableToSupply } from 'src/utils/getMaxAmountAvailableToSupply';
 
 import { Row } from '../../components/primitives/Row';
 import { ConnectWalletButton } from 'src/components/WalletConnection/ConnectWalletButton';
 import { ListButtonsColumn } from '../dashboard/lists/ListButtonsColumn';
 import { ListItemUsedAsCollateral } from '../dashboard/lists/ListItemUsedAsCollateral';
-import { UserReserveData } from '@goledo-sdk/math-utils';
 import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
@@ -71,7 +70,7 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
 
   const { currentAccount, loading: web3Loading } = useWeb3Context();
   const { currentNetworkConfig } = useProtocolDataContext();
-  const { reserves, userReserves, loading: loadingReserves } = useAppDataContext();
+  const { reserves, user, loading: loadingReserves } = useAppDataContext();
   const { walletBalances, loading: loadingBalance } = useWalletBalances();
 
   if (!currentAccount)
@@ -123,9 +122,11 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
   const poolReserve = reserves.find(
     (reserve) => reserve.underlyingAsset === underlyingAsset
   ) as ComputedReserveData;
-  const userReserve = userReserves.find(
-    (reserve) => reserve.underlyingAsset === underlyingAsset
-  ) as UserReserveData;
+  const userReserve = user?.userReservesData.find((userReserve) => {
+    if (underlyingAsset.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase())
+      return userReserve.reserve.isWrappedBaseAsset;
+    return underlyingAsset === userReserve.underlyingAsset;
+  }) as ComputedUserReserveData;
 
   const balance = walletBalances[underlyingAsset];
   const nativeBalance = walletBalances[API_ETH_MOCK_ADDRESS.toLowerCase()];
@@ -186,7 +187,7 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
 
       <Row caption={<Trans>You already deposited</Trans>} mb={1} captionVariant="description">
         <FormattedNumber
-          value={userReserve.scaledATokenBalance}
+          value={userReserve.underlyingBalance}
           variant="secondary14"
           symbol={poolReserve.symbol}
         />

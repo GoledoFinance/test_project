@@ -8,7 +8,7 @@ import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import { ContentContainer } from '../src/components/ContentContainer';
 import { LabelList } from './staking.staking';
 
-export default function MorePage() {
+export default function POLPage() {
   return (
     <>
       <MoreTopPanel />
@@ -167,6 +167,6 @@ export default function MorePage() {
   );
 }
 
-MorePage.getLayout = function getLayout(page: React.ReactElement) {
+POLPage.getLayout = function getLayout(page: React.ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 };
