@@ -216,7 +216,7 @@ export const useTransactionHandler = ({
       setApprovalTx(undefined);
       setActionTx(undefined);
     }
-  }, [skip, handleGetTxns, setGasLimit, setLoadingTxns, setMainTxState, setTxError, ...deps]);
+  }, [skip, ...deps]);
 
   return {
     approval,

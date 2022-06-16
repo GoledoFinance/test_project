@@ -58,7 +58,6 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
           variant="main16"
           symbolsVariant="secondary16"
         />
-        <ReserveSubheader value={reserve.totalDebtUSD} />
       </ListColumn>
 
       <ListColumn>
@@ -74,7 +73,6 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
           variant="main16"
           symbolsVariant="secondary16"
         />
-        <ReserveSubheader value={reserve.totalDebtUSD} />
       </ListColumn>
 
       <ListButtonsColumn sx={{ maxWidth: 270, minWidth: 270 }}>

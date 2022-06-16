@@ -37,8 +37,8 @@ export const navigation: Navigation[] = [
     isVisible: () => process.env.NEXT_PUBLIC_ENABLE_GOVERNANCE === 'true',
   },
   {
-    link: ROUTES.more,
-    title: t`More`,
+    link: ROUTES.pol,
+    title: t`POL`,
   },
 ];
 
@@ -66,11 +66,6 @@ const moreMenuItems: MoreMenuItem[] = [
     link: 'https://github.com/aave/interface',
     title: t`Github`,
     icon: <GithubIcon />,
-  },
-  {
-    link: 'https://classic.aave.com',
-    title: t`Switch to Aave Classic`,
-    icon: <AaveClassic />,
   },
 ];
 

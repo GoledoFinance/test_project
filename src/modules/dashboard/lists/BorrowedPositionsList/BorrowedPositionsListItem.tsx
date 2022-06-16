@@ -4,11 +4,9 @@ import { Button } from '@mui/material';
 import { useModalContext } from 'src/hooks/useModal';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
-import { ListColumn } from '../../../../components/lists/ListColumn';
 import { ComputedUserReserveData } from '../../../../hooks/app-data-provider/useAppDataProvider';
 import { ListAPRColumn } from '../ListAPRColumn';
 import { ListButtonsColumn } from '../ListButtonsColumn';
-import { ListItemAPYButton } from '../ListItemAPYButton';
 import { ListItemWrapper } from '../ListItemWrapper';
 import { ListValueColumn } from '../ListValueColumn';
 
@@ -21,13 +19,12 @@ export const BorrowedPositionsListItem = ({
   borrowRateMode,
   stableBorrowAPY,
 }: ComputedUserReserveData & { borrowRateMode: InterestRate }) => {
-  const { openBorrow, openRepay, openRateSwitch } = useModalContext();
+  const { openBorrow, openRepay } = useModalContext();
   const { currentMarket } = useProtocolDataContext();
   const {
     isActive,
     isFrozen,
     borrowingEnabled,
-    stableBorrowRateEnabled,
     sIncentivesData,
     vIncentivesData,
     variableBorrowAPY,
@@ -58,7 +55,7 @@ export const BorrowedPositionsListItem = ({
         symbol={reserve.symbol}
       />
 
-      <ListColumn>
+      {/*<ListColumn>
         <ListItemAPYButton
           stableBorrowRateEnabled={stableBorrowRateEnabled}
           borrowRateMode={borrowRateMode}
@@ -69,7 +66,7 @@ export const BorrowedPositionsListItem = ({
           underlyingAsset={reserve.underlyingAsset}
           currentMarket={currentMarket}
         />
-      </ListColumn>
+        </ListColumn>*/}
 
       <ListButtonsColumn>
         <Button

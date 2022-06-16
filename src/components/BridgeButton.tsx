@@ -8,10 +8,11 @@ import { NetworkConfig } from '../ui-config/networksConfig';
 import { Link } from './primitives/Link';
 
 interface BridgeButtonProps extends Pick<NetworkConfig, 'bridge'>, ButtonProps<typeof Link> {
+  title: string;
   withoutIcon?: boolean;
 }
 
-export const BridgeButton = ({ bridge, withoutIcon, ...rest }: BridgeButtonProps) => {
+export const BridgeButton = ({ title, bridge, withoutIcon, ...rest }: BridgeButtonProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -22,7 +23,6 @@ export const BridgeButton = ({ bridge, withoutIcon, ...rest }: BridgeButtonProps
   };
 
   if (bridge.length === 0) return null;
-  const _bridge = bridge[0];
 
   return (
     <Box>
@@ -36,7 +36,7 @@ export const BridgeButton = ({ bridge, withoutIcon, ...rest }: BridgeButtonProps
         size="small"
         endIcon={<ArrowDropDownIcon />}
       >
-        {_bridge.name}
+        {title}
       </Button>
       <Menu
         id="bridge-menu"

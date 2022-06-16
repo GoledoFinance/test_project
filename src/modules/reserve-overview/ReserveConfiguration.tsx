@@ -15,12 +15,17 @@ import {
   CircularProgress,
   Stack,
   StackProps,
+  Alert,
 } from '@mui/material';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import Paper from '@mui/material/Paper';
 import { ComputedReserveData } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 // TODO: need to update the tooltip text
 import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
+import { MaxLTVTooltip } from 'src/components/infoTooltips/MaxLTVTooltip';
+import { LiquidationThresholdTooltip } from 'src/components/infoTooltips/LiquidationThresholdTooltip';
+import { LiquidationPenaltyTooltip } from 'src/components/infoTooltips/LiquidationPenaltyTooltip';
 
 export const PanelRow: React.FC<BoxProps> = (props) => (
   <Box
@@ -100,7 +105,16 @@ export const PanelItem: React.FC<PanelItemProps> = ({ title, children }) => {
   );
 };
 
-export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = () => {
+export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = ({ reserve }) => {
+  const total = new BigNumber(reserve.totalLiquidity);
+  let debtPercentage = 0;
+  let liquidityPercentage = 100;
+  if (reserve.totalLiquidity !== '0') {
+    liquidityPercentage = parseFloat(
+      new BigNumber(reserve.formattedAvailableLiquidity).multipliedBy(100).div(total).toFixed(0)
+    );
+    debtPercentage = 100 - liquidityPercentage;
+  }
   return (
     <Paper sx={{ py: '20px', px: '20px' }}>
       <Box
@@ -139,11 +153,11 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
             variant="determinate"
             color="error"
             sx={{ position: 'relative', zIndex: 2, color: '#FE6060' }}
-            value={75}
+            value={liquidityPercentage}
             size={120}
           />
           <img
-            src={'/icons/tokens/eth.svg'}
+            src={`/icons/tokens/${reserve.symbol.toLowerCase()}.svg`}
             alt="token img"
             width={96}
             height={96}
@@ -184,9 +198,11 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                 ),
                 value: (
                   <Box>
-                    {new BigNumber(231465798).toFormat(0)}
+                    <FormattedNumber value={reserve.totalDebt} variant="main16" compact />{' '}
                     <Box component={'span'} sx={{ color: '#888' }}>
-                      (${new BigNumber(231465798).toFormat(0)})
+                      (
+                      <FormattedNumber symbol="usd" value={reserve.totalDebtUSD} variant="main16" />
+                      )
                     </Box>
                   </Box>
                 ),
@@ -216,9 +232,19 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                 ),
                 value: (
                   <Box>
-                    {new BigNumber(231465798).toFormat(0)}
+                    <FormattedNumber
+                      value={reserve.formattedAvailableLiquidity}
+                      variant="main16"
+                      compact
+                    />{' '}
                     <Box component={'span'} sx={{ color: '#888' }}>
-                      (${new BigNumber(231465798).toFormat(0)})
+                      (
+                      <FormattedNumber
+                        symbol="usd"
+                        value={reserve.availableLiquidityUSD}
+                        variant="main16"
+                      />
+                      )
                     </Box>
                   </Box>
                 ),
@@ -235,10 +261,20 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                     }}
                   >
                     Maximum LTV
-                    <NetAPYTooltip />
+                    <MaxLTVTooltip />
                   </Box>
                 ),
-                value: <Box>${new BigNumber(231465798).toFormat(0)}</Box>,
+                value: (
+                  <Box>
+                    <FormattedNumber
+                      variant="main14"
+                      percent
+                      value={reserve.formattedBaseLTVasCollateral}
+                      visibleDecimals={2}
+                      symbolsColor="#111"
+                    />
+                  </Box>
+                ),
               },
               {
                 key: '4',
@@ -251,11 +287,87 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                       fontWeight: 600,
                     }}
                   >
-                    Used Colloteral
-                    <NetAPYTooltip />
+                    Liquidation threshold
+                    <LiquidationThresholdTooltip />
                   </Box>
                 ),
-                value: <Box>Yes</Box>,
+                value: (
+                  <Box>
+                    <FormattedNumber
+                      variant="main14"
+                      percent
+                      value={reserve.formattedReserveLiquidationThreshold}
+                      visibleDecimals={2}
+                      symbolsColor="#111"
+                    />
+                  </Box>
+                ),
+              },
+              {
+                key: '5',
+                label: (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      fontWeight: 600,
+                    }}
+                  >
+                    Liquidation penalty
+                    <LiquidationPenaltyTooltip />
+                  </Box>
+                ),
+                value: (
+                  <Box>
+                    <FormattedNumber
+                      variant="main14"
+                      percent
+                      value={reserve.formattedReserveLiquidationBonus}
+                      visibleDecimals={2}
+                      symbolsColor="#111"
+                    />
+                  </Box>
+                ),
+              },
+              {
+                key: '6',
+                label: (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      fontWeight: 600,
+                    }}
+                  >
+                    Used Colloteral
+                  </Box>
+                ),
+                value: (
+                  <Box>
+                    <>
+                      {reserve.usageAsCollateralEnabled && (
+                        <Box
+                          sx={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <CheckRoundedIcon fontSize="small" color="success" sx={{ ml: 2 }} />
+                          <Typography variant="subheader1" sx={{ color: '#46BC4B' }}>
+                            <Trans>Can be collateral</Trans>
+                          </Typography>
+                        </Box>
+                      )}
+                      {!reserve.usageAsCollateralEnabled && (
+                        <Alert sx={{ my: '12px' }} severity="warning">
+                          <Trans>Asset cannot be used as collateral.</Trans>
+                        </Alert>
+                      )}
+                    </>
+                  </Box>
+                ),
               },
             ]}
           />
@@ -274,17 +386,12 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                           <FormattedNumber
                             variant="description"
                             percent
-                            value={0.0151}
+                            value={reserve.supplyAPY}
                             visibleDecimals={2}
                             symbolsColor="#111"
                           />
                         </Box>
                       ),
-                    },
-                    {
-                      key: '2',
-                      label: <Box sx={{ color: '#666' }}>Past 30D Avg.</Box>,
-                      value: <Box>-</Box>,
                     },
                   ]}
                 />
@@ -304,27 +411,7 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
                           <FormattedNumber
                             variant="description"
                             percent
-                            value={0.0151}
-                            visibleDecimals={2}
-                            symbolsColor="#111"
-                          />
-                        </Box>
-                      ),
-                    },
-                    {
-                      key: '2',
-                      label: <Box sx={{ color: '#666' }}>Past 30D Avg.</Box>,
-                      value: <Box>-</Box>,
-                    },
-                    {
-                      key: '3',
-                      label: <Box sx={{ color: '#666' }}>% over total</Box>,
-                      value: (
-                        <Box>
-                          <FormattedNumber
-                            variant="description"
-                            percent
-                            value={1}
+                            value={reserve.variableBorrowAPY}
                             visibleDecimals={2}
                             symbolsColor="#111"
                           />

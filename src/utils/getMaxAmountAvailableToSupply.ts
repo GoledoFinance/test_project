@@ -3,15 +3,14 @@ import { valueToBigNumber } from '@goledo-sdk/math-utils';
 import BigNumber from 'bignumber.js';
 import { ComputedReserveData } from 'src/hooks/app-data-provider/useAppDataProvider';
 
-export function remainingCap(poolReserve: ComputedReserveData) {
-  return poolReserve.supplyCap === '0'
-    ? new BigNumber(-1)
-    : new BigNumber(poolReserve.supplyCap).minus(poolReserve.totalLiquidity).multipliedBy('0.995');
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function remainingCap(_poolReserve: ComputedReserveData) {
+  return new BigNumber(-1);
 }
 
 export function getMaxAmountAvailableToSupply(
   walletBalance: string,
-  poolReserve: ComputedReserveData,
+  _poolReserve: ComputedReserveData,
   underlyingAsset: string
 ) {
   // Calculate max amount to supply
@@ -23,11 +22,6 @@ export function getMaxAmountAvailableToSupply(
     underlyingAsset.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()
   ) {
     maxAmountToSupply = maxAmountToSupply.minus('0.001');
-  }
-
-  // make sure we don't try to supply more then maximum
-  if (poolReserve.supplyCap !== '0') {
-    maxAmountToSupply = BigNumber.min(maxAmountToSupply, remainingCap(poolReserve));
   }
 
   if (maxAmountToSupply.lte(0)) {

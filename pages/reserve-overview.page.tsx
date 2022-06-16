@@ -60,7 +60,6 @@ export default function ReserveOverview() {
           >
             <ReserveActions underlyingAsset={underlyingAsset} />
             <BorrowActions underlyingAsset={underlyingAsset} />
-            <BorrowList />
           </Stack>
         </Box>
       </ContentContainer>

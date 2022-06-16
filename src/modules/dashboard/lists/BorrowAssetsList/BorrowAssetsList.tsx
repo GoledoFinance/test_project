@@ -1,5 +1,5 @@
 import { API_ETH_MOCK_ADDRESS, InterestRate } from '@goledo-sdk/contract-helpers';
-import { USD_DECIMALS, valueToBigNumber } from '@goledo-sdk/math-utils';
+import { valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Alert, Box, useMediaQuery, useTheme } from '@mui/material';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
@@ -20,7 +20,6 @@ import { BorrowAssetsListMobileItem } from './BorrowAssetsListMobileItem';
 import { BorrowAssetsItem } from './types';
 import { Link } from '../../../../components/primitives/Link';
 import { VariableAPYTooltip } from 'src/components/infoTooltips/VariableAPYTooltip';
-import { StableAPYTooltip } from 'src/components/infoTooltips/StableAPYTooltip';
 
 export const BorrowAssetsList = () => {
   const { currentNetworkConfig } = useProtocolDataContext();
@@ -40,7 +39,7 @@ export const BorrowAssetsList = () => {
       const availableBorrowsInUSD = valueToBigNumber(availableBorrows)
         .multipliedBy(reserve.formattedPriceInETH)
         .multipliedBy(marketReferencePriceInUsd)
-        .shiftedBy(-USD_DECIMALS)
+        .shiftedBy(-18)
         .toFixed(2);
 
       return {
@@ -88,13 +87,8 @@ export const BorrowAssetsList = () => {
       variant="subheader2"
     />,
     <VariableAPYTooltip
-      text={<Trans>APY, variable</Trans>}
+      text={<Trans>APY</Trans>}
       key="APY_dash_variable_ type"
-      variant="subheader2"
-    />,
-    <StableAPYTooltip
-      text={<Trans>APY, stable</Trans>}
-      key="APY_dash_stable_ type"
       variant="subheader2"
     />,
   ];

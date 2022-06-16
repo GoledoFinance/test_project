@@ -66,7 +66,7 @@ export const RepayActions = ({
       {...props}
       handleAction={action}
       handleApproval={() => approval()}
-      actionText={<Trans>Repay {symbol}</Trans>}
+      actionText={<Trans>Repay with {symbol}</Trans>}
       actionInProgressText={<Trans>Repaying {symbol}</Trans>}
     />
   );

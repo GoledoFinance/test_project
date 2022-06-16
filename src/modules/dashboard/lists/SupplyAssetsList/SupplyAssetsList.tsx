@@ -1,5 +1,5 @@
 import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
-import { USD_DECIMALS, valueToBigNumber } from '@goledo-sdk/math-utils';
+import { valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Box, useMediaQuery, useTheme, Alert } from '@mui/material';
 import { useState } from 'react';
@@ -21,12 +21,10 @@ import { SupplyAssetsListMobileItem } from './SupplyAssetsListMobileItem';
 
 export const SupplyAssetsList = () => {
   const { currentNetworkConfig } = useProtocolDataContext();
-  const { reserves, marketReferencePriceInUsd, loading: loadingReserves } = useAppDataContext();
+  const { reserves, loading: loadingReserves } = useAppDataContext();
   const { walletBalances, loading } = useWalletBalances();
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
-
-  console.log('walletBalances', walletBalances, loading);
 
   const { bridge, baseAssetSymbol, name: networkName } = currentNetworkConfig;
 
@@ -44,8 +42,7 @@ export const SupplyAssetsList = () => {
       const availableToDeposit = valueToBigNumber(walletBalance);
       const availableToDepositUSD = valueToBigNumber(availableToDeposit)
         .multipliedBy(reserve.priceInEth)
-        .multipliedBy(marketReferencePriceInUsd)
-        .shiftedBy(-USD_DECIMALS)
+        .shiftedBy(-18)
         .toString();
 
       const usageAsCollateralEnabledOnUser = reserve.usageAsCollateralEnabled;
@@ -55,9 +52,9 @@ export const SupplyAssetsList = () => {
         );
         const baseAvailableToDepositUSD = valueToBigNumber(baseAvailableToDeposit)
           .multipliedBy(reserve.priceInEth)
-          .multipliedBy(marketReferencePriceInUsd)
-          .shiftedBy(-USD_DECIMALS)
+          .shiftedBy(-18)
           .toString();
+
         return [
           {
             ...reserve,
@@ -106,7 +103,6 @@ export const SupplyAssetsList = () => {
     +a.walletBalanceUSD > +b.walletBalanceUSD ? -1 : 1
   );
   const filteredSupplyReserves = sortedSupplyReserves.filter((reserve) => {
-    console.log('filter', reserve.name, reserve.availableToDepositUSD);
     return reserve.availableToDepositUSD !== '0';
   });
 
@@ -123,10 +119,10 @@ export const SupplyAssetsList = () => {
   ];
 
   if (loadingReserves || loading)
-    return <ListLoader title={<Trans>Assets to Deposit</Trans>} head={head} withTopMargin />;
+    return <ListLoader title={<Trans>Assets to Supply</Trans>} head={head} withTopMargin />;
   return (
     <ListWrapper
-      title={<Trans>Assets to Deposit</Trans>}
+      title={<Trans>Assets to Supply</Trans>}
       localStorageName="depositAssetsDashboardTableCollapse"
       withTopMargin
       subChildrenComponent={
@@ -182,11 +178,11 @@ export const SupplyAssetsList = () => {
     >
       <>
         {!downToXSM && <ListHeader head={head} />}
-        {supplyReserves.map((item) =>
+        {supplyReserves.map((item, index) =>
           downToXSM ? (
-            <SupplyAssetsListMobileItem {...item} key={item.id} />
+            <SupplyAssetsListMobileItem {...item} key={index} />
           ) : (
-            <SupplyAssetsListItem {...item} key={item.id} />
+            <SupplyAssetsListItem {...item} key={index} />
           )
         )}
       </>

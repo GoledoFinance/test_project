@@ -99,28 +99,9 @@ export const ListItemAPYButton = ({
             <SvgIcon>{borrowRateMode === InterestRate.Variable && <CheckIcon />}</SvgIcon>
           </ListItemIcon>
           <ListItemText primaryTypographyProps={{ variant: 'description' }}>
-            <Trans>APY, variable</Trans>
+            <Trans>APY</Trans>
           </ListItemText>
           <FormattedNumber value={Number(variableBorrowAPY)} percent variant="description" />
-        </MenuItem>
-
-        <MenuItem
-          selected={borrowRateMode === InterestRate.Stable}
-          value={InterestRate.Stable}
-          onClick={() => {
-            if (borrowRateMode === InterestRate.Variable) {
-              onClick();
-            }
-            handleClose();
-          }}
-        >
-          <ListItemIcon>
-            <SvgIcon>{borrowRateMode === InterestRate.Stable && <CheckIcon />}</SvgIcon>
-          </ListItemIcon>
-          <ListItemText primaryTypographyProps={{ variant: 'description' }}>
-            <Trans>APY, stable</Trans>
-          </ListItemText>
-          <FormattedNumber value={Number(stableBorrowAPY)} percent variant="description" />
         </MenuItem>
 
         <Divider />

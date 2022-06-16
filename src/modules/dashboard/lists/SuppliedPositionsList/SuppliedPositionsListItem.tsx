@@ -21,18 +21,13 @@ export const SuppliedPositionsListItem = ({
   underlyingBalanceUSD,
   usageAsCollateralEnabledOnUser,
   underlyingAsset,
-  user,
 }: ComputedUserReserveData & { user: ExtendedFormattedUser }) => {
-  const { isIsolated, aIncentivesData, isFrozen, isActive } = reserve;
+  const { aIncentivesData, isActive } = reserve;
   const { currentMarket } = useProtocolDataContext();
   const { openWithdraw, openCollateralChange } = useModalContext();
   // const isSwapButton = isFeatureEnabled.liquiditySwap(currentMarketData);
 
-  const canBeEnabledAsCollateral =
-    reserve.usageAsCollateralEnabled &&
-    ((!reserve.isIsolated && !user.isInIsolationMode) ||
-      user.isolatedReserve?.underlyingAsset === reserve.underlyingAsset ||
-      (reserve.isIsolated && user.totalCollateralMarketReferenceCurrency === '0'));
+  const canBeEnabledAsCollateral = reserve.usageAsCollateralEnabled;
 
   return (
     <ListItemWrapper
@@ -60,7 +55,7 @@ export const SuppliedPositionsListItem = ({
 
       <ListColumn>
         <ListItemUsedAsCollateral
-          isIsolated={isIsolated}
+          isIsolated={false}
           usageAsCollateralEnabledOnUser={usageAsCollateralEnabledOnUser}
           canBeEnabledAsCollateral={canBeEnabledAsCollateral}
           onToggleSwitch={() => openCollateralChange(underlyingAsset)}
@@ -78,7 +73,7 @@ export const SuppliedPositionsListItem = ({
           <Trans>Withdraw</Trans>
         </Button>
 
-        <Button
+        {/*<Button
           sx={{ height: 32 }}
           disabled={!isActive || isFrozen}
           variant="outlined"
@@ -86,7 +81,7 @@ export const SuppliedPositionsListItem = ({
           data-cy={`swapButton`}
         >
           <Trans>Swap</Trans>
-        </Button>
+        </Button>*/}
       </ListButtonsColumn>
     </ListItemWrapper>
   );

@@ -1,4 +1,4 @@
-// import { DotsHorizontalIcon } from '@heroicons/react/solid';
+import { DotsHorizontalIcon } from '@heroicons/react/solid';
 import { Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { Button, ListItemIcon, ListItemText, SvgIcon } from '@mui/material';
@@ -40,9 +40,9 @@ export function MoreMenu() {
         }}
       >
         <Trans>More</Trans>
-        {/* <SvgIcon color="inherit" sx={{ ml: 1 }}>
+        <SvgIcon color="inherit" sx={{ ml: 1 }}>
           <DotsHorizontalIcon />
-        </SvgIcon> */}
+        </SvgIcon>
       </Button>
 
       <Menu

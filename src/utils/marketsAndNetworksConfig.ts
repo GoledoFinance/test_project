@@ -135,7 +135,6 @@ export const isFeatureEnabled = {
 const providers: { [network: string]: ethersProviders.Provider } = {};
 
 export const getProvider = (chainId: ChainId): ethersProviders.Provider => {
-  console.log('getProvider', chainId);
   if (!providers[chainId]) {
     const config = getNetworkConfig(chainId);
     const chainProviders: ethersProviders.StaticJsonRpcProvider[] = [];

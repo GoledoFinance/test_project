@@ -1,44 +1,91 @@
 import { Box, Button, Typography } from '@mui/material';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
-import { AInput } from '../Withdraw/WithdrawModalContent';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
+import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
+import { DetailsUnwrapSwitch } from '../FlowCommons/TxModalDetails';
+import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
+import { getMaxAmountAvailableToBorrow } from 'src/utils/getMaxAmountAvailableToBorrow';
+import { InterestRate } from '@goledo-sdk/contract-helpers';
+import { AssetInput } from '../AssetInput';
+import { CapType } from 'src/components/caps/helper';
 
 export const BorrowModalContent = ({
+  poolReserve,
   symbol,
   onSubmit,
-}: ModalWrapperProps & { onSubmit: (v?: string) => Promise<void> }) => {
-  const ref = useRef(null);
-  const maxV = '20.101';
+  onAmountChange,
+  amount,
+  unwrap: borrowUnWrapped,
+  setUnwrap: setBorrowUnWrapped,
+}: ModalWrapperProps & {
+  onSubmit: () => Promise<void>;
+  onAmountChange: (v?: string) => Promise<void>;
+  amount?: string;
+  unwrap: boolean;
+  setUnwrap: (unwrap: boolean) => void;
+}) => {
+  const { currentNetworkConfig } = useProtocolDataContext();
+  const { user } = useAppDataContext();
+  const [isMaxSelected, setIsMaxSelected] = useState(false);
+
+  const amountRef = useRef<string>();
+
+  // amount calculations
+  const maxAmountToBorrow = getMaxAmountAvailableToBorrow(poolReserve, user, InterestRate.Variable);
+  const formattedMaxAmountToBorrow = maxAmountToBorrow.toString(10);
+
+  const handleChange = (value: string) => {
+    const maxSelected = value === '-1';
+    if (!maxSelected && maxAmountToBorrow.lt(new BigNumber(value))) {
+      value = maxAmountToBorrow.toString(10);
+    }
+    amountRef.current = maxSelected ? maxAmountToBorrow.toString(10) : value;
+    setIsMaxSelected(maxSelected);
+    onAmountChange(amountRef.current);
+  };
+
+  const amountIntEth = new BigNumber(amount || '0').multipliedBy(poolReserve.formattedPriceInETH);
+
   return (
     <>
-      <Typography variant="description" color={'#666'}>
-        How much do you want to borrow?
-      </Typography>
-
-      <Box display={'flex'} justifyContent="space-between" alignItems={'center'} mt={10}>
-        <Typography variant="main14">Available to borrow</Typography>
-        <FormattedNumber
-          variant="description"
-          symbol="ETH"
-          value={maxV}
-          visibleDecimals={4}
-          symbolsColor="#666"
-          sx={{ color: '#666' }}
+      {poolReserve.isWrappedBaseAsset && (
+        <DetailsUnwrapSwitch
+          unwrapped={borrowUnWrapped}
+          setUnWrapped={setBorrowUnWrapped}
+          symbol={poolReserve.symbol}
+          unwrappedSymbol={currentNetworkConfig.baseAssetSymbol}
         />
-      </Box>
-      <AInput symbol={symbol} max={maxV} ref={ref} />
+      )}
+
+      <AssetInput
+        value={amount || '0'}
+        onChange={handleChange}
+        usdValue={amountIntEth.toString(10)}
+        assets={[
+          {
+            balance: formattedMaxAmountToBorrow,
+            symbol: symbol,
+            iconSymbol:
+              borrowUnWrapped && poolReserve.isWrappedBaseAsset
+                ? currentNetworkConfig.baseAssetSymbol
+                : poolReserve.iconSymbol,
+          },
+        ]}
+        symbol={symbol}
+        capType={CapType.borrowCap}
+        isMaxSelected={isMaxSelected}
+        maxValue={maxAmountToBorrow.toString(10)}
+      />
+
       <Button
         variant="contained"
         size="large"
         fullWidth
         sx={{ mt: 10, height: 40 }}
-        onClick={() => {
-          const inputV: string = ref.current?.getValue?.() || '0';
-          onSubmit(BigNumber.minimum(inputV, maxV).toString());
-        }}
+        onClick={onSubmit}
       >
         Continue
       </Button>
