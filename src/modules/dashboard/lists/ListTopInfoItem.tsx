@@ -31,7 +31,7 @@ export const ListTopInfoItem = ({
         borderRadius: '4px',
       }}
     >
-      <Typography color="text.secondary" noWrap>
+      <Typography color="text.secondary" sx={{ mr: 1 }} noWrap>
         {title}
       </Typography>
       <FormattedNumber value={value} percent={percent} variant="secondary14" symbol="USD" />

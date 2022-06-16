@@ -1,5 +1,5 @@
 import { API_ETH_MOCK_ADDRESS, InterestRate } from '@goledo-sdk/contract-helpers';
-import { USD_DECIMALS, valueToBigNumber } from '@goledo-sdk/math-utils';
+import { valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Alert, Box, useMediaQuery, useTheme } from '@mui/material';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
@@ -40,7 +40,7 @@ export const BorrowAssetsList = () => {
       const availableBorrowsInUSD = valueToBigNumber(availableBorrows)
         .multipliedBy(reserve.formattedPriceInETH)
         .multipliedBy(marketReferencePriceInUsd)
-        .shiftedBy(-USD_DECIMALS)
+        .shiftedBy(-18)
         .toFixed(2);
 
       return {

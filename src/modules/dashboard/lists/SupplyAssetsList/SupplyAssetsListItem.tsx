@@ -42,10 +42,10 @@ export const SupplyAssetsListItem = ({
     >
       <ListValueColumn
         symbol={symbol}
-        value={Number(walletBalance)}
+        value={walletBalance}
         subValue={walletBalanceUSD}
         withTooltip
-        disabled={Number(walletBalance) === 0}
+        disabled={walletBalance === '0'}
         capsComponent={
           <CapsHint
             capType={CapType.supplyCap}

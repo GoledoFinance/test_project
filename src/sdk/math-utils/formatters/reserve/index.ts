@@ -223,7 +223,7 @@ export function formatReserveUSD({
   marketReferencePriceInUsd,
   marketReferenceCurrencyDecimals,
 }: FormatReserveUSDRequest): FormatReserveUSDResponse {
-  const normalizedMarketReferencePriceInUsd = normalizeBN(marketReferencePriceInUsd, USD_DECIMALS);
+  const normalizedMarketReferencePriceInUsd = normalizeBN(marketReferencePriceInUsd, 18);
 
   const computedFields = getComputedReserveFields({
     reserve,

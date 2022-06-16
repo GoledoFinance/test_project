@@ -30,7 +30,7 @@ export const WithdrawModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
     underlyingAsset: string;
   }>;
-  const [withdrawUnWrapped] = useState(true);
+  const [withdrawUnWrapped, setWithdrawUnWrapped] = useState(true);
   const { step, setStep, value, setValue } = useStep(type);
 
   return (
@@ -44,13 +44,20 @@ export const WithdrawModal = () => {
           step !== 2 ? (
             <WithdrawModalContent
               {...params}
-              onSubmit={async (value) => {
+              amount={value}
+              onAmountChange={async (value) => {
                 setValue(value || '0');
-                setStep(2);
               }}
+              onSubmit={async () => {
+                if (value && value !== '0') {
+                  setStep(2);
+                }
+              }}
+              unwrap={withdrawUnWrapped}
+              setUnwrap={setWithdrawUnWrapped}
             />
           ) : (
-            <WithdrawModalContentNext {...params} value={value} />
+            <WithdrawModalContentNext {...params} unwrap={withdrawUnWrapped} amount={value} />
           )
         }
       </ModalWrapper>

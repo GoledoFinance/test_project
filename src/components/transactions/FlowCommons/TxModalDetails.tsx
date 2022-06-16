@@ -16,13 +16,14 @@ import { GasStation } from '../GasStation/GasStation';
 
 export interface TxModalDetailsProps {
   gasLimit?: string;
+  title?: string;
 }
 
-export const TxModalDetails: React.FC<TxModalDetailsProps> = ({ gasLimit, children }) => {
+export const TxModalDetails: React.FC<TxModalDetailsProps> = ({ gasLimit, title, children }) => {
   return (
     <Box sx={{ pt: 5 }}>
       <Typography sx={{ mb: 1 }} color="text.secondary">
-        <Trans>Transaction overview</Trans>
+        <Trans>{title ?? 'Transaction overview'}</Trans>
       </Typography>
 
       <Box

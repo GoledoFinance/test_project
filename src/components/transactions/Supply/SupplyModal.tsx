@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import React, { ReactNode, useRef } from 'react';
+import React, { ReactNode } from 'react';
 import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal';
 
 import { BasicModal } from '../../primitives/BasicModal';
@@ -10,6 +10,7 @@ import { useStep } from '../Withdraw/WithdrawModal';
 import { Box, Stack, SvgIcon, Typography } from '@mui/material';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import { CheckIcon } from '@heroicons/react/outline';
+import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
 
 export const SupplyModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
@@ -18,17 +19,18 @@ export const SupplyModal = () => {
 
   const { step, setStep, value, setValue } = useStep(type);
 
-  console.log('value', value);
-
   return (
     <BasicModal open={type === ModalType.Supply} setOpen={close} contentMaxWidth={740}>
-      <ModalWrapper title={<Trans>Supply</Trans>} underlyingAsset={args.underlyingAsset}>
+      <ModalWrapper
+        title={<Trans>Supply</Trans>}
+        underlyingAsset={args.underlyingAsset}
+        keepWrappedSymbol={
+          args.underlyingAsset?.toLowerCase() !== API_ETH_MOCK_ADDRESS.toLowerCase()
+        }
+      >
         {(params) => {
           return (
             <>
-              <Typography variant="main14" color="#666">
-                How much do you like to supply?
-              </Typography>
               <Box
                 sx={{
                   p: 5,
@@ -174,7 +176,7 @@ export const SupplyModal = () => {
                   }}
                 />
               ) : (
-                <SupplyModalContentNext {...params} value={value} />
+                <SupplyModalContentNext {...params} amount={value} />
               )}
             </>
           );

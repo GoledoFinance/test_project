@@ -1,5 +1,5 @@
 import { BigNumberValue, normalize } from '../../bignumber';
-import { LTV_PRECISION, USD_DECIMALS } from '../../constants';
+import { LTV_PRECISION } from '../../constants';
 import { calculateAllUserIncentives, UserIncentiveDict } from '../incentive';
 import {
   ReservesIncentiveDataHumanized,
@@ -98,7 +98,7 @@ export function formatUserSummary<T extends FormatReserveUSDResponse = FormatRes
   formattedReserves,
   userEmodeCategoryId,
 }: FormatUserSummaryRequest<T>): FormatUserSummaryResponse<T> {
-  const normalizedMarketRefPriceInUsd = normalize(marketReferencePriceInUsd, USD_DECIMALS);
+  const normalizedMarketRefPriceInUsd = normalize(marketReferencePriceInUsd, 18);
 
   // Combine raw user and formatted reserve data
   const combinedReserves: Array<CombinedReserveData<T>> = [];

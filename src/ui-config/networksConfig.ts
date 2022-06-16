@@ -65,16 +65,16 @@ export const networkConfigs: Record<string, BaseNetworkConfig> = {
     networkLogoPath: '/icons/networks/ethereum.svg',
     bridge: [],
   },
-  [ChainId.conflux_espace_testnet]: {
-    name: 'Conflux eSpace Testnet',
-    publicJsonRPCUrl: ['https://evmtestnet.confluxrpc.com/'],
+  [ChainId.conflux_espace]: {
+    name: 'Conflux eSpace',
+    publicJsonRPCUrl: ['https://evm.confluxrpc.com/'],
     publicJsonRPCWSUrl: '',
     baseUniswapAdapter: '0x0',
     baseAssetSymbol: 'CFX',
     wrappedBaseAssetSymbol: 'WCFX',
     baseAssetDecimals: 18,
-    explorerLink: 'https://evmtestnet.confluxscan.net',
-    isTestnet: true,
+    explorerLink: 'https://evm.confluxscan.net',
+    isTestnet: false,
     networkLogoPath: '/icons/networks/conflux.svg',
     bridge: [
       {
@@ -93,5 +93,18 @@ export const networkConfigs: Record<string, BaseNetworkConfig> = {
         url: 'https://meson.fi/',
       },
     ],
+  },
+  [ChainId.conflux_espace_testnet]: {
+    name: 'Conflux eSpace Testnet',
+    publicJsonRPCUrl: ['https://evmtestnet.confluxrpc.com/'],
+    publicJsonRPCWSUrl: '',
+    baseUniswapAdapter: '0x0',
+    baseAssetSymbol: 'CFX',
+    wrappedBaseAssetSymbol: 'WCFX',
+    baseAssetDecimals: 18,
+    explorerLink: 'https://evmtestnet.confluxscan.net',
+    isTestnet: true,
+    networkLogoPath: '/icons/networks/conflux.svg',
+    bridge: [],
   },
 } as const;

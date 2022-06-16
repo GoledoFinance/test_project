@@ -56,7 +56,7 @@ export const SuppliedPositionsList = () => {
       title={<Trans>Your Supplies</Trans>}
       localStorageName="suppliedAssetsDashboardTableCollapse"
       noData={!suppliedPosition.length}
-      subTitleComponent={
+      topInfo={
         <>
           {!!suppliedPosition.length && (
             <>
