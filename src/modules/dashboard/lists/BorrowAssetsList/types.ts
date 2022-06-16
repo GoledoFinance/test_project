@@ -15,11 +15,8 @@ export type BorrowAssetsItem = {
   aIncentivesData?: ReserveIncentiveResponse[];
   vIncentivesData?: ReserveIncentiveResponse[];
   sIncentivesData?: ReserveIncentiveResponse[];
-  borrowCap: string;
-  borrowableInIsolation: boolean;
   totalBorrows: string;
   totalLiquidityUSD: string;
   borrowingEnabled: boolean;
   isActive: boolean;
-  eModeCategoryId: number;
 };

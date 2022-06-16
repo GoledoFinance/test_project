@@ -1,91 +1,119 @@
-import { Box, Typography } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
 import * as React from 'react';
 import { BigNumber } from 'bignumber.js';
 
-import { HealthFactorNumber } from 'src/components/HealthFactorNumber';
-
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
-import { CompleteIcon, StepHeader } from '../Withdraw/WithdrawModalContentNext';
+import { RepayActions } from './RepayActions';
+import { RepayAsset } from './RepayModal';
+import { useModalContext } from 'src/hooks/useModal';
+import { TxSuccessView } from '../FlowCommons/Success';
+import { Trans } from '@lingui/macro';
+import {
+  DetailsHFLine,
+  DetailsNumberLineWithSub,
+  TxModalDetails,
+} from '../FlowCommons/TxModalDetails';
+import { GasEstimationError } from '../FlowCommons/GasEstimationError';
+import { InterestRate } from '@goledo-sdk/contract-helpers';
+import {
+  calculateHealthFactorFromBalancesBigUnits,
+  valueToBigNumber,
+} from '@goledo-sdk/math-utils';
+import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
+import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
 
 export const RepayModalContentNext = ({
-  symbol,
-  value = '0',
-}: ModalWrapperProps & { value: string }) => {
+  poolReserve,
+  userReserve,
+  isWrongNetwork,
+  repayToken,
+  amount = '0',
+}: ModalWrapperProps & { amount: string; repayToken?: RepayAsset }) => {
+  const { currentNetworkConfig } = useProtocolDataContext();
+  const { gasLimit, mainTxState: repayTxState, txError } = useModalContext();
+  const { user } = useAppDataContext();
+
+  if (!repayToken) return null;
+
+  const debt = userReserve?.variableBorrows || '0';
+  const debtInETH = new BigNumber(debt).multipliedBy(poolReserve.formattedPriceInETH);
+
+  // calculate max amount abailable to repay
+  const normalizedWalletBalance = valueToBigNumber(repayToken.balance).minus(
+    userReserve?.reserve.symbol.toUpperCase() === currentNetworkConfig.baseAssetSymbol
+      ? '0.004'
+      : '0'
+  );
+  const maxAmountToRepay = BigNumber.min(normalizedWalletBalance, debt);
+
+  // debt remaining after repay
+  const amountAfterRepay = valueToBigNumber(debt)
+    .minus(amount || '0')
+    .toString(10);
+  const displayAmountAfterRepay = BigNumber.min(amountAfterRepay, maxAmountToRepay);
+  const displayAmountAfterRepayInETH = displayAmountAfterRepay.multipliedBy(
+    poolReserve.formattedPriceInETH
+  );
+
+  // health factor calculations
+  // we use usd values instead of MarketreferenceCurrency so it has same precision
+  const newHF = amount
+    ? calculateHealthFactorFromBalancesBigUnits({
+        collateralBalanceMarketReferenceCurrency: user?.totalCollateralUSD || '0',
+        borrowBalanceMarketReferenceCurrency: valueToBigNumber(user?.totalBorrowsUSD || '0').minus(
+          valueToBigNumber(userReserve.reserve.priceInUSD).multipliedBy(amount)
+        ),
+        currentLiquidationThreshold: user?.currentLiquidationThreshold || '0',
+      }).toString(10)
+    : user?.healthFactor;
+
+  if (repayTxState.success)
+    return (
+      <TxSuccessView action={<Trans>repaid</Trans>} amount={amount} symbol={repayToken.symbol} />
+    );
+
   return (
     <>
-      <Typography variant="description" color={'#666'}>
-        These are your transaction details. Make sure to check if this is correct before submitting.
-      </Typography>
+      <TxModalDetails
+        gasLimit={gasLimit}
+        title={
+          'These are your transaction details. Make sure to check if this is correct before submitting.'
+        }
+      >
+        <DetailsNumberLineWithSub
+          description={<Trans>Remaining debt</Trans>}
+          futureValue={amountAfterRepay}
+          futureValueUSD={displayAmountAfterRepayInETH.toString(10)}
+          value={debt}
+          valueUSD={debtInETH.toString()}
+          symbol={
+            poolReserve.iconSymbol === currentNetworkConfig.wrappedBaseAssetSymbol
+              ? currentNetworkConfig.baseAssetSymbol
+              : poolReserve.iconSymbol
+          }
+        />
+        <DetailsHFLine
+          visibleHfChange={true}
+          healthFactor={user?.healthFactor}
+          futureHealthFactor={newHF}
+        />
+      </TxModalDetails>
 
-      <Box
-        mt={2.5}
-        borderRadius="8px"
-        borderColor={'rgba(229, 229, 229, 1)'}
-        sx={{ borderWidth: '1px', p: 4, borderStyle: 'solid' }}
-      >
-        {[
-          <>
-            <Typography variant="description" color={'#666'}>
-              Amount to repay
-            </Typography>
-            <Typography variant="main14">
-              {/* TODO: adjusting the precision based on the requirement */}
-              {new BigNumber(value).toFormat(0)} {symbol}
-              <Typography component={'span'} color={'#666'}>
-                (${new BigNumber(value).toFormat(0)})
-              </Typography>
-            </Typography>
-          </>,
-          <>
-            <Typography variant="description" color={'#666'}>
-              Remaining to repay
-            </Typography>
-            <Typography variant="main14">
-              {new BigNumber(123123213).toFormat(0)} {symbol}
-              <Typography component={'span'} color={'#666'}>
-                (${new BigNumber(123123123).toFormat(0)})
-              </Typography>
-            </Typography>
-          </>,
-          <>
-            <Typography variant="description" color={'#666'}>
-              Current health factor
-            </Typography>
-            <HealthFactorNumber value={'2.62'} variant="main14" />
-          </>,
-          <>
-            <Typography variant="description" color={'#666'}>
-              Next health factor
-            </Typography>
-            <HealthFactorNumber value={'2.62'} variant="main14" />
-          </>,
-        ].map((item, index) => {
-          return (
-            <Box
-              key={index}
-              display={'flex'}
-              justifyContent="space-between"
-              alignItems={'center'}
-              mt={index === 0 ? 0 : 2.5}
-            >
-              {item}
-            </Box>
-          );
-        })}
-      </Box>
-      <Box
-        mt={2.5}
-        borderRadius="8px"
-        borderColor={'rgba(229, 229, 229, 1)'}
-        sx={{ borderWidth: '1px', borderStyle: 'solid' }}
-      >
-        <StepBox />
-      </Box>
+      {txError && <GasEstimationError txError={txError} />}
+
+      <RepayActions
+        poolReserve={poolReserve}
+        amountToRepay={amount}
+        poolAddress={repayToken.address ?? ''}
+        isWrongNetwork={isWrongNetwork}
+        symbol={repayToken.symbol}
+        debtType={InterestRate.Variable}
+        repayWithATokens={false}
+      />
     </>
   );
 };
 
+/*
 const sleep = (time = 1) =>
   new Promise((r) => {
     setTimeout(() => {
@@ -156,3 +184,4 @@ const StepBox = () => {
     </Box>
   );
 };
+*/

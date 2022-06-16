@@ -21,21 +21,21 @@ export const RewardsList = () => {
 
   const data = [
     {
-      underlyingAsset: 'Goledo',
+      underlyingAsset: 'GDO',
       underlyingBalance: 20.04,
       underlyingBalanceUSD: 17.19,
       ...fetchIconSymbolAndName({
-        symbol: 'Goledo',
+        symbol: 'GDO',
         underlyingAsset: '',
       }),
       supplyAPR: 0.0111,
     },
     {
-      underlyingAsset: 'GoledoFTM',
+      underlyingAsset: 'GDOCFX',
       underlyingBalance: 20.04,
       underlyingBalanceUSD: 17.19,
       ...fetchIconSymbolAndName({
-        symbol: 'GoledoFTM',
+        symbol: 'GDOCFX',
         underlyingAsset: '',
       }),
       supplyAPR: 0.0111,
@@ -44,12 +44,15 @@ export const RewardsList = () => {
 
   const head = [
     <Trans key="Balance">Balance</Trans>,
-    <Trans key="APY">APR</Trans>,
+    <Trans key="APY">APY</Trans>,
     <Trans key="staked">Your staked balance</Trans>,
     <Trans key="locked">Your locked balance</Trans>,
   ];
 
-  if (loading) return <ListLoader title={<Trans>Rewards</Trans>} head={head} assetsTitle={null} />;
+  if (loading) {
+    return null;
+    // return <ListLoader title={<Trans>Rewards</Trans>} head={head} assetsTitle={null} />;
+  }
 
   return (
     <ListWrapper

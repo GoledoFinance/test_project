@@ -1,10 +1,6 @@
-import { Box, Typography, Stepper, Step, LinearProgress, Alert, Checkbox } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import { Box, Typography, Alert, Checkbox } from '@mui/material';
 import * as React from 'react';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { BigNumber } from 'bignumber.js';
-
-import { HealthFactorNumber } from 'src/components/HealthFactorNumber';
 
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
@@ -24,7 +20,6 @@ import {
   DetailsHFLine,
   DetailsNumberLine,
   DetailsNumberLineWithSub,
-  DetailsUnwrapSwitch,
   TxModalDetails,
 } from '../FlowCommons/TxModalDetails';
 
@@ -220,6 +215,7 @@ export const WithdrawModalContentNext = ({
   );
 };
 
+/*
 export const CompleteIcon = () => (
   <Typography color="#2D88F2" minWidth={'160px'} textAlign="center">
     <CheckCircleOutlineIcon sx={{ fontSize: 14, verticalAlign: 'middle', mr: 1.5 }} />
@@ -250,6 +246,7 @@ export const StepHeader = ({ activeStep, steps }: { steps: string[]; activeStep:
     <LinearProgress variant="determinate" value={((activeStep + 1) / steps.length) * 100} />
   </>
 );
+
 
 const sleep = (time = 1) =>
   new Promise((r) => {
@@ -351,3 +348,4 @@ const StepBox = () => {
     </Box>
   );
 };
+*/

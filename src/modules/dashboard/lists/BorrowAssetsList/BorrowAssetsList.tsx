@@ -20,7 +20,6 @@ import { BorrowAssetsListMobileItem } from './BorrowAssetsListMobileItem';
 import { BorrowAssetsItem } from './types';
 import { Link } from '../../../../components/primitives/Link';
 import { VariableAPYTooltip } from 'src/components/infoTooltips/VariableAPYTooltip';
-import { StableAPYTooltip } from 'src/components/infoTooltips/StableAPYTooltip';
 
 export const BorrowAssetsList = () => {
   const { currentNetworkConfig } = useProtocolDataContext();

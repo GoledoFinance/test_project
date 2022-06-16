@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import React from 'react';
+import React, { useState } from 'react';
 import { ModalContextType, ModalType, useModalContext } from 'src/hooks/useModal';
 
 import { BasicModal } from '../../primitives/BasicModal';
@@ -12,6 +12,7 @@ export const BorrowModal = () => {
   const { type, close, args } = useModalContext() as ModalContextType<{
     underlyingAsset: string;
   }>;
+  const [borrowUnWrapped, setBorrowUnWrapped] = useState(true);
   const { step, setStep, value, setValue } = useStep(type);
 
   return (
@@ -19,19 +20,26 @@ export const BorrowModal = () => {
       <ModalWrapper
         title={<Trans>Borrow</Trans>}
         underlyingAsset={args.underlyingAsset}
-        keepWrappedSymbol={!true}
+        keepWrappedSymbol={!borrowUnWrapped}
       >
         {(params) =>
           step !== 2 ? (
             <BorrowModalContent
               {...params}
-              onSubmit={async (value) => {
+              amount={value}
+              onAmountChange={async (value) => {
                 setValue(value || '0');
-                setStep(2);
               }}
+              onSubmit={async () => {
+                if (value && value !== '0') {
+                  setStep(2);
+                }
+              }}
+              unwrap={borrowUnWrapped}
+              setUnwrap={setBorrowUnWrapped}
             />
           ) : (
-            <BorrowModalContentNext {...params} value={value} />
+            <BorrowModalContentNext {...params} unwrap={borrowUnWrapped} amount={value} />
           )
         }
       </ModalWrapper>

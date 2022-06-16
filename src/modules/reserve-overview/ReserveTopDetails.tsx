@@ -165,7 +165,7 @@ export const ReserveTopDetails = ({ underlyingAsset }: ReserveTopDetailsProps) =
         loading={loading}
       >
         <FormattedNumber
-          value={poolReserve?.availableLiquidity}
+          value={poolReserve?.formattedAvailableLiquidity}
           variant={valueTypographyVariant}
           symbolsVariant={symbolsTypographyVariant}
           symbolsColor="#A5A8B6"

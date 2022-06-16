@@ -46,34 +46,15 @@ export function getMaxAmountAvailableToBorrow(
     /**
      * When the user could in theory borrow all, but the debt accrues the available decreases from block to block.
      */
-    (availableForUserUSD.eq(availableInPoolUSD) && poolReserve.totalDebt !== '0') ||
-    /**
-     * When borrow cap could be reached and debt accumulates the debt would be surpassed.
-     */
-    (poolReserve.borrowCapUSD &&
-      poolReserve.totalDebt !== '0' &&
-      availableForUserUSD.gte(availableInPoolUSD)) ||
-    /**
-     * When the user would be able to borrow all the remaining ceiling we need to add a margin as existing debt.
-     */
-    (user.isInIsolationMode &&
-      user.isolatedReserve?.isolationModeTotalDebt !== '0' &&
-      // TODO: would be nice if userFormatter contained formatted reserve as this math is done twice now
-      valueToBigNumber(user.isolatedReserve?.debtCeiling || '0')
-        .minus(user.isolatedReserve?.isolationModeTotalDebt || '0')
-        .shiftedBy(-(user.isolatedReserve?.debtCeilingDecimals || 0))
-        .multipliedBy('0.99')
-        .lt(user.availableBorrowsUSD));
+    (availableForUserUSD.eq(availableInPoolUSD) && poolReserve.totalDebt !== '0');
 
   return shouldAddMargin ? maxUserAmountToBorrow.multipliedBy('0.99') : maxUserAmountToBorrow;
 }
 
 export function assetCanBeBorrowedByUser(
-  { borrowingEnabled, isActive, borrowableInIsolation, eModeCategoryId }: ComputedReserveData,
-  user: ExtendedFormattedUser
+  { borrowingEnabled, isActive }: ComputedReserveData,
+  _user: ExtendedFormattedUser
 ) {
   if (!borrowingEnabled || !isActive) return false;
-  if (user?.isInEmode && eModeCategoryId !== user.userEmodeCategoryId) return false;
-  if (user?.isInIsolationMode && !borrowableInIsolation) return false;
   return true;
 }

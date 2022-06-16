@@ -6,7 +6,6 @@ import { useMediaQuery, useTheme } from '@mui/material';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
 
-import { APYTypeTooltip } from '../../../../components/infoTooltips/APYTypeTooltip';
 import { BorrowPowerTooltip } from '../../../../components/infoTooltips/BorrowPowerTooltip';
 import { TotalBorrowAPYTooltip } from '../../../../components/infoTooltips/TotalBorrowAPYTooltip';
 import { ListWrapper } from '../../../../components/lists/ListWrapper';
@@ -78,7 +77,7 @@ export const BorrowedPositionsList = () => {
   const head = [
     <Trans key="Debt">Debt</Trans>,
     <Trans key="APY">APY</Trans>,
-    <APYTypeTooltip text={<Trans>APY type</Trans>} key="APY type" variant="subheader2" />,
+    // <APYTypeTooltip text={<Trans>APY type</Trans>} key="APY type" variant="subheader2" />,
   ];
 
   if (loading) return <ListLoader title={<Trans>Your Borrows</Trans>} head={head} />;

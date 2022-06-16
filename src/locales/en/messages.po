@@ -113,6 +113,8 @@ msgstr "Already on cooldown"
 
 #: src/components/transactions/AssetInput.tsx
 #: src/components/transactions/StakeRewardClaim/StakeRewardClaimModalContent.tsx
+#: src/components/transactions/Supply/SupplyModalContentNext.tsx
+#: src/components/transactions/Withdraw/WithdrawModalContentNext.tsx
 msgid "Amount"
 msgstr "Amount"
 
@@ -133,17 +135,14 @@ msgid "Approve confirmed"
 msgstr "Approve confirmed"
 
 #: src/components/transactions/TxActionsWrapper.tsx
-#: src/components/transactions/TxActionsWrapper_old.tsx
 msgid "Approve to continue"
 msgstr "Approve to continue"
 
 #: src/components/transactions/TxActionsWrapper.tsx
-#: src/components/transactions/TxActionsWrapper_old.tsx
 msgid "Approved"
 msgstr "Approved"
 
 #: src/components/transactions/TxActionsWrapper.tsx
-#: src/components/transactions/TxActionsWrapper_old.tsx
 msgid "Approving {symbol}..."
 msgstr "Approving {symbol}..."
 
@@ -535,7 +534,6 @@ msgid "Enter ETH address"
 msgstr "Enter ETH address"
 
 #: src/components/transactions/TxActionsWrapper.tsx
-#: src/components/transactions/TxActionsWrapper_old.tsx
 msgid "Enter an amount"
 msgstr "Enter an amount"
 
@@ -609,6 +607,10 @@ msgstr "Health factor is not below the threshold"
 #: src/components/lists/ListWrapper.tsx
 msgid "Hide"
 msgstr "Hide"
+
+#: src/components/transactions/Withdraw/WithdrawModalContentNext.tsx
+msgid "I acknowledge the risks involved."
+msgstr "I acknowledge the risks involved."
 
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 msgid "I understand how cooldown ({0}) and unstaking ({1}) work"
@@ -888,6 +890,10 @@ msgstr "Recipient address"
 msgid "Rejected connection request"
 msgstr "Rejected connection request"
 
+#: src/components/transactions/Withdraw/WithdrawModalContentNext.tsx
+msgid "Remaining supply"
+msgstr "Remaining supply"
+
 #: src/components/transactions/Repay/RepayModal.tsx
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsListItem.tsx
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsListMobileItem.tsx
@@ -921,7 +927,6 @@ msgid "Retry with Approval"
 msgstr "Retry with Approval"
 
 #: src/components/transactions/TxActionsWrapper.tsx
-#: src/components/transactions/TxActionsWrapper_old.tsx
 msgid "Retry with approval"
 msgstr "Retry with approval"
 
@@ -1052,6 +1057,10 @@ msgstr "Staking"
 msgid "Staking APR"
 msgstr "Staking APR"
 
+#: src/components/transactions/Supply/SupplyModalContentNext.tsx
+msgid "Supplied"
+msgstr "Supplied"
+
 #: src/modules/reserve-overview/ReserveActions.tsx
 msgid "Supplies"
 msgstr "Supplies"
@@ -1064,6 +1073,7 @@ msgstr "Supplies"
 msgid "Supply"
 msgstr "Supply"
 
+#: src/components/transactions/Supply/SupplyModalContentNext.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsListMobileItem.tsx
 #: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsListMobileItem.tsx
 #: src/modules/markets/AssetsList.tsx
@@ -1101,7 +1111,6 @@ msgstr "Supplying your"
 msgid "Supplying {symbol}"
 msgstr "Supplying {symbol}"
 
-#: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsListItem.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsListMobileItem.tsx
 msgid "Swap"
 msgstr "Swap"
@@ -1197,6 +1206,10 @@ msgstr "There is not enough collateral to cover a new borrow"
 #: src/components/transactions/FlowCommons/GasEstimationError.tsx
 msgid "There was some error. Please try changing the parameters or <0><1>copy the error</1></0>"
 msgstr "There was some error. Please try changing the parameters or <0><1>copy the error</1></0>"
+
+#: src/components/transactions/Withdraw/WithdrawModalContentNext.tsx
+msgid "These funds have been borrowed and are not available for withdrawal at this time."
+msgstr "These funds have been borrowed and are not available for withdrawal at this time."
 
 #: src/components/caps/CapsTooltip.tsx
 msgid "This asset has almost reached its borrow cap. There is only {messageValue} available to be borrowed from this market."
@@ -1303,10 +1316,6 @@ msgstr "Total worth"
 #: src/components/transactions/FlowCommons/Error.tsx
 msgid "Transaction failed"
 msgstr "Transaction failed"
-
-#: src/components/transactions/FlowCommons/TxModalDetails.tsx
-msgid "Transaction overview"
-msgstr "Transaction overview"
 
 #: src/components/transactions/GovDelegation/GovDelegationModalContent.tsx
 msgid "Type of delegation"
@@ -1464,12 +1473,15 @@ msgstr "Withdraw"
 msgid "Withdraw {symbol}"
 msgstr "Withdraw {symbol}"
 
+#: src/components/transactions/Withdraw/WithdrawModalContentNext.tsx
+msgid "Withdrawing this amount will reduce your health factor and increase risk of liquidation."
+msgstr "Withdrawing this amount will reduce your health factor and increase risk of liquidation."
+
 #: src/components/transactions/Withdraw/WithdrawActions.tsx
 msgid "Withdrawing {symbol}"
 msgstr "Withdrawing {symbol}"
 
 #: src/components/transactions/TxActionsWrapper.tsx
-#: src/components/transactions/TxActionsWrapper_old.tsx
 msgid "Wrong Network"
 msgstr "Wrong Network"
 
@@ -1496,6 +1508,10 @@ msgstr "You can not switch usage as collateral mode for this currency, because i
 #: src/components/transactions/CollateralChange/CollateralChangeModalContent.tsx
 msgid "You can not use this currency as collateral"
 msgstr "You can not use this currency as collateral"
+
+#: src/components/transactions/Withdraw/WithdrawModalContentNext.tsx
+msgid "You can not withdraw this amount because it will cause collateral call"
+msgstr "You can not withdraw this amount because it will cause collateral call"
 
 #: src/modules/staking/StakingPanel.tsx
 msgid "You can only withdraw your assets from the Security Module after the cooldown period ends and the unstake window is active."
@@ -1668,10 +1684,15 @@ msgstr "v2 markets"
 msgid "v3 markets"
 msgstr "v3 markets"
 
+#: src/components/transactions/Withdraw/WithdrawModalContentNext.tsx
+msgid "withdrew"
+msgstr "withdrew"
+
 #: src/components/infoTooltips/RewardsTooltip.tsx
 msgid "xxxxxx"
 msgstr "xxxxxx"
 
+#: src/components/transactions/FlowCommons/TxModalDetails.tsx
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 #: src/modules/dashboard/DashboardEModeButton.tsx
