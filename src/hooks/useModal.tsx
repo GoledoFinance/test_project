@@ -31,6 +31,7 @@ export interface ModalArgsType {
   icon?: string;
   stakeAssetName?: string;
   currentRateMode?: InterestRate;
+  balance?: string;
   type?: 'lock' | 'stake';
 }
 
@@ -49,8 +50,18 @@ export interface ModalContextType<T extends ModalArgsType> {
   openRepay: (underlyingAsset: string, currentRateMode: InterestRate) => void;
   openCollateralChange: (underlyingAsset: string) => void;
   openRateSwitch: (underlyingAsset: string, currentRateMode: InterestRate) => void;
-  openStake: (type: 'lock' | 'stake') => void;
-  openUnstake: (type: 'lock' | 'stake') => void;
+  openStake: (
+    type: 'lock' | 'stake',
+    underlyingAsset: string,
+    stakeAssetName: string,
+    balance: string
+  ) => void;
+  openUnstake: (
+    type: 'lock' | 'stake',
+    underlyingAsset: string,
+    stakeAssetName: string,
+    balance: string
+  ) => void;
   openStakeCooldown: (stakeAssetName: string) => void;
   openStakeRewardsClaim: (stakeAssetName: string) => void;
   openClaimRewards: () => void;
@@ -124,13 +135,13 @@ export const ModalContextProvider: React.FC = ({ children }) => {
           setType(ModalType.RateSwitch);
           setArgs({ underlyingAsset, currentRateMode });
         },
-        openStake: (type) => {
+        openStake: (type, underlyingAsset, stakeAssetName, balance) => {
           setType(ModalType.Stake);
-          setArgs({ type });
+          setArgs({ type, underlyingAsset, stakeAssetName, balance });
         },
-        openUnstake: (type) => {
+        openUnstake: (type, underlyingAsset, stakeAssetName, balance) => {
           setType(ModalType.Unstake);
-          setArgs({ type });
+          setArgs({ type, underlyingAsset, stakeAssetName, balance });
         },
         openStakeCooldown: (stakeAssetName) => {
           setType(ModalType.StakeCooldown);

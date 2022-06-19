@@ -76,7 +76,7 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
       </ListColumn>
 
       <ListButtonsColumn sx={{ maxWidth: 270, minWidth: 270 }}>
-        <Button
+        {/*<Button
           // disabled={!isActive || isFreezed || Number(walletBalance) <= 0}
           variant="contained"
           onClick={(e) => {
@@ -87,7 +87,7 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
           sx={{ mr: 1.5, height: 32 }}
         >
           <Trans>Vest 0.002 GOLEDO</Trans>
-        </Button>
+        </Button>*/}
         <Button
           sx={{ height: 32 }}
           variant="outlined"

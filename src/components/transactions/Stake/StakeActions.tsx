@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { BoxProps } from '@mui/material';
+import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { useStakeTxBuilderContext } from 'src/hooks/useStakeTxBuilder';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
 
@@ -13,6 +14,7 @@ export interface StakeActionProps extends BoxProps {
   symbol: string;
   blocked: boolean;
   selectedToken: string;
+  lock: boolean;
 }
 
 export const StakeActions = ({
@@ -21,16 +23,24 @@ export const StakeActions = ({
   sx,
   symbol,
   blocked,
+  lock,
   selectedToken,
   ...props
 }: StakeActionProps) => {
   const { currentAccount } = useWeb3Context();
-  const stakingService = useStakeTxBuilderContext(selectedToken);
+  const { currentMarketData } = useProtocolDataContext();
+  const { staking } = useStakeTxBuilderContext(selectedToken);
 
   const { action, approval, requiresApproval, loadingTxns, approvalTxState, mainTxState } =
     useTransactionHandler({
       handleGetTxns: async () => {
-        return stakingService.stake(currentAccount, amountToStake.toString());
+        return staking.stake({
+          user: currentAccount,
+          amount: amountToStake.toString(),
+          token: selectedToken,
+          lock,
+          distributionAddress: currentMarketData.addresses.MULTI_FEE_DISTRIBUTION,
+        });
       },
       skip: !amountToStake || parseFloat(amountToStake) === 0 || blocked,
       deps: [amountToStake],

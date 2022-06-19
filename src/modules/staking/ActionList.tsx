@@ -1,21 +1,85 @@
 import { Divider, Stack, Box, Typography, Button } from '@mui/material';
 import { ReactNode } from 'react';
+import { useRewardData } from 'src/hooks/app-data-provider/useRewardData';
 
 // import { useModalContext } from 'src/hooks/useModal';
+import BigNumber from 'bignumber.js';
+import { useStakeTxBuilderContext } from 'src/hooks/useStakeTxBuilder';
+import { useTransactionHandler } from 'src/helpers/useTransactionHandler';
+import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
+import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
 export const ActionList = () => {
-  // const { openStakeRewardsClaim } = useModalContext();
+  const { currentAccount, loading } = useWeb3Context();
+  const { currentMarketData } = useProtocolDataContext();
+  const { data: rewardData } = useRewardData();
+
+  const timestamp = Math.floor(Date.now() / 1000);
+
+  let penalty = new BigNumber('0');
+  let vesting = new BigNumber('0');
+  let expiredLockBalance = new BigNumber('0');
+  let unlockedBalance = new BigNumber('0');
+  if (rewardData) {
+    rewardData.stakeUserData.earnedBalances.forEach((earn) => {
+      penalty = penalty.plus(new BigNumber(earn.amount));
+      vesting = vesting.plus(new BigNumber(earn.amount));
+    });
+    penalty = penalty.dividedBy(2);
+    rewardData.stakeUserData.lockedBalances.forEach((lock) => {
+      if (lock.unlockTime <= timestamp) {
+        expiredLockBalance = expiredLockBalance.plus(lock.amount);
+      }
+    });
+    unlockedBalance = unlockedBalance.plus(rewardData.stakeUserData.unlockedBalance);
+  }
+
+  const { staking } = useStakeTxBuilderContext('');
+
+  const { action: withdrawExpiredLocksAction, loadingTxns: loadingWithdrawExpiredLocksTxns } =
+    useTransactionHandler({
+      handleGetTxns: async () => {
+        return staking.withdrawExpiredLocks({
+          user: currentAccount,
+          distributionAddress: currentMarketData.addresses.MULTI_FEE_DISTRIBUTION,
+        });
+      },
+      skip: loading,
+      deps: [currentAccount, loading],
+    });
+
+  const { action: exitAction, loadingTxns: loadingExitTxns } = useTransactionHandler({
+    handleGetTxns: async () => {
+      return staking.exit({
+        user: currentAccount,
+        distributionAddress: currentMarketData.addresses.MULTI_FEE_DISTRIBUTION,
+      });
+    },
+    skip: loading,
+    deps: [currentAccount, loading],
+  });
+
+  const { action: withdrawAction, loadingTxns: loadingWithdrawTxns } = useTransactionHandler({
+    handleGetTxns: async () => {
+      return staking.withdraw({
+        user: currentAccount,
+        amount: '1',
+        distributionAddress: currentMarketData.addresses.MULTI_FEE_DISTRIBUTION,
+      });
+    },
+    skip: loading,
+    deps: [currentAccount, loading, unlockedBalance],
+  });
 
   return (
     <Stack divider={<Divider />} spacing={3}>
       <ListItem
         title={'Unlocked Goledo'}
         desc={'Staked Goledo and expried Goledo vests'}
-        num={2}
-        claimFn={() => {
-          // openStakeRewardsClaim('aave');
-        }}
-        disabled={false}
+        num={unlockedBalance.toFixed(2)}
+        claimFn={withdrawAction}
+        disabled={!rewardData || loading || loadingWithdrawTxns || unlockedBalance.isZero()}
+        buttonText={'Claim Goledo'}
       />
       <ListItem
         title={'Vesting Goledo'}
@@ -27,7 +91,8 @@ export const ActionList = () => {
             </Typography>
           </>
         }
-        num={2}
+        num={vesting.toFixed(2)}
+        buttonText={''}
       />
       <ListItem
         title={'Claim all of the above'}
@@ -35,22 +100,23 @@ export const ActionList = () => {
           <>
             Early exit penalty{' '}
             <Typography component={'span'} color="red">
-              0.005 Goledo
+              {penalty.toFixed(2)} Goledo
             </Typography>
           </>
         }
-        claimFn={() => {
-          // openStakeRewardsClaim('aave');
-        }}
+        disabled={!rewardData || loading || loadingExitTxns}
+        buttonText={'Claim All'}
+        claimFn={exitAction}
       />
       <ListItem
         title={'Expired locked Goledo'}
         desc={'Goledo locks that have exceeded the 3 month lock period and are now withdrawable'}
-        num={2}
-        claimFn={() => {
-          // openStakeRewardsClaim('aave');
-        }}
-        disabled
+        num={expiredLockBalance.toPrecision()}
+        claimFn={withdrawExpiredLocksAction}
+        disabled={
+          !rewardData || loading || loadingWithdrawExpiredLocksTxns || expiredLockBalance.isZero()
+        }
+        buttonText={'Withdraw'}
       />
     </Stack>
   );
@@ -62,10 +128,12 @@ const ListItem = ({
   num,
   claimFn,
   disabled,
+  buttonText,
 }: {
   title: ReactNode;
   desc: ReactNode;
-  num?: number;
+  buttonText: string;
+  num?: string;
   claimFn?: () => void;
   disabled?: boolean;
 }) => (
@@ -77,9 +145,9 @@ const ListItem = ({
     <Box flex={1} />
     {num && (
       <Box display={'flex'} alignItems="center" marginRight={7.5}>
-        <img src={'/icons/tokens/goledo.svg'} alt="goledo" width={22} height={22} />
+        <img src={'/icons/tokens/gdo.svg'} alt="goledo" width={22} height={22} />
         <Typography variant="main16" marginLeft={2}>
-          2 Goledo
+          {num} Goledo
         </Typography>
       </Box>
     )}
@@ -91,7 +159,7 @@ const ListItem = ({
         disabled={disabled}
         size="large"
       >
-        Claim Goledo
+        {buttonText}
       </Button>
     ) : (
       <Box width={140} />

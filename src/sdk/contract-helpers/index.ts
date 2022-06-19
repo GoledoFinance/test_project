@@ -2,6 +2,7 @@
 export * from './helpers/BaseDebtToken';
 export * from './helpers/ERC20';
 export * from './helpers/IncentivesController';
+export * from './helpers/IncentiveDataProvider';
 export * from './helpers/LendingPool';
 export * from './helpers/MasterChef';
 export * from './helpers/MultiFeeDistribution';
@@ -22,4 +23,8 @@ export type ReservesHelperInput = {
 export type UserReservesHelperInput = {
   user: string;
   lendingPoolAddressProvider: string;
+};
+
+export type IncentiveHelperInput = {
+  user: string;
 };

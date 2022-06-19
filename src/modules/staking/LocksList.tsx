@@ -8,13 +8,13 @@ import { ListHeaderWrapper } from '../../components/lists/ListHeaderWrapper';
 import { VestListItem } from './VestListItem';
 import { VestListItemLoader } from './VestListItemLoader';
 import { DashboardContentNoData } from 'src/modules/dashboard/DashboardContentNoData';
+import { useRewardData } from 'src/hooks/app-data-provider/useRewardData';
 
 export function LocksList() {
   const { loading } = useAppDataContext();
+  const { loading: rewardLoading, data: rewardData } = useRewardData();
 
   const isTableChangedToCards = useMediaQuery('(max-width:1125px)');
-
-  const filteredData = [{ id: 1 }];
 
   const header = [
     {
@@ -22,12 +22,6 @@ export function LocksList() {
     },
     {
       title: <Trans>Expiry</Trans>,
-    },
-    {
-      title: <Trans>Total Goledo Vesiting</Trans>,
-    },
-    {
-      title: <Trans>Total Value</Trans>,
     },
   ];
 
@@ -43,7 +37,7 @@ export function LocksList() {
         </ListHeaderWrapper>
       )}
 
-      {loading ? (
+      {loading || rewardLoading || !rewardData ? (
         isTableChangedToCards ? (
           <></>
         ) : (
@@ -52,9 +46,11 @@ export function LocksList() {
             <VestListItemLoader />
           </>
         )
-      ) : filteredData?.length > 0 ? (
-        filteredData.map((reserve) =>
-          isTableChangedToCards ? null : <VestListItem key={reserve.id} />
+      ) : rewardData.stakeUserData.lockedBalances.length > 0 ? (
+        rewardData.stakeUserData.lockedBalances.map(({ amount, unlockTime }, index) =>
+          isTableChangedToCards ? null : (
+            <VestListItem amount={amount} expire={unlockTime} key={index} />
+          )
         )
       ) : (
         <DashboardContentNoData text={<Trans>No Data</Trans>} />

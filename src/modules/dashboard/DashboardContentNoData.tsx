@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 interface DashboardContentNoDataProps {
   text: ReactNode;
-  img?: string | null;
+  img?: string;
 }
 
 export const DashboardContentNoData = ({ text, img }: DashboardContentNoDataProps) => {
@@ -19,7 +19,7 @@ export const DashboardContentNoData = ({ text, img }: DashboardContentNoDataProp
         pb: { xs: 6, sxm: 7 },
       }}
     >
-      {img !== null && <img src={'/empty-2.svg'} alt="empty img" />}
+      {img && <img src={'/empty-2.svg'} alt="empty img" />}
       <Typography color="#ccc" sx={{ mt: 3.5 }}>
         {text}
       </Typography>

@@ -1,17 +1,20 @@
-import { providers } from 'ethers';
+import { ethers, providers } from 'ethers';
 import BaseService from '../commons/BaseService';
 import {
   eEthereumTxType,
   EthereumTransactionTypeExtended,
   transactionType,
 } from '../commons/types';
+import { DEFAULT_APPROVE_AMOUNT, valueToWei } from '../commons/utils';
 import {
   MultiFeeDistribution as MultiFeeDistributionContract,
   MultiFeeDistribution__factory,
 } from '../typechain';
+import { ERC20Service, IERC20ServiceInterface } from './ERC20';
 
 export type StakeMethodType = {
   user: string;
+  token: string;
   amount: string;
   lock: boolean;
   distributionAddress: string;
@@ -35,9 +38,10 @@ export type WithdrawExpiredLocksMethodType = {
 };
 
 export interface MultiFeeDistributionInterface {
-  stake: (args: StakeMethodType) => EthereumTransactionTypeExtended[];
+  stake: (args: StakeMethodType) => Promise<EthereumTransactionTypeExtended[]>;
   withdraw: (args: WithdrawMethodType) => EthereumTransactionTypeExtended[];
   withdrawExpiredLocks: (args: WithdrawExpiredLocksMethodType) => EthereumTransactionTypeExtended[];
+  exit: (args: WithdrawExpiredLocksMethodType) => EthereumTransactionTypeExtended[];
   getReward: (args: GetMultiFeeDistributionRewardMethodType) => EthereumTransactionTypeExtended[];
 }
 
@@ -45,29 +49,57 @@ export class MultiFeeDistribution
   extends BaseService<MultiFeeDistributionContract>
   implements MultiFeeDistributionInterface
 {
+  readonly erc20Service: IERC20ServiceInterface;
+
   constructor(provider: providers.Provider) {
     super(provider, MultiFeeDistribution__factory);
+
+    this.erc20Service = new ERC20Service(provider);
   }
-  public stake({
+
+  public async stake({
     user,
     amount,
+    token,
     lock,
     distributionAddress,
-  }: StakeMethodType): EthereumTransactionTypeExtended[] {
+  }: StakeMethodType): Promise<EthereumTransactionTypeExtended[]> {
+    const { isApproved, approve }: IERC20ServiceInterface = this.erc20Service;
+    const txs: EthereumTransactionTypeExtended[] = [];
+
+    const approved = await isApproved({
+      token,
+      user,
+      spender: distributionAddress,
+      amount,
+    });
+
+    if (!approved) {
+      const approveTx: EthereumTransactionTypeExtended = approve({
+        user,
+        token,
+        spender: distributionAddress,
+        amount: DEFAULT_APPROVE_AMOUNT,
+      });
+      txs.push(approveTx);
+    }
+
     const distribution: MultiFeeDistributionContract =
       this.getContractInstance(distributionAddress);
+
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () => distribution.populateTransaction.stake(amount, lock),
+      rawTxMethod: async () =>
+        distribution.populateTransaction.stake(ethers.utils.parseEther(amount), lock),
       from: user,
     });
 
-    return [
-      {
-        tx: txCallback,
-        txType: eEthereumTxType.REWARD_ACTION,
-        gas: this.generateTxPriceEstimation([], txCallback),
-      },
-    ];
+    txs.push({
+      tx: txCallback,
+      txType: eEthereumTxType.REWARD_ACTION,
+      gas: this.generateTxPriceEstimation([], txCallback),
+    });
+
+    return txs;
   }
 
   public withdraw({
@@ -78,7 +110,8 @@ export class MultiFeeDistribution
     const distribution: MultiFeeDistributionContract =
       this.getContractInstance(distributionAddress);
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () => distribution.populateTransaction.withdraw(amount),
+      rawTxMethod: async () =>
+        distribution.populateTransaction.withdraw(ethers.utils.parseEther(amount)),
       from: user,
     });
 
@@ -99,6 +132,26 @@ export class MultiFeeDistribution
       this.getContractInstance(distributionAddress);
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () => distribution.populateTransaction.withdrawExpiredLocks(),
+      from: user,
+    });
+
+    return [
+      {
+        tx: txCallback,
+        txType: eEthereumTxType.REWARD_ACTION,
+        gas: this.generateTxPriceEstimation([], txCallback),
+      },
+    ];
+  }
+
+  public exit({
+    user,
+    distributionAddress,
+  }: WithdrawExpiredLocksMethodType): EthereumTransactionTypeExtended[] {
+    const distribution: MultiFeeDistributionContract =
+      this.getContractInstance(distributionAddress);
+    const txCallback: () => Promise<transactionType> = this.generateTxCallback({
+      rawTxMethod: async () => distribution.populateTransaction.exit(false),
       from: user,
     });
 
