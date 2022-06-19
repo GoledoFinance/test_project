@@ -185,12 +185,12 @@ export type StakeUserUiData = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  poolIncentivesDataUpdate: Array<ReserveIncentiveData>;
+  reserveIncentivesDataUpdate: Array<ReserveIncentiveData>;
   protocolDataUpdate: ProtocolData;
   stakeGeneralUIDataUpdate: StakeGeneralUiData;
   stakeUserUIDataUpdate: StakeUserUiData;
   userDataUpdate: UserReservesData;
-  userPoolIncentivesDataUpdate: Array<UserIncentiveData>;
+  userReserveIncentivesDataUpdate: Array<UserIncentiveData>;
 };
 
 export type SubscriptionPoolIncentivesDataUpdateArgs = {
@@ -307,14 +307,14 @@ export type C_ReservesIncentivesQuery = {
   }>;
 };
 
-export type C_PoolIncentivesDataUpdateSubscriptionVariables = Exact<{
+export type C_ReserveIncentivesDataUpdateSubscriptionVariables = Exact<{
   lendingPoolAddressProvider: Scalars['String'];
   chainId: Scalars['Int'];
 }>;
 
-export type C_PoolIncentivesDataUpdateSubscription = {
+export type C_ReserveIncentivesDataUpdateSubscription = {
   __typename?: 'Subscription';
-  poolIncentivesDataUpdate: Array<{
+  reserveIncentivesDataUpdate: Array<{
     __typename?: 'ReserveIncentiveData';
     id: string;
     data: {
@@ -576,13 +576,13 @@ export type TokenIncentivesUserDataFragmentFragment = {
   }>;
 };
 
-export type C_UserIncentivesQueryVariables = Exact<{
+export type C_UserReserveIncentivesQueryVariables = Exact<{
   userAddress: Scalars['String'];
   lendingPoolAddressProvider: Scalars['String'];
   chainId: Scalars['Int'];
 }>;
 
-export type C_UserIncentivesQuery = {
+export type C_UserReserveIncentivesQuery = {
   __typename?: 'Query';
   userIncentives: Array<{
     __typename?: 'UserIncentivesData';
@@ -606,15 +606,15 @@ export type C_UserIncentivesQuery = {
   }>;
 };
 
-export type C_UserPoolIncentivesDataUpdateSubscriptionVariables = Exact<{
+export type C_UserReserveIncentivesDataUpdateSubscriptionVariables = Exact<{
   userAddress: Scalars['String'];
   lendingPoolAddressProvider: Scalars['String'];
   chainId: Scalars['Int'];
 }>;
 
-export type C_UserPoolIncentivesDataUpdateSubscription = {
+export type C_UserReserveIncentivesDataUpdateSubscription = {
   __typename?: 'Subscription';
-  userPoolIncentivesDataUpdate: Array<{
+  userReserveIncentivesDataUpdate: Array<{
     __typename?: 'UserIncentivesData';
     id: string;
     data: {
@@ -789,9 +789,9 @@ export type C_ReservesIncentivesQueryResult = ApolloReactCommon.QueryResult<
   C_ReservesIncentivesQuery,
   C_ReservesIncentivesQueryVariables
 >;
-export const C_PoolIncentivesDataUpdateDocument = gql`
-  subscription C_PoolIncentivesDataUpdate($lendingPoolAddressProvider: String!, $chainId: Int!) {
-    poolIncentivesDataUpdate(
+export const C_ReserveIncentivesDataUpdateDocument = gql`
+  subscription C_ReserveIncentivesDataUpdate($lendingPoolAddressProvider: String!, $chainId: Int!) {
+    reserveIncentivesDataUpdate(
       lendingPoolAddressProvider: $lendingPoolAddressProvider
       chainId: $chainId
     ) {
@@ -805,39 +805,39 @@ export const C_PoolIncentivesDataUpdateDocument = gql`
 `;
 
 /**
- * __useC_PoolIncentivesDataUpdateSubscription__
+ * __useC_ReserveIncentivesDataUpdateSubscription__
  *
- * To run a query within a React component, call `useC_PoolIncentivesDataUpdateSubscription` and pass it any options that fit your needs.
- * When your component renders, `useC_PoolIncentivesDataUpdateSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useC_ReserveIncentivesDataUpdateSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useC_ReserveIncentivesDataUpdateSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useC_PoolIncentivesDataUpdateSubscription({
+ * const { data, loading, error } = useC_ReserveIncentivesDataUpdateSubscription({
  *   variables: {
  *      lendingPoolAddressProvider: // value for 'lendingPoolAddressProvider'
  *      chainId: // value for 'chainId'
  *   },
  * });
  */
-export function useC_PoolIncentivesDataUpdateSubscription(
+export function useC_ReserveIncentivesDataUpdateSubscription(
   baseOptions: ApolloReactHooks.SubscriptionHookOptions<
-    C_PoolIncentivesDataUpdateSubscription,
-    C_PoolIncentivesDataUpdateSubscriptionVariables
+    C_ReserveIncentivesDataUpdateSubscription,
+    C_ReserveIncentivesDataUpdateSubscriptionVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return ApolloReactHooks.useSubscription<
-    C_PoolIncentivesDataUpdateSubscription,
-    C_PoolIncentivesDataUpdateSubscriptionVariables
-  >(C_PoolIncentivesDataUpdateDocument, options);
+    C_ReserveIncentivesDataUpdateSubscription,
+    C_ReserveIncentivesDataUpdateSubscriptionVariables
+  >(C_ReserveIncentivesDataUpdateDocument, options);
 }
-export type C_PoolIncentivesDataUpdateSubscriptionHookResult = ReturnType<
-  typeof useC_PoolIncentivesDataUpdateSubscription
+export type C_ReserveIncentivesDataUpdateSubscriptionHookResult = ReturnType<
+  typeof useC_ReserveIncentivesDataUpdateSubscription
 >;
-export type C_PoolIncentivesDataUpdateSubscriptionResult =
-  ApolloReactCommon.SubscriptionResult<C_PoolIncentivesDataUpdateSubscription>;
+export type C_ReserveIncentivesDataUpdateSubscriptionResult =
+  ApolloReactCommon.SubscriptionResult<C_ReserveIncentivesDataUpdateSubscription>;
 export const C_ProtocolDataDocument = gql`
   query C_ProtocolData($lendingPoolAddressProvider: String!, $chainId: Int!) {
     protocolData(lendingPoolAddressProvider: $lendingPoolAddressProvider, chainId: $chainId) {
@@ -1057,7 +1057,7 @@ export type C_UserDataUpdateSubscriptionHookResult = ReturnType<
 >;
 export type C_UserDataUpdateSubscriptionResult =
   ApolloReactCommon.SubscriptionResult<C_UserDataUpdateSubscription>;
-export const C_UserIncentivesDocument = gql`
+export const C_UserReserveIncentivesDocument = gql`
   query C_UserIncentives(
     $userAddress: String!
     $lendingPoolAddressProvider: String!
@@ -1078,16 +1078,16 @@ export const C_UserIncentivesDocument = gql`
 `;
 
 /**
- * __useC_UserIncentivesQuery__
+ * __useC_UserReserveIncentivesQuery__
  *
- * To run a query within a React component, call `useC_UserIncentivesQuery` and pass it any options that fit your needs.
- * When your component renders, `useC_UserIncentivesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useC_UserReserveIncentivesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useC_UserReserveIncentivesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useC_UserIncentivesQuery({
+ * const { data, loading, error } = useC_UserReserveIncentivesQuery({
  *   variables: {
  *      userAddress: // value for 'userAddress'
  *      lendingPoolAddressProvider: // value for 'lendingPoolAddressProvider'
@@ -1095,43 +1095,43 @@ export const C_UserIncentivesDocument = gql`
  *   },
  * });
  */
-export function useC_UserIncentivesQuery(
+export function useC_UserReserveIncentivesQuery(
   baseOptions: ApolloReactHooks.QueryHookOptions<
-    C_UserIncentivesQuery,
-    C_UserIncentivesQueryVariables
+    C_UserReserveIncentivesQuery,
+    C_UserReserveIncentivesQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useQuery<C_UserIncentivesQuery, C_UserIncentivesQueryVariables>(
-    C_UserIncentivesDocument,
+  return ApolloReactHooks.useQuery<C_UserReserveIncentivesQuery, C_UserReserveIncentivesQueryVariables>(
+    C_UserReserveIncentivesDocument,
     options
   );
 }
 export function useC_UserIncentivesLazyQuery(
   baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    C_UserIncentivesQuery,
-    C_UserIncentivesQueryVariables
+    C_UserReserveIncentivesQuery,
+    C_UserReserveIncentivesQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useLazyQuery<C_UserIncentivesQuery, C_UserIncentivesQueryVariables>(
-    C_UserIncentivesDocument,
+  return ApolloReactHooks.useLazyQuery<C_UserReserveIncentivesQuery, C_UserReserveIncentivesQueryVariables>(
+    C_UserReserveIncentivesDocument,
     options
   );
 }
-export type C_UserIncentivesQueryHookResult = ReturnType<typeof useC_UserIncentivesQuery>;
+export type C_UserReserveIncentivesQueryHookResult = ReturnType<typeof useC_UserReserveIncentivesQuery>;
 export type C_UserIncentivesLazyQueryHookResult = ReturnType<typeof useC_UserIncentivesLazyQuery>;
-export type C_UserIncentivesQueryResult = ApolloReactCommon.QueryResult<
-  C_UserIncentivesQuery,
-  C_UserIncentivesQueryVariables
+export type C_UserReserveIncentivesQueryResult = ApolloReactCommon.QueryResult<
+  C_UserReserveIncentivesQuery,
+  C_UserReserveIncentivesQueryVariables
 >;
-export const C_UserPoolIncentivesDataUpdateDocument = gql`
-  subscription C_UserPoolIncentivesDataUpdate(
+export const C_UserReserveIncentivesDataUpdateDocument = gql`
+  subscription C_UserReserveIncentivesDataUpdate(
     $userAddress: String!
     $lendingPoolAddressProvider: String!
     $chainId: Int!
   ) {
-    userPoolIncentivesDataUpdate(
+    userReserveIncentivesDataUpdate(
       userAddress: $userAddress
       lendingPoolAddressProvider: $lendingPoolAddressProvider
       chainId: $chainId
@@ -1146,16 +1146,16 @@ export const C_UserPoolIncentivesDataUpdateDocument = gql`
 `;
 
 /**
- * __useC_UserPoolIncentivesDataUpdateSubscription__
+ * __useC_UserReserveIncentivesDataUpdateSubscription__
  *
- * To run a query within a React component, call `useC_UserPoolIncentivesDataUpdateSubscription` and pass it any options that fit your needs.
- * When your component renders, `useC_UserPoolIncentivesDataUpdateSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useC_UserReserveIncentivesDataUpdateSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useC_UserReserveIncentivesDataUpdateSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useC_UserPoolIncentivesDataUpdateSubscription({
+ * const { data, loading, error } = useC_UserReserveIncentivesDataUpdateSubscription({
  *   variables: {
  *      userAddress: // value for 'userAddress'
  *      lendingPoolAddressProvider: // value for 'lendingPoolAddressProvider'
@@ -1163,20 +1163,20 @@ export const C_UserPoolIncentivesDataUpdateDocument = gql`
  *   },
  * });
  */
-export function useC_UserPoolIncentivesDataUpdateSubscription(
+export function useC_UserReserveIncentivesDataUpdateSubscription(
   baseOptions: ApolloReactHooks.SubscriptionHookOptions<
-    C_UserPoolIncentivesDataUpdateSubscription,
-    C_UserPoolIncentivesDataUpdateSubscriptionVariables
+    C_UserReserveIncentivesDataUpdateSubscription,
+    C_UserReserveIncentivesDataUpdateSubscriptionVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return ApolloReactHooks.useSubscription<
-    C_UserPoolIncentivesDataUpdateSubscription,
-    C_UserPoolIncentivesDataUpdateSubscriptionVariables
-  >(C_UserPoolIncentivesDataUpdateDocument, options);
+    C_UserReserveIncentivesDataUpdateSubscription,
+    C_UserReserveIncentivesDataUpdateSubscriptionVariables
+  >(C_UserReserveIncentivesDataUpdateDocument, options);
 }
-export type C_UserPoolIncentivesDataUpdateSubscriptionHookResult = ReturnType<
-  typeof useC_UserPoolIncentivesDataUpdateSubscription
+export type C_UserReserveIncentivesDataUpdateSubscriptionHookResult = ReturnType<
+  typeof useC_UserReserveIncentivesDataUpdateSubscription
 >;
-export type C_UserPoolIncentivesDataUpdateSubscriptionResult =
-  ApolloReactCommon.SubscriptionResult<C_UserPoolIncentivesDataUpdateSubscription>;
+export type C_UserReserveIncentivesDataUpdateSubscriptionResult =
+  ApolloReactCommon.SubscriptionResult<C_UserReserveIncentivesDataUpdateSubscription>;

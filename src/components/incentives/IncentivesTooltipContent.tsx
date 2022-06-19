@@ -48,7 +48,7 @@ export const IncentivesTooltipContent = ({
     return (
       <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
         <>
-          <FormattedNumber value={emissionPerDay.toPrecision(2)} variant={typographyVariant} />
+          <FormattedNumber value={emissionPerDay.toPrecision(5)} variant={typographyVariant} />
           <Typography variant={typographyVariant} sx={{ ml: 1 }}>
             <Trans>per Day</Trans>
           </Typography>

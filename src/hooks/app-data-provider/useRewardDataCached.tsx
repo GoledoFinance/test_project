@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { APOLLO_QUERY_TARGET } from 'src/utils/apolloClient';
 
 import {
-  C_PoolIncentivesDataUpdateDocument,
-  C_PoolIncentivesDataUpdateSubscription,
-  C_PoolIncentivesDataUpdateSubscriptionVariables,
-  C_UserPoolIncentivesDataUpdateDocument,
-  C_UserPoolIncentivesDataUpdateSubscription,
-  C_UserPoolIncentivesDataUpdateSubscriptionVariables,
+  C_ReserveIncentivesDataUpdateDocument,
+  C_ReserveIncentivesDataUpdateSubscription,
+  C_ReserveIncentivesDataUpdateSubscriptionVariables,
+  C_UserReserveIncentivesDataUpdateDocument,
+  C_UserReserveIncentivesDataUpdateSubscription,
+  C_UserReserveIncentivesDataUpdateSubscriptionVariables,
   useC_ReservesIncentivesQuery,
-  useC_UserIncentivesQuery,
+  useC_UserReserveIncentivesQuery,
 } from './graphql/hooks';
 
 export function useRewardDataCached(
@@ -29,13 +29,13 @@ export function useRewardDataCached(
   useEffect(() => {
     if (!skip) {
       return subscribeToReservesIncentives<
-        C_PoolIncentivesDataUpdateSubscription,
-        C_PoolIncentivesDataUpdateSubscriptionVariables
+        C_ReserveIncentivesDataUpdateSubscription,
+        C_ReserveIncentivesDataUpdateSubscriptionVariables
       >({
-        document: C_PoolIncentivesDataUpdateDocument,
+        document: C_ReserveIncentivesDataUpdateDocument,
         variables: { lendingPoolAddressProvider, chainId },
         updateQuery: (previousQueryResult, { subscriptionData }) => {
-          const reservesIncentivesUpdate = subscriptionData.data?.poolIncentivesDataUpdate;
+          const reservesIncentivesUpdate = subscriptionData.data?.reserveIncentivesDataUpdate;
 
           if (!reservesIncentivesUpdate) {
             return previousQueryResult;
@@ -51,7 +51,7 @@ export function useRewardDataCached(
   }, [subscribeToReservesIncentives, lendingPoolAddressProvider, skip, chainId, marketName]);
 
   const { loading: userIncentivesLoading, subscribeToMore: subscribeToUserIncentives } =
-    useC_UserIncentivesQuery({
+    useC_UserReserveIncentivesQuery({
       variables: { lendingPoolAddressProvider, userAddress: currentAccount || '', chainId },
       skip: !currentAccount || skip,
       fetchPolicy: 'cache-and-network',
@@ -61,13 +61,13 @@ export function useRewardDataCached(
   useEffect(() => {
     if (currentAccount && !skip) {
       return subscribeToUserIncentives<
-        C_UserPoolIncentivesDataUpdateSubscription,
-        C_UserPoolIncentivesDataUpdateSubscriptionVariables
+        C_UserReserveIncentivesDataUpdateSubscription,
+        C_UserReserveIncentivesDataUpdateSubscriptionVariables
       >({
-        document: C_UserPoolIncentivesDataUpdateDocument,
+        document: C_UserReserveIncentivesDataUpdateDocument,
         variables: { lendingPoolAddressProvider, userAddress: currentAccount || '', chainId },
         updateQuery: (previousQueryResult, { subscriptionData }) => {
-          const userIncentives = subscriptionData.data?.userPoolIncentivesDataUpdate;
+          const userIncentives = subscriptionData.data?.userReserveIncentivesDataUpdate;
           if (!userIncentives) {
             return previousQueryResult;
           }

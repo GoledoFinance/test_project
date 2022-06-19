@@ -24,8 +24,8 @@ query C_ReservesIncentives($lendingPoolAddressProvider: String!, $chainId: Int!)
   }
 }
 
-subscription C_PoolIncentivesDataUpdate($lendingPoolAddressProvider: String!, $chainId: Int!) {
-  poolIncentivesDataUpdate(
+subscription C_ReserveIncentivesDataUpdate($lendingPoolAddressProvider: String!, $chainId: Int!) {
+  reserveIncentivesDataUpdate(
     lendingPoolAddressProvider: $lendingPoolAddressProvider
     chainId: $chainId
   ) {

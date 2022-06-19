@@ -14,8 +14,8 @@ import { usePolling } from '../usePolling';
 import {
   C_ReservesIncentivesDocument,
   C_ReservesIncentivesQuery,
-  C_UserIncentivesDocument,
-  C_UserIncentivesQuery,
+  C_UserReserveIncentivesDocument,
+  C_UserReserveIncentivesQuery,
 } from './graphql/hooks';
 import { constants } from 'ethers';
 
@@ -98,8 +98,8 @@ export function useRewardDataRPC(
         variables: { lendingPoolAddressProvider, userAddress: currentAccount, chainId },
       });
 
-      cache.writeQuery<C_UserIncentivesQuery>({
-        query: C_UserIncentivesDocument,
+      cache.writeQuery<C_UserReserveIncentivesQuery>({
+        query: C_UserReserveIncentivesDocument,
         data: {
           __typename: 'Query',
           userIncentives: reservesResponse.controllerUserData.map((incentive) => ({

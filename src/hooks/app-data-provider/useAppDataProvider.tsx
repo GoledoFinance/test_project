@@ -17,7 +17,7 @@ import {
   useC_ProtocolDataQuery,
   useC_ReservesIncentivesQuery,
   useC_UserDataQuery,
-  useC_UserIncentivesQuery,
+  useC_UserReserveIncentivesQuery,
 } from './graphql/hooks';
 
 /**
@@ -135,7 +135,7 @@ export const AppDataProvider: React.FC = ({ children }) => {
     },
     fetchPolicy: 'cache-only',
   });
-  const { data: userReservesIncentivesData } = useC_UserIncentivesQuery({
+  const { data: userReservesIncentivesData } = useC_UserReserveIncentivesQuery({
     variables: {
       lendingPoolAddressProvider: currentMarketData.addresses.LENDING_POOL_ADDRESS_PROVIDER,
       userAddress: currentAccount,

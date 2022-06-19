@@ -30,12 +30,12 @@ query C_UserIncentives(
   }
 }
 
-subscription C_UserPoolIncentivesDataUpdate(
+subscription C_UserReserveIncentivesDataUpdate(
   $userAddress: String!
   $lendingPoolAddressProvider: String!
   $chainId: Int!
 ) {
-  userPoolIncentivesDataUpdate(
+  userReserveIncentivesDataUpdate(
     userAddress: $userAddress
     lendingPoolAddressProvider: $lendingPoolAddressProvider
     chainId: $chainId
