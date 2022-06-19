@@ -7,10 +7,8 @@ import { ListItemWrapper } from '../ListItemWrapper';
 import { ListValueColumn } from '../ListValueColumn';
 import { ListTopInfoItem } from '../../../dashboard/lists/ListTopInfoItem';
 import { RewardsItem } from './types';
-import { useTransactionHandler } from 'src/helpers/useTransactionHandler';
-import { useTxBuilderContext } from 'src/hooks/useTxBuilder';
-import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
+import { ModalType, useModalContext } from 'src/hooks/useModal';
 
 export const RewardsListItem = ({
   iconSymbol,
@@ -21,21 +19,10 @@ export const RewardsListItem = ({
   earned,
   lockedBalance,
   stakedBalance,
+  stakingContract,
 }: RewardsItem) => {
-  const { currentAccount } = useWeb3Context();
-  const { currentMarketData } = useProtocolDataContext();
-  const { incentivesController } = useTxBuilderContext();
-  const { action, loadingTxns } = useTransactionHandler({
-    handleGetTxns: async () => {
-      return incentivesController.claimRewards({
-        user: currentAccount,
-        assets: tokens,
-        incentivesControllerAddress: currentMarketData.addresses.INCENTIVE_CONTROLLER,
-      });
-    },
-    skip: false,
-    deps: [],
-  });
+  const { loading } = useWeb3Context();
+  const { openVestOrClaim } = useModalContext();
 
   return (
     <ListItemWrapper
@@ -95,7 +82,12 @@ export const RewardsListItem = ({
       />
 
       <ListButtonsColumn>
-        <Button sx={{ height: 32 }} variant="contained" disabled={loadingTxns} onClick={action}>
+        <Button
+          sx={{ height: 32 }}
+          variant="contained"
+          disabled={loading || earned === '0'}
+          onClick={() => openVestOrClaim(ModalType.GoledoVesting, earned, tokens, stakingContract)}
+        >
           <Trans>Vest</Trans>
         </Button>
       </ListButtonsColumn>

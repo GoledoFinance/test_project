@@ -89,7 +89,8 @@ export const useTransactionHandler = ({
     }
   };
 
-  const approval = async () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const approval = async (_amount?: string, _underlyingAsset?: string) => {
     if (approvalTx) {
       try {
         setApprovalTxState({ ...approvalTxState, loading: true });
@@ -128,7 +129,7 @@ export const useTransactionHandler = ({
   };
 
   const action = async () => {
-    if (!approvalTx && actionTx) {
+    if (actionTx) {
       try {
         setMainTxState({ ...mainTxState, loading: true });
         const params = await actionTx.tx();
@@ -195,7 +196,6 @@ export const useTransactionHandler = ({
             try {
               gas = await data[data.length - 1].gas();
             } catch (error) {
-              console.log('error1', error);
               const parsedError = getErrorTextFromError(error, TxAction.GAS_ESTIMATION, false);
               setTxError(parsedError);
             }
@@ -203,7 +203,6 @@ export const useTransactionHandler = ({
             setLoadingTxns(false);
           })
           .catch((error) => {
-            console.log('error2', error);
             if (!mounted.current) return;
             setMainTxState({
               txHash: undefined,

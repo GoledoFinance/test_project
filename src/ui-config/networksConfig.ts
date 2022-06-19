@@ -105,6 +105,12 @@ export const networkConfigs: Record<string, BaseNetworkConfig> = {
     explorerLink: 'https://evmtestnet.confluxscan.net',
     isTestnet: true,
     networkLogoPath: '/icons/networks/conflux.svg',
-    bridge: [],
+    bridge: [
+      {
+        icon: '/icons/networks/conflux.svg',
+        name: 'eSpace CFX Faucet',
+        url: 'https://efaucet.confluxnetwork.org/',
+      },
+    ],
   },
 } as const;

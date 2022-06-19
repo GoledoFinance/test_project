@@ -27,7 +27,7 @@ export const BorrowedPositionsListMobileItem = ({
   reservesIncentives: ReserveIncentiveData[];
 }) => {
   const { currentMarket } = useProtocolDataContext();
-  const { openBorrow, openRepay, openRateSwitch } = useModalContext();
+  const { openBorrow, openRepay } = useModalContext();
   const {
     symbol,
     iconSymbol,
@@ -80,7 +80,8 @@ export const BorrowedPositionsListMobileItem = ({
           stableBorrowRateEnabled={stableBorrowRateEnabled}
           borrowRateMode={borrowRateMode}
           disabled={!stableBorrowRateEnabled || isFrozen || !isActive}
-          onClick={() => openRateSwitch(underlyingAsset, borrowRateMode)}
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          onClick={() => {}}
           stableBorrowAPY={stableBorrowAPY}
           variableBorrowAPY={variableBorrowAPY}
           underlyingAsset={underlyingAsset}

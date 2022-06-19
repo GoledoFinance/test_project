@@ -90,6 +90,9 @@ msgstr "Allows you to switch between <0>variable</0> and <1>stable</1> interest 
 #: src/components/transactions/Stake/StakeModalContentNext.tsx
 #: src/components/transactions/Supply/SupplyModalContentNext.tsx
 #: src/components/transactions/UnStake/UnStakeModalContentNext.tsx
+#: src/components/transactions/VestOrClaim/VestOrClaimModalContent.tsx
+#: src/components/transactions/VestOrClaim/VestOrClaimModalContent.tsx
+#: src/components/transactions/VestOrClaim/VestOrClaimModalContent.tsx
 #: src/components/transactions/Withdraw/WithdrawModalContentNext.tsx
 msgid "Amount"
 msgstr "Amount"
@@ -176,7 +179,6 @@ msgid "Available to supply"
 msgstr "Available to supply"
 
 #: src/components/transactions/AssetInput.tsx
-#: src/components/transactions/ClaimRewards/ClaimRewardsModalContent.tsx
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
@@ -267,27 +269,6 @@ msgstr "Bridge"
 #: src/modules/reserve-overview/ReserveConfiguration.tsx
 msgid "Can be collateral"
 msgstr "Can be collateral"
-
-#: src/components/transactions/ClaimRewards/ClaimRewardsActions.tsx
-msgid "Claim all"
-msgstr "Claim all"
-
-#: src/components/transactions/ClaimRewards/RewardsSelect.tsx
-#: src/components/transactions/ClaimRewards/RewardsSelect.tsx
-msgid "Claim all rewards"
-msgstr "Claim all rewards"
-
-#: src/components/transactions/ClaimRewards/ClaimRewardsActions.tsx
-msgid "Claim {0}"
-msgstr "Claim {0}"
-
-#: src/components/transactions/ClaimRewards/ClaimRewardsModalContent.tsx
-msgid "Claimed"
-msgstr "Claimed"
-
-#: src/components/transactions/ClaimRewards/ClaimRewardsActions.tsx
-msgid "Claiming"
-msgstr "Claiming"
 
 #: src/components/transactions/FlowCommons/Error.tsx
 #: src/components/transactions/FlowCommons/PermissionView.tsx
@@ -685,6 +666,10 @@ msgstr "Overview"
 msgid "Participating in this {symbol} reserve gives annualized rewards."
 msgstr "Participating in this {symbol} reserve gives annualized rewards."
 
+#: src/components/transactions/VestOrClaim/VestOrClaimModalContent.tsx
+msgid "Penaty"
+msgstr "Penaty"
+
 #: src/components/transactions/CollateralChange/CollateralChangeActions.tsx
 msgid "Pending..."
 msgstr "Pending..."
@@ -765,10 +750,6 @@ msgstr "Review tx"
 #: src/components/transactions/FlowCommons/Success.tsx
 msgid "Review tx details"
 msgstr "Review tx details"
-
-#: src/components/transactions/ClaimRewards/RewardsSelect.tsx
-msgid "Reward(s) to claim"
-msgstr "Reward(s) to claim"
 
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
@@ -855,15 +836,10 @@ msgstr "Stable interest rate will <0>stay the same</0> for the duration of your 
 msgid "Stablecoin"
 msgstr "Stablecoin"
 
-#: src/components/transactions/Stake/StakeActions.tsx
 #: src/modules/staking/StakingHeader.tsx
 #: src/ui-config/menu-items/index.tsx
 msgid "Stake"
 msgstr "Stake"
-
-#: src/components/transactions/Stake/StakeActions.tsx
-msgid "Staking"
-msgstr "Staking"
 
 #: src/components/transactions/Supply/SupplyModalContentNext.tsx
 msgid "Supplied"
@@ -1091,10 +1067,6 @@ msgstr "Total borrowed"
 msgid "Total supplied"
 msgstr "Total supplied"
 
-#: src/components/transactions/ClaimRewards/ClaimRewardsModalContent.tsx
-msgid "Total worth"
-msgstr "Total worth"
-
 #: src/components/transactions/FlowCommons/Error.tsx
 msgid "Transaction failed"
 msgstr "Transaction failed"
@@ -1159,6 +1131,15 @@ msgstr "Variable debt supply is not zero"
 msgid "Vest"
 msgstr "Vest"
 
+#: src/modules/markets/AssetsListItem.tsx
+#: src/modules/markets/AssetsListMobileItem.tsx
+msgid "Vest {0} Goledo"
+msgstr "Vest {0} Goledo"
+
+#: src/components/transactions/VestOrClaim/VestOrClaimModalContent.tsx
+msgid "Vested"
+msgstr "Vested"
+
 #: src/modules/staking/VestList1.tsx
 msgid "Vesting"
 msgstr "Vesting"
@@ -1213,6 +1194,10 @@ msgstr "Withdrawing this amount will reduce your health factor and increase risk
 #: src/components/transactions/Withdraw/WithdrawActions.tsx
 msgid "Withdrawing {symbol}"
 msgstr "Withdrawing {symbol}"
+
+#: src/components/transactions/VestOrClaim/VestOrClaimModalContent.tsx
+msgid "Withdrawn"
+msgstr "Withdrawn"
 
 #: src/components/transactions/TxActionsWrapper.tsx
 msgid "Wrong Network"
@@ -1297,7 +1282,7 @@ msgstr "Your healrh factor an loan to value determine the assurance of your coll
 msgid "Your locked balance"
 msgstr "Your locked balance"
 
-#: src/components/transactions/ClaimRewards/ClaimRewardsModalContent.tsx
+#: src/components/transactions/VestOrClaim/VestOrClaimModalContent.tsx
 msgid "Your reward balance is 0"
 msgstr "Your reward balance is 0"
 
@@ -1382,13 +1367,12 @@ msgid "xxxxxx"
 msgstr "xxxxxx"
 
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
+#: src/components/transactions/Stake/StakeActions.tsx
+#: src/components/transactions/Stake/StakeActions.tsx
+#: src/components/transactions/Stake/StakeModalContentNext.tsx
 #: src/modules/reserve-overview/ReserveTopDetails.tsx
 msgid "{0}"
 msgstr "{0}"
-
-#: src/components/transactions/ClaimRewards/ClaimRewardsModalContent.tsx
-msgid "{0} Balance"
-msgstr "{0} Balance"
 
 #: src/components/transactions/UnStake/UnStakeModalContentNext.tsx
 msgid "{0} {1}"
@@ -1398,10 +1382,14 @@ msgstr "{0} {1}"
 msgid "{0} {symbol}"
 msgstr "{0} {symbol}"
 
+#: src/components/transactions/VestOrClaim/VestOrClaimActions.tsx
+msgid "{actionInProgressText}"
+msgstr "{actionInProgressText}"
+
+#: src/components/transactions/VestOrClaim/VestOrClaimActions.tsx
+msgid "{actionText}"
+msgstr "{actionText}"
+
 #: src/modules/reserve-overview/ReserveActions.tsx
 msgid "{title}"
 msgstr "{title}"
-
-#: src/components/transactions/Stake/StakeModalContentNext.tsx
-msgid "{type}ed"
-msgstr "{type}ed"

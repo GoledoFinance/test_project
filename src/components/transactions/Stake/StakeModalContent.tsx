@@ -6,6 +6,11 @@ import BigNumber from 'bignumber.js';
 // import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import { AssetInput } from '../AssetInput';
 import { useState } from 'react';
+import { TxModalTitle } from '../FlowCommons/TxModalTitle';
+import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
+import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
+import { getNetworkConfig } from 'src/utils/marketsAndNetworksConfig';
+import { ChangeNetworkWarning } from '../Warnings/ChangeNetworkWarning';
 // import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
 export const StakeModalContent = ({
@@ -23,8 +28,14 @@ export const StakeModalContent = ({
   onSubmit: () => Promise<void>;
   onAmountChange: (v?: string) => Promise<void>;
 }) => {
+  const { currentChainId } = useProtocolDataContext();
+  const { chainId: connectedChainId } = useWeb3Context();
   const [isMaxSelected, setIsMaxSelected] = useState(false);
   const amountRef = React.useRef<string>();
+
+  // is Network mismatched
+  const isWrongNetwork = currentChainId !== connectedChainId;
+  const networkConfig = getNetworkConfig(currentChainId);
 
   const maxAmountToStake = new BigNumber(walletBalance);
 
@@ -40,6 +51,12 @@ export const StakeModalContent = ({
 
   return (
     <>
+      <TxModalTitle title={type === 'stake' ? 'Stake Goledo' : 'Lock Goledo'} />
+
+      {isWrongNetwork && (
+        <ChangeNetworkWarning networkName={networkConfig.name} chainId={currentChainId} />
+      )}
+
       <AssetInput
         inputTitle={`How much do you want to ${type}?`}
         value={amount || '0'}

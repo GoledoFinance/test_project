@@ -16,7 +16,6 @@ import { TxSuccessView } from '../FlowCommons/Success';
 import { ERC20TokenType } from 'src/libs/web3-data-provider/Web3Provider';
 import {
   DetailsHFLine,
-  DetailsIncentivesLine,
   DetailsNumberLineWithSub,
   TxModalDetails,
 } from '../FlowCommons/TxModalDetails';
@@ -135,10 +134,10 @@ export const BorrowModalContentNext = ({
           symbol={symbol}
           futureValueUSD={new BigNumber(amountToBorrowInETH).toFormat(2)}
         />
-        <DetailsIncentivesLine
+        {/*<DetailsIncentivesLine
           incentives={poolReserve.vIncentivesData}
           symbol={poolReserve.symbol}
-        />
+        />*/}
         <DetailsHFLine
           visibleHfChange={true}
           healthFactor={user.healthFactor}

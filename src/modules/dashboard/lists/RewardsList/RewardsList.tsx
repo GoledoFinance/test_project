@@ -12,9 +12,12 @@ import { ListLoader } from '../ListLoader';
 import { RewardsListItem } from './RewardsListItem';
 import { RewardsItem } from './types';
 import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
+import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
 export const RewardsList = () => {
-  const { loading, userReserveIncentives, userMasterChefIncentives } = useAppDataContext();
+  const { loading, userReserveIncentives, userMasterChefIncentives, userGoledoStake } =
+    useAppDataContext();
+  const { currentMarketData } = useProtocolDataContext();
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
@@ -65,16 +68,20 @@ export const RewardsList = () => {
 
   const data: RewardsItem[] = [];
   if (!totalControllerIncentive.isZero() && underlyingAsset && symbol) {
+    const lockedBalance = new BigNumber(userGoledoStake.totalBalance).minus(
+      userGoledoStake.unlockedBalance
+    );
     data.push({
       underlyingAsset: '',
       earned: totalControllerIncentive.toString(10),
-      stakedBalance: '0',
-      lockedBalance: '0',
+      stakedBalance: userGoledoStake.unlockedBalance,
+      lockedBalance: lockedBalance.toString(10),
       ...fetchIconSymbolAndName({
         underlyingAsset,
         symbol,
       }),
       tokens: controllerTokens,
+      stakingContract: currentMarketData.addresses.INCENTIVE_CONTROLLER,
     });
   }
 

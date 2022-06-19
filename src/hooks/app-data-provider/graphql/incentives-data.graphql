@@ -24,8 +24,32 @@ query C_ReservesIncentives($lendingPoolAddressProvider: String!, $chainId: Int!)
   }
 }
 
-subscription C_ReserveIncentivesDataUpdate($lendingPoolAddressProvider: String!, $chainId: Int!) {
-  reserveIncentivesDataUpdate(
+subscription C_ReservesIncentivesDataUpdate($lendingPoolAddressProvider: String!, $chainId: Int!) {
+  reservesIncentivesDataUpdate(
+    lendingPoolAddressProvider: $lendingPoolAddressProvider
+    chainId: $chainId
+  ) {
+    id
+    data {
+      ...IncentivesDataFragment
+    }
+  }
+}
+
+query C_MasterChefIncentives($lendingPoolAddressProvider: String!, $chainId: Int!) {
+  masterChefIncentives(lendingPoolAddressProvider: $lendingPoolAddressProvider, chainId: $chainId) {
+    id
+    data {
+      ...IncentivesDataFragment
+    }
+  }
+}
+
+subscription C_MasterChefIncentivesDataUpdate(
+  $lendingPoolAddressProvider: String!
+  $chainId: Int!
+) {
+  masterChefIncentivesDataUpdate(
     lendingPoolAddressProvider: $lendingPoolAddressProvider
     chainId: $chainId
   ) {

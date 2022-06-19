@@ -1,56 +1,34 @@
 import { Trans } from '@lingui/macro';
-import {
-  Box,
-  Paper,
-  // useMediaQuery,
-  // useTheme,
-  Stack,
-  Typography,
-  Button,
-  Grid,
-  Divider,
-  StackProps,
-} from '@mui/material';
+import { Box, Paper, Stack, Typography, Button, Grid, Divider, StackProps } from '@mui/material';
 import { ReactNode } from 'react';
 import { ContentContainer } from 'src/components/ContentContainer';
 import { StakeModal } from 'src/components/transactions/Stake/StakeModal';
 import { UnStakeModal } from 'src/components/transactions/UnStake/UnStakeModal';
-// import { StakeDataProvider, useStakeData } from 'src/hooks/stake-data-provider/StakeDataProvider';
 import { MainLayout } from 'src/layouts/MainLayout';
 import { StakingHeader } from 'src/modules/staking/StakingHeader';
-import { StakeTxBuilderProvider } from 'src/providers/StakeTxBuilderProvider';
 import { VestList } from 'src/modules/staking/VestList1';
 import { LocksList } from 'src/modules/staking/LocksList';
 import { ActionList } from 'src/modules/staking/ActionList';
-import { useModalContext } from 'src/hooks/useModal';
+import { ModalType, useModalContext } from 'src/hooks/useModal';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
-
-import BigNumber from 'bignumber.js';
 
 import { ConnectWalletPaper } from '../src/components/ConnectWalletPaper';
 import { useWeb3Context } from '../src/libs/hooks/useWeb3Context';
-// TODO: need to update tooltip text
-import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
-import { useRewardData } from 'src/hooks/app-data-provider/useRewardData';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
+import { TxBuilderProvider } from 'src/providers/TxBuilderProvider';
+import { VestOrClaimModal } from 'src/components/transactions/VestOrClaim/VestOrClaimModal';
+import { BackgroundDataProvider } from 'src/hooks/app-data-provider/BackgroundDataProvider';
+import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
 
 export default function Staking() {
   const { currentAccount, loading } = useWeb3Context();
-  const { loading: rewardLoading, data: rewardData } = useRewardData();
+  const { userGoledoStake, loading: stateLoading } = useAppDataContext();
   const { currentMarketData } = useProtocolDataContext();
-  const { openStake, openUnstake } = useModalContext();
-
-  // const { breakpoints } = useTheme();
-  // const lg = useMediaQuery(breakpoints.up('lg'));
-  const rewardPerSecond = rewardData
-    ? new BigNumber(rewardData.chefData.rewardsPerSecond)
-    : new BigNumber('0');
-  const rewardPerDay = rewardPerSecond.multipliedBy(86400);
-  const rewardPerWeek = rewardPerDay.multipliedBy(7);
+  const { openStake, openUnstake, openVestOrClaim } = useModalContext();
 
   return (
     <>
-      <StakingHeader loading={rewardLoading || loading} rewardData={rewardData} />
+      <StakingHeader loading={stateLoading || loading} />
 
       <ContentContainer>
         {currentAccount ? (
@@ -76,13 +54,12 @@ export default function Staking() {
                   variant="contained"
                   size="large"
                   sx={{ height: 40 }}
-                  disabled={!rewardData}
                   onClick={() => {
                     openStake(
                       'stake',
-                      rewardData?.stakeData.token || currentMarketData.addresses.STAKE_TOKEN,
+                      currentMarketData.addresses.STAKE_TOKEN,
                       'GDO',
-                      rewardData?.stakeUserData.walletBalance || '0'
+                      userGoledoStake.walletBalance
                     );
                   }}
                 >
@@ -113,13 +90,12 @@ export default function Staking() {
                   variant="contained"
                   size="large"
                   sx={{ height: 40 }}
-                  disabled={!rewardData}
                   onClick={() =>
                     openStake(
                       'lock',
-                      rewardData?.stakeData.token || currentMarketData.addresses.STAKE_TOKEN,
+                      currentMarketData.addresses.STAKE_TOKEN,
                       'GDO',
-                      rewardData?.stakeUserData.walletBalance || '0'
+                      userGoledoStake.walletBalance
                     )
                   }
                 >
@@ -133,7 +109,6 @@ export default function Staking() {
                   <LabelList
                     arr={[
                       {
-                        key: '1',
                         label: <Typography sx={{ color: '#666' }}>Staking APR</Typography>,
                         value: (
                           <FormattedNumber
@@ -146,7 +121,6 @@ export default function Staking() {
                         ),
                       },
                       {
-                        key: '2',
                         label: <Typography sx={{ color: '#666' }}>LP Token Price</Typography>,
                         value: (
                           <FormattedNumber
@@ -159,7 +133,6 @@ export default function Staking() {
                         ),
                       },
                       {
-                        key: '3',
                         label: (
                           <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
                             <Typography sx={{ color: '#666' }}>Total LP Tokens Staked</Typography>
@@ -169,7 +142,61 @@ export default function Staking() {
                           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
                             <FormattedNumber
                               variant="description"
-                              value={rewardData?.chefUserData[0]?.totalSupply || '0'}
+                              value={'0'}
+                              symbol="GDOCFX"
+                              visibleDecimals={2}
+                              symbolsColor="#111"
+                            />
+                            <FormattedNumber
+                              variant="caption"
+                              value={0}
+                              symbol="usd"
+                              compact={false}
+                              visibleDecimals={2}
+                              symbolsColor="#666"
+                              sx={{ color: '#666' }}
+                            />
+                          </Box>
+                        ),
+                      },
+                      {
+                        label: (
+                          <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
+                            <Typography sx={{ color: '#666' }}>Your Staked</Typography>
+                          </Box>
+                        ),
+                        value: (
+                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
+                            <FormattedNumber
+                              variant="description"
+                              value={'0'}
+                              symbol="GDOCFX"
+                              visibleDecimals={2}
+                              symbolsColor="#111"
+                            />
+                            <FormattedNumber
+                              variant="caption"
+                              value={0}
+                              symbol="usd"
+                              compact={false}
+                              visibleDecimals={2}
+                              symbolsColor="#666"
+                              sx={{ color: '#666' }}
+                            />
+                          </Box>
+                        ),
+                      },
+                      {
+                        label: (
+                          <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
+                            <Typography sx={{ color: '#666' }}>Pending Rewards</Typography>
+                          </Box>
+                        ),
+                        value: (
+                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
+                            <FormattedNumber
+                              variant="description"
+                              value={'0'}
                               symbol="Goledo"
                               visibleDecimals={2}
                               symbolsColor="#111"
@@ -187,18 +214,17 @@ export default function Staking() {
                         ),
                       },
                       {
-                        key: '4',
                         label: (
                           <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
                             <Typography sx={{ color: '#666' }}>Total Rewards per day</Typography>
-                            <NetAPYTooltip />
+                            {/*<NetAPYTooltip />*/}
                           </Box>
                         ),
                         value: (
                           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
                             <FormattedNumber
                               variant="description"
-                              value={rewardPerDay.toString()}
+                              value={'0'}
                               symbol="Goledo"
                               visibleDecimals={2}
                               symbolsColor="#111"
@@ -216,18 +242,17 @@ export default function Staking() {
                         ),
                       },
                       {
-                        key: '5',
                         label: (
                           <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
                             <Typography sx={{ color: '#666' }}>Total Rewards per week</Typography>
-                            <NetAPYTooltip />
+                            {/*<NetAPYTooltip />*/}
                           </Box>
                         ),
                         value: (
                           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
                             <FormattedNumber
                               variant="description"
-                              value={rewardPerWeek.toString()}
+                              value={'0'}
                               symbol="Goledo"
                               visibleDecimals={2}
                               symbolsColor="#111"
@@ -249,7 +274,7 @@ export default function Staking() {
                 </Box>
 
                 <Grid spacing={2} container>
-                  <Grid item xs={6}>
+                  <Grid item xs={4}>
                     <Button
                       fullWidth
                       variant="contained"
@@ -260,7 +285,7 @@ export default function Staking() {
                       Stake
                     </Button>
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={4}>
                     <Button
                       fullWidth
                       variant="contained"
@@ -268,20 +293,27 @@ export default function Staking() {
                       sx={{ height: 40 }}
                       onClick={() => openUnstake('stake', '', 'GDOCFX', '0')}
                     >
-                      UnStake
+                      Unstake
                     </Button>
                   </Grid>
-                  {/*<Grid item xs={4}>
+                  <Grid item xs={4}>
                     <Button
                       fullWidth
                       variant="contained"
                       size="large"
                       sx={{ height: 40 }}
-                      // onClick={() => openStakeRewardsClaim('aave')}
+                      onClick={() =>
+                        openVestOrClaim(
+                          ModalType.GoledoVesting,
+                          '0',
+                          [],
+                          currentMarketData.addresses.MASTER_CHEF
+                        )
+                      }
                     >
                       Vest
                     </Button>
-                  </Grid>*/}
+                  </Grid>
                 </Grid>
               </Paper>
             </Stack>
@@ -326,13 +358,13 @@ export const LabelList = ({
   arr,
   ...rest
 }: {
-  arr: Array<{ key: string; label: string | ReactNode; value: ReactNode | string }>;
+  arr: Array<{ label: string | ReactNode; value: ReactNode | string }>;
 } & StackProps) => (
   <Stack divider={<Divider />} spacing={3} {...rest} sx={{ color: '#111', ...(rest?.sx || {}) }}>
-    {arr.map((item) => {
+    {arr.map((item, index) => {
       return (
         <Box
-          key={item.key}
+          key={index}
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -350,17 +382,18 @@ export const LabelList = ({
 Staking.getLayout = function getLayout(page: React.ReactElement) {
   return (
     <MainLayout>
-      <StakeTxBuilderProvider>
-        <>
-          {/*<StakeDataProvider>*/}
-          {page}
-          {/** Modals */}
-          <StakeModal />
-          <UnStakeModal />
-          {/** End of modals */}
-          {/*</StakeDataProvider>*/}
-        </>
-      </StakeTxBuilderProvider>
+      <BackgroundDataProvider>
+        <TxBuilderProvider>
+          <>
+            {page}
+            {/** Modals */}
+            <StakeModal />
+            <UnStakeModal />
+            <VestOrClaimModal />
+            {/** End of modals */}
+          </>
+        </TxBuilderProvider>
+      </BackgroundDataProvider>
     </MainLayout>
   );
 };

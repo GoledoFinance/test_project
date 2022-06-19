@@ -8,7 +8,7 @@ import Head from 'next/head';
 import * as React from 'react';
 import { Meta } from 'src/components/Meta';
 import { BorrowModal } from 'src/components/transactions/Borrow/BorrowModal';
-import { ClaimRewardsModal } from 'src/components/transactions/ClaimRewards/ClaimRewardsModal';
+import { VestOrClaimModal } from 'src/components/transactions/VestOrClaim/VestOrClaimModal';
 import { CollateralChangeModal } from 'src/components/transactions/CollateralChange/CollateralChangeModal';
 import { GasStationProvider } from 'src/components/transactions/GasStation/GasStationProvider';
 import { RateSwitchModal } from 'src/components/transactions/RateSwitch/RateSwitchModal';
@@ -81,7 +81,7 @@ export default function MyApp(props: MyAppProps) {
                                 <RepayModal />
                                 <CollateralChangeModal />
                                 <RateSwitchModal />
-                                <ClaimRewardsModal />
+                                <VestOrClaimModal />
                               </GasStationProvider>
                             </WalletModalContextProvider>
                           </TxBuilderProvider>

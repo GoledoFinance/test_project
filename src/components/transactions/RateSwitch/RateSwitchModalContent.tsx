@@ -7,11 +7,7 @@ import { GasEstimationError } from '../FlowCommons/GasEstimationError';
 
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 import { TxSuccessView } from '../FlowCommons/Success';
-import {
-  DetailsIncentivesLine,
-  DetailsNumberLine,
-  TxModalDetails,
-} from '../FlowCommons/TxModalDetails';
+import { DetailsNumberLine, TxModalDetails } from '../FlowCommons/TxModalDetails';
 import { RateSwitchActions } from './RateSwitchActions';
 
 export type RateSwitchModalContentProps = {
@@ -98,14 +94,6 @@ export const RateSwitchModalContent = ({
             )
           }
           percent
-        />
-        <DetailsIncentivesLine
-          incentives={
-            rateModeAfterSwitch === InterestRate.Variable
-              ? poolReserve.vIncentivesData
-              : poolReserve.sIncentivesData
-          }
-          symbol={poolReserve.symbol}
         />
       </TxModalDetails>
 

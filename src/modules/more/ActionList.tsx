@@ -6,7 +6,7 @@ import { LabelList } from '../../../pages/staking.staking';
 export const ActionList = () => {
   return (
     <>
-      <Typography fontWeight={600}>Buy FTM with GoledoFTM LP Tokens</Typography>
+      <Typography fontWeight={600}>Buy CFX with GoledoCFX LP Tokens</Typography>
       <Typography color={'#666'} mt={2.5}>
         This can only be done once a day per address
       </Typography>
@@ -16,7 +16,6 @@ export const ActionList = () => {
           spacing={2.5}
           arr={[
             {
-              key: '1',
               label: <Typography fontWeight={600}>Current LP Token Price</Typography>,
               value: (
                 <FormattedNumber
@@ -29,7 +28,6 @@ export const ActionList = () => {
               ),
             },
             {
-              key: '2',
               label: (
                 <Typography fontWeight={600}>
                   The price Goledo Finance is offering per LP token
@@ -59,12 +57,11 @@ export const ActionList = () => {
         spacing={2.5}
         arr={[
           {
-            key: '1',
             label: <Typography fontWeight={600}>Your Balance</Typography>,
             value: (
               <FormattedNumber
                 variant="description"
-                symbol="GoledoFTM"
+                symbol="GoledoCFX"
                 value={61.9202}
                 visibleDecimals={4}
                 symbolsColor="#111"
@@ -72,12 +69,11 @@ export const ActionList = () => {
             ),
           },
           {
-            key: '2',
             label: <Typography color={'#666'}>Based on your locked Goledo, you can buy</Typography>,
             value: (
               <FormattedNumber
                 variant="description"
-                symbol="FTM"
+                symbol="CFX"
                 value={61.9202}
                 visibleDecimals={4}
                 symbolsColor="#111"
@@ -97,7 +93,7 @@ export const ActionList = () => {
             sx={{ width: 380, height: 40 }}
           />
           <Typography ml={2.5} color="#666">
-            = 0.00 GoledoFTM
+            = 0.00 GoledoCFX
           </Typography>
         </Box>
         <Box display={'flex'} alignItems="center">
@@ -118,13 +114,13 @@ export const ActionList = () => {
             // component={Link}
             // href={ROUTES.reserveOverview(reserve.underlyingAsset, currentMarket)}
           >
-            Buy FTM
+            Buy CFX
           </Button>
         </Box>
       </Box>
 
       <Typography color={'#666'} mt={4}>
-        The minimum buy amount is 1 FTM. This is currently 2.35 GoledoFTM.
+        The minimum buy amount is 1 CFX. This is currently 2.35 GoledoCFX.
       </Typography>
     </>
   );

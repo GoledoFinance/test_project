@@ -23,13 +23,12 @@ export default function POLPage() {
                 <LabelList
                   arr={[
                     {
-                      key: '1',
-                      label: <Typography sx={{ fontWeight: 600 }}>Buyable FTM</Typography>,
+                      label: <Typography sx={{ fontWeight: 600 }}>Buyable CFX</Typography>,
                       value: (
                         <Stack spacing={1.5} alignItems="end">
                           <FormattedNumber
                             variant="main16"
-                            symbol="FTM"
+                            symbol="CFX"
                             value={61.9202}
                             visibleDecimals={4}
                             symbolsColor="#111"
@@ -54,14 +53,13 @@ export default function POLPage() {
                 <LabelList
                   arr={[
                     {
-                      key: '1',
                       label: (
                         <Stack spacing={4}>
                           <Typography sx={{ fontWeight: 600 }}>
                             Goledo Finance Treasury Information
                           </Typography>
                           <Typography sx={{ color: '#666' }}>
-                            Total share of GoledoFTM in treasury
+                            Total share of GoledoCFX in treasury
                           </Typography>
                         </Stack>
                       ),
@@ -79,13 +77,12 @@ export default function POLPage() {
                       ),
                     },
                     {
-                      key: '2',
-                      label: <Typography sx={{ color: '#666' }}>GoledoFTM in treasury</Typography>,
+                      label: <Typography sx={{ color: '#666' }}>GoledoCFX in treasury</Typography>,
                       value: (
                         <Stack spacing={1.5} alignItems="end">
                           <FormattedNumber
                             variant="description"
-                            symbol="GoledoFTM"
+                            symbol="GoledoCFX"
                             value={61.9202}
                             visibleDecimals={4}
                             symbolsColor="#111"
@@ -101,7 +98,7 @@ export default function POLPage() {
 
                           <FormattedNumber
                             variant="description"
-                            symbol="GoledoFTM"
+                            symbol="GoledoCFX"
                             value={61.9202}
                             visibleDecimals={4}
                             symbolsColor="#111"
@@ -117,7 +114,7 @@ export default function POLPage() {
 
                           <FormattedNumber
                             variant="description"
-                            symbol="GoledoFTM"
+                            symbol="GoledoCFX"
                             value={61.9202}
                             visibleDecimals={4}
                             symbolsColor="#111"
@@ -134,13 +131,12 @@ export default function POLPage() {
                       ),
                     },
                     {
-                      key: '3',
-                      label: <Typography sx={{ color: '#666' }}>Total FTM sold</Typography>,
+                      label: <Typography sx={{ color: '#666' }}>Total CFX sold</Typography>,
                       value: (
                         <Stack spacing={1.5} alignItems="end">
                           <FormattedNumber
                             variant="description"
-                            symbol="FTM"
+                            symbol="CFX"
                             value={61.9202}
                             visibleDecimals={4}
                             symbolsColor="#111"

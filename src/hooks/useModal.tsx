@@ -10,17 +10,14 @@ export enum ModalType {
   Repay,
   CollateralChange,
   RateSwitch,
+  GoledoVesting,
+  GoledoWithdraw,
+  GoledoWithdrawExpireLocks,
+  GoledoExitStake,
+  GoledoClaimRewards,
   Stake,
   Unstake,
-  StakeCooldown,
-  StakeRewardClaim,
-  ClaimRewards,
-  Emode,
-  Faucet,
   Swap,
-  GovDelegation,
-  GovVote,
-  Deposite,
 }
 
 export interface ModalArgsType {
@@ -33,6 +30,8 @@ export interface ModalArgsType {
   currentRateMode?: InterestRate;
   balance?: string;
   type?: 'lock' | 'stake';
+  tokens?: string[];
+  stakingContract?: string;
 }
 
 export type TxStateType = {
@@ -45,11 +44,15 @@ export type TxStateType = {
 export interface ModalContextType<T extends ModalArgsType> {
   openSupply: (underlyingAsset: string) => void;
   openWithdraw: (underlyingAsset: string) => void;
-  openDeposit: (underlyingAsset: string) => void;
   openBorrow: (underlyingAsset: string) => void;
   openRepay: (underlyingAsset: string, currentRateMode: InterestRate) => void;
   openCollateralChange: (underlyingAsset: string) => void;
-  openRateSwitch: (underlyingAsset: string, currentRateMode: InterestRate) => void;
+  openVestOrClaim: (
+    type: ModalType,
+    amount: string,
+    tokens: string[],
+    stakingContract: string
+  ) => void;
   openStake: (
     type: 'lock' | 'stake',
     underlyingAsset: string,
@@ -62,14 +65,7 @@ export interface ModalContextType<T extends ModalArgsType> {
     stakeAssetName: string,
     balance: string
   ) => void;
-  openStakeCooldown: (stakeAssetName: string) => void;
-  openStakeRewardsClaim: (stakeAssetName: string) => void;
-  openClaimRewards: () => void;
-  openEmode: () => void;
-  openFaucet: (underlyingAsset: string) => void;
   openSwap: (underlyingAsset: string) => void;
-  openGovDelegation: () => void;
-  openGovVote: (proposalId: number, support: boolean, power: string) => void;
   close: () => void;
   type?: ModalType;
   args: T;
@@ -115,10 +111,6 @@ export const ModalContextProvider: React.FC = ({ children }) => {
           setType(ModalType.Withdraw);
           setArgs({ underlyingAsset });
         },
-        openDeposit: (underlyingAsset) => {
-          setType(ModalType.Deposite);
-          setArgs({ underlyingAsset });
-        },
         openBorrow: (underlyingAsset) => {
           setType(ModalType.Borrow);
           setArgs({ underlyingAsset });
@@ -131,10 +123,6 @@ export const ModalContextProvider: React.FC = ({ children }) => {
           setType(ModalType.CollateralChange);
           setArgs({ underlyingAsset });
         },
-        openRateSwitch: (underlyingAsset, currentRateMode) => {
-          setType(ModalType.RateSwitch);
-          setArgs({ underlyingAsset, currentRateMode });
-        },
         openStake: (type, underlyingAsset, stakeAssetName, balance) => {
           setType(ModalType.Stake);
           setArgs({ type, underlyingAsset, stakeAssetName, balance });
@@ -143,34 +131,18 @@ export const ModalContextProvider: React.FC = ({ children }) => {
           setType(ModalType.Unstake);
           setArgs({ type, underlyingAsset, stakeAssetName, balance });
         },
-        openStakeCooldown: (stakeAssetName) => {
-          setType(ModalType.StakeCooldown);
-          setArgs({ stakeAssetName });
-        },
-        openStakeRewardsClaim: (stakeAssetName) => {
-          setType(ModalType.StakeRewardClaim);
-          setArgs({ stakeAssetName });
-        },
-        openClaimRewards: () => {
-          setType(ModalType.ClaimRewards);
-        },
-        openEmode: () => {
-          setType(ModalType.Emode);
-        },
-        openFaucet: (underlyingAsset) => {
-          setType(ModalType.Faucet);
-          setArgs({ underlyingAsset });
+        openVestOrClaim: (
+          type: ModalType,
+          amount: string,
+          tokens: string[],
+          stakingContract: string
+        ) => {
+          setType(type);
+          setArgs({ tokens, balance: amount, stakingContract });
         },
         openSwap: (underlyingAsset) => {
           setType(ModalType.Swap);
           setArgs({ underlyingAsset });
-        },
-        openGovDelegation: () => {
-          setType(ModalType.GovDelegation);
-        },
-        openGovVote: (proposalId, support, power) => {
-          setType(ModalType.GovVote);
-          setArgs({ proposalId, support, power });
         },
         close: () => {
           setType(undefined);

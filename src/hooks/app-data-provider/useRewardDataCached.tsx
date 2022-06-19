@@ -2,15 +2,31 @@ import { useEffect } from 'react';
 import { APOLLO_QUERY_TARGET } from 'src/utils/apolloClient';
 
 import {
-  C_ReserveIncentivesDataUpdateDocument,
-  C_ReserveIncentivesDataUpdateSubscription,
-  C_ReserveIncentivesDataUpdateSubscriptionVariables,
-  C_UserReserveIncentivesDataUpdateDocument,
-  C_UserReserveIncentivesDataUpdateSubscription,
-  C_UserReserveIncentivesDataUpdateSubscriptionVariables,
+  C_ReservesIncentivesDataUpdateDocument,
+  C_ReservesIncentivesDataUpdateSubscription,
+  C_ReservesIncentivesDataUpdateSubscriptionVariables,
+  C_UserReservesIncentivesDataUpdateDocument,
+  C_UserReservesIncentivesDataUpdateSubscription,
+  C_UserReservesIncentivesDataUpdateSubscriptionVariables,
   useC_ReservesIncentivesQuery,
-  useC_UserReserveIncentivesQuery,
+  useC_UserReservesIncentivesQuery,
 } from './graphql/hooks';
+import {
+  C_MasterChefIncentivesDataUpdateDocument,
+  C_MasterChefIncentivesDataUpdateSubscription,
+  C_MasterChefIncentivesDataUpdateSubscriptionVariables,
+  C_UserMasterChefIncentivesDataUpdateDocument,
+  C_UserMasterChefIncentivesDataUpdateSubscription,
+  C_UserMasterChefIncentivesDataUpdateSubscriptionVariables,
+  useC_MasterChefIncentivesQuery,
+  useC_UserMasterChefIncentivesQuery,
+} from './graphql/master-chef-hooks';
+import {
+  C_UserGoledoStakeDataUpdateDocument,
+  C_UserGoledoStakeDataUpdateSubscription,
+  C_UserGoledoStakeDataUpdateSubscriptionVariables,
+  useC_UserGoledoStakeDataQuery,
+} from './graphql/stake-hooks';
 
 export function useRewardDataCached(
   lendingPoolAddressProvider: string,
@@ -19,6 +35,7 @@ export function useRewardDataCached(
   currentAccount?: string,
   skip = false
 ) {
+  // reserves incentives
   const { loading: reservesIncentivesLoading, subscribeToMore: subscribeToReservesIncentives } =
     useC_ReservesIncentivesQuery({
       variables: { lendingPoolAddressProvider, chainId },
@@ -29,20 +46,20 @@ export function useRewardDataCached(
   useEffect(() => {
     if (!skip) {
       return subscribeToReservesIncentives<
-        C_ReserveIncentivesDataUpdateSubscription,
-        C_ReserveIncentivesDataUpdateSubscriptionVariables
+        C_ReservesIncentivesDataUpdateSubscription,
+        C_ReservesIncentivesDataUpdateSubscriptionVariables
       >({
-        document: C_ReserveIncentivesDataUpdateDocument,
+        document: C_ReservesIncentivesDataUpdateDocument,
         variables: { lendingPoolAddressProvider, chainId },
         updateQuery: (previousQueryResult, { subscriptionData }) => {
-          const reservesIncentivesUpdate = subscriptionData.data?.reserveIncentivesDataUpdate;
+          const reservesIncentives = subscriptionData.data?.reservesIncentivesDataUpdate;
 
-          if (!reservesIncentivesUpdate) {
+          if (!reservesIncentives) {
             return previousQueryResult;
           }
           return {
             ...previousQueryResult,
-            reservesIncentives: reservesIncentivesUpdate,
+            reservesIncentives,
           };
         },
         context: { target: APOLLO_QUERY_TARGET.MARKET(marketName) },
@@ -50,8 +67,80 @@ export function useRewardDataCached(
     }
   }, [subscribeToReservesIncentives, lendingPoolAddressProvider, skip, chainId, marketName]);
 
-  const { loading: userIncentivesLoading, subscribeToMore: subscribeToUserIncentives } =
-    useC_UserReserveIncentivesQuery({
+  const {
+    loading: userReservesIncentivesLoading,
+    subscribeToMore: subscribeToUserReservesIncentives,
+  } = useC_UserReservesIncentivesQuery({
+    variables: { lendingPoolAddressProvider, userAddress: currentAccount || '', chainId },
+    skip: !currentAccount || skip,
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-and-network',
+  });
+
+  useEffect(() => {
+    if (currentAccount && !skip) {
+      return subscribeToUserReservesIncentives<
+        C_UserReservesIncentivesDataUpdateSubscription,
+        C_UserReservesIncentivesDataUpdateSubscriptionVariables
+      >({
+        document: C_UserReservesIncentivesDataUpdateDocument,
+        variables: { lendingPoolAddressProvider, userAddress: currentAccount || '', chainId },
+        updateQuery: (previousQueryResult, { subscriptionData }) => {
+          const userReservesIncentives = subscriptionData.data?.userReservesIncentivesDataUpdate;
+          if (!userReservesIncentives) {
+            return previousQueryResult;
+          }
+          return {
+            ...previousQueryResult,
+            userReservesIncentives,
+          };
+        },
+        context: { target: APOLLO_QUERY_TARGET.MARKET(marketName) },
+      });
+    }
+  }, [
+    subscribeToUserReservesIncentives,
+    lendingPoolAddressProvider,
+    currentAccount,
+    skip,
+    chainId,
+    marketName,
+  ]);
+
+  // master chef incentives
+  const { loading: masterChefIncentivesLoading, subscribeToMore: subscribeToMasterChefIncentives } =
+    useC_MasterChefIncentivesQuery({
+      variables: { lendingPoolAddressProvider, chainId },
+      skip,
+      context: { target: APOLLO_QUERY_TARGET.MARKET(marketName) },
+    });
+
+  useEffect(() => {
+    if (!skip) {
+      return subscribeToMasterChefIncentives<
+        C_MasterChefIncentivesDataUpdateSubscription,
+        C_MasterChefIncentivesDataUpdateSubscriptionVariables
+      >({
+        document: C_MasterChefIncentivesDataUpdateDocument,
+        variables: { lendingPoolAddressProvider, chainId },
+        updateQuery: (previousQueryResult, { subscriptionData }) => {
+          const masterChefIncentives = subscriptionData.data?.masterChefIncentivesDataUpdate;
+
+          if (!masterChefIncentives) {
+            return previousQueryResult;
+          }
+          return {
+            ...previousQueryResult,
+            masterChefIncentives,
+          };
+        },
+        context: { target: APOLLO_QUERY_TARGET.MARKET(marketName) },
+      });
+    }
+  }, [subscribeToMasterChefIncentives, lendingPoolAddressProvider, skip, chainId, marketName]);
+
+  const { loading: userMasterChefLoading, subscribeToMore: subscribeToUserMasterChefIncentives } =
+    useC_UserMasterChefIncentivesQuery({
       variables: { lendingPoolAddressProvider, userAddress: currentAccount || '', chainId },
       skip: !currentAccount || skip,
       fetchPolicy: 'cache-and-network',
@@ -60,27 +149,28 @@ export function useRewardDataCached(
 
   useEffect(() => {
     if (currentAccount && !skip) {
-      return subscribeToUserIncentives<
-        C_UserReserveIncentivesDataUpdateSubscription,
-        C_UserReserveIncentivesDataUpdateSubscriptionVariables
+      return subscribeToUserMasterChefIncentives<
+        C_UserMasterChefIncentivesDataUpdateSubscription,
+        C_UserMasterChefIncentivesDataUpdateSubscriptionVariables
       >({
-        document: C_UserReserveIncentivesDataUpdateDocument,
+        document: C_UserMasterChefIncentivesDataUpdateDocument,
         variables: { lendingPoolAddressProvider, userAddress: currentAccount || '', chainId },
         updateQuery: (previousQueryResult, { subscriptionData }) => {
-          const userIncentives = subscriptionData.data?.userReserveIncentivesDataUpdate;
-          if (!userIncentives) {
+          const userMasterChefIncentives =
+            subscriptionData.data?.userMasterChefIncentivesDataUpdate;
+          if (!userMasterChefIncentives) {
             return previousQueryResult;
           }
           return {
             ...previousQueryResult,
-            userIncentives,
+            userMasterChefIncentives,
           };
         },
         context: { target: APOLLO_QUERY_TARGET.MARKET(marketName) },
       });
     }
   }, [
-    subscribeToUserIncentives,
+    subscribeToUserMasterChefIncentives,
     lendingPoolAddressProvider,
     currentAccount,
     skip,
@@ -88,7 +178,43 @@ export function useRewardDataCached(
     marketName,
   ]);
 
-  const loading = (currentAccount && userIncentivesLoading) || reservesIncentivesLoading;
+  // user stakes
+  const { loading: userGoledoStakeLoading, subscribeToMore: subscribeToUserGoledoStake } =
+    useC_UserGoledoStakeDataQuery({
+      variables: { userAddress: currentAccount || '', chainId },
+      skip: !currentAccount || skip,
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: 'cache-and-network',
+    });
+
+  useEffect(() => {
+    if (currentAccount && !skip) {
+      return subscribeToUserGoledoStake<
+        C_UserGoledoStakeDataUpdateSubscription,
+        C_UserGoledoStakeDataUpdateSubscriptionVariables
+      >({
+        document: C_UserGoledoStakeDataUpdateDocument,
+        variables: { userAddress: currentAccount || '', chainId },
+        updateQuery: (previousQueryResult, { subscriptionData }) => {
+          const userGoledoStake = subscriptionData.data?.userGoledoStakeDataUpdate;
+          if (!userGoledoStake) {
+            return previousQueryResult;
+          }
+          return {
+            ...previousQueryResult,
+            userGoledoStake,
+          };
+        },
+        context: { target: APOLLO_QUERY_TARGET.MARKET(marketName) },
+      });
+    }
+  }, [subscribeToUserGoledoStake, currentAccount, skip, chainId, marketName]);
+
+  const loading =
+    (currentAccount &&
+      (userReservesIncentivesLoading || userMasterChefLoading || userGoledoStakeLoading)) ||
+    reservesIncentivesLoading ||
+    masterChefIncentivesLoading;
 
   return {
     loading,

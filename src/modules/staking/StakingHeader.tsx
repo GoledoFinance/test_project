@@ -1,15 +1,14 @@
-import { IncentiveDataHumanized } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 // import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import { TopInfoPanel } from 'src/components/TopInfoPanel/TopInfoPanel';
+// import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
 
 // import { TopInfoPanelItem } from '../../components/TopInfoPanel/TopInfoPanelItem';
 
 interface StakingHeaderProps {
   // tvl: string;
   // stkEmission: string;
-  rewardData?: IncentiveDataHumanized;
   loading: boolean;
 }
 
@@ -18,6 +17,7 @@ export const StakingHeader: React.FC<StakingHeaderProps> = ({}) => {
   const upToLG = useMediaQuery(theme.breakpoints.up('lg'));
   // const downToSM = useMediaQuery(theme.breakpoints.down('sm'));
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
+  // const { userGoledoStake } = useAppDataContext();
 
   // const valueTypographyVariant = downToSM ? 'main16' : 'main21';
   // const symbolsVariant = downToSM ? 'secondary16' : 'secondary21';

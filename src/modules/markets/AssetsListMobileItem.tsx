@@ -4,15 +4,40 @@ import { VariableAPYTooltip } from 'src/components/infoTooltips/VariableAPYToolt
 import { ReserveSubheader } from 'src/components/ReserveSubheader';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
+import BigNumber from 'bignumber.js';
+
 import { IncentivesCard } from '../../components/incentives/IncentivesCard';
 import { FormattedNumber } from '../../components/primitives/FormattedNumber';
 import { Link, ROUTES } from '../../components/primitives/Link';
 import { Row } from '../../components/primitives/Row';
-import { ComputedReserveData } from '../../hooks/app-data-provider/useAppDataProvider';
+import {
+  ComputedReserveData,
+  useAppDataContext,
+} from '../../hooks/app-data-provider/useAppDataProvider';
 import { ListMobileItemWrapper } from '../dashboard/lists/ListMobileItemWrapper';
+import { ModalType, useModalContext } from 'src/hooks/useModal';
 
 export const AssetsListMobileItem = ({ ...reserve }: ComputedReserveData) => {
-  const { currentMarket } = useProtocolDataContext();
+  const { currentMarket, currentMarketData } = useProtocolDataContext();
+  const { reservesIncentives, userReserveIncentives } = useAppDataContext();
+  const { openVestOrClaim } = useModalContext();
+  const aIncentives = reservesIncentives.find(
+    (x) => x.tokenAddress.toLowerCase() === reserve.aTokenAddress.toLowerCase()
+  );
+  const vIncentives = reservesIncentives.find(
+    (x) => x.tokenAddress.toLowerCase() === reserve.variableDebtTokenAddress.toLowerCase()
+  );
+
+  let earned = new BigNumber('0');
+  userReserveIncentives.forEach((v) => {
+    if (
+      v.tokenAddress.toLowerCase() === reserve.aTokenAddress.toLowerCase() ||
+      v.tokenAddress.toLowerCase() == reserve.variableDebtTokenAddress.toLowerCase()
+    ) {
+      earned = earned.plus(v.userRewardsInformation[0]?.userUnclaimedRewards || '0');
+    }
+  });
+
   return (
     <ListMobileItemWrapper
       symbol={reserve.symbol}
@@ -44,7 +69,7 @@ export const AssetsListMobileItem = ({ ...reserve }: ComputedReserveData) => {
         <IncentivesCard
           align="flex-end"
           value={reserve.supplyAPY}
-          incentives={reserve.aIncentivesData || []}
+          incentives={aIncentives}
           symbol={reserve.symbol}
           variant="secondary14"
         />
@@ -81,11 +106,28 @@ export const AssetsListMobileItem = ({ ...reserve }: ComputedReserveData) => {
         <IncentivesCard
           align="flex-end"
           value={reserve.borrowingEnabled ? reserve.variableBorrowAPY : '-1'}
-          incentives={reserve.vIncentivesData || []}
+          incentives={vIncentives}
           symbol={reserve.symbol}
           variant="secondary14"
         />
       </Row>
+
+      <Button
+        disabled={earned.isZero()}
+        variant="contained"
+        onClick={() =>
+          openVestOrClaim(
+            ModalType.GoledoVesting,
+            earned.toString(),
+            [reserve.aTokenAddress, reserve.variableDebtTokenAddress],
+            currentMarketData.addresses.INCENTIVE_CONTROLLER
+          )
+        }
+        fullWidth
+        sx={{ mb: 1.5 }}
+      >
+        <Trans>Vest {earned.toPrecision(4)} Goledo</Trans>
+      </Button>
 
       <Button
         variant="outlined"

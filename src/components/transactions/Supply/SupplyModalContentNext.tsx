@@ -9,7 +9,6 @@ import { GasEstimationError } from '../FlowCommons/GasEstimationError';
 import {
   DetailsCollateralLine,
   DetailsHFLine,
-  DetailsIncentivesLine,
   DetailsNumberLine,
   DetailsNumberLineWithSub,
   TxModalDetails,
@@ -31,7 +30,6 @@ export enum ErrorType {
 
 export const SupplyModalContentNext = ({
   poolReserve,
-  userReserve,
   underlyingAsset,
   symbol,
   isWrongNetwork,
@@ -43,7 +41,6 @@ export const SupplyModalContentNext = ({
   const supplyUnWrapped = underlyingAsset.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase();
 
   const supplyApy = poolReserve.supplyAPY;
-  console.log('underlyingAsset2', underlyingAsset);
 
   // Calculation of future HF
   const amountIntEth = new BigNumber(amount || '0').multipliedBy(poolReserve.formattedPriceInETH);
@@ -80,22 +77,10 @@ export const SupplyModalContentNext = ({
   };
 
   // collateralization state
-  let willBeUsedAsCollateral: CollateralType = poolReserve.usageAsCollateralEnabled
+  const willBeUsedAsCollateral: CollateralType = poolReserve.usageAsCollateralEnabled
     ? CollateralType.ENABLED
     : CollateralType.DISABLED;
-  const userHasSuppliedReserve = userReserve && userReserve.scaledATokenBalance !== '0';
 
-  if (user.isInIsolationMode) {
-    willBeUsedAsCollateral = CollateralType.DISABLED;
-  } else {
-    if (userHasSuppliedReserve) {
-      willBeUsedAsCollateral = userReserve.usageAsCollateralEnabledOnUser
-        ? CollateralType.ENABLED
-        : CollateralType.DISABLED;
-    } else {
-      willBeUsedAsCollateral = CollateralType.ENABLED;
-    }
-  }
   if (supplyTxState.success)
     return (
       <TxSuccessView
@@ -121,10 +106,10 @@ export const SupplyModalContentNext = ({
           futureValueUSD={new BigNumber(amountIntEth).toFormat(2)}
         />
         <DetailsNumberLine description={<Trans>Supply APY</Trans>} value={supplyApy} percent />
-        <DetailsIncentivesLine
+        {/*<DetailsIncentivesLine
           incentives={poolReserve.aIncentivesData}
           symbol={poolReserve.symbol}
-        />
+        />*/}
         <DetailsCollateralLine collateralType={willBeUsedAsCollateral} />
         <DetailsHFLine
           visibleHfChange={true}

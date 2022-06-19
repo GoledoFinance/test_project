@@ -5,7 +5,7 @@ import { Box, FormControlLabel, SvgIcon, Switch, Typography } from '@mui/materia
 import { parseUnits } from 'ethers/lib/utils';
 import React, { ReactNode } from 'react';
 import { CollateralType } from 'src/helpers/types';
-import { ReserveIncentiveResponse } from 'src/hooks/app-data-provider/useIncentiveData';
+import { ReserveIncentiveData } from 'src/hooks/app-data-provider/useAppDataProvider';
 
 import { HealthFactorNumber } from '../../HealthFactorNumber';
 import { IncentivesButton } from '../../incentives/IncentivesButton';
@@ -184,9 +184,9 @@ export const DetailsCollateralLine = ({ collateralType }: DetailsCollateralLine)
 };
 
 interface DetailsIncentivesLineProps {
-  futureIncentives?: ReserveIncentiveResponse[];
+  futureIncentives?: ReserveIncentiveData;
   futureSymbol?: string;
-  incentives?: ReserveIncentiveResponse[];
+  incentives?: ReserveIncentiveData;
   // the token yielding the incentive, not the incentive itself
   symbol: string;
 }
@@ -197,7 +197,11 @@ export const DetailsIncentivesLine = ({
   futureIncentives,
   futureSymbol,
 }: DetailsIncentivesLineProps) => {
-  if (!incentives || incentives.filter((i) => i.incentiveAPR !== '0').length === 0) return null;
+  if (
+    !incentives ||
+    incentives.rewardsTokenInformation.filter((i) => i.emissionPerSecond !== '0').length === 0
+  )
+    return null;
   return (
     <Row caption={<Trans>Rewards APR</Trans>} captionVariant="description" mb={4} minHeight={24}>
       <IncentivesButton incentives={incentives} symbol={symbol} />

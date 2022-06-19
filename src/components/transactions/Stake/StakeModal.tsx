@@ -37,7 +37,6 @@ export const StakeModal = () => {
         ) : (
           <StakeModalContentNext
             type={args.type}
-            isWrongNetwork={false}
             symbol={args.stakeAssetName}
             selectedToken={args.underlyingAsset}
             amount={value}

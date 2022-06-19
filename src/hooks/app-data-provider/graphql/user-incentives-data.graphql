@@ -13,12 +13,12 @@ fragment TokenIncentivesUserDataFragment on UserIncentiveData {
   }
 }
 
-query C_UserIncentives(
+query C_UserReservesIncentives(
   $userAddress: String!
   $lendingPoolAddressProvider: String!
   $chainId: Int!
 ) {
-  userIncentives(
+  userReservesIncentives(
     userAddress: $userAddress
     lendingPoolAddressProvider: $lendingPoolAddressProvider
     chainId: $chainId
@@ -30,12 +30,46 @@ query C_UserIncentives(
   }
 }
 
-subscription C_UserReserveIncentivesDataUpdate(
+subscription C_UserReservesIncentivesDataUpdate(
   $userAddress: String!
   $lendingPoolAddressProvider: String!
   $chainId: Int!
 ) {
-  userReserveIncentivesDataUpdate(
+  userReservesIncentivesDataUpdate(
+    userAddress: $userAddress
+    lendingPoolAddressProvider: $lendingPoolAddressProvider
+    chainId: $chainId
+  ) {
+    id
+    data {
+      ...TokenIncentivesUserDataFragment
+    }
+  }
+}
+
+query C_UserMasterChefIncentives(
+  $userAddress: String!
+  $lendingPoolAddressProvider: String!
+  $chainId: Int!
+) {
+  userMasterChefIncentives(
+    userAddress: $userAddress
+    lendingPoolAddressProvider: $lendingPoolAddressProvider
+    chainId: $chainId
+  ) {
+    id
+    data {
+      ...TokenIncentivesUserDataFragment
+    }
+  }
+}
+
+subscription C_UserMasterChefIncentivesDataUpdate(
+  $userAddress: String!
+  $lendingPoolAddressProvider: String!
+  $chainId: Int!
+) {
+  userMasterChefIncentivesDataUpdate(
     userAddress: $userAddress
     lendingPoolAddressProvider: $lendingPoolAddressProvider
     chainId: $chainId

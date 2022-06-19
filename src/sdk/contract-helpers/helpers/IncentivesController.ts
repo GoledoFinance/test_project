@@ -42,7 +42,6 @@ export class IncentivesController
       rawTxMethod: async () => incentivesContract.populateTransaction.claim(user, assets),
       from: user,
     });
-    console.log('txCallback', txCallback);
 
     return [
       {

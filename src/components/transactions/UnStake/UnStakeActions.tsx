@@ -2,9 +2,9 @@ import { Trans } from '@lingui/macro';
 import { BoxProps } from '@mui/material';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
 import { useTransactionHandler } from '../../../helpers/useTransactionHandler';
-import { useStakeTxBuilderContext } from 'src/hooks/useStakeTxBuilder';
 import { TxActionsWrapper } from '../TxActionsWrapper';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
+import { useTxBuilderContext } from 'src/hooks/useTxBuilder';
 
 export interface UnStakeActionProps extends BoxProps {
   amountToUnStake: string;
@@ -26,7 +26,7 @@ export const UnStakeActions = ({
 }: UnStakeActionProps) => {
   const { currentAccount } = useWeb3Context();
   const { currentMarketData } = useProtocolDataContext();
-  const { masterChef } = useStakeTxBuilderContext(selectedToken);
+  const { masterChef } = useTxBuilderContext();
 
   const { action, loadingTxns, mainTxState, requiresApproval } = useTransactionHandler({
     handleGetTxns: async () => {

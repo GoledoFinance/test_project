@@ -17,8 +17,13 @@ import {
   useC_ProtocolDataQuery,
   useC_ReservesIncentivesQuery,
   useC_UserDataQuery,
-  useC_UserReserveIncentivesQuery,
+  useC_UserReservesIncentivesQuery,
 } from './graphql/hooks';
+import {
+  useC_MasterChefIncentivesQuery,
+  useC_UserMasterChefIncentivesQuery,
+} from './graphql/master-chef-hooks';
+import { useC_UserGoledoStakeDataQuery } from './graphql/stake-hooks';
 
 /**
  * removes the marketPrefix from a symbol
@@ -81,6 +86,25 @@ export interface UserIncentiveData {
   userRewardsInformation: Array<UserRewardInfo>;
 }
 
+export interface GoledoLockedBalance {
+  amount: string;
+  expire: number;
+}
+
+export interface GoledoRewardBalance {
+  amount: string;
+  token: string;
+}
+
+export interface UserGoledoStakeData {
+  vestings: Array<GoledoLockedBalance>;
+  lockings: Array<GoledoLockedBalance>;
+  rewards: Array<GoledoRewardBalance>;
+  totalBalance: string;
+  walletBalance: string;
+  unlockedBalance: string;
+}
+
 export interface AppDataContextType {
   loading: boolean;
   reserves: ComputedReserveData[];
@@ -95,7 +119,9 @@ export interface AppDataContextType {
   userReserves: UserReserveData[];
   reservesIncentives: ReserveIncentiveData[];
   userReserveIncentives: UserIncentiveData[];
+  masterChefIncentives: ReserveIncentiveData[];
   userMasterChefIncentives: UserIncentiveData[];
+  userGoledoStake: UserGoledoStakeData;
 }
 
 const AppDataContext = React.createContext<AppDataContextType>({} as AppDataContextType);
@@ -135,9 +161,31 @@ export const AppDataProvider: React.FC = ({ children }) => {
     },
     fetchPolicy: 'cache-only',
   });
-  const { data: userReservesIncentivesData } = useC_UserReserveIncentivesQuery({
+  const { data: userReservesIncentivesData } = useC_UserReservesIncentivesQuery({
     variables: {
       lendingPoolAddressProvider: currentMarketData.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+      userAddress: currentAccount,
+      chainId: currentChainId,
+    },
+    fetchPolicy: 'cache-only',
+  });
+  const { data: masterChefIncentivesData } = useC_MasterChefIncentivesQuery({
+    variables: {
+      lendingPoolAddressProvider: currentMarketData.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+      chainId: currentChainId,
+    },
+    fetchPolicy: 'cache-only',
+  });
+  const { data: userMasterChefIncentivesData } = useC_UserMasterChefIncentivesQuery({
+    variables: {
+      lendingPoolAddressProvider: currentMarketData.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+      userAddress: currentAccount,
+      chainId: currentChainId,
+    },
+    fetchPolicy: 'cache-only',
+  });
+  const { data: userGoledoStakeData } = useC_UserGoledoStakeDataQuery({
+    variables: {
       userAddress: currentAccount,
       chainId: currentChainId,
     },
@@ -283,8 +331,8 @@ export const AppDataProvider: React.FC = ({ children }) => {
               }))
             : [],
         userReserveIncentives:
-          userReservesIncentivesData && userReservesIncentivesData.userIncentives
-            ? userReservesIncentivesData.userIncentives.map(({ data }) => ({
+          userReservesIncentivesData && userReservesIncentivesData.userReservesIncentives
+            ? userReservesIncentivesData.userReservesIncentives.map(({ data }) => ({
                 tokenAddress: data.tokenAddress,
                 userStakedBalance: data.userStakedBalance,
                 userWalletBalance: data.userWalletBalance,
@@ -299,7 +347,65 @@ export const AppDataProvider: React.FC = ({ children }) => {
                 })),
               }))
             : [],
-        userMasterChefIncentives: [],
+        masterChefIncentives:
+          masterChefIncentivesData && masterChefIncentivesData.masterChefIncentives
+            ? masterChefIncentivesData.masterChefIncentives.map(({ data }) => ({
+                rewardsTokenInformation: data.rewardsTokenInformation.map((v) => ({
+                  emissionEndTimestamp: v.emissionEndTimestamp,
+                  emissionPerSecond: v.emissionPerSecond,
+                  priceFeedDecimals: v.priceFeedDecimals,
+                  rewardOracleAddress: v.rewardOracleAddress,
+                  rewardPriceFeed: v.rewardPriceFeed,
+                  rewardTokenAddress: v.rewardTokenAddress,
+                  rewardTokenDecimals: v.rewardTokenDecimals,
+                  rewardTokenSymbol: v.rewardTokenSymbol,
+                })),
+                tokenAddress: data.tokenAddress,
+                tokenSymbol: data.tokenSymbol,
+                tokenDecimals: data.tokenDecimals,
+                totalStakedBalance: data.totalStakedBalance,
+              }))
+            : [],
+        userMasterChefIncentives:
+          userMasterChefIncentivesData && userMasterChefIncentivesData.userMasterChefIncentives
+            ? userMasterChefIncentivesData.userMasterChefIncentives.map(({ data }) => ({
+                tokenAddress: data.tokenAddress,
+                userStakedBalance: data.userStakedBalance,
+                userWalletBalance: data.userWalletBalance,
+                userRewardsInformation: data.userRewardsInformation.map((v) => ({
+                  priceFeedDecimals: v.priceFeedDecimals,
+                  rewardOracleAddress: v.rewardOracleAddress,
+                  rewardPriceFeed: v.rewardPriceFeed,
+                  rewardTokenAddress: v.rewardTokenAddress,
+                  rewardTokenDecimals: v.rewardTokenDecimals,
+                  rewardTokenSymbol: v.rewardTokenSymbol,
+                  userUnclaimedRewards: v.userUnclaimedRewards,
+                })),
+              }))
+            : [],
+        userGoledoStake: {
+          vestings: userGoledoStakeData
+            ? userGoledoStakeData.userGoledoStake.vestings.map((v) => ({
+                amount: v.amount,
+                expire: v.expire,
+              }))
+            : [],
+          lockings: userGoledoStakeData
+            ? userGoledoStakeData.userGoledoStake.lockings.map((v) => ({
+                amount: v.amount,
+                expire: v.expire,
+              }))
+            : [],
+          rewards: userGoledoStakeData
+            ? userGoledoStakeData.userGoledoStake.rewards.map((v) => ({
+                amount: v.amount,
+                token: v.token,
+              }))
+            : [],
+          totalBalance: userGoledoStakeData?.userGoledoStake.totalBalance || '0',
+          walletBalance: userGoledoStakeData?.userGoledoStake.walletBalance || '0',
+          unlockedBalance: userGoledoStakeData?.userGoledoStake.unlockedBalance || '0',
+        },
       }}
     >
       {children}
