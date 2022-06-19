@@ -31,7 +31,7 @@ export const MarketsTopPanel = () => {
   const symbolsVariant = downToSM ? 'secondary16' : 'secondary21';
 
   return (
-    <TopInfoPanel pageTitle={<Trans>Markets</Trans>} withMarketSwitcher>
+    <TopInfoPanel pageTitle={<Trans>Markets</Trans>} bridge={[]} withMarketSwitcher>
       <TopInfoPanelItem hideIcon title={<Trans>Total Market Size</Trans>} loading={loading}>
         <FormattedNumber
           value={aggregatedStats.totalLiquidity.toString()}

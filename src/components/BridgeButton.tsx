@@ -12,7 +12,7 @@ interface BridgeButtonProps extends Pick<NetworkConfig, 'bridge'>, ButtonProps<t
   withoutIcon?: boolean;
 }
 
-export const BridgeButton = ({ title, bridge, withoutIcon, ...rest }: BridgeButtonProps) => {
+export const BridgeButton = ({ title, bridge, withoutIcon }: BridgeButtonProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

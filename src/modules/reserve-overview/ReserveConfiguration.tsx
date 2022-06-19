@@ -21,8 +21,6 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import Paper from '@mui/material/Paper';
 import { ComputedReserveData } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
-// TODO: need to update the tooltip text
-import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
 import { MaxLTVTooltip } from 'src/components/infoTooltips/MaxLTVTooltip';
 import { LiquidationThresholdTooltip } from 'src/components/infoTooltips/LiquidationThresholdTooltip';
 import { LiquidationPenaltyTooltip } from 'src/components/infoTooltips/LiquidationPenaltyTooltip';
@@ -107,13 +105,11 @@ export const PanelItem: React.FC<PanelItemProps> = ({ title, children }) => {
 
 export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = ({ reserve }) => {
   const total = new BigNumber(reserve.totalLiquidity);
-  let debtPercentage = 0;
   let liquidityPercentage = 100;
   if (reserve.totalLiquidity !== '0') {
     liquidityPercentage = parseFloat(
       new BigNumber(reserve.formattedAvailableLiquidity).multipliedBy(100).div(total).toFixed(0)
     );
-    debtPercentage = 100 - liquidityPercentage;
   }
   return (
     <Paper sx={{ py: '20px', px: '20px' }}>

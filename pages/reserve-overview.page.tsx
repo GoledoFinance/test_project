@@ -11,7 +11,7 @@ import { ReserveConfiguration } from 'src/modules/reserve-overview/ReserveConfig
 import { ReserveTopDetails } from 'src/modules/reserve-overview/ReserveTopDetails';
 import { BorrowActions } from 'src/modules/reserve-overview/BorrowActions';
 import { ContentContainer } from 'src/components/ContentContainer';
-import { BorrowList } from 'src/modules/reserve-overview/BorrowList';
+// import { BorrowList } from 'src/modules/reserve-overview/BorrowList';
 
 export default function ReserveOverview() {
   const router = useRouter();

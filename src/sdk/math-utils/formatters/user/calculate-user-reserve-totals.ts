@@ -20,7 +20,6 @@ interface UserReserveTotalsResponse {
 
 export function calculateUserReserveTotals({
   userReserves,
-  userEmodeCategoryId,
 }: UserReserveTotalsRequest): UserReserveTotalsResponse {
   let totalLiquidityMarketReferenceCurrency = valueToZDBigNumber('0');
   let totalCollateralMarketReferenceCurrency = valueToZDBigNumber('0');

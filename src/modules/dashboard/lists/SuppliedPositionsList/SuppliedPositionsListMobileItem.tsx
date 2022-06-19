@@ -20,19 +20,15 @@ export const SuppliedPositionsListMobileItem = ({
   underlyingBalanceUSD,
   usageAsCollateralEnabledOnUser,
   underlyingAsset,
-  user,
 }: ComputedUserReserveData & { user: ExtendedFormattedUser }) => {
-  const { symbol, iconSymbol, name, supplyAPY, isIsolated, aIncentivesData, isFrozen, isActive } =
-    reserve;
+  const { symbol, iconSymbol, name, supplyAPY, aIncentivesData, isActive } = reserve;
   const { currentMarket } = useProtocolDataContext();
   const { openWithdraw, openCollateralChange } = useModalContext();
   // const isSwapButton = isFeatureEnabled.liquiditySwap(currentMarketData);
 
-  const canBeEnabledAsCollateral =
-    reserve.usageAsCollateralEnabled &&
-    ((!reserve.isIsolated && !user.isInIsolationMode) ||
-      user.isolatedReserve?.underlyingAsset === reserve.underlyingAsset ||
-      (reserve.isIsolated && user.totalCollateralMarketReferenceCurrency === '0'));
+  const isIsolated = false;
+
+  const canBeEnabledAsCollateral = reserve.usageAsCollateralEnabled;
 
   return (
     <ListMobileItemWrapper
@@ -86,15 +82,6 @@ export const SuppliedPositionsListMobileItem = ({
           fullWidth
         >
           <Trans>Withdraw</Trans>
-        </Button>
-
-        <Button
-          disabled={!isActive || isFrozen}
-          variant="outlined"
-          onClick={() => console.log('TODO: should be swap modal')}
-          fullWidth
-        >
-          <Trans>Swap</Trans>
         </Button>
       </Box>
     </ListMobileItemWrapper>

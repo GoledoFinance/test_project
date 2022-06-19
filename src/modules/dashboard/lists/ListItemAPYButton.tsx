@@ -38,7 +38,6 @@ export const ListItemAPYButton = ({
   borrowRateMode,
   disabled,
   onClick,
-  stableBorrowAPY,
   variableBorrowAPY,
   underlyingAsset,
   currentMarket,

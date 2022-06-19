@@ -6,7 +6,7 @@ import { TopInfoPanel } from '../../components/TopInfoPanel/TopInfoPanel';
 
 export const MoreTopPanel = () => {
   return (
-    <TopInfoPanel pageTitle={<Trans>Protocol Owned DEX Liquidity Module</Trans>}>
+    <TopInfoPanel bridge={[]} pageTitle={<Trans>Protocol Owned DEX Liquidity Module</Trans>}>
       <Typography variant="description" maxWidth={685}>
         Sell GoledoFTM LP tokens directly to the protocol for a 10% premium
         <br />

@@ -5,7 +5,6 @@ import { ROUTES } from 'src/components/primitives/Link';
 
 import DiscordIcon from '/public/icons/discord.svg';
 import GithubIcon from '/public/icons/github.svg';
-import AaveClassic from '/public/icons/aave_classic.svg';
 
 import { MarketDataType } from '../marketsConfig';
 
@@ -30,15 +29,6 @@ export const navigation: Navigation[] = [
     link: ROUTES.staking,
     title: t`Stake`,
     isVisible: () => process.env.NEXT_PUBLIC_ENABLE_STAKING === 'true',
-  },
-  {
-    link: ROUTES.governance,
-    title: t`Governance`,
-    isVisible: () => process.env.NEXT_PUBLIC_ENABLE_GOVERNANCE === 'true',
-  },
-  {
-    link: ROUTES.pol,
-    title: t`POL`,
   },
 ];
 

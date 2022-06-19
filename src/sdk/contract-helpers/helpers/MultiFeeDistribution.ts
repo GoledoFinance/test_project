@@ -5,7 +5,7 @@ import {
   EthereumTransactionTypeExtended,
   transactionType,
 } from '../commons/types';
-import { DEFAULT_APPROVE_AMOUNT, valueToWei } from '../commons/utils';
+import { DEFAULT_APPROVE_AMOUNT } from '../commons/utils';
 import {
   MultiFeeDistribution as MultiFeeDistributionContract,
   MultiFeeDistribution__factory,

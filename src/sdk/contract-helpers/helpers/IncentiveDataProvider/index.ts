@@ -23,7 +23,7 @@ export interface IncentiveDataProviderInterface {
 export class IncentiveDataProvider implements IncentiveDataProviderInterface {
   private readonly _contract: IncentiveDataProviderContract;
 
-  private readonly chainId: number;
+  // private readonly chainId: number;
 
   public constructor(context: IncentiveDataProviderContext) {
     if (!isAddress(context.incentiveDataProviderAddress)) {
@@ -34,7 +34,7 @@ export class IncentiveDataProvider implements IncentiveDataProviderInterface {
       context.incentiveDataProviderAddress,
       context.provider
     );
-    this.chainId = context.chainId;
+    // this.chainId = context.chainId;
   }
 
   public async getUserIncentive({ user }: IncentiveHelperInput): Promise<IncentiveData> {

@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import { Box, Button } from '@mui/material';
-import { StableAPYTooltip } from 'src/components/infoTooltips/StableAPYTooltip';
 import { VariableAPYTooltip } from 'src/components/infoTooltips/VariableAPYTooltip';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
@@ -20,11 +19,8 @@ export const BorrowAssetsListMobileItem = ({
   name,
   availableBorrows,
   availableBorrowsInUSD,
-  borrowCap,
   totalBorrows,
   variableBorrowRate,
-  stableBorrowRate,
-  sIncentivesData,
   vIncentivesData,
   underlyingAsset,
   isFreezed,
@@ -49,7 +45,7 @@ export const BorrowAssetsListMobileItem = ({
         capsComponent={
           <CapsHint
             capType={CapType.borrowCap}
-            capAmount={borrowCap}
+            capAmount={'0'}
             totalAmount={totalBorrows}
             withoutText
           />

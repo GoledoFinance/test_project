@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Divider, Stack, Box, Typography, Button } from '@mui/material';
 import { ReactNode } from 'react';
 import { useRewardData } from 'src/hooks/app-data-provider/useRewardData';
 
 // import { useModalContext } from 'src/hooks/useModal';
 import BigNumber from 'bignumber.js';
-import { useStakeTxBuilderContext } from 'src/hooks/useStakeTxBuilder';
-import { useTransactionHandler } from 'src/helpers/useTransactionHandler';
+//import { useStakeTxBuilderContext } from 'src/hooks/useStakeTxBuilder';
+//import { useTransactionHandler } from 'src/helpers/useTransactionHandler';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
-import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
+//import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
 export const ActionList = () => {
-  const { currentAccount, loading } = useWeb3Context();
-  const { currentMarketData } = useProtocolDataContext();
+  const { /*currentAccount,*/ loading } = useWeb3Context();
+  //const { currentMarketData } = useProtocolDataContext();
   const { data: rewardData } = useRewardData();
 
   const timestamp = Math.floor(Date.now() / 1000);
@@ -34,7 +35,7 @@ export const ActionList = () => {
     unlockedBalance = unlockedBalance.plus(rewardData.stakeUserData.unlockedBalance);
   }
 
-  const { staking } = useStakeTxBuilderContext('');
+  /*const { staking } = useStakeTxBuilderContext('');
 
   const { action: withdrawExpiredLocksAction, loadingTxns: loadingWithdrawExpiredLocksTxns } =
     useTransactionHandler({
@@ -69,7 +70,7 @@ export const ActionList = () => {
     },
     skip: loading,
     deps: [currentAccount, loading, unlockedBalance],
-  });
+  });*/
 
   return (
     <Stack divider={<Divider />} spacing={3}>
@@ -77,8 +78,8 @@ export const ActionList = () => {
         title={'Unlocked Goledo'}
         desc={'Staked Goledo and expried Goledo vests'}
         num={unlockedBalance.toFixed(2)}
-        claimFn={withdrawAction}
-        disabled={!rewardData || loading || loadingWithdrawTxns || unlockedBalance.isZero()}
+        claimFn={() => {}}
+        disabled={!rewardData || loading || unlockedBalance.isZero() || true}
         buttonText={'Claim Goledo'}
       />
       <ListItem
@@ -104,18 +105,16 @@ export const ActionList = () => {
             </Typography>
           </>
         }
-        disabled={!rewardData || loading || loadingExitTxns}
+        disabled={!rewardData || loading || true}
         buttonText={'Claim All'}
-        claimFn={exitAction}
+        claimFn={() => {}}
       />
       <ListItem
         title={'Expired locked Goledo'}
         desc={'Goledo locks that have exceeded the 3 month lock period and are now withdrawable'}
         num={expiredLockBalance.toPrecision()}
-        claimFn={withdrawExpiredLocksAction}
-        disabled={
-          !rewardData || loading || loadingWithdrawExpiredLocksTxns || expiredLockBalance.isZero()
-        }
+        claimFn={() => {}}
+        disabled={!rewardData || loading || expiredLockBalance.isZero() || true}
         buttonText={'Withdraw'}
       />
     </Stack>

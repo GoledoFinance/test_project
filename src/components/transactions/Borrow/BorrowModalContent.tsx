@@ -1,9 +1,9 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import { useRef, useState } from 'react';
 import BigNumber from 'bignumber.js';
 
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
-import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
+// import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { DetailsUnwrapSwitch } from '../FlowCommons/TxModalDetails';
 import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
