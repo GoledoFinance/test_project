@@ -1,8 +1,6 @@
-import { Box, Typography } from '@mui/material';
 import * as React from 'react';
 import { BigNumber } from 'bignumber.js';
 
-import { HealthFactorNumber } from 'src/components/HealthFactorNumber';
 import { ModalWrapperProps } from '../FlowCommons/ModalWrapper';
 import { SupplyActions } from './SupplyActions';
 import { useModalContext } from 'src/hooks/useModal';

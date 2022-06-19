@@ -26,8 +26,6 @@ export const StakeModalContentNext = ({
   if (stakeTxState.success)
     return <TxSuccessView action={<Trans>{`${type}ed`}</Trans>} amount={amount} symbol={symbol} />;
 
-  console.log('amount', amount);
-
   return (
     <>
       <TxModalDetails

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { BigNumberValue, normalizeBN } from '../../bignumber';
+import { BigNumberValue } from '../../bignumber';
 import {
   calculateAvailableBorrowsMarketReferenceCurrency,
   calculateHealthFactorFromBalances,

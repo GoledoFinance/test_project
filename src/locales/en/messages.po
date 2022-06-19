@@ -100,6 +100,7 @@ msgstr "Already on cooldown"
 
 #: src/components/transactions/AssetInput.tsx
 #: src/components/transactions/Borrow/BorrowModalContentNext.tsx
+#: src/components/transactions/Stake/StakeModalContentNext.tsx
 #: src/components/transactions/StakeRewardClaim/StakeRewardClaimModalContent.tsx
 #: src/components/transactions/Supply/SupplyModalContentNext.tsx
 #: src/components/transactions/Withdraw/WithdrawModalContentNext.tsx
@@ -1443,10 +1444,6 @@ msgstr "You {action} <0/> {symbol}"
 msgid "Your Borrows"
 msgstr "Your Borrows"
 
-#: src/modules/staking/StakingHeader.tsx
-msgid "Your Locked + staked Goledo"
-msgstr "Your Locked + staked Goledo"
-
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 msgid "Your Supplies"
@@ -1552,6 +1549,10 @@ msgstr "{0}"
 msgid "{0} Balance"
 msgstr "{0} Balance"
 
+#: src/components/transactions/Stake/StakeModalContentNext.tsx
+msgid "{0} {symbol}"
+msgstr "{0} {symbol}"
+
 #: src/modules/staking/StakingPanel.tsx
 msgid "{d}d"
 msgstr "{d}d"
@@ -1571,3 +1572,7 @@ msgstr "{s}s"
 #: src/modules/reserve-overview/ReserveActions.tsx
 msgid "{title}"
 msgstr "{title}"
+
+#: src/components/transactions/Stake/StakeModalContentNext.tsx
+msgid "{type}ed"
+msgstr "{type}ed"

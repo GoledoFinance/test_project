@@ -14,8 +14,6 @@ import {
 import { ReactNode } from 'react';
 import { ContentContainer } from 'src/components/ContentContainer';
 import { StakeModal } from 'src/components/transactions/Stake/StakeModal';
-import { StakeCooldownModal } from 'src/components/transactions/StakeCooldown/StakeCooldownModal';
-import { StakeRewardClaimModal } from 'src/components/transactions/StakeRewardClaim/StakeRewardClaimModal';
 import { UnStakeModal } from 'src/components/transactions/UnStake/UnStakeModal';
 // import { StakeDataProvider, useStakeData } from 'src/hooks/stake-data-provider/StakeDataProvider';
 import { MainLayout } from 'src/layouts/MainLayout';
@@ -353,15 +351,15 @@ Staking.getLayout = function getLayout(page: React.ReactElement) {
   return (
     <MainLayout>
       <StakeTxBuilderProvider>
-        {/*<StakeDataProvider>*/}
-        {page}
-        {/** Modals */}
-        <StakeModal />
-        <StakeCooldownModal />
-        <UnStakeModal />
-        <StakeRewardClaimModal />
-        {/** End of modals */}
-        {/*</StakeDataProvider>*/}
+        <>
+          {/*<StakeDataProvider>*/}
+          {page}
+          {/** Modals */}
+          <StakeModal />
+          <UnStakeModal />
+          {/** End of modals */}
+          {/*</StakeDataProvider>*/}
+        </>
       </StakeTxBuilderProvider>
     </MainLayout>
   );

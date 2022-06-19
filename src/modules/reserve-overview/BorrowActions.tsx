@@ -33,6 +33,7 @@ import { ConnectWalletButton } from 'src/components/WalletConnection/ConnectWall
 import { API_ETH_MOCK_ADDRESS, InterestRate } from '@goledo-sdk/contract-helpers';
 import { getMaxAmountAvailableToBorrow } from 'src/utils/getMaxAmountAvailableToBorrow';
 import { AvailableTooltip } from 'src/components/infoTooltips/AvailableTooltip';
+import { CapType } from 'src/components/caps/helper';
 
 interface ReserveActionsProps {
   underlyingAsset: string;
@@ -46,7 +47,7 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
 
   const { currentAccount, loading: web3Loading } = useWeb3Context();
   const { reserves, user, isUserHasDeposits, loading: loadingReserves } = useAppDataContext();
-  const { walletBalances, loading: loadingBalance } = useWalletBalances();
+  const { loading: loadingBalance } = useWalletBalances();
 
   if (!currentAccount)
     return (
@@ -172,7 +173,7 @@ export const BorrowActions = ({ underlyingAsset }: ReserveActionsProps) => {
             }}
           >
             <Trans>Available to borrow</Trans>
-            <AvailableTooltip />{' '}
+            <AvailableTooltip capType={CapType.borrowCap} />{' '}
           </Box>
         }
         mb={1}

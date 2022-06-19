@@ -28,8 +28,7 @@ interface ReserveTopDetailsProps {
 export const ReserveTopDetails = ({ underlyingAsset }: ReserveTopDetailsProps) => {
   const router = useRouter();
   const { reserves, loading } = useAppDataContext();
-  const { currentMarket, currentNetworkConfig } = useProtocolDataContext();
-  // const { market, network } = getMarketInfoById(currentMarket);
+  const { currentNetworkConfig } = useProtocolDataContext();
 
   const theme = useTheme();
   const downToSM = useMediaQuery(theme.breakpoints.down('sm'));

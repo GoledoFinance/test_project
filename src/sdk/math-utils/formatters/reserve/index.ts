@@ -6,7 +6,7 @@ import {
   valueToBigNumber,
   valueToZDBigNumber,
 } from '../../bignumber';
-import { RAY_DECIMALS, SECONDS_PER_YEAR, USD_DECIMALS } from '../../constants';
+import { RAY_DECIMALS, SECONDS_PER_YEAR } from '../../constants';
 import { LTV_PRECISION, RAY, rayPow } from '../../index';
 import {
   calculateReserveIncentives,

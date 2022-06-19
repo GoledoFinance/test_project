@@ -1,4 +1,4 @@
-import { normalize, UserIncentiveData, valueToBigNumber } from '@goledo-sdk/math-utils';
+import { valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import * as React from 'react';
@@ -19,21 +19,21 @@ import { LiquidationRiskParametresInfoModal } from './LiquidationRiskParametresM
 import WalletIcon from '../../../public/icons/markets/wallet-icon.svg';
 import NetAPYIcon from '../../../public/icons/markets/net-apy-icon.svg';
 import EmptyHeartIcon from '../../../public/icons/markets/empty-heart-icon.svg';
-import ClaimGiftIcon from '../../../public/icons/markets/claim-gift-icon.svg';
+// import ClaimGiftIcon from '../../../public/icons/markets/claim-gift-icon.svg';
 
 import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
-import { RewardsTooltip } from 'src/components/infoTooltips/RewardsTooltip';
+// import { RewardsTooltip } from 'src/components/infoTooltips/RewardsTooltip';
 
 export const DashboardTopPanel = () => {
-  const { currentNetworkConfig, currentMarketData } = useProtocolDataContext();
-  const { user, reserves, loading } = useAppDataContext();
+  const { currentNetworkConfig } = useProtocolDataContext();
+  const { user, loading } = useAppDataContext();
   const { currentAccount } = useWeb3Context();
   const [open, setOpen] = useState(false);
 
   const theme = useTheme();
   const downToSM = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const { claimableRewardsUsd } = Object.keys(user.calculatedUserIncentives).reduce(
+  /*const { claimableRewardsUsd } = Object.keys(user.calculatedUserIncentives).reduce(
     (acc, rewardTokenAddress) => {
       const incentive: UserIncentiveData = user.calculatedUserIncentives[rewardTokenAddress];
       const rewardBalance = normalize(incentive.claimableRewards, incentive.rewardTokenDecimals);
@@ -63,7 +63,7 @@ export const DashboardTopPanel = () => {
       return acc;
     },
     { claimableRewardsUsd: 0, assets: [] } as { claimableRewardsUsd: number; assets: string[] }
-  );
+  );*/
 
   const loanToValue =
     user?.totalCollateralMarketReferenceCurrency === '0'
@@ -144,7 +144,7 @@ export const DashboardTopPanel = () => {
 
         {/* TODO: need to show? */}
         {/* {currentAccount && claimableRewardsUsd > 0 && ( */}
-        <TopInfoPanelItem
+        {/*<TopInfoPanelItem
           icon={<ClaimGiftIcon />}
           title={
             <div style={{ display: 'flex' }}>
@@ -175,7 +175,7 @@ export const DashboardTopPanel = () => {
               />
             </Box>
           </Box>
-        </TopInfoPanelItem>
+        </TopInfoPanelItem>*/}
         {/* )} */}
       </TopInfoPanel>
 

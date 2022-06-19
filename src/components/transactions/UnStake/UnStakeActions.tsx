@@ -4,6 +4,7 @@ import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
 import { useTransactionHandler } from '../../../helpers/useTransactionHandler';
 import { useStakeTxBuilderContext } from 'src/hooks/useStakeTxBuilder';
 import { TxActionsWrapper } from '../TxActionsWrapper';
+import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
 export interface UnStakeActionProps extends BoxProps {
   amountToUnStake: string;
@@ -24,11 +25,17 @@ export const UnStakeActions = ({
   ...props
 }: UnStakeActionProps) => {
   const { currentAccount } = useWeb3Context();
-  const stakingService = useStakeTxBuilderContext(selectedToken);
+  const { currentMarketData } = useProtocolDataContext();
+  const { masterChef } = useStakeTxBuilderContext(selectedToken);
 
   const { action, loadingTxns, mainTxState, requiresApproval } = useTransactionHandler({
     handleGetTxns: async () => {
-      return stakingService.redeem(currentAccount, amountToUnStake.toString());
+      return masterChef.withdraw({
+        user: currentAccount,
+        token: selectedToken,
+        amount: amountToUnStake,
+        masterChefAddress: currentMarketData.addresses.MASTER_CHEF,
+      });
     },
     skip: !amountToUnStake || parseFloat(amountToUnStake) === 0 || blocked,
     deps: [amountToUnStake],

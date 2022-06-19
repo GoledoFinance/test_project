@@ -37,10 +37,7 @@ export function calculateHFAfterSwap({
   toAssetData,
   user,
 }: CalculateHFAfterSwapProps) {
-  const reserveLiquidationThreshold =
-    user.isInEmode && user.userEmodeCategoryId === fromAssetData.eModeCategoryId
-      ? fromAssetData.formattedEModeLiquidationThreshold
-      : fromAssetData.formattedReserveLiquidationThreshold;
+  const reserveLiquidationThreshold = fromAssetData.formattedReserveLiquidationThreshold;
 
   // hf indicating how the state would be if we withdrew this amount.
   // this is needed because on contracts hf can't be < 1 so in the case
@@ -61,7 +58,7 @@ export function calculateHFAfterSwap({
   // HF after swap (same as supply calcs as it needs to calculate as if we where supplying new reserve)
   let hfEffectOfToAmount = '0';
   if (
-    (!user.isInIsolationMode && !toAssetData.isIsolated) ||
+    !user.isInIsolationMode ||
     (user.isInIsolationMode &&
       user.isolatedReserve?.underlyingAsset === toAssetData.underlyingAsset)
   ) {
@@ -93,10 +90,7 @@ export const calculateHFAfterRepay = ({
   debt,
 }: CalculateHFAfterSwapRepayProps) => {
   // it takes into account if in emode as threshold is different
-  const reserveLiquidationThreshold =
-    user.isInEmode && user.userEmodeCategoryId === fromAssetData.eModeCategoryId
-      ? fromAssetData.formattedEModeLiquidationThreshold
-      : fromAssetData.formattedReserveLiquidationThreshold;
+  const reserveLiquidationThreshold = fromAssetData.formattedReserveLiquidationThreshold;
 
   // hf indicating how the state would be if we withdrew this amount.
   // this is needed because on contracts hf can't be < 1 so in the case
