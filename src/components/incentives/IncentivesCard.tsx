@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
+import { ReserveIncentiveData } from 'src/hooks/app-data-provider/useAppDataProvider';
 
-import { ReserveIncentiveResponse } from '../../hooks/app-data-provider/useIncentiveData';
 import { FormattedNumber } from '../primitives/FormattedNumber';
 import { NoData } from '../primitives/NoData';
 import { IncentivesButton } from './IncentivesButton';
@@ -8,7 +8,7 @@ import { IncentivesButton } from './IncentivesButton';
 interface IncentivesCardProps {
   symbol: string;
   value: string | number;
-  incentives?: ReserveIncentiveResponse[];
+  incentives?: ReserveIncentiveData;
   variant?: 'main14' | 'main16' | 'secondary14';
   symbolsVariant?: 'secondary14' | 'secondary16';
   align?: 'center' | 'flex-end';

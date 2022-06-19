@@ -17,7 +17,7 @@ import {
 } from './graphql/hooks';
 
 // interval in which the rpc data is refreshed
-const POLLING_INTERVAL = 30 * 1000;
+const POLLING_INTERVAL = 10 * 1000;
 
 export interface PoolDataResponse {
   loading: boolean;

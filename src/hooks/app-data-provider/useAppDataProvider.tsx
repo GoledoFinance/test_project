@@ -45,6 +45,42 @@ export type ExtendedFormattedUser = FormatUserSummaryAndIncentivesResponse<Compu
   userEmodeCategoryId: number;
 };
 
+export interface RewardInfo {
+  emissionEndTimestamp: number;
+  emissionPerSecond: string;
+  priceFeedDecimals: number;
+  rewardOracleAddress: string;
+  rewardPriceFeed: string;
+  rewardTokenAddress: string;
+  rewardTokenDecimals: number;
+  rewardTokenSymbol: string;
+}
+
+export interface ReserveIncentiveData {
+  rewardsTokenInformation: Array<RewardInfo>;
+  tokenAddress: string;
+  tokenSymbol: string;
+  tokenDecimals: number;
+  totalStakedBalance: string;
+}
+
+export interface UserRewardInfo {
+  priceFeedDecimals: number;
+  rewardOracleAddress: string;
+  rewardPriceFeed: string;
+  rewardTokenAddress: string;
+  rewardTokenDecimals: number;
+  rewardTokenSymbol: string;
+  userUnclaimedRewards: string;
+}
+
+export interface UserIncentiveData {
+  tokenAddress: string;
+  userStakedBalance: string;
+  userWalletBalance: string;
+  userRewardsInformation: Array<UserRewardInfo>;
+}
+
 export interface AppDataContextType {
   loading: boolean;
   reserves: ComputedReserveData[];
@@ -57,6 +93,9 @@ export interface AppDataContextType {
   marketReferencePriceInUsd: string;
   marketReferenceCurrencyDecimals: number;
   userReserves: UserReserveData[];
+  reservesIncentives: ReserveIncentiveData[];
+  userReserveIncentives: UserIncentiveData[];
+  userMasterChefIncentives: UserIncentiveData[];
 }
 
 const AppDataContext = React.createContext<AppDataContextType>({} as AppDataContextType);
@@ -110,7 +149,7 @@ export const AppDataProvider: React.FC = ({ children }) => {
     currentTimestamp,
     marketReferenceCurrencyDecimals: 18,
     marketReferencePriceInUsd: marketReferencePriceInUsd,
-    reserveIncentives: reservesIncentivesData?.reservesIncentives || [],
+    reserveIncentives: [],
   })
     .map((r) => ({
       ...r,
@@ -131,8 +170,8 @@ export const AppDataProvider: React.FC = ({ children }) => {
     userReserves,
     formattedReserves: formattedPoolReserves,
     userEmodeCategoryId: userEmodeCategoryId,
-    reserveIncentives: reservesIncentivesData?.reservesIncentives || [],
-    userIncentives: userReservesIncentivesData?.userIncentives || [],
+    reserveIncentives: [],
+    userIncentives: [],
   });
 
   const proportions = user.userReservesData.reduce(
@@ -224,6 +263,43 @@ export const AppDataProvider: React.FC = ({ children }) => {
         isUserHasDeposits,
         marketReferencePriceInUsd: marketReferencePriceInUsd,
         marketReferenceCurrencyDecimals: 18,
+        reservesIncentives:
+          reservesIncentivesData && reservesIncentivesData.reservesIncentives
+            ? reservesIncentivesData.reservesIncentives.map(({ data }) => ({
+                rewardsTokenInformation: data.rewardsTokenInformation.map((v) => ({
+                  emissionEndTimestamp: v.emissionEndTimestamp,
+                  emissionPerSecond: v.emissionPerSecond,
+                  priceFeedDecimals: v.priceFeedDecimals,
+                  rewardOracleAddress: v.rewardOracleAddress,
+                  rewardPriceFeed: v.rewardPriceFeed,
+                  rewardTokenAddress: v.rewardTokenAddress,
+                  rewardTokenDecimals: v.rewardTokenDecimals,
+                  rewardTokenSymbol: v.rewardTokenSymbol,
+                })),
+                tokenAddress: data.tokenAddress,
+                tokenSymbol: data.tokenSymbol,
+                tokenDecimals: data.tokenDecimals,
+                totalStakedBalance: data.totalStakedBalance,
+              }))
+            : [],
+        userReserveIncentives:
+          userReservesIncentivesData && userReservesIncentivesData.userIncentives
+            ? userReservesIncentivesData.userIncentives.map(({ data }) => ({
+                tokenAddress: data.tokenAddress,
+                userStakedBalance: data.userStakedBalance,
+                userWalletBalance: data.userWalletBalance,
+                userRewardsInformation: data.userRewardsInformation.map((v) => ({
+                  priceFeedDecimals: v.priceFeedDecimals,
+                  rewardOracleAddress: v.rewardOracleAddress,
+                  rewardPriceFeed: v.rewardPriceFeed,
+                  rewardTokenAddress: v.rewardTokenAddress,
+                  rewardTokenDecimals: v.rewardTokenDecimals,
+                  rewardTokenSymbol: v.rewardTokenSymbol,
+                  userUnclaimedRewards: v.userUnclaimedRewards,
+                })),
+              }))
+            : [],
+        userMasterChefIncentives: [],
       }}
     >
       {children}

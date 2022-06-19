@@ -21,7 +21,7 @@ import { SupplyAssetsListMobileItem } from './SupplyAssetsListMobileItem';
 
 export const SupplyAssetsList = () => {
   const { currentNetworkConfig } = useProtocolDataContext();
-  const { reserves, loading: loadingReserves } = useAppDataContext();
+  const { reserves, loading: loadingReserves, reservesIncentives } = useAppDataContext();
   const { walletBalances, loading } = useWalletBalances();
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
@@ -180,9 +180,13 @@ export const SupplyAssetsList = () => {
         {!downToXSM && <ListHeader head={head} />}
         {supplyReserves.map((item, index) =>
           downToXSM ? (
-            <SupplyAssetsListMobileItem {...item} key={index} />
+            <SupplyAssetsListMobileItem
+              {...item}
+              reservesIncentives={reservesIncentives}
+              key={index}
+            />
           ) : (
-            <SupplyAssetsListItem {...item} key={index} />
+            <SupplyAssetsListItem {...item} reservesIncentives={reservesIncentives} key={index} />
           )
         )}
       </>

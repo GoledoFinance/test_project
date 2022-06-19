@@ -1,63 +1,51 @@
-import { IncentiveDataHumanized, IncentiveDataProvider } from '@goledo-sdk/contract-helpers';
-import { useState } from 'react';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
-import { getProvider } from 'src/utils/marketsAndNetworksConfig';
 
 import { useConnectionStatusContext } from '../useConnectionStatusContext';
 import { useModalContext } from '../useModal';
-import { usePolling } from '../usePolling';
 import { useProtocolDataContext } from '../useProtocolDataContext';
-
-const POLLING_INTERVAL = 30 * 1000;
+import { useRewardDataCached } from './useRewardDataCached';
+import { useRewardDataRPC } from './useRewardDataRPC';
 
 export const useRewardData = () => {
   const { currentAccount } = useWeb3Context();
   const { mainTxState } = useModalContext();
-  const { currentMarketData, currentChainId } = useProtocolDataContext();
+  const { currentMarketData, currentChainId, currentMarket } = useProtocolDataContext();
   const { isRPCActive } = useConnectionStatusContext();
-  const { connected } = useWeb3Context();
-
-  const [loadingRewardData, setLoadingRewardData] = useState<boolean>(true);
-  const [errorRewardData, setErrorRewardData] = useState<boolean>(false);
-  const [data, setData] = useState<IncentiveDataHumanized>();
 
   const rpcMode =
     isRPCActive || !currentMarketData.cachingWSServerUrl || !currentMarketData.cachingServerUrl;
 
   const txLoading = mainTxState.loading === true;
 
-  const fetchRewardData = async () => {
-    const provider = getProvider(currentChainId);
-
-    try {
-      setLoadingRewardData(true);
-      const incentiveDataProviderContract = new IncentiveDataProvider({
-        incentiveDataProviderAddress: currentMarketData.addresses.INCENTIVE_DATA_PROVIDER,
-        provider,
-        chainId: currentChainId,
-      });
-      const reservesResponse = await incentiveDataProviderContract.getUserIncentiveHumanized({
-        user: currentAccount,
-      });
-      setData(reservesResponse);
-      setErrorRewardData(false);
-    } catch (e) {
-      console.log('e', e);
-      setErrorRewardData(e.message);
-    }
-    setLoadingRewardData(false);
-  };
-
-  usePolling(fetchRewardData, POLLING_INTERVAL, !rpcMode || txLoading, [
-    connected,
+  const { loading: cachedDataLoading } = useRewardDataCached(
+    currentMarketData.addresses.LENDING_POOL_ADDRESS_PROVIDER,
     currentChainId,
-    rpcMode,
-    txLoading,
-  ]);
+    currentMarket,
+    currentAccount,
+    rpcMode || mainTxState.loading
+  );
+
+  const {
+    error: rpcDataError,
+    loading: rpcDataLoading,
+    refresh,
+  } = useRewardDataRPC(
+    currentMarketData.addresses.INCENTIVE_DATA_PROVIDER,
+    currentMarketData.addresses.LENDING_POOL_ADDRESS_PROVIDER,
+    currentChainId,
+    !rpcMode || txLoading,
+    currentAccount
+  );
+
+  if (rpcMode) {
+    return {
+      loading: rpcDataLoading,
+      error: rpcDataError,
+      refresh,
+    };
+  }
 
   return {
-    loading: loadingRewardData,
-    error: errorRewardData,
-    data,
+    loading: cachedDataLoading,
   };
 };

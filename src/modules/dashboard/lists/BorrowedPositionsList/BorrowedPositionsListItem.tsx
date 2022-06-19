@@ -4,7 +4,10 @@ import { Button } from '@mui/material';
 import { useModalContext } from 'src/hooks/useModal';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
-import { ComputedUserReserveData } from '../../../../hooks/app-data-provider/useAppDataProvider';
+import {
+  ComputedUserReserveData,
+  ReserveIncentiveData,
+} from '../../../../hooks/app-data-provider/useAppDataProvider';
 import { ListAPRColumn } from '../ListAPRColumn';
 import { ListButtonsColumn } from '../ListButtonsColumn';
 import { ListItemWrapper } from '../ListItemWrapper';
@@ -18,17 +21,17 @@ export const BorrowedPositionsListItem = ({
   stableBorrowsUSD,
   borrowRateMode,
   stableBorrowAPY,
-}: ComputedUserReserveData & { borrowRateMode: InterestRate }) => {
+  reservesIncentives,
+}: ComputedUserReserveData & {
+  borrowRateMode: InterestRate;
+  reservesIncentives: ReserveIncentiveData[];
+}) => {
   const { openBorrow, openRepay } = useModalContext();
   const { currentMarket } = useProtocolDataContext();
-  const {
-    isActive,
-    isFrozen,
-    borrowingEnabled,
-    sIncentivesData,
-    vIncentivesData,
-    variableBorrowAPY,
-  } = reserve;
+  const { isActive, isFrozen, borrowingEnabled, variableBorrowAPY } = reserve;
+  const incentives = reservesIncentives.find(
+    (x) => x.tokenAddress.toLowerCase() === reserve.variableDebtTokenAddress.toLowerCase()
+  );
 
   return (
     <ListItemWrapper
@@ -51,22 +54,9 @@ export const BorrowedPositionsListItem = ({
         value={Number(
           borrowRateMode === InterestRate.Variable ? variableBorrowAPY : stableBorrowAPY
         )}
-        incentives={borrowRateMode === InterestRate.Variable ? vIncentivesData : sIncentivesData}
+        incentives={incentives}
         symbol={reserve.symbol}
       />
-
-      {/*<ListColumn>
-        <ListItemAPYButton
-          stableBorrowRateEnabled={stableBorrowRateEnabled}
-          borrowRateMode={borrowRateMode}
-          disabled={!stableBorrowRateEnabled || isFrozen || !isActive}
-          onClick={() => openRateSwitch(reserve.underlyingAsset, borrowRateMode)}
-          stableBorrowAPY={reserve.stableBorrowAPY}
-          variableBorrowAPY={reserve.variableBorrowAPY}
-          underlyingAsset={reserve.underlyingAsset}
-          currentMarket={currentMarket}
-        />
-        </ListColumn>*/}
 
       <ListButtonsColumn>
         <Button

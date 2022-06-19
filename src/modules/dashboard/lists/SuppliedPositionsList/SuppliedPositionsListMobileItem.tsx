@@ -6,6 +6,7 @@ import { Row } from '../../../../components/primitives/Row';
 import {
   ComputedUserReserveData,
   ExtendedFormattedUser,
+  ReserveIncentiveData,
 } from '../../../../hooks/app-data-provider/useAppDataProvider';
 import { useModalContext } from '../../../../hooks/useModal';
 import { useProtocolDataContext } from '../../../../hooks/useProtocolDataContext';
@@ -20,11 +21,17 @@ export const SuppliedPositionsListMobileItem = ({
   underlyingBalanceUSD,
   usageAsCollateralEnabledOnUser,
   underlyingAsset,
-}: ComputedUserReserveData & { user: ExtendedFormattedUser }) => {
-  const { symbol, iconSymbol, name, supplyAPY, aIncentivesData, isActive } = reserve;
+  reservesIncentives,
+}: ComputedUserReserveData & {
+  user: ExtendedFormattedUser;
+  reservesIncentives: ReserveIncentiveData[];
+}) => {
+  const { symbol, iconSymbol, name, supplyAPY, isActive } = reserve;
   const { currentMarket } = useProtocolDataContext();
   const { openWithdraw, openCollateralChange } = useModalContext();
-  // const isSwapButton = isFeatureEnabled.liquiditySwap(currentMarketData);
+  const incentives = reservesIncentives.find(
+    (x) => x.tokenAddress.toLowerCase() === reserve.aTokenAddress.toLowerCase()
+  );
 
   const isIsolated = false;
 
@@ -53,7 +60,7 @@ export const SuppliedPositionsListMobileItem = ({
       >
         <IncentivesCard
           value={Number(supplyAPY)}
-          incentives={aIncentivesData}
+          incentives={incentives}
           symbol={symbol}
           variant="secondary14"
         />

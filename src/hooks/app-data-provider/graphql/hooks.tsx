@@ -25,11 +25,13 @@ export type BaseCurrencyData = {
   networkBaseTokenPriceInUsd: Scalars['String'];
 };
 
-export type IncentiveData = {
-  __typename?: 'IncentiveData';
-  incentiveControllerAddress: Scalars['String'];
+export type ReserveIncentiveData = {
+  __typename?: 'ReserveIncentiveData';
   rewardsTokenInformation: Array<RewardInfo>;
   tokenAddress: Scalars['String'];
+  tokenSymbol: Scalars['String'];
+  tokenDecimals: Scalars['Int'];
+  totalStakedBalance: Scalars['String'];
 };
 
 export type ProtocolData = {
@@ -43,11 +45,11 @@ export type Query = {
   __typename?: 'Query';
   ping: Scalars['String'];
   protocolData: ProtocolData;
-  reservesIncentives: Array<ReserveIncentivesData>;
+  reservesIncentives: Array<ReserveIncentiveData>;
   stakeGeneralUIData: StakeGeneralUiData;
   stakeUserUIData: StakeUserUiData;
   userData: UserReservesData;
-  userIncentives: Array<UserIncentivesData>;
+  userIncentives: Array<UserIncentiveData>;
 };
 
 export type QueryProtocolDataArgs = {
@@ -126,28 +128,16 @@ export type ReserveData = {
   variableRateSlope2: Scalars['String'];
 };
 
-export type ReserveIncentivesData = {
-  __typename?: 'ReserveIncentivesData';
-  aIncentiveData: IncentiveData;
-  id: Scalars['String'];
-  sIncentiveData: IncentiveData;
-  underlyingAsset: Scalars['String'];
-  vIncentiveData: IncentiveData;
-};
-
 export type RewardInfo = {
   __typename?: 'RewardInfo';
   emissionEndTimestamp: Scalars['Float'];
   emissionPerSecond: Scalars['String'];
-  incentivesLastUpdateTimestamp: Scalars['Float'];
-  precision: Scalars['Float'];
   priceFeedDecimals: Scalars['Float'];
   rewardOracleAddress: Scalars['String'];
   rewardPriceFeed: Scalars['String'];
   rewardTokenAddress: Scalars['String'];
   rewardTokenDecimals: Scalars['Float'];
   rewardTokenSymbol: Scalars['String'];
-  tokenIncentivesIndex: Scalars['String'];
 };
 
 export type StakeGeneralData = {
@@ -178,6 +168,14 @@ export type StakeUserData = {
   userPermitNonce: Scalars['String'];
 };
 
+export type GoledoStakeUserData = {
+  __typename?: 'GoledoStakeUserData';
+  userLockedBalance: Scalars['String'];
+  userStakedBalance: Scalars['String'];
+  userVestedBalance: Scalars['String'];
+  userWalletBalance: Scalars['String'];
+};
+
 export type StakeUserUiData = {
   __typename?: 'StakeUserUIData';
   aave: StakeUserData;
@@ -187,12 +185,12 @@ export type StakeUserUiData = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  poolIncentivesDataUpdate: Array<ReserveIncentivesData>;
+  poolIncentivesDataUpdate: Array<ReserveIncentiveData>;
   protocolDataUpdate: ProtocolData;
   stakeGeneralUIDataUpdate: StakeGeneralUiData;
   stakeUserUIDataUpdate: StakeUserUiData;
   userDataUpdate: UserReservesData;
-  userPoolIncentivesDataUpdate: Array<UserIncentivesData>;
+  userPoolIncentivesDataUpdate: Array<UserIncentiveData>;
 };
 
 export type SubscriptionPoolIncentivesDataUpdateArgs = {
@@ -224,18 +222,10 @@ export type SubscriptionUserPoolIncentivesDataUpdateArgs = {
 
 export type UserIncentiveData = {
   __typename?: 'UserIncentiveData';
-  incentiveControllerAddress: Scalars['String'];
   tokenAddress: Scalars['String'];
+  userStakedBalance: Scalars['String'];
+  userWalletBalance: Scalars['String'];
   userRewardsInformation: Array<UserRewardInfo>;
-};
-
-export type UserIncentivesData = {
-  __typename?: 'UserIncentivesData';
-  aTokenIncentivesUserData: UserIncentiveData;
-  id: Scalars['String'];
-  sTokenIncentivesUserData: UserIncentiveData;
-  underlyingAsset: Scalars['String'];
-  vTokenIncentivesUserData: UserIncentiveData;
 };
 
 export type UserReserveData = {
@@ -264,22 +254,20 @@ export type UserRewardInfo = {
   rewardTokenAddress: Scalars['String'];
   rewardTokenDecimals: Scalars['Float'];
   rewardTokenSymbol: Scalars['String'];
-  tokenIncentivesUserIndex: Scalars['String'];
   userUnclaimedRewards: Scalars['String'];
 };
 
 export type IncentivesDataFragmentFragment = {
   __typename?: 'IncentiveData';
-  incentiveControllerAddress: string;
   tokenAddress: string;
+  tokenSymbol: string;
+  tokenDecimals: number;
+  totalStakedBalance: string;
   rewardsTokenInformation: Array<{
     __typename?: 'RewardInfo';
     emissionEndTimestamp: number;
     emissionPerSecond: string;
-    incentivesLastUpdateTimestamp: number;
-    precision: number;
     priceFeedDecimals: number;
-    tokenIncentivesIndex: string;
     rewardPriceFeed: string;
     rewardTokenAddress: string;
     rewardTokenDecimals: number;
@@ -296,59 +284,19 @@ export type C_ReservesIncentivesQueryVariables = Exact<{
 export type C_ReservesIncentivesQuery = {
   __typename?: 'Query';
   reservesIncentives: Array<{
-    __typename?: 'ReserveIncentivesData';
+    __typename?: 'ReserveIncentiveData';
     id: string;
-    underlyingAsset: string;
-    aIncentiveData: {
+    data: {
       __typename?: 'IncentiveData';
-      incentiveControllerAddress: string;
       tokenAddress: string;
+      tokenSymbol: string;
+      tokenDecimals: number;
+      totalStakedBalance: string;
       rewardsTokenInformation: Array<{
         __typename?: 'RewardInfo';
         emissionEndTimestamp: number;
         emissionPerSecond: string;
-        incentivesLastUpdateTimestamp: number;
-        precision: number;
         priceFeedDecimals: number;
-        tokenIncentivesIndex: string;
-        rewardPriceFeed: string;
-        rewardTokenAddress: string;
-        rewardTokenDecimals: number;
-        rewardOracleAddress: string;
-        rewardTokenSymbol: string;
-      }>;
-    };
-    vIncentiveData: {
-      __typename?: 'IncentiveData';
-      incentiveControllerAddress: string;
-      tokenAddress: string;
-      rewardsTokenInformation: Array<{
-        __typename?: 'RewardInfo';
-        emissionEndTimestamp: number;
-        emissionPerSecond: string;
-        incentivesLastUpdateTimestamp: number;
-        precision: number;
-        priceFeedDecimals: number;
-        tokenIncentivesIndex: string;
-        rewardPriceFeed: string;
-        rewardTokenAddress: string;
-        rewardTokenDecimals: number;
-        rewardOracleAddress: string;
-        rewardTokenSymbol: string;
-      }>;
-    };
-    sIncentiveData: {
-      __typename?: 'IncentiveData';
-      incentiveControllerAddress: string;
-      tokenAddress: string;
-      rewardsTokenInformation: Array<{
-        __typename?: 'RewardInfo';
-        emissionEndTimestamp: number;
-        emissionPerSecond: string;
-        incentivesLastUpdateTimestamp: number;
-        precision: number;
-        priceFeedDecimals: number;
-        tokenIncentivesIndex: string;
         rewardPriceFeed: string;
         rewardTokenAddress: string;
         rewardTokenDecimals: number;
@@ -367,59 +315,19 @@ export type C_PoolIncentivesDataUpdateSubscriptionVariables = Exact<{
 export type C_PoolIncentivesDataUpdateSubscription = {
   __typename?: 'Subscription';
   poolIncentivesDataUpdate: Array<{
-    __typename?: 'ReserveIncentivesData';
+    __typename?: 'ReserveIncentiveData';
     id: string;
-    underlyingAsset: string;
-    aIncentiveData: {
+    data: {
       __typename?: 'IncentiveData';
-      incentiveControllerAddress: string;
       tokenAddress: string;
+      tokenSymbol: string;
+      tokenDecimals: number;
+      totalStakedBalance: string;
       rewardsTokenInformation: Array<{
         __typename?: 'RewardInfo';
         emissionEndTimestamp: number;
         emissionPerSecond: string;
-        incentivesLastUpdateTimestamp: number;
-        precision: number;
         priceFeedDecimals: number;
-        tokenIncentivesIndex: string;
-        rewardPriceFeed: string;
-        rewardTokenAddress: string;
-        rewardTokenDecimals: number;
-        rewardOracleAddress: string;
-        rewardTokenSymbol: string;
-      }>;
-    };
-    vIncentiveData: {
-      __typename?: 'IncentiveData';
-      incentiveControllerAddress: string;
-      tokenAddress: string;
-      rewardsTokenInformation: Array<{
-        __typename?: 'RewardInfo';
-        emissionEndTimestamp: number;
-        emissionPerSecond: string;
-        incentivesLastUpdateTimestamp: number;
-        precision: number;
-        priceFeedDecimals: number;
-        tokenIncentivesIndex: string;
-        rewardPriceFeed: string;
-        rewardTokenAddress: string;
-        rewardTokenDecimals: number;
-        rewardOracleAddress: string;
-        rewardTokenSymbol: string;
-      }>;
-    };
-    sIncentiveData: {
-      __typename?: 'IncentiveData';
-      incentiveControllerAddress: string;
-      tokenAddress: string;
-      rewardsTokenInformation: Array<{
-        __typename?: 'RewardInfo';
-        emissionEndTimestamp: number;
-        emissionPerSecond: string;
-        incentivesLastUpdateTimestamp: number;
-        precision: number;
-        priceFeedDecimals: number;
-        tokenIncentivesIndex: string;
         rewardPriceFeed: string;
         rewardTokenAddress: string;
         rewardTokenDecimals: number;
@@ -654,14 +562,14 @@ export type C_UserDataUpdateSubscription = {
 export type TokenIncentivesUserDataFragmentFragment = {
   __typename?: 'UserIncentiveData';
   tokenAddress: string;
-  incentiveControllerAddress: string;
+  userStakedBalance: string;
+  userWalletBalance: string;
   userRewardsInformation: Array<{
     __typename?: 'UserRewardInfo';
     rewardTokenSymbol: string;
     rewardOracleAddress: string;
     rewardTokenAddress: string;
     userUnclaimedRewards: string;
-    tokenIncentivesUserIndex: string;
     rewardPriceFeed: string;
     priceFeedDecimals: number;
     rewardTokenDecimals: number;
@@ -679,50 +587,17 @@ export type C_UserIncentivesQuery = {
   userIncentives: Array<{
     __typename?: 'UserIncentivesData';
     id: string;
-    underlyingAsset: string;
-    aTokenIncentivesUserData: {
+    data: {
       __typename?: 'UserIncentiveData';
       tokenAddress: string;
-      incentiveControllerAddress: string;
+      userStakedBalance: string;
+      userWalletBalance: string;
       userRewardsInformation: Array<{
         __typename?: 'UserRewardInfo';
         rewardTokenSymbol: string;
         rewardOracleAddress: string;
         rewardTokenAddress: string;
         userUnclaimedRewards: string;
-        tokenIncentivesUserIndex: string;
-        rewardPriceFeed: string;
-        priceFeedDecimals: number;
-        rewardTokenDecimals: number;
-      }>;
-    };
-    vTokenIncentivesUserData: {
-      __typename?: 'UserIncentiveData';
-      tokenAddress: string;
-      incentiveControllerAddress: string;
-      userRewardsInformation: Array<{
-        __typename?: 'UserRewardInfo';
-        rewardTokenSymbol: string;
-        rewardOracleAddress: string;
-        rewardTokenAddress: string;
-        userUnclaimedRewards: string;
-        tokenIncentivesUserIndex: string;
-        rewardPriceFeed: string;
-        priceFeedDecimals: number;
-        rewardTokenDecimals: number;
-      }>;
-    };
-    sTokenIncentivesUserData: {
-      __typename?: 'UserIncentiveData';
-      tokenAddress: string;
-      incentiveControllerAddress: string;
-      userRewardsInformation: Array<{
-        __typename?: 'UserRewardInfo';
-        rewardTokenSymbol: string;
-        rewardOracleAddress: string;
-        rewardTokenAddress: string;
-        userUnclaimedRewards: string;
-        tokenIncentivesUserIndex: string;
         rewardPriceFeed: string;
         priceFeedDecimals: number;
         rewardTokenDecimals: number;
@@ -742,50 +617,17 @@ export type C_UserPoolIncentivesDataUpdateSubscription = {
   userPoolIncentivesDataUpdate: Array<{
     __typename?: 'UserIncentivesData';
     id: string;
-    underlyingAsset: string;
-    aTokenIncentivesUserData: {
+    data: {
       __typename?: 'UserIncentiveData';
       tokenAddress: string;
-      incentiveControllerAddress: string;
+      userStakedBalance: string;
+      userWalletBalance: string;
       userRewardsInformation: Array<{
         __typename?: 'UserRewardInfo';
         rewardTokenSymbol: string;
         rewardOracleAddress: string;
         rewardTokenAddress: string;
         userUnclaimedRewards: string;
-        tokenIncentivesUserIndex: string;
-        rewardPriceFeed: string;
-        priceFeedDecimals: number;
-        rewardTokenDecimals: number;
-      }>;
-    };
-    vTokenIncentivesUserData: {
-      __typename?: 'UserIncentiveData';
-      tokenAddress: string;
-      incentiveControllerAddress: string;
-      userRewardsInformation: Array<{
-        __typename?: 'UserRewardInfo';
-        rewardTokenSymbol: string;
-        rewardOracleAddress: string;
-        rewardTokenAddress: string;
-        userUnclaimedRewards: string;
-        tokenIncentivesUserIndex: string;
-        rewardPriceFeed: string;
-        priceFeedDecimals: number;
-        rewardTokenDecimals: number;
-      }>;
-    };
-    sTokenIncentivesUserData: {
-      __typename?: 'UserIncentiveData';
-      tokenAddress: string;
-      incentiveControllerAddress: string;
-      userRewardsInformation: Array<{
-        __typename?: 'UserRewardInfo';
-        rewardTokenSymbol: string;
-        rewardOracleAddress: string;
-        rewardTokenAddress: string;
-        userUnclaimedRewards: string;
-        tokenIncentivesUserIndex: string;
         rewardPriceFeed: string;
         priceFeedDecimals: number;
         rewardTokenDecimals: number;
@@ -796,15 +638,14 @@ export type C_UserPoolIncentivesDataUpdateSubscription = {
 
 export const IncentivesDataFragmentFragmentDoc = gql`
   fragment IncentivesDataFragment on IncentiveData {
-    incentiveControllerAddress
     tokenAddress
+    tokenSymbol
+    tokenDecimals
+    totalStakedBalance
     rewardsTokenInformation {
       emissionEndTimestamp
       emissionPerSecond
-      incentivesLastUpdateTimestamp
-      precision
       priceFeedDecimals
-      tokenIncentivesIndex
       rewardPriceFeed
       rewardTokenAddress
       rewardTokenDecimals
@@ -874,13 +715,13 @@ export const UserReserveDataFragmentFragmentDoc = gql`
 export const TokenIncentivesUserDataFragmentFragmentDoc = gql`
   fragment TokenIncentivesUserDataFragment on UserIncentiveData {
     tokenAddress
-    incentiveControllerAddress
+    userStakedBalance
+    userWalletBalance
     userRewardsInformation {
       rewardTokenSymbol
       rewardOracleAddress
       rewardTokenAddress
       userUnclaimedRewards
-      tokenIncentivesUserIndex
       rewardPriceFeed
       priceFeedDecimals
       rewardTokenDecimals
@@ -891,14 +732,7 @@ export const C_ReservesIncentivesDocument = gql`
   query C_ReservesIncentives($lendingPoolAddressProvider: String!, $chainId: Int!) {
     reservesIncentives(lendingPoolAddressProvider: $lendingPoolAddressProvider, chainId: $chainId) {
       id
-      underlyingAsset
-      aIncentiveData {
-        ...IncentivesDataFragment
-      }
-      vIncentiveData {
-        ...IncentivesDataFragment
-      }
-      sIncentiveData {
+      data {
         ...IncentivesDataFragment
       }
     }
@@ -962,14 +796,7 @@ export const C_PoolIncentivesDataUpdateDocument = gql`
       chainId: $chainId
     ) {
       id
-      underlyingAsset
-      aIncentiveData {
-        ...IncentivesDataFragment
-      }
-      vIncentiveData {
-        ...IncentivesDataFragment
-      }
-      sIncentiveData {
+      data {
         ...IncentivesDataFragment
       }
     }
@@ -1242,14 +1069,7 @@ export const C_UserIncentivesDocument = gql`
       chainId: $chainId
     ) {
       id
-      underlyingAsset
-      aTokenIncentivesUserData {
-        ...TokenIncentivesUserDataFragment
-      }
-      vTokenIncentivesUserData {
-        ...TokenIncentivesUserDataFragment
-      }
-      sTokenIncentivesUserData {
+      data {
         ...TokenIncentivesUserDataFragment
       }
     }
@@ -1317,14 +1137,7 @@ export const C_UserPoolIncentivesDataUpdateDocument = gql`
       chainId: $chainId
     ) {
       id
-      underlyingAsset
-      aTokenIncentivesUserData {
-        ...TokenIncentivesUserDataFragment
-      }
-      vTokenIncentivesUserData {
-        ...TokenIncentivesUserDataFragment
-      }
-      sTokenIncentivesUserData {
+      data {
         ...TokenIncentivesUserDataFragment
       }
     }

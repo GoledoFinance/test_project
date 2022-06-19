@@ -2,7 +2,7 @@ import { valueToBigNumber } from '@goledo-sdk/math-utils';
 import { DotsHorizontalIcon } from '@heroicons/react/solid';
 import { Box, SvgIcon, Typography } from '@mui/material';
 import { useState } from 'react';
-import { ReserveIncentiveResponse } from 'src/hooks/app-data-provider/useIncentiveData';
+import { ReserveIncentiveData } from 'src/hooks/app-data-provider/useAppDataProvider';
 
 import { ContentWithTooltip } from '../ContentWithTooltip';
 import { FormattedNumber } from '../primitives/FormattedNumber';
@@ -11,7 +11,7 @@ import { IncentivesTooltipContent } from './IncentivesTooltipContent';
 
 interface IncentivesButtonProps {
   symbol: string;
-  incentives?: ReserveIncentiveResponse[];
+  incentives?: ReserveIncentiveData;
   displayBlank?: boolean;
 }
 
@@ -35,7 +35,7 @@ const BlankIncentives = () => {
 export const IncentivesButton = ({ incentives, symbol, displayBlank }: IncentivesButtonProps) => {
   const [open, setOpen] = useState(false);
 
-  if (!(incentives && incentives.length > 0)) {
+  if (!(incentives && incentives.rewardsTokenInformation.length > 0)) {
     if (displayBlank) {
       return <BlankIncentives />;
     } else {
@@ -43,12 +43,10 @@ export const IncentivesButton = ({ incentives, symbol, displayBlank }: Incentive
     }
   }
 
-  const isIncentivesInfinity = incentives.some(
+  const isIncentivesInfinity = true; /*incentives.some(
     (incentive) => incentive.incentiveAPR === 'Infinity'
-  );
-  const incentivesAPRSum = isIncentivesInfinity
-    ? 'Infinity'
-    : incentives.reduce((aIncentive, bIncentive) => aIncentive + +bIncentive.incentiveAPR, 0);
+  );*/
+  const incentivesAPRSum = isIncentivesInfinity ? 'Infinity' : 1; //incentives.reduce((aIncentive, bIncentive) => aIncentive + +bIncentive.incentiveAPR, 0);
 
   const incentivesNetAPR = isIncentivesInfinity
     ? 'Infinity'
@@ -87,7 +85,7 @@ export const IncentivesButton = ({ incentives, symbol, displayBlank }: Incentive
     } else if (incentivesNetAPR === 'Infinity') {
       return (
         <Typography variant="main12" color="text.secondary">
-          ∞
+          -
         </Typography>
       );
     }
@@ -130,9 +128,9 @@ export const IncentivesButton = ({ incentives, symbol, displayBlank }: Incentive
 
         <Box sx={{ display: 'inline-flex' }}>
           <>
-            {incentives.length < 5 ? (
+            {incentives.rewardsTokenInformation.length < 5 ? (
               <>
-                {incentives.map((incentive) => (
+                {incentives.rewardsTokenInformation.map((incentive) => (
                   <TokenIcon
                     symbol={incentive.rewardTokenSymbol}
                     sx={{ fontSize: `${iconSize}px`, ml: -1 }}
@@ -142,7 +140,7 @@ export const IncentivesButton = ({ incentives, symbol, displayBlank }: Incentive
               </>
             ) : (
               <>
-                {incentives.slice(0, 3).map((incentive) => (
+                {incentives.rewardsTokenInformation.slice(0, 3).map((incentive) => (
                   <TokenIcon
                     symbol={incentive.rewardTokenSymbol}
                     sx={{ fontSize: `${iconSize}px`, ml: -1 }}

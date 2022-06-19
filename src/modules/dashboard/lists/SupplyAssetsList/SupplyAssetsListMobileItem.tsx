@@ -21,7 +21,7 @@ export const SupplyAssetsListMobileItem = ({
   walletBalanceUSD,
   totalLiquidity,
   supplyAPY,
-  aIncentivesData,
+  reservesIncentives,
   usageAsCollateralEnabledOnUser,
   isActive,
   isFreezed,
@@ -30,6 +30,9 @@ export const SupplyAssetsListMobileItem = ({
 }: SupplyAssetsItem) => {
   const { currentMarket } = useProtocolDataContext();
   const { openSupply } = useModalContext();
+  const incentives = reservesIncentives.find(
+    (x) => x.tokenAddress.toLowerCase() === aTokenAddress.toLowerCase()
+  );
 
   return (
     <ListMobileItemWrapper
@@ -62,7 +65,7 @@ export const SupplyAssetsListMobileItem = ({
       >
         <IncentivesCard
           value={Number(supplyAPY)}
-          incentives={aIncentivesData}
+          incentives={incentives}
           symbol={symbol}
           variant="secondary14"
         />

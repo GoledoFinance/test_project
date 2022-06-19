@@ -1,3 +1,4 @@
+import { ReserveIncentiveData } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { ReserveIncentiveResponse } from '../../../../hooks/app-data-provider/useIncentiveData';
 
 export type BorrowAssetsItem = {
@@ -6,6 +7,7 @@ export type BorrowAssetsItem = {
   name: string;
   iconSymbol: string;
   underlyingAsset: string;
+  variableDebtTokenAddress: string;
   stableBorrowRate: number | string;
   variableBorrowRate: number | string;
   availableBorrows: number | string;
@@ -15,6 +17,7 @@ export type BorrowAssetsItem = {
   aIncentivesData?: ReserveIncentiveResponse[];
   vIncentivesData?: ReserveIncentiveResponse[];
   sIncentivesData?: ReserveIncentiveResponse[];
+  reservesIncentives: ReserveIncentiveData[];
   totalBorrows: string;
   totalLiquidityUSD: string;
   borrowingEnabled: boolean;
