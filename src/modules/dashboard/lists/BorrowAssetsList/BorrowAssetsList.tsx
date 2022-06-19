@@ -23,7 +23,8 @@ import { VariableAPYTooltip } from 'src/components/infoTooltips/VariableAPYToolt
 
 export const BorrowAssetsList = () => {
   const { currentNetworkConfig } = useProtocolDataContext();
-  const { user, reserves, marketReferencePriceInUsd, loading } = useAppDataContext();
+  const { user, reserves, marketReferencePriceInUsd, loading, reservesIncentives } =
+    useAppDataContext();
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
@@ -44,6 +45,7 @@ export const BorrowAssetsList = () => {
 
       return {
         ...reserve,
+        reservesIncentives: reservesIncentives,
         totalBorrows: reserve.totalDebt,
         availableBorrows,
         availableBorrowsInUSD,

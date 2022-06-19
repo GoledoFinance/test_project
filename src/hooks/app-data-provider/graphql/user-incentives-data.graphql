@@ -1,61 +1,81 @@
 fragment TokenIncentivesUserDataFragment on UserIncentiveData {
   tokenAddress
-  incentiveControllerAddress
+  userStakedBalance
+  userWalletBalance
   userRewardsInformation {
     rewardTokenSymbol
     rewardOracleAddress
     rewardTokenAddress
     userUnclaimedRewards
-    tokenIncentivesUserIndex
     rewardPriceFeed
     priceFeedDecimals
     rewardTokenDecimals
   }
 }
 
-query C_UserIncentives(
+query C_UserReservesIncentives(
   $userAddress: String!
   $lendingPoolAddressProvider: String!
   $chainId: Int!
 ) {
-  userIncentives(
+  userReservesIncentives(
     userAddress: $userAddress
     lendingPoolAddressProvider: $lendingPoolAddressProvider
     chainId: $chainId
   ) {
     id
-    underlyingAsset
-    aTokenIncentivesUserData {
-      ...TokenIncentivesUserDataFragment
-    }
-    vTokenIncentivesUserData {
-      ...TokenIncentivesUserDataFragment
-    }
-    sTokenIncentivesUserData {
+    data {
       ...TokenIncentivesUserDataFragment
     }
   }
 }
 
-subscription C_UserPoolIncentivesDataUpdate(
+subscription C_UserReservesIncentivesDataUpdate(
   $userAddress: String!
   $lendingPoolAddressProvider: String!
   $chainId: Int!
 ) {
-  userPoolIncentivesDataUpdate(
+  userReservesIncentivesDataUpdate(
     userAddress: $userAddress
     lendingPoolAddressProvider: $lendingPoolAddressProvider
     chainId: $chainId
   ) {
     id
-    underlyingAsset
-    aTokenIncentivesUserData {
+    data {
       ...TokenIncentivesUserDataFragment
     }
-    vTokenIncentivesUserData {
+  }
+}
+
+query C_UserMasterChefIncentives(
+  $userAddress: String!
+  $lendingPoolAddressProvider: String!
+  $chainId: Int!
+) {
+  userMasterChefIncentives(
+    userAddress: $userAddress
+    lendingPoolAddressProvider: $lendingPoolAddressProvider
+    chainId: $chainId
+  ) {
+    id
+    data {
       ...TokenIncentivesUserDataFragment
     }
-    sTokenIncentivesUserData {
+  }
+}
+
+subscription C_UserMasterChefIncentivesDataUpdate(
+  $userAddress: String!
+  $lendingPoolAddressProvider: String!
+  $chainId: Int!
+) {
+  userMasterChefIncentivesDataUpdate(
+    userAddress: $userAddress
+    lendingPoolAddressProvider: $lendingPoolAddressProvider
+    chainId: $chainId
+  ) {
+    id
+    data {
       ...TokenIncentivesUserDataFragment
     }
   }

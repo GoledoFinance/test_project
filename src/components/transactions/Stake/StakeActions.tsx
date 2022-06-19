@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { BoxProps } from '@mui/material';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
-import { useStakeTxBuilderContext } from 'src/hooks/useStakeTxBuilder';
+import { useTxBuilderContext } from 'src/hooks/useTxBuilder';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
 
 import { useTransactionHandler } from '../../../helpers/useTransactionHandler';
@@ -29,7 +29,7 @@ export const StakeActions = ({
 }: StakeActionProps) => {
   const { currentAccount } = useWeb3Context();
   const { currentMarketData } = useProtocolDataContext();
-  const { staking } = useStakeTxBuilderContext(selectedToken);
+  const { staking } = useTxBuilderContext();
 
   const { action, approval, requiresApproval, loadingTxns, approvalTxState, mainTxState } =
     useTransactionHandler({
@@ -58,8 +58,8 @@ export const StakeActions = ({
       handleApproval={approval}
       symbol={symbol}
       requiresAmount
-      actionText={<Trans>Stake</Trans>}
-      actionInProgressText={<Trans>Staking</Trans>}
+      actionText={<Trans>{!lock ? 'Stake' : 'Lock'}</Trans>}
+      actionInProgressText={<Trans>{!lock ? 'Staking' : 'Locking'}</Trans>}
       sx={sx}
       {...props}
     />

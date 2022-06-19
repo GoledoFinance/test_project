@@ -34,6 +34,7 @@ export type WithdrawMethodType = {
 
 export type WithdrawExpiredLocksMethodType = {
   user: string;
+  claimRewards: boolean;
   distributionAddress: string;
 };
 
@@ -146,12 +147,13 @@ export class MultiFeeDistribution
 
   public exit({
     user,
+    claimRewards,
     distributionAddress,
   }: WithdrawExpiredLocksMethodType): EthereumTransactionTypeExtended[] {
     const distribution: MultiFeeDistributionContract =
       this.getContractInstance(distributionAddress);
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () => distribution.populateTransaction.exit(false),
+      rawTxMethod: async () => distribution.populateTransaction.exit(claimRewards),
       from: user,
     });
 

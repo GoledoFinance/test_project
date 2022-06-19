@@ -7,4 +7,5 @@ export type RewardsItem = {
   stakedBalance: string;
   lockedBalance?: string;
   tokens: string[];
+  stakingContract: string;
 };

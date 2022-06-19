@@ -2,7 +2,6 @@ import { API_ETH_MOCK_ADDRESS, InterestRate } from '@goledo-sdk/contract-helpers
 import { valueToBigNumber } from '@goledo-sdk/math-utils';
 import { Trans } from '@lingui/macro';
 import { useMediaQuery, useTheme } from '@mui/material';
-// import { useModalContext } from 'src/hooks/useModal';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
 
@@ -14,7 +13,6 @@ import {
   useAppDataContext,
 } from '../../../../hooks/app-data-provider/useAppDataProvider';
 import { DashboardContentNoData } from '../../DashboardContentNoData';
-// import { DashboardEModeButton } from '../../DashboardEModeButton';
 import { ListHeader } from '../ListHeader';
 import { ListLoader } from '../ListLoader';
 import { ListTopInfoItem } from '../ListTopInfoItem';
@@ -22,12 +20,8 @@ import { BorrowedPositionsListItem } from './BorrowedPositionsListItem';
 import { BorrowedPositionsListMobileItem } from './BorrowedPositionsListMobileItem';
 
 export const BorrowedPositionsList = () => {
-  const { user, loading } = useAppDataContext();
-  const {
-    // currentMarketData,
-    currentNetworkConfig,
-  } = useProtocolDataContext();
-  // const { openEmode } = useModalContext();
+  const { user, loading, reservesIncentives } = useAppDataContext();
+  const { currentNetworkConfig } = useProtocolDataContext();
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
@@ -117,11 +111,13 @@ export const BorrowedPositionsList = () => {
               <BorrowedPositionsListMobileItem
                 {...item}
                 key={item.underlyingAsset + item.borrowRateMode}
+                reservesIncentives={reservesIncentives}
               />
             ) : (
               <BorrowedPositionsListItem
                 {...item}
                 key={item.underlyingAsset + item.borrowRateMode}
+                reservesIncentives={reservesIncentives}
               />
             )
           )}

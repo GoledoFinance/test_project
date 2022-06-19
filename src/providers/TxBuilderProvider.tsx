@@ -4,6 +4,8 @@ import {
   LendingPool,
   MasterChef,
   MasterChefInterface,
+  MultiFeeDistribution,
+  MultiFeeDistributionInterface,
 } from '@goledo-sdk/contract-helpers';
 import React, { ReactElement } from 'react';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
@@ -13,6 +15,7 @@ export interface TxBuilderContextInterface {
   lendingPool: LendingPool;
   masterChef: MasterChefInterface;
   incentivesController: IncentivesControllerInterface;
+  staking: MultiFeeDistributionInterface;
 }
 
 export const TxBuilderProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
@@ -25,13 +28,14 @@ export const TxBuilderProvider: React.FC<{ children: ReactElement }> = ({ childr
     WETH_GATEWAY: currentMarketData.addresses.WETH_GATEWAY,
   });
 
+  const staking = new MultiFeeDistribution(jsonRpcProvider);
   const masterChef: MasterChefInterface = new MasterChef(jsonRpcProvider);
   const incentivesController: IncentivesControllerInterface = new IncentivesController(
     jsonRpcProvider
   );
 
   return (
-    <TxBuilderContext.Provider value={{ lendingPool, masterChef, incentivesController }}>
+    <TxBuilderContext.Provider value={{ lendingPool, masterChef, incentivesController, staking }}>
       {children}
     </TxBuilderContext.Provider>
   );

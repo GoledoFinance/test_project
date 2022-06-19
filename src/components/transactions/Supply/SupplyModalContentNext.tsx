@@ -9,7 +9,6 @@ import { GasEstimationError } from '../FlowCommons/GasEstimationError';
 import {
   DetailsCollateralLine,
   DetailsHFLine,
-  DetailsIncentivesLine,
   DetailsNumberLine,
   DetailsNumberLineWithSub,
   TxModalDetails,
@@ -31,7 +30,6 @@ export enum ErrorType {
 
 export const SupplyModalContentNext = ({
   poolReserve,
-  userReserve,
   underlyingAsset,
   symbol,
   isWrongNetwork,
@@ -43,7 +41,6 @@ export const SupplyModalContentNext = ({
   const supplyUnWrapped = underlyingAsset.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase();
 
   const supplyApy = poolReserve.supplyAPY;
-  console.log('underlyingAsset2', underlyingAsset);
 
   // Calculation of future HF
   const amountIntEth = new BigNumber(amount || '0').multipliedBy(poolReserve.formattedPriceInETH);
@@ -80,22 +77,10 @@ export const SupplyModalContentNext = ({
   };
 
   // collateralization state
-  let willBeUsedAsCollateral: CollateralType = poolReserve.usageAsCollateralEnabled
+  const willBeUsedAsCollateral: CollateralType = poolReserve.usageAsCollateralEnabled
     ? CollateralType.ENABLED
     : CollateralType.DISABLED;
-  const userHasSuppliedReserve = userReserve && userReserve.scaledATokenBalance !== '0';
 
-  if (user.isInIsolationMode) {
-    willBeUsedAsCollateral = CollateralType.DISABLED;
-  } else {
-    if (userHasSuppliedReserve) {
-      willBeUsedAsCollateral = userReserve.usageAsCollateralEnabledOnUser
-        ? CollateralType.ENABLED
-        : CollateralType.DISABLED;
-    } else {
-      willBeUsedAsCollateral = CollateralType.ENABLED;
-    }
-  }
   if (supplyTxState.success)
     return (
       <TxSuccessView
@@ -121,10 +106,10 @@ export const SupplyModalContentNext = ({
           futureValueUSD={new BigNumber(amountIntEth).toFormat(2)}
         />
         <DetailsNumberLine description={<Trans>Supply APY</Trans>} value={supplyApy} percent />
-        <DetailsIncentivesLine
+        {/*<DetailsIncentivesLine
           incentives={poolReserve.aIncentivesData}
           symbol={poolReserve.symbol}
-        />
+        />*/}
         <DetailsCollateralLine collateralType={willBeUsedAsCollateral} />
         <DetailsHFLine
           visibleHfChange={true}
@@ -146,76 +131,3 @@ export const SupplyModalContentNext = ({
     </>
   );
 };
-
-/*
-const sleep = (time = 1) =>
-  new Promise((r) => {
-    setTimeout(() => {
-      r(true);
-    }, 1000 * time);
-  });
-
-const steps = ['Supply', 'Finished'];
-const StepBox = () => {
-  const [isLoading, setLoading] = React.useState(false);
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const onSupply = async () => {
-    setLoading(true);
-    try {
-      await sleep();
-      await handleNext();
-    } catch (e) {
-      console.error(e);
-    }
-    setLoading(false);
-  };
-
-  return (
-    <Box sx={{ width: '100%' }}>
-      <StepHeader activeStep={activeStep} steps={steps} />
-      <Box p={4}>
-        {activeStep === steps.length - 1 ? (
-          <Box
-            display={'flex'}
-            justifyContent="center"
-            alignItems={'center'}
-            sx={{ mt: 1, mb: 5 }}
-            flexDirection="column"
-          >
-            <Typography sx={{ mb: 5, textAlign: 'center', fontWeight: 600 }}>
-              2/2 Supply <br />
-              Finished
-            </Typography>
-            <CompleteIcon />
-          </Box>
-        ) : (
-          <React.Fragment>
-            <Typography sx={{ mt: 1, mb: 5, textAlign: 'center', fontWeight: 600 }}>
-              1/2 Supply
-              <br />
-              Please submit to supply
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <LoadingButton
-                size="large"
-                variant="contained"
-                fullWidth
-                sx={{ height: 40 }}
-                onClick={onSupply}
-                loading={isLoading}
-              >
-                Supply
-              </LoadingButton>
-            </Box>
-          </React.Fragment>
-        )}
-      </Box>
-    </Box>
-  );
-};
-*/

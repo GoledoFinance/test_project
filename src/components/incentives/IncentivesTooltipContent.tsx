@@ -1,13 +1,15 @@
 import { Trans } from '@lingui/macro';
 import { Box, Typography } from '@mui/material';
+import { ReserveIncentiveData } from 'src/hooks/app-data-provider/useAppDataProvider';
 
-import { ReserveIncentiveResponse } from '../../hooks/app-data-provider/useIncentiveData';
+import BigNumber from 'bignumber.js';
+
 import { FormattedNumber } from '../primitives/FormattedNumber';
 import { Row } from '../primitives/Row';
 import { TokenIcon } from '../primitives/TokenIcon';
 
 interface IncentivesTooltipContentProps {
-  incentives: ReserveIncentiveResponse[];
+  incentives: ReserveIncentiveData;
   incentivesNetAPR: 'Infinity' | number;
   symbol: string;
 }
@@ -41,6 +43,20 @@ export const IncentivesTooltipContent = ({
     );
   };
 
+  const EmissionNumber = ({ emissionPerSecond }: { emissionPerSecond: string }) => {
+    const emissionPerDay = new BigNumber(emissionPerSecond).multipliedBy(86400);
+    return (
+      <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
+        <>
+          <FormattedNumber value={emissionPerDay.toPrecision(5)} variant={typographyVariant} />
+          <Typography variant={typographyVariant} sx={{ ml: 1 }}>
+            <Trans>per Day</Trans>
+          </Typography>
+        </>
+      </Box>
+    );
+  };
+
   return (
     <Box
       sx={{
@@ -55,7 +71,7 @@ export const IncentivesTooltipContent = ({
       </Typography>
 
       <Box sx={{ width: '100%' }}>
-        {incentives.map((incentive) => (
+        {incentives.rewardsTokenInformation.map((incentive, index) => (
           <Row
             height={32}
             caption={
@@ -63,21 +79,21 @@ export const IncentivesTooltipContent = ({
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
-                  mb: incentives.length > 1 ? 2 : 0,
+                  mb: incentives.rewardsTokenInformation.length > 1 ? 2 : 0,
                 }}
               >
                 <TokenIcon symbol={incentive.rewardTokenSymbol} sx={{ fontSize: '20px', mr: 1 }} />
                 <Typography variant={typographyVariant}>{incentive.rewardTokenSymbol}</Typography>
               </Box>
             }
-            key={incentive.rewardTokenAddress}
+            key={index}
             width="100%"
           >
-            <Number incentiveAPR={incentive.incentiveAPR} />
+            <EmissionNumber emissionPerSecond={incentive.emissionPerSecond} />
           </Row>
         ))}
 
-        {incentives.length > 1 && (
+        {incentives.rewardsTokenInformation.length > 1 && (
           <Box sx={(theme) => ({ pt: 1, mt: 1, border: `1px solid ${theme.palette.divider}` })}>
             <Row caption={<Trans>Net APR</Trans>} height={32}>
               <Number incentiveAPR={incentivesNetAPR} />

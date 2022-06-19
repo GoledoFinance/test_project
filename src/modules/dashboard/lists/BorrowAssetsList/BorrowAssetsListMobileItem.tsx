@@ -21,13 +21,17 @@ export const BorrowAssetsListMobileItem = ({
   availableBorrowsInUSD,
   totalBorrows,
   variableBorrowRate,
-  vIncentivesData,
   underlyingAsset,
   isFreezed,
+  variableDebtTokenAddress,
+  reservesIncentives,
 }: BorrowAssetsItem) => {
   const { openBorrow } = useModalContext();
   const { currentMarket } = useProtocolDataContext();
   const borrowButtonDisable = isFreezed || Number(availableBorrows) <= 0;
+  const incentives = reservesIncentives.find(
+    (x) => x.tokenAddress.toLowerCase() === variableDebtTokenAddress.toLowerCase()
+  );
 
   return (
     <ListMobileItemWrapper
@@ -66,7 +70,7 @@ export const BorrowAssetsListMobileItem = ({
       >
         <IncentivesCard
           value={Number(variableBorrowRate)}
-          incentives={vIncentivesData}
+          incentives={incentives}
           symbol={symbol}
           variant="secondary14"
         />

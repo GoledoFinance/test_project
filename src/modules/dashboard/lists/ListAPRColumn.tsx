@@ -1,10 +1,10 @@
+import { ReserveIncentiveData } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { IncentivesCard } from '../../../components/incentives/IncentivesCard';
 import { ListColumn } from '../../../components/lists/ListColumn';
-import { ReserveIncentiveResponse } from '../../../hooks/app-data-provider/useIncentiveData';
 
 interface ListAPRColumnProps {
   value: number;
-  incentives?: ReserveIncentiveResponse[];
+  incentives?: ReserveIncentiveData;
   symbol: string;
 }
 

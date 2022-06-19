@@ -1,14 +1,12 @@
 fragment IncentivesDataFragment on IncentiveData {
-  incentiveControllerAddress
   tokenAddress
+  tokenSymbol
+  tokenDecimals
+  totalStakedBalance
   rewardsTokenInformation {
     emissionEndTimestamp
     emissionPerSecond
-    incentivesLastUpdateTimestamp
-    precision
     priceFeedDecimals
-    tokenIncentivesIndex
-
     rewardPriceFeed
     rewardTokenAddress
     rewardTokenDecimals
@@ -20,33 +18,43 @@ fragment IncentivesDataFragment on IncentiveData {
 query C_ReservesIncentives($lendingPoolAddressProvider: String!, $chainId: Int!) {
   reservesIncentives(lendingPoolAddressProvider: $lendingPoolAddressProvider, chainId: $chainId) {
     id
-    underlyingAsset
-    aIncentiveData {
-      ...IncentivesDataFragment
-    }
-    vIncentiveData {
-      ...IncentivesDataFragment
-    }
-    sIncentiveData {
+    data {
       ...IncentivesDataFragment
     }
   }
 }
 
-subscription C_PoolIncentivesDataUpdate($lendingPoolAddressProvider: String!, $chainId: Int!) {
-  poolIncentivesDataUpdate(
+subscription C_ReservesIncentivesDataUpdate($lendingPoolAddressProvider: String!, $chainId: Int!) {
+  reservesIncentivesDataUpdate(
     lendingPoolAddressProvider: $lendingPoolAddressProvider
     chainId: $chainId
   ) {
     id
-    underlyingAsset
-    aIncentiveData {
+    data {
       ...IncentivesDataFragment
     }
-    vIncentiveData {
+  }
+}
+
+query C_MasterChefIncentives($lendingPoolAddressProvider: String!, $chainId: Int!) {
+  masterChefIncentives(lendingPoolAddressProvider: $lendingPoolAddressProvider, chainId: $chainId) {
+    id
+    data {
       ...IncentivesDataFragment
     }
-    sIncentiveData {
+  }
+}
+
+subscription C_MasterChefIncentivesDataUpdate(
+  $lendingPoolAddressProvider: String!
+  $chainId: Int!
+) {
+  masterChefIncentivesDataUpdate(
+    lendingPoolAddressProvider: $lendingPoolAddressProvider
+    chainId: $chainId
+  ) {
+    id
+    data {
       ...IncentivesDataFragment
     }
   }

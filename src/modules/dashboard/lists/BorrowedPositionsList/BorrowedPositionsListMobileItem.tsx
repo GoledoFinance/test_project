@@ -6,7 +6,10 @@ import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { IncentivesCard } from '../../../../components/incentives/IncentivesCard';
 import { APYTypeTooltip } from '../../../../components/infoTooltips/APYTypeTooltip';
 import { Row } from '../../../../components/primitives/Row';
-import { ComputedUserReserveData } from '../../../../hooks/app-data-provider/useAppDataProvider';
+import {
+  ComputedUserReserveData,
+  ReserveIncentiveData,
+} from '../../../../hooks/app-data-provider/useAppDataProvider';
 import { useModalContext } from '../../../../hooks/useModal';
 import { ListItemAPYButton } from '../ListItemAPYButton';
 import { ListMobileItemWrapper } from '../ListMobileItemWrapper';
@@ -18,9 +21,13 @@ export const BorrowedPositionsListMobileItem = ({
   totalBorrowsUSD,
   borrowRateMode,
   stableBorrowAPY,
-}: ComputedUserReserveData & { borrowRateMode: InterestRate }) => {
+  reservesIncentives,
+}: ComputedUserReserveData & {
+  borrowRateMode: InterestRate;
+  reservesIncentives: ReserveIncentiveData[];
+}) => {
   const { currentMarket } = useProtocolDataContext();
-  const { openBorrow, openRepay, openRateSwitch } = useModalContext();
+  const { openBorrow, openRepay } = useModalContext();
   const {
     symbol,
     iconSymbol,
@@ -29,11 +36,12 @@ export const BorrowedPositionsListMobileItem = ({
     isFrozen,
     borrowingEnabled,
     stableBorrowRateEnabled,
-    sIncentivesData,
-    vIncentivesData,
     variableBorrowAPY,
     underlyingAsset,
   } = reserve;
+  const incentives = reservesIncentives.find(
+    (x) => x.tokenAddress.toLowerCase() === reserve.variableDebtTokenAddress.toLowerCase()
+  );
 
   return (
     <ListMobileItemWrapper
@@ -55,7 +63,7 @@ export const BorrowedPositionsListMobileItem = ({
           value={Number(
             borrowRateMode === InterestRate.Variable ? variableBorrowAPY : stableBorrowAPY
           )}
-          incentives={borrowRateMode === InterestRate.Variable ? vIncentivesData : sIncentivesData}
+          incentives={incentives}
           symbol={symbol}
           variant="secondary14"
         />
@@ -72,7 +80,8 @@ export const BorrowedPositionsListMobileItem = ({
           stableBorrowRateEnabled={stableBorrowRateEnabled}
           borrowRateMode={borrowRateMode}
           disabled={!stableBorrowRateEnabled || isFrozen || !isActive}
-          onClick={() => openRateSwitch(underlyingAsset, borrowRateMode)}
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          onClick={() => {}}
           stableBorrowAPY={stableBorrowAPY}
           variableBorrowAPY={variableBorrowAPY}
           underlyingAsset={underlyingAsset}

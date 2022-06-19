@@ -55,8 +55,6 @@ export const TxActionsWrapper = ({
     if (isWrongNetwork) return { disabled: true, content: <Trans>Wrong Network</Trans> };
     if (isAmountMissing) return { disabled: true, content: <Trans>Enter an amount</Trans> };
     if (preparingTransactions || isEmpty(mainTxState)) return { disabled: true, loading: true };
-    // if (hasApprovalError && handleRetry)
-    //   return { content: <Trans>Retry with approval</Trans>, handleClick: handleRetry };
     if (mainTxState?.loading)
       return { loading: true, disabled: true, content: actionInProgressText };
     if (requiresApproval && !approvalTxState?.success)
@@ -83,6 +81,17 @@ export const TxActionsWrapper = ({
 
   const { content, disabled, loading, handleClick } = getMainParams();
   const approvalParams = getApprovalParams();
+
+  console.log(
+    'getMainParams',
+    blocked,
+    content,
+    disabled,
+    loading,
+    handleClick,
+    approvalTxState,
+    mainTxState
+  );
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', mt: 12, ...sx }} {...rest}>

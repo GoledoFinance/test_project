@@ -18,7 +18,7 @@ import { SuppliedPositionsListItem } from './SuppliedPositionsListItem';
 import { SuppliedPositionsListMobileItem } from './SuppliedPositionsListMobileItem';
 
 export const SuppliedPositionsList = () => {
-  const { user, loading } = useAppDataContext();
+  const { user, loading, reservesIncentives } = useAppDataContext();
   const { currentNetworkConfig } = useProtocolDataContext();
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
@@ -85,9 +85,19 @@ export const SuppliedPositionsList = () => {
           {!downToXSM && <ListHeader head={head} />}
           {suppliedPosition.map((item) =>
             downToXSM ? (
-              <SuppliedPositionsListMobileItem {...item} user={user} key={item.underlyingAsset} />
+              <SuppliedPositionsListMobileItem
+                {...item}
+                user={user}
+                key={item.underlyingAsset}
+                reservesIncentives={reservesIncentives}
+              />
             ) : (
-              <SuppliedPositionsListItem {...item} user={user} key={item.underlyingAsset} />
+              <SuppliedPositionsListItem
+                {...item}
+                user={user}
+                key={item.underlyingAsset}
+                reservesIncentives={reservesIncentives}
+              />
             )
           )}
         </>

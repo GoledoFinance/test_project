@@ -22,15 +22,19 @@ export const SupplyAssetsListItem = ({
   walletBalanceUSD,
   totalLiquidity,
   supplyAPY,
-  aIncentivesData,
+  reservesIncentives,
   underlyingAsset,
   isActive,
   isFreezed,
+  aTokenAddress,
   usageAsCollateralEnabledOnUser,
   detailsAddress,
 }: SupplyAssetsItem) => {
   const { currentMarket } = useProtocolDataContext();
   const { openSupply } = useModalContext();
+  const incentives = reservesIncentives.find(
+    (x) => x.tokenAddress.toLowerCase() === aTokenAddress.toLowerCase()
+  );
   return (
     <ListItemWrapper
       symbol={symbol}
@@ -56,7 +60,7 @@ export const SupplyAssetsListItem = ({
         }
       />
 
-      <ListAPRColumn value={Number(supplyAPY)} incentives={aIncentivesData} symbol={symbol} />
+      <ListAPRColumn value={Number(supplyAPY)} incentives={incentives} symbol={symbol} />
 
       <ListColumn>
         <ListItemCanBeCollateral

@@ -1,8 +1,6 @@
 // import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { useMediaQuery, useTheme } from '@mui/material';
-import { useRewardData } from 'src/hooks/app-data-provider/useRewardData';
-// import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
 import BigNumber from 'bignumber.js';
 
@@ -13,10 +11,13 @@ import { ListLoader } from '../ListLoader';
 
 import { RewardsListItem } from './RewardsListItem';
 import { RewardsItem } from './types';
+import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
+import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
 export const RewardsList = () => {
-  const { loading, data: rewardData } = useRewardData();
-  //   const { currentNetworkConfig } = useProtocolDataContext();
+  const { loading, userReserveIncentives, userMasterChefIncentives, userGoledoStake } =
+    useAppDataContext();
+  const { currentMarketData } = useProtocolDataContext();
   const theme = useTheme();
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
@@ -35,36 +36,52 @@ export const RewardsList = () => {
   const chefTokens: string[] = [];
   let totalControllerIncentive: BigNumber = new BigNumber('0');
   let totalChefIncentive: BigNumber = new BigNumber('0');
-  if (rewardData) {
-    rewardData.controllerUserData.forEach((data) => {
-      totalControllerIncentive = totalControllerIncentive.plus(new BigNumber(data.claimable));
-      if (data.claimable !== '0') {
-        controllerTokens.push(data.token);
-      }
-    });
-    rewardData.chefUserData.forEach((data) => {
-      totalChefIncentive = totalChefIncentive.plus(new BigNumber(data.claimable));
-      if (data.claimable !== '0') {
-        chefTokens.push(data.token);
-      }
-    });
-  }
+  let symbol: string | undefined;
+  let underlyingAsset: string | undefined;
+  userReserveIncentives.forEach((data) => {
+    const claimable =
+      data.userRewardsInformation.length > 0
+        ? data.userRewardsInformation[0].userUnclaimedRewards
+        : '0';
+    if (data.userRewardsInformation.length > 0) {
+      symbol = data.userRewardsInformation[0].rewardTokenSymbol;
+      underlyingAsset = data.userRewardsInformation[0].rewardTokenAddress;
+    }
+    totalControllerIncentive = totalControllerIncentive.plus(new BigNumber(claimable));
+    if (claimable !== '0') {
+      controllerTokens.push(data.tokenAddress);
+    }
+  });
+  userMasterChefIncentives.forEach((data) => {
+    const claimable =
+      data.userRewardsInformation.length > 0
+        ? data.userRewardsInformation[0].userUnclaimedRewards
+        : '0';
+    totalChefIncentive = totalChefIncentive.plus(new BigNumber(claimable));
+    if (claimable !== '0') {
+      chefTokens.push(data.tokenAddress);
+    }
+  });
   if (totalControllerIncentive.isZero() && totalChefIncentive.isZero()) {
     return null;
   }
 
   const data: RewardsItem[] = [];
-  if (rewardData && !totalControllerIncentive.isZero()) {
+  if (!totalControllerIncentive.isZero() && underlyingAsset && symbol) {
+    const lockedBalance = new BigNumber(userGoledoStake.totalBalance).minus(
+      userGoledoStake.unlockedBalance
+    );
     data.push({
       underlyingAsset: '',
       earned: totalControllerIncentive.toString(10),
-      stakedBalance: rewardData.stakeUserData.unlockedBalance,
-      lockedBalance: rewardData.stakeUserData.lockedBalance,
+      stakedBalance: userGoledoStake.unlockedBalance,
+      lockedBalance: lockedBalance.toString(10),
       ...fetchIconSymbolAndName({
-        underlyingAsset: '',
-        symbol: 'GDO',
+        underlyingAsset,
+        symbol,
       }),
       tokens: controllerTokens,
+      stakingContract: currentMarketData.addresses.INCENTIVE_CONTROLLER,
     });
   }
 

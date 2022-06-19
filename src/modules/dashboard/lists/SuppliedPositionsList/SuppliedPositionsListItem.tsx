@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import {
   ComputedUserReserveData,
   ExtendedFormattedUser,
+  ReserveIncentiveData,
 } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { useModalContext } from 'src/hooks/useModal';
 
@@ -21,11 +22,17 @@ export const SuppliedPositionsListItem = ({
   underlyingBalanceUSD,
   usageAsCollateralEnabledOnUser,
   underlyingAsset,
-}: ComputedUserReserveData & { user: ExtendedFormattedUser }) => {
-  const { aIncentivesData, isActive } = reserve;
+  reservesIncentives,
+}: ComputedUserReserveData & {
+  user: ExtendedFormattedUser;
+  reservesIncentives: ReserveIncentiveData[];
+}) => {
+  const { isActive } = reserve;
   const { currentMarket } = useProtocolDataContext();
   const { openWithdraw, openCollateralChange } = useModalContext();
-  // const isSwapButton = isFeatureEnabled.liquiditySwap(currentMarketData);
+  const incentives = reservesIncentives.find(
+    (x) => x.tokenAddress.toLowerCase() === reserve.aTokenAddress.toLowerCase()
+  );
 
   const canBeEnabledAsCollateral = reserve.usageAsCollateralEnabled;
 
@@ -49,7 +56,7 @@ export const SuppliedPositionsListItem = ({
 
       <ListAPRColumn
         value={Number(reserve.supplyAPY)}
-        incentives={aIncentivesData}
+        incentives={incentives}
         symbol={reserve.symbol}
       />
 

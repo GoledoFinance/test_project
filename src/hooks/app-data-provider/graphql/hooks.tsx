@@ -25,11 +25,13 @@ export type BaseCurrencyData = {
   networkBaseTokenPriceInUsd: Scalars['String'];
 };
 
-export type IncentiveData = {
-  __typename?: 'IncentiveData';
-  incentiveControllerAddress: Scalars['String'];
+export type ReserveIncentiveData = {
+  __typename?: 'ReserveIncentiveData';
   rewardsTokenInformation: Array<RewardInfo>;
   tokenAddress: Scalars['String'];
+  tokenSymbol: Scalars['String'];
+  tokenDecimals: Scalars['Int'];
+  totalStakedBalance: Scalars['String'];
 };
 
 export type ProtocolData = {
@@ -39,15 +41,38 @@ export type ProtocolData = {
   emissionEndTimestamp: Scalars['Int'];
 };
 
+export type GoledoLockedBalance = {
+  __typename?: 'GoledoLockedBalance';
+  amount: Scalars['String'];
+  expire: Scalars['Float'];
+};
+
+export type GoledoRewardBalance = {
+  __typename?: 'GoledoRewardBalance';
+  amount: Scalars['String'];
+  token: Scalars['String'];
+};
+
+export type UserGoledoStakeData = {
+  __typename?: 'UserGoledoStakeData';
+  vestings: Array<GoledoLockedBalance>;
+  lockings: Array<GoledoLockedBalance>;
+  rewards: Array<GoledoRewardBalance>;
+  totalBalance: Scalars['String'];
+  walletBalance: Scalars['String'];
+  unlockedBalance: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   ping: Scalars['String'];
   protocolData: ProtocolData;
-  reservesIncentives: Array<ReserveIncentivesData>;
-  stakeGeneralUIData: StakeGeneralUiData;
-  stakeUserUIData: StakeUserUiData;
   userData: UserReservesData;
-  userIncentives: Array<UserIncentivesData>;
+  reservesIncentives: Array<ReserveIncentiveData>;
+  userReservesIncentives: Array<UserIncentiveData>;
+  masterChefIncentives: Array<ReserveIncentiveData>;
+  userMasterChefIncentives: Array<UserIncentiveData>;
+  userGoledoStake: UserGoledoStakeData;
 };
 
 export type QueryProtocolDataArgs = {
@@ -60,18 +85,13 @@ export type QueryReservesIncentivesArgs = {
   lendingPoolAddressProvider: Scalars['String'];
 };
 
-export type QueryStakeUserUiDataArgs = {
-  chainId: Scalars['Int'];
-  userAddress: Scalars['String'];
-};
-
 export type QueryUserDataArgs = {
   chainId: Scalars['Int'];
   lendingPoolAddressProvider: Scalars['String'];
   userAddress: Scalars['String'];
 };
 
-export type QueryUserIncentivesArgs = {
+export type QueryUserReservesIncentivesArgs = {
   chainId: Scalars['Int'];
   lendingPoolAddressProvider: Scalars['String'];
   userAddress: Scalars['String'];
@@ -126,76 +146,30 @@ export type ReserveData = {
   variableRateSlope2: Scalars['String'];
 };
 
-export type ReserveIncentivesData = {
-  __typename?: 'ReserveIncentivesData';
-  aIncentiveData: IncentiveData;
-  id: Scalars['String'];
-  sIncentiveData: IncentiveData;
-  underlyingAsset: Scalars['String'];
-  vIncentiveData: IncentiveData;
-};
-
 export type RewardInfo = {
   __typename?: 'RewardInfo';
   emissionEndTimestamp: Scalars['Float'];
   emissionPerSecond: Scalars['String'];
-  incentivesLastUpdateTimestamp: Scalars['Float'];
-  precision: Scalars['Float'];
   priceFeedDecimals: Scalars['Float'];
   rewardOracleAddress: Scalars['String'];
   rewardPriceFeed: Scalars['String'];
   rewardTokenAddress: Scalars['String'];
   rewardTokenDecimals: Scalars['Float'];
   rewardTokenSymbol: Scalars['String'];
-  tokenIncentivesIndex: Scalars['String'];
-};
-
-export type StakeGeneralData = {
-  __typename?: 'StakeGeneralData';
-  distributionEnd: Scalars['String'];
-  distributionPerSecond: Scalars['String'];
-  rewardTokenPriceEth: Scalars['String'];
-  stakeApy: Scalars['String'];
-  stakeCooldownSeconds: Scalars['Float'];
-  stakeTokenPriceEth: Scalars['String'];
-  stakeTokenTotalSupply: Scalars['String'];
-  stakeUnstakeWindow: Scalars['Float'];
-};
-
-export type StakeGeneralUiData = {
-  __typename?: 'StakeGeneralUIData';
-  aave: StakeGeneralData;
-  bpt: StakeGeneralData;
-  usdPriceEth: Scalars['String'];
-};
-
-export type StakeUserData = {
-  __typename?: 'StakeUserData';
-  stakeTokenUserBalance: Scalars['String'];
-  underlyingTokenUserBalance: Scalars['String'];
-  userCooldown: Scalars['Float'];
-  userIncentivesToClaim: Scalars['String'];
-  userPermitNonce: Scalars['String'];
-};
-
-export type StakeUserUiData = {
-  __typename?: 'StakeUserUIData';
-  aave: StakeUserData;
-  bpt: StakeUserData;
-  usdPriceEth: Scalars['String'];
 };
 
 export type Subscription = {
   __typename?: 'Subscription';
-  poolIncentivesDataUpdate: Array<ReserveIncentivesData>;
   protocolDataUpdate: ProtocolData;
-  stakeGeneralUIDataUpdate: StakeGeneralUiData;
-  stakeUserUIDataUpdate: StakeUserUiData;
   userDataUpdate: UserReservesData;
-  userPoolIncentivesDataUpdate: Array<UserIncentivesData>;
+  reservesIncentivesDataUpdate: Array<ReserveIncentiveData>;
+  userReservesIncentivesDataUpdate: Array<UserIncentiveData>;
+  masterChefIncentivesDataUpdate: Array<ReserveIncentiveData>;
+  userMasterChefIncentivesDataUpdate: Array<UserIncentiveData>;
+  userGoledoStakeDataUpdate: UserGoledoStakeData;
 };
 
-export type SubscriptionPoolIncentivesDataUpdateArgs = {
+export type SubscriptionReservesIncentivesDataUpdateArgs = {
   chainId: Scalars['Int'];
   lendingPoolAddressProvider: Scalars['String'];
 };
@@ -205,18 +179,13 @@ export type SubscriptionProtocolDataUpdateArgs = {
   lendingPoolAddressProvider: Scalars['String'];
 };
 
-export type SubscriptionStakeUserUiDataUpdateArgs = {
-  chainId: Scalars['Int'];
-  userAddress: Scalars['String'];
-};
-
 export type SubscriptionUserDataUpdateArgs = {
   chainId: Scalars['Int'];
   lendingPoolAddressProvider: Scalars['String'];
   userAddress: Scalars['String'];
 };
 
-export type SubscriptionUserPoolIncentivesDataUpdateArgs = {
+export type SubscriptionUserReservesIncentivesDataUpdateArgs = {
   chainId: Scalars['Int'];
   lendingPoolAddressProvider: Scalars['String'];
   userAddress: Scalars['String'];
@@ -224,18 +193,10 @@ export type SubscriptionUserPoolIncentivesDataUpdateArgs = {
 
 export type UserIncentiveData = {
   __typename?: 'UserIncentiveData';
-  incentiveControllerAddress: Scalars['String'];
   tokenAddress: Scalars['String'];
+  userStakedBalance: Scalars['String'];
+  userWalletBalance: Scalars['String'];
   userRewardsInformation: Array<UserRewardInfo>;
-};
-
-export type UserIncentivesData = {
-  __typename?: 'UserIncentivesData';
-  aTokenIncentivesUserData: UserIncentiveData;
-  id: Scalars['String'];
-  sTokenIncentivesUserData: UserIncentiveData;
-  underlyingAsset: Scalars['String'];
-  vTokenIncentivesUserData: UserIncentiveData;
 };
 
 export type UserReserveData = {
@@ -264,22 +225,20 @@ export type UserRewardInfo = {
   rewardTokenAddress: Scalars['String'];
   rewardTokenDecimals: Scalars['Float'];
   rewardTokenSymbol: Scalars['String'];
-  tokenIncentivesUserIndex: Scalars['String'];
   userUnclaimedRewards: Scalars['String'];
 };
 
 export type IncentivesDataFragmentFragment = {
   __typename?: 'IncentiveData';
-  incentiveControllerAddress: string;
   tokenAddress: string;
+  tokenSymbol: string;
+  tokenDecimals: number;
+  totalStakedBalance: string;
   rewardsTokenInformation: Array<{
     __typename?: 'RewardInfo';
     emissionEndTimestamp: number;
     emissionPerSecond: string;
-    incentivesLastUpdateTimestamp: number;
-    precision: number;
     priceFeedDecimals: number;
-    tokenIncentivesIndex: string;
     rewardPriceFeed: string;
     rewardTokenAddress: string;
     rewardTokenDecimals: number;
@@ -296,59 +255,19 @@ export type C_ReservesIncentivesQueryVariables = Exact<{
 export type C_ReservesIncentivesQuery = {
   __typename?: 'Query';
   reservesIncentives: Array<{
-    __typename?: 'ReserveIncentivesData';
+    __typename?: 'ReserveIncentiveData';
     id: string;
-    underlyingAsset: string;
-    aIncentiveData: {
+    data: {
       __typename?: 'IncentiveData';
-      incentiveControllerAddress: string;
       tokenAddress: string;
+      tokenSymbol: string;
+      tokenDecimals: number;
+      totalStakedBalance: string;
       rewardsTokenInformation: Array<{
         __typename?: 'RewardInfo';
         emissionEndTimestamp: number;
         emissionPerSecond: string;
-        incentivesLastUpdateTimestamp: number;
-        precision: number;
         priceFeedDecimals: number;
-        tokenIncentivesIndex: string;
-        rewardPriceFeed: string;
-        rewardTokenAddress: string;
-        rewardTokenDecimals: number;
-        rewardOracleAddress: string;
-        rewardTokenSymbol: string;
-      }>;
-    };
-    vIncentiveData: {
-      __typename?: 'IncentiveData';
-      incentiveControllerAddress: string;
-      tokenAddress: string;
-      rewardsTokenInformation: Array<{
-        __typename?: 'RewardInfo';
-        emissionEndTimestamp: number;
-        emissionPerSecond: string;
-        incentivesLastUpdateTimestamp: number;
-        precision: number;
-        priceFeedDecimals: number;
-        tokenIncentivesIndex: string;
-        rewardPriceFeed: string;
-        rewardTokenAddress: string;
-        rewardTokenDecimals: number;
-        rewardOracleAddress: string;
-        rewardTokenSymbol: string;
-      }>;
-    };
-    sIncentiveData: {
-      __typename?: 'IncentiveData';
-      incentiveControllerAddress: string;
-      tokenAddress: string;
-      rewardsTokenInformation: Array<{
-        __typename?: 'RewardInfo';
-        emissionEndTimestamp: number;
-        emissionPerSecond: string;
-        incentivesLastUpdateTimestamp: number;
-        precision: number;
-        priceFeedDecimals: number;
-        tokenIncentivesIndex: string;
         rewardPriceFeed: string;
         rewardTokenAddress: string;
         rewardTokenDecimals: number;
@@ -359,67 +278,27 @@ export type C_ReservesIncentivesQuery = {
   }>;
 };
 
-export type C_PoolIncentivesDataUpdateSubscriptionVariables = Exact<{
+export type C_ReservesIncentivesDataUpdateSubscriptionVariables = Exact<{
   lendingPoolAddressProvider: Scalars['String'];
   chainId: Scalars['Int'];
 }>;
 
-export type C_PoolIncentivesDataUpdateSubscription = {
+export type C_ReservesIncentivesDataUpdateSubscription = {
   __typename?: 'Subscription';
-  poolIncentivesDataUpdate: Array<{
-    __typename?: 'ReserveIncentivesData';
+  reservesIncentivesDataUpdate: Array<{
+    __typename?: 'ReserveIncentiveData';
     id: string;
-    underlyingAsset: string;
-    aIncentiveData: {
+    data: {
       __typename?: 'IncentiveData';
-      incentiveControllerAddress: string;
       tokenAddress: string;
+      tokenSymbol: string;
+      tokenDecimals: number;
+      totalStakedBalance: string;
       rewardsTokenInformation: Array<{
         __typename?: 'RewardInfo';
         emissionEndTimestamp: number;
         emissionPerSecond: string;
-        incentivesLastUpdateTimestamp: number;
-        precision: number;
         priceFeedDecimals: number;
-        tokenIncentivesIndex: string;
-        rewardPriceFeed: string;
-        rewardTokenAddress: string;
-        rewardTokenDecimals: number;
-        rewardOracleAddress: string;
-        rewardTokenSymbol: string;
-      }>;
-    };
-    vIncentiveData: {
-      __typename?: 'IncentiveData';
-      incentiveControllerAddress: string;
-      tokenAddress: string;
-      rewardsTokenInformation: Array<{
-        __typename?: 'RewardInfo';
-        emissionEndTimestamp: number;
-        emissionPerSecond: string;
-        incentivesLastUpdateTimestamp: number;
-        precision: number;
-        priceFeedDecimals: number;
-        tokenIncentivesIndex: string;
-        rewardPriceFeed: string;
-        rewardTokenAddress: string;
-        rewardTokenDecimals: number;
-        rewardOracleAddress: string;
-        rewardTokenSymbol: string;
-      }>;
-    };
-    sIncentiveData: {
-      __typename?: 'IncentiveData';
-      incentiveControllerAddress: string;
-      tokenAddress: string;
-      rewardsTokenInformation: Array<{
-        __typename?: 'RewardInfo';
-        emissionEndTimestamp: number;
-        emissionPerSecond: string;
-        incentivesLastUpdateTimestamp: number;
-        precision: number;
-        priceFeedDecimals: number;
-        tokenIncentivesIndex: string;
         rewardPriceFeed: string;
         rewardTokenAddress: string;
         rewardTokenDecimals: number;
@@ -654,75 +533,42 @@ export type C_UserDataUpdateSubscription = {
 export type TokenIncentivesUserDataFragmentFragment = {
   __typename?: 'UserIncentiveData';
   tokenAddress: string;
-  incentiveControllerAddress: string;
+  userStakedBalance: string;
+  userWalletBalance: string;
   userRewardsInformation: Array<{
     __typename?: 'UserRewardInfo';
     rewardTokenSymbol: string;
     rewardOracleAddress: string;
     rewardTokenAddress: string;
     userUnclaimedRewards: string;
-    tokenIncentivesUserIndex: string;
     rewardPriceFeed: string;
     priceFeedDecimals: number;
     rewardTokenDecimals: number;
   }>;
 };
 
-export type C_UserIncentivesQueryVariables = Exact<{
+export type C_UserReservesIncentivesQueryVariables = Exact<{
   userAddress: Scalars['String'];
   lendingPoolAddressProvider: Scalars['String'];
   chainId: Scalars['Int'];
 }>;
 
-export type C_UserIncentivesQuery = {
+export type C_UserReservesIncentivesQuery = {
   __typename?: 'Query';
-  userIncentives: Array<{
+  userReservesIncentives: Array<{
     __typename?: 'UserIncentivesData';
     id: string;
-    underlyingAsset: string;
-    aTokenIncentivesUserData: {
+    data: {
       __typename?: 'UserIncentiveData';
       tokenAddress: string;
-      incentiveControllerAddress: string;
+      userStakedBalance: string;
+      userWalletBalance: string;
       userRewardsInformation: Array<{
         __typename?: 'UserRewardInfo';
         rewardTokenSymbol: string;
         rewardOracleAddress: string;
         rewardTokenAddress: string;
         userUnclaimedRewards: string;
-        tokenIncentivesUserIndex: string;
-        rewardPriceFeed: string;
-        priceFeedDecimals: number;
-        rewardTokenDecimals: number;
-      }>;
-    };
-    vTokenIncentivesUserData: {
-      __typename?: 'UserIncentiveData';
-      tokenAddress: string;
-      incentiveControllerAddress: string;
-      userRewardsInformation: Array<{
-        __typename?: 'UserRewardInfo';
-        rewardTokenSymbol: string;
-        rewardOracleAddress: string;
-        rewardTokenAddress: string;
-        userUnclaimedRewards: string;
-        tokenIncentivesUserIndex: string;
-        rewardPriceFeed: string;
-        priceFeedDecimals: number;
-        rewardTokenDecimals: number;
-      }>;
-    };
-    sTokenIncentivesUserData: {
-      __typename?: 'UserIncentiveData';
-      tokenAddress: string;
-      incentiveControllerAddress: string;
-      userRewardsInformation: Array<{
-        __typename?: 'UserRewardInfo';
-        rewardTokenSymbol: string;
-        rewardOracleAddress: string;
-        rewardTokenAddress: string;
-        userUnclaimedRewards: string;
-        tokenIncentivesUserIndex: string;
         rewardPriceFeed: string;
         priceFeedDecimals: number;
         rewardTokenDecimals: number;
@@ -731,61 +577,28 @@ export type C_UserIncentivesQuery = {
   }>;
 };
 
-export type C_UserPoolIncentivesDataUpdateSubscriptionVariables = Exact<{
+export type C_UserReservesIncentivesDataUpdateSubscriptionVariables = Exact<{
   userAddress: Scalars['String'];
   lendingPoolAddressProvider: Scalars['String'];
   chainId: Scalars['Int'];
 }>;
 
-export type C_UserPoolIncentivesDataUpdateSubscription = {
+export type C_UserReservesIncentivesDataUpdateSubscription = {
   __typename?: 'Subscription';
-  userPoolIncentivesDataUpdate: Array<{
+  userReservesIncentivesDataUpdate: Array<{
     __typename?: 'UserIncentivesData';
     id: string;
-    underlyingAsset: string;
-    aTokenIncentivesUserData: {
+    data: {
       __typename?: 'UserIncentiveData';
       tokenAddress: string;
-      incentiveControllerAddress: string;
+      userStakedBalance: string;
+      userWalletBalance: string;
       userRewardsInformation: Array<{
         __typename?: 'UserRewardInfo';
         rewardTokenSymbol: string;
         rewardOracleAddress: string;
         rewardTokenAddress: string;
         userUnclaimedRewards: string;
-        tokenIncentivesUserIndex: string;
-        rewardPriceFeed: string;
-        priceFeedDecimals: number;
-        rewardTokenDecimals: number;
-      }>;
-    };
-    vTokenIncentivesUserData: {
-      __typename?: 'UserIncentiveData';
-      tokenAddress: string;
-      incentiveControllerAddress: string;
-      userRewardsInformation: Array<{
-        __typename?: 'UserRewardInfo';
-        rewardTokenSymbol: string;
-        rewardOracleAddress: string;
-        rewardTokenAddress: string;
-        userUnclaimedRewards: string;
-        tokenIncentivesUserIndex: string;
-        rewardPriceFeed: string;
-        priceFeedDecimals: number;
-        rewardTokenDecimals: number;
-      }>;
-    };
-    sTokenIncentivesUserData: {
-      __typename?: 'UserIncentiveData';
-      tokenAddress: string;
-      incentiveControllerAddress: string;
-      userRewardsInformation: Array<{
-        __typename?: 'UserRewardInfo';
-        rewardTokenSymbol: string;
-        rewardOracleAddress: string;
-        rewardTokenAddress: string;
-        userUnclaimedRewards: string;
-        tokenIncentivesUserIndex: string;
         rewardPriceFeed: string;
         priceFeedDecimals: number;
         rewardTokenDecimals: number;
@@ -796,15 +609,14 @@ export type C_UserPoolIncentivesDataUpdateSubscription = {
 
 export const IncentivesDataFragmentFragmentDoc = gql`
   fragment IncentivesDataFragment on IncentiveData {
-    incentiveControllerAddress
     tokenAddress
+    tokenSymbol
+    tokenDecimals
+    totalStakedBalance
     rewardsTokenInformation {
       emissionEndTimestamp
       emissionPerSecond
-      incentivesLastUpdateTimestamp
-      precision
       priceFeedDecimals
-      tokenIncentivesIndex
       rewardPriceFeed
       rewardTokenAddress
       rewardTokenDecimals
@@ -874,13 +686,13 @@ export const UserReserveDataFragmentFragmentDoc = gql`
 export const TokenIncentivesUserDataFragmentFragmentDoc = gql`
   fragment TokenIncentivesUserDataFragment on UserIncentiveData {
     tokenAddress
-    incentiveControllerAddress
+    userStakedBalance
+    userWalletBalance
     userRewardsInformation {
       rewardTokenSymbol
       rewardOracleAddress
       rewardTokenAddress
       userUnclaimedRewards
-      tokenIncentivesUserIndex
       rewardPriceFeed
       priceFeedDecimals
       rewardTokenDecimals
@@ -891,14 +703,7 @@ export const C_ReservesIncentivesDocument = gql`
   query C_ReservesIncentives($lendingPoolAddressProvider: String!, $chainId: Int!) {
     reservesIncentives(lendingPoolAddressProvider: $lendingPoolAddressProvider, chainId: $chainId) {
       id
-      underlyingAsset
-      aIncentiveData {
-        ...IncentivesDataFragment
-      }
-      vIncentiveData {
-        ...IncentivesDataFragment
-      }
-      sIncentiveData {
+      data {
         ...IncentivesDataFragment
       }
     }
@@ -955,21 +760,17 @@ export type C_ReservesIncentivesQueryResult = ApolloReactCommon.QueryResult<
   C_ReservesIncentivesQuery,
   C_ReservesIncentivesQueryVariables
 >;
-export const C_PoolIncentivesDataUpdateDocument = gql`
-  subscription C_PoolIncentivesDataUpdate($lendingPoolAddressProvider: String!, $chainId: Int!) {
-    poolIncentivesDataUpdate(
+export const C_ReservesIncentivesDataUpdateDocument = gql`
+  subscription C_ReservesIncentivesDataUpdate(
+    $lendingPoolAddressProvider: String!
+    $chainId: Int!
+  ) {
+    reservesIncentivesDataUpdate(
       lendingPoolAddressProvider: $lendingPoolAddressProvider
       chainId: $chainId
     ) {
       id
-      underlyingAsset
-      aIncentiveData {
-        ...IncentivesDataFragment
-      }
-      vIncentiveData {
-        ...IncentivesDataFragment
-      }
-      sIncentiveData {
+      data {
         ...IncentivesDataFragment
       }
     }
@@ -978,39 +779,39 @@ export const C_PoolIncentivesDataUpdateDocument = gql`
 `;
 
 /**
- * __useC_PoolIncentivesDataUpdateSubscription__
+ * __useC_ReservesIncentivesDataUpdateSubscription__
  *
- * To run a query within a React component, call `useC_PoolIncentivesDataUpdateSubscription` and pass it any options that fit your needs.
- * When your component renders, `useC_PoolIncentivesDataUpdateSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useC_ReservesIncentivesDataUpdateSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useC_ReservesIncentivesDataUpdateSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useC_PoolIncentivesDataUpdateSubscription({
+ * const { data, loading, error } = useC_ReservesIncentivesDataUpdateSubscription({
  *   variables: {
  *      lendingPoolAddressProvider: // value for 'lendingPoolAddressProvider'
  *      chainId: // value for 'chainId'
  *   },
  * });
  */
-export function useC_PoolIncentivesDataUpdateSubscription(
+export function useC_ReservesIncentivesDataUpdateSubscription(
   baseOptions: ApolloReactHooks.SubscriptionHookOptions<
-    C_PoolIncentivesDataUpdateSubscription,
-    C_PoolIncentivesDataUpdateSubscriptionVariables
+    C_ReservesIncentivesDataUpdateSubscription,
+    C_ReservesIncentivesDataUpdateSubscriptionVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return ApolloReactHooks.useSubscription<
-    C_PoolIncentivesDataUpdateSubscription,
-    C_PoolIncentivesDataUpdateSubscriptionVariables
-  >(C_PoolIncentivesDataUpdateDocument, options);
+    C_ReservesIncentivesDataUpdateSubscription,
+    C_ReservesIncentivesDataUpdateSubscriptionVariables
+  >(C_ReservesIncentivesDataUpdateDocument, options);
 }
-export type C_PoolIncentivesDataUpdateSubscriptionHookResult = ReturnType<
-  typeof useC_PoolIncentivesDataUpdateSubscription
+export type C_ReservesIncentivesDataUpdateSubscriptionHookResult = ReturnType<
+  typeof useC_ReservesIncentivesDataUpdateSubscription
 >;
-export type C_PoolIncentivesDataUpdateSubscriptionResult =
-  ApolloReactCommon.SubscriptionResult<C_PoolIncentivesDataUpdateSubscription>;
+export type C_ReservesIncentivesDataUpdateSubscriptionResult =
+  ApolloReactCommon.SubscriptionResult<C_ReservesIncentivesDataUpdateSubscription>;
 export const C_ProtocolDataDocument = gql`
   query C_ProtocolData($lendingPoolAddressProvider: String!, $chainId: Int!) {
     protocolData(lendingPoolAddressProvider: $lendingPoolAddressProvider, chainId: $chainId) {
@@ -1230,26 +1031,19 @@ export type C_UserDataUpdateSubscriptionHookResult = ReturnType<
 >;
 export type C_UserDataUpdateSubscriptionResult =
   ApolloReactCommon.SubscriptionResult<C_UserDataUpdateSubscription>;
-export const C_UserIncentivesDocument = gql`
-  query C_UserIncentives(
+export const C_UserReservesIncentivesDocument = gql`
+  query C_UserReservesIncentives(
     $userAddress: String!
     $lendingPoolAddressProvider: String!
     $chainId: Int!
   ) {
-    userIncentives(
+    userReservesIncentives(
       userAddress: $userAddress
       lendingPoolAddressProvider: $lendingPoolAddressProvider
       chainId: $chainId
     ) {
       id
-      underlyingAsset
-      aTokenIncentivesUserData {
-        ...TokenIncentivesUserDataFragment
-      }
-      vTokenIncentivesUserData {
-        ...TokenIncentivesUserDataFragment
-      }
-      sTokenIncentivesUserData {
+      data {
         ...TokenIncentivesUserDataFragment
       }
     }
@@ -1258,16 +1052,16 @@ export const C_UserIncentivesDocument = gql`
 `;
 
 /**
- * __useC_UserIncentivesQuery__
+ * __useC_UserReservesIncentivesQuery__
  *
- * To run a query within a React component, call `useC_UserIncentivesQuery` and pass it any options that fit your needs.
- * When your component renders, `useC_UserIncentivesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useC_UserReservesIncentivesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useC_UserReservesIncentivesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useC_UserIncentivesQuery({
+ * const { data, loading, error } = useC_UserReservesIncentivesQuery({
  *   variables: {
  *      userAddress: // value for 'userAddress'
  *      lendingPoolAddressProvider: // value for 'lendingPoolAddressProvider'
@@ -1275,56 +1069,54 @@ export const C_UserIncentivesDocument = gql`
  *   },
  * });
  */
-export function useC_UserIncentivesQuery(
+export function useC_UserReservesIncentivesQuery(
   baseOptions: ApolloReactHooks.QueryHookOptions<
-    C_UserIncentivesQuery,
-    C_UserIncentivesQueryVariables
+    C_UserReservesIncentivesQuery,
+    C_UserReservesIncentivesQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useQuery<C_UserIncentivesQuery, C_UserIncentivesQueryVariables>(
-    C_UserIncentivesDocument,
-    options
-  );
+  return ApolloReactHooks.useQuery<
+    C_UserReservesIncentivesQuery,
+    C_UserReservesIncentivesQueryVariables
+  >(C_UserReservesIncentivesDocument, options);
 }
-export function useC_UserIncentivesLazyQuery(
+export function useC_UserReservesIncentivesLazyQuery(
   baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    C_UserIncentivesQuery,
-    C_UserIncentivesQueryVariables
+    C_UserReservesIncentivesQuery,
+    C_UserReservesIncentivesQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return ApolloReactHooks.useLazyQuery<C_UserIncentivesQuery, C_UserIncentivesQueryVariables>(
-    C_UserIncentivesDocument,
-    options
-  );
+  return ApolloReactHooks.useLazyQuery<
+    C_UserReservesIncentivesQuery,
+    C_UserReservesIncentivesQueryVariables
+  >(C_UserReservesIncentivesDocument, options);
 }
-export type C_UserIncentivesQueryHookResult = ReturnType<typeof useC_UserIncentivesQuery>;
-export type C_UserIncentivesLazyQueryHookResult = ReturnType<typeof useC_UserIncentivesLazyQuery>;
-export type C_UserIncentivesQueryResult = ApolloReactCommon.QueryResult<
-  C_UserIncentivesQuery,
-  C_UserIncentivesQueryVariables
+export type C_UserReservesIncentivesQueryHookResult = ReturnType<
+  typeof useC_UserReservesIncentivesQuery
 >;
-export const C_UserPoolIncentivesDataUpdateDocument = gql`
-  subscription C_UserPoolIncentivesDataUpdate(
+export type C_UserReservesIncentivesLazyQueryHookResult = ReturnType<
+  typeof useC_UserReservesIncentivesLazyQuery
+>;
+export type C_UserReservesIncentivesQueryResult = ApolloReactCommon.QueryResult<
+  C_UserReservesIncentivesQuery,
+  C_UserReservesIncentivesQueryVariables
+>;
+
+export const C_UserReservesIncentivesDataUpdateDocument = gql`
+  subscription C_UserReservesIncentivesDataUpdate(
     $userAddress: String!
     $lendingPoolAddressProvider: String!
     $chainId: Int!
   ) {
-    userPoolIncentivesDataUpdate(
+    userReservesIncentivesDataUpdate(
       userAddress: $userAddress
       lendingPoolAddressProvider: $lendingPoolAddressProvider
       chainId: $chainId
     ) {
       id
-      underlyingAsset
-      aTokenIncentivesUserData {
-        ...TokenIncentivesUserDataFragment
-      }
-      vTokenIncentivesUserData {
-        ...TokenIncentivesUserDataFragment
-      }
-      sTokenIncentivesUserData {
+      data {
         ...TokenIncentivesUserDataFragment
       }
     }
@@ -1333,16 +1125,16 @@ export const C_UserPoolIncentivesDataUpdateDocument = gql`
 `;
 
 /**
- * __useC_UserPoolIncentivesDataUpdateSubscription__
+ * __useC_UserReservesIncentivesDataUpdateSubscription__
  *
- * To run a query within a React component, call `useC_UserPoolIncentivesDataUpdateSubscription` and pass it any options that fit your needs.
- * When your component renders, `useC_UserPoolIncentivesDataUpdateSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useC_UserReservesIncentivesDataUpdateSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useC_UserReservesIncentivesDataUpdateSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useC_UserPoolIncentivesDataUpdateSubscription({
+ * const { data, loading, error } = useC_UserReservesIncentivesDataUpdateSubscription({
  *   variables: {
  *      userAddress: // value for 'userAddress'
  *      lendingPoolAddressProvider: // value for 'lendingPoolAddressProvider'
@@ -1350,20 +1142,20 @@ export const C_UserPoolIncentivesDataUpdateDocument = gql`
  *   },
  * });
  */
-export function useC_UserPoolIncentivesDataUpdateSubscription(
+export function useC_UserReservesIncentivesDataUpdateSubscription(
   baseOptions: ApolloReactHooks.SubscriptionHookOptions<
-    C_UserPoolIncentivesDataUpdateSubscription,
-    C_UserPoolIncentivesDataUpdateSubscriptionVariables
+    C_UserReservesIncentivesDataUpdateSubscription,
+    C_UserReservesIncentivesDataUpdateSubscriptionVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return ApolloReactHooks.useSubscription<
-    C_UserPoolIncentivesDataUpdateSubscription,
-    C_UserPoolIncentivesDataUpdateSubscriptionVariables
-  >(C_UserPoolIncentivesDataUpdateDocument, options);
+    C_UserReservesIncentivesDataUpdateSubscription,
+    C_UserReservesIncentivesDataUpdateSubscriptionVariables
+  >(C_UserReservesIncentivesDataUpdateDocument, options);
 }
-export type C_UserPoolIncentivesDataUpdateSubscriptionHookResult = ReturnType<
-  typeof useC_UserPoolIncentivesDataUpdateSubscription
+export type C_UserReservesIncentivesDataUpdateSubscriptionHookResult = ReturnType<
+  typeof useC_UserReservesIncentivesDataUpdateSubscription
 >;
-export type C_UserPoolIncentivesDataUpdateSubscriptionResult =
-  ApolloReactCommon.SubscriptionResult<C_UserPoolIncentivesDataUpdateSubscription>;
+export type C_UserReservesIncentivesDataUpdateSubscriptionResult =
+  ApolloReactCommon.SubscriptionResult<C_UserReservesIncentivesDataUpdateSubscription>;

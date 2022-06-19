@@ -1,0 +1,57 @@
+fragment GoledoLockedBalanceFragment on UserGoledoStakeData {
+  amount
+  expire
+}
+
+fragment GoledoRewardBalanceFragment on UserGoledoStakeData {
+  amount
+  token
+}
+
+query C_UserGoledoStake(
+  $userAddress: String!
+  $chainId: Int!
+) {
+  userGoledoStake(
+    userAddress: $userAddress
+    chainId: $chainId
+  ) {
+    totalBalance
+    walletBalance
+    unlockedBalance
+    lockedBalance
+    vestings {
+      ...GoledoLockedBalanceFragment
+    }
+    locks {
+      ...GoledoLockedBalanceFragment
+    }
+    rewards {
+      ...GoledoRewardBalanceFragment
+    }
+  }
+}
+
+subscription C_UserGoledoStakeDataUpdate(
+  $userAddress: String!
+  $chainId: Int!
+) {
+  userGoledoStakeDataUpdate(
+    userAddress: $userAddress
+    chainId: $chainId
+  ) {
+    totalBalance
+    walletBalance
+    unlockedBalance
+    lockedBalance
+    vestings {
+      ...UserGoledoLockDataFragment
+    }
+    lockings {
+      ...UserGoledoLockDataFragment
+    }
+    rewards {
+      ...UserGoledoRewardDataFragment
+    }
+  }
+}

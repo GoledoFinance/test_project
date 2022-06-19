@@ -8,11 +8,9 @@ import { ListHeaderWrapper } from '../../components/lists/ListHeaderWrapper';
 import { VestListItem } from './VestListItem';
 import { VestListItemLoader } from './VestListItemLoader';
 import { DashboardContentNoData } from 'src/modules/dashboard/DashboardContentNoData';
-import { useRewardData } from 'src/hooks/app-data-provider/useRewardData';
 
 export function VestList() {
-  const { loading } = useAppDataContext();
-  const { loading: rewardLoading, data: rewardData } = useRewardData();
+  const { loading, userGoledoStake } = useAppDataContext();
 
   const isTableChangedToCards = useMediaQuery('(max-width:1125px)');
 
@@ -37,7 +35,7 @@ export function VestList() {
         </ListHeaderWrapper>
       )}
 
-      {loading || rewardLoading || !rewardData ? (
+      {loading ? (
         isTableChangedToCards ? (
           <></>
         ) : (
@@ -46,10 +44,10 @@ export function VestList() {
             <VestListItemLoader />
           </>
         )
-      ) : rewardData.stakeUserData.earnedBalances.length > 0 ? (
-        rewardData.stakeUserData.earnedBalances.map(({ amount, unlockTime }, index) =>
+      ) : userGoledoStake.vestings.length > 0 ? (
+        userGoledoStake.vestings.map(({ amount, expire }, index) =>
           isTableChangedToCards ? null : (
-            <VestListItem amount={amount} expire={unlockTime} key={index} />
+            <VestListItem amount={amount} expire={expire} key={index} />
           )
         )
       ) : (
