@@ -34,10 +34,12 @@ import { useWeb3Context } from '../src/libs/hooks/useWeb3Context';
 // TODO: need to update tooltip text
 import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
 import { useRewardData } from 'src/hooks/app-data-provider/useRewardData';
+import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
 export default function Staking() {
   const { currentAccount, loading } = useWeb3Context();
   const { loading: rewardLoading, data: rewardData } = useRewardData();
+  const { currentMarketData } = useProtocolDataContext();
   const { openStake, openUnstake } = useModalContext();
 
   // const { breakpoints } = useTheme();
@@ -64,7 +66,7 @@ export default function Staking() {
                     <Typography
                       sx={{ fontSize: 20, fontWeight: 700, color: 'rgba(58, 193, 112, 1)' }}
                     >
-                      APR 36.93%
+                      APR -%
                     </Typography>
                   }
                 />
@@ -76,8 +78,14 @@ export default function Staking() {
                   variant="contained"
                   size="large"
                   sx={{ height: 40 }}
+                  disabled={!rewardData}
                   onClick={() => {
-                    openStake('stake');
+                    openStake(
+                      'stake',
+                      rewardData?.stakeData.token || currentMarketData.addresses.STAKE_TOKEN,
+                      'GDO',
+                      rewardData?.stakeUserData.walletBalance || '0'
+                    );
                   }}
                 >
                   Stake
@@ -91,7 +99,7 @@ export default function Staking() {
                     <Typography
                       sx={{ fontSize: 20, fontWeight: 700, color: 'rgba(58, 193, 112, 1)' }}
                     >
-                      APR 36.93%
+                      APR -%
                     </Typography>
                   }
                 />
@@ -107,7 +115,15 @@ export default function Staking() {
                   variant="contained"
                   size="large"
                   sx={{ height: 40 }}
-                  onClick={() => openStake('lock')}
+                  disabled={!rewardData}
+                  onClick={() =>
+                    openStake(
+                      'lock',
+                      rewardData?.stakeData.token || currentMarketData.addresses.STAKE_TOKEN,
+                      'GDO',
+                      rewardData?.stakeUserData.walletBalance || '0'
+                    )
+                  }
                 >
                   Lock
                 </Button>
@@ -241,7 +257,7 @@ export default function Staking() {
                       variant="contained"
                       size="large"
                       sx={{ height: 40 }}
-                      onClick={() => openStake('stake')}
+                      onClick={() => openStake('stake', '', 'GDOCFX', '0')}
                     >
                       Stake
                     </Button>
@@ -252,7 +268,7 @@ export default function Staking() {
                       variant="contained"
                       size="large"
                       sx={{ height: 40 }}
-                      onClick={() => openUnstake('stake')}
+                      onClick={() => openUnstake('stake', '', 'GDOCFX', '0')}
                     >
                       UnStake
                     </Button>
@@ -278,10 +294,12 @@ export default function Staking() {
               <Paper sx={{ p: 5 }}>
                 <Title title="Goledo vest" />
                 <VestList />
+                <Typography variant="description">Total Goledo Vesting</Typography>
               </Paper>
               <Paper sx={{ p: 5 }}>
                 <Title title="Goledo Locks" />
                 <LocksList />
+                <Typography variant="description">Total Goledo Locked</Typography>
               </Paper>
             </Stack>
           </Box>

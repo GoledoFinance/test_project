@@ -64,8 +64,11 @@ export class IncentiveDataProvider implements IncentiveDataProviderInterface {
       controllerUserData: controllerUserData.map((data) => {
         return {
           token: data.token,
-          totalSupply: ethers.utils.formatEther(data.totalSupply),
-          staked: ethers.utils.formatEther(data.staked),
+          decimals: data.decimals,
+          symbol: data.symbol,
+          walletBalance: ethers.utils.formatUnits(data.walletBalance, data.decimals),
+          totalSupply: ethers.utils.formatUnits(data.totalSupply, data.decimals),
+          staked: ethers.utils.formatUnits(data.staked, data.decimals),
           claimable: ethers.utils.formatEther(data.claimable),
           allocPoint: data.allocPoint.toNumber(),
         } as UserIncentiveDataHumanized;
@@ -77,8 +80,11 @@ export class IncentiveDataProvider implements IncentiveDataProviderInterface {
       chefUserData: chefUserData.map((data) => {
         return {
           token: data.token,
-          totalSupply: ethers.utils.formatEther(data.totalSupply),
-          staked: ethers.utils.formatEther(data.staked),
+          decimals: data.decimals,
+          symbol: data.symbol,
+          walletBalance: ethers.utils.formatUnits(data.walletBalance, data.decimals),
+          totalSupply: ethers.utils.formatUnits(data.totalSupply, data.decimals),
+          staked: ethers.utils.formatUnits(data.staked, data.decimals),
           claimable: ethers.utils.formatEther(data.claimable),
           allocPoint: data.allocPoint.toNumber(),
         } as UserIncentiveDataHumanized;
@@ -88,20 +94,25 @@ export class IncentiveDataProvider implements IncentiveDataProviderInterface {
         rewardsPerSecond: ethers.utils.formatEther(chefData.rewardsPerSecond),
       },
       stakeUserData: {
-        totalBalance: ethers.utils.formatEther(stakeUserData.totalBalance),
-        unlockedBalance: ethers.utils.formatEther(stakeUserData.unlockedBalance),
-        lockedBalance: ethers.utils.formatEther(
-          stakeUserData.totalBalance.sub(stakeUserData.unlockedBalance)
+        totalBalance: ethers.utils.formatUnits(stakeUserData.totalBalance, stakeData.decimals),
+        walletBalance: ethers.utils.formatUnits(stakeUserData.walletBalance, stakeData.decimals),
+        unlockedBalance: ethers.utils.formatUnits(
+          stakeUserData.unlockedBalance,
+          stakeData.decimals
+        ),
+        lockedBalance: ethers.utils.formatUnits(
+          stakeUserData.totalBalance.sub(stakeUserData.unlockedBalance),
+          stakeData.decimals
         ),
         earnedBalances: stakeUserData.earnedBalances.map((data) => {
           return {
-            amount: ethers.utils.formatEther(data.amount),
+            amount: ethers.utils.formatUnits(data.amount, stakeData.decimals),
             unlockTime: data.unlockTime.toNumber(),
           };
         }),
         lockedBalances: stakeUserData.lockedBalances.map((data) => {
           return {
-            amount: ethers.utils.formatEther(data.amount),
+            amount: ethers.utils.formatUnits(data.amount, stakeData.decimals),
             unlockTime: data.unlockTime.toNumber(),
           };
         }),
@@ -113,8 +124,11 @@ export class IncentiveDataProvider implements IncentiveDataProviderInterface {
         }),
       },
       stakeData: {
-        totalSupply: ethers.utils.formatEther(stakeData.totalSupply),
-        lockedSupply: ethers.utils.formatEther(stakeData.lockedSupply),
+        token: stakeData.token,
+        symbol: stakeData.symbol,
+        decimals: stakeData.decimals,
+        totalSupply: ethers.utils.formatUnits(stakeData.totalSupply, stakeData.decimals),
+        lockedSupply: ethers.utils.formatUnits(stakeData.lockedSupply, stakeData.decimals),
       },
     };
   }

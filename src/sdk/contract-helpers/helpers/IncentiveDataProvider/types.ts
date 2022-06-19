@@ -3,6 +3,9 @@ import { BigNumber } from 'ethers';
 export interface IncentiveData {
   0: Array<{
     token: string;
+    decimals: number;
+    symbol: string;
+    walletBalance: BigNumber;
     totalSupply: BigNumber;
     staked: BigNumber;
     claimable: BigNumber;
@@ -14,6 +17,9 @@ export interface IncentiveData {
   };
   2: Array<{
     token: string;
+    decimals: number;
+    symbol: string;
+    walletBalance: BigNumber;
     totalSupply: BigNumber;
     staked: BigNumber;
     claimable: BigNumber;
@@ -25,12 +31,16 @@ export interface IncentiveData {
   };
   4: {
     totalBalance: BigNumber;
+    walletBalance: BigNumber;
     unlockedBalance: BigNumber;
     earnedBalances: Array<{ amount: BigNumber; unlockTime: BigNumber }>;
     lockedBalances: Array<{ amount: BigNumber; unlockTime: BigNumber }>;
     rewards: Array<{ token: string; amount: BigNumber }>;
   };
   5: {
+    token: string;
+    decimals: number;
+    symbol: string;
     totalSupply: BigNumber;
     lockedSupply: BigNumber;
   };
@@ -49,6 +59,7 @@ export interface IncentiveDataHumanized {
   };
   stakeUserData: {
     totalBalance: string;
+    walletBalance: string;
     unlockedBalance: string;
     lockedBalance: string;
     earnedBalances: Array<{ amount: string; unlockTime: number }>;
@@ -56,6 +67,9 @@ export interface IncentiveDataHumanized {
     rewards: Array<{ token: string; amount: string }>;
   };
   stakeData: {
+    token: string;
+    decimals: number;
+    symbol: string;
     totalSupply: string;
     lockedSupply: string;
   };
@@ -63,6 +77,9 @@ export interface IncentiveDataHumanized {
 
 export interface UserIncentiveDataHumanized {
   token: string;
+  decimals: number;
+  symbol: string;
+  walletBalance: string;
   totalSupply: string;
   staked: string;
   claimable: string;

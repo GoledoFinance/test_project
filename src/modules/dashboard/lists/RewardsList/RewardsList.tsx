@@ -49,7 +49,6 @@ export const RewardsList = () => {
       }
     });
   }
-  console.log(totalControllerIncentive.toString(), totalChefIncentive.toString());
   if (totalControllerIncentive.isZero() && totalChefIncentive.isZero()) {
     return null;
   }

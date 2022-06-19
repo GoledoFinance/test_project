@@ -38,8 +38,6 @@ export const useTransactionHandler = ({
   const [actionTx, setActionTx] = useState<EthereumTransactionTypeExtended | undefined>();
   const mounted = useRef(false);
 
-  console.log('mounted', mounted);
-
   useEffect(() => {
     mounted.current = true; // Will set it to true on mount ...
     return () => {
@@ -197,6 +195,7 @@ export const useTransactionHandler = ({
             try {
               gas = await data[data.length - 1].gas();
             } catch (error) {
+              console.log('error1', error);
               const parsedError = getErrorTextFromError(error, TxAction.GAS_ESTIMATION, false);
               setTxError(parsedError);
             }
@@ -204,6 +203,7 @@ export const useTransactionHandler = ({
             setLoadingTxns(false);
           })
           .catch((error) => {
+            console.log('error2', error);
             if (!mounted.current) return;
             setMainTxState({
               txHash: undefined,

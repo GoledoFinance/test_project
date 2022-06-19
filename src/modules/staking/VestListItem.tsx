@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import { ListColumn } from '../../components/lists/ListColumn';
 import { ListItem } from '../../components/lists/ListItem';
@@ -8,13 +8,18 @@ export const VestListItem = ({ amount, expire }: { amount: string; expire: numbe
   return (
     <ListItem px={0} minHeight={36} sx={{ cursor: 'pointer' }} button>
       <ListColumn>
-        <FormattedNumber
-          variant="description"
-          value={amount}
-          symbol="GDO"
-          visibleDecimals={2}
-          symbolsColor="palette.text"
-        />
+        <Box display={'flex'} alignItems="center">
+          <img src={'/icons/tokens/gdo.svg'} alt="goledo" width={15} height={15} />
+          <Typography marginLeft={1}>
+            <FormattedNumber
+              variant="description"
+              value={amount}
+              symbol="Goledo"
+              visibleDecimals={2}
+              symbolsColor="palette.text"
+            />
+          </Typography>
+        </Box>
       </ListColumn>
 
       <ListColumn>

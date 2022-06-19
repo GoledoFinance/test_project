@@ -1,10 +1,10 @@
 import { IncentiveDataHumanized } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
-import { Box, Typography, useMediaQuery, useTheme, Divider } from '@mui/material';
-import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
+// import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import { TopInfoPanel } from 'src/components/TopInfoPanel/TopInfoPanel';
 
-import { TopInfoPanelItem } from '../../components/TopInfoPanel/TopInfoPanelItem';
+// import { TopInfoPanelItem } from '../../components/TopInfoPanel/TopInfoPanelItem';
 
 interface StakingHeaderProps {
   // tvl: string;
@@ -13,14 +13,14 @@ interface StakingHeaderProps {
   loading: boolean;
 }
 
-export const StakingHeader: React.FC<StakingHeaderProps> = ({ loading, rewardData }) => {
+export const StakingHeader: React.FC<StakingHeaderProps> = ({}) => {
   const theme = useTheme();
   const upToLG = useMediaQuery(theme.breakpoints.up('lg'));
-  const downToSM = useMediaQuery(theme.breakpoints.down('sm'));
+  // const downToSM = useMediaQuery(theme.breakpoints.down('sm'));
   const downToXSM = useMediaQuery(theme.breakpoints.down('xsm'));
 
-  const valueTypographyVariant = downToSM ? 'main16' : 'main21';
-  const symbolsVariant = downToSM ? 'secondary16' : 'secondary21';
+  // const valueTypographyVariant = downToSM ? 'main16' : 'main21';
+  // const symbolsVariant = downToSM ? 'secondary16' : 'secondary21';
 
   return (
     <TopInfoPanel
@@ -35,7 +35,7 @@ export const StakingHeader: React.FC<StakingHeaderProps> = ({ loading, rewardDat
       }
       bridge={[]}
     >
-      <TopInfoPanelItem
+      {/*<TopInfoPanelItem
         hideIcon
         title={<Trans>Your Locked + staked Goledo</Trans>}
         loading={loading}
@@ -55,7 +55,7 @@ export const StakingHeader: React.FC<StakingHeaderProps> = ({ loading, rewardDat
           Staked {rewardData?.stakeUserData.unlockedBalance} Goledo
         </Typography>
       </TopInfoPanelItem>
-      {/*
+      
       <TopInfoPanelItem hideIcon title={<Trans>Your Daily Revenue</Trans>} loading={loading}>
         <FormattedNumber
           value={0.0001}

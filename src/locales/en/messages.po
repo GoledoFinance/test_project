@@ -50,14 +50,6 @@ msgstr "APY type"
 msgid "AToken supply is not zero"
 msgstr "AToken supply is not zero"
 
-#: src/modules/governance/GovernanceTopPanel.tsx
-msgid "Aave Governance"
-msgstr "Aave Governance"
-
-#: src/modules/governance/GovernanceTopPanel.tsx
-msgid "Aave is a fully decentralized, community governed protocol by the AAVE token-holders. AAVE token-holders collectively discuss, propose, and vote on upgrades to the protocol. AAVE token-holders can either vote themselves on new proposals or delagate to an address of choice. To learn more check out the Governance documentation"
-msgstr "Aave is a fully decentralized, community governed protocol by the AAVE token-holders. AAVE token-holders collectively discuss, propose, and vote on upgrades to the protocol. AAVE token-holders can either vote themselves on new proposals or delagate to an address of choice. To learn more check out the Governance documentation"
-
 #: src/modules/staking/StakingPanel.tsx
 msgid "Aave per month"
 msgstr "Aave per month"
@@ -89,10 +81,6 @@ msgstr "Address is not a contract"
 #: src/components/transactions/FlowCommons/Success.tsx
 msgid "All done!"
 msgstr "All done!"
-
-#: src/modules/governance/ProposalsList.tsx
-msgid "All proposals"
-msgstr "All proposals"
 
 #: src/components/transactions/FlowCommons/PermissionView.tsx
 msgid "Allowance required action"
@@ -170,10 +158,6 @@ msgstr "Asset is not borrowable in isolation mode"
 msgid "Asset is not listed"
 msgstr "Asset is not listed"
 
-#: src/components/transactions/GovDelegation/GovDelegationModalContent.tsx
-msgid "Asset to delegate"
-msgstr "Asset to delegate"
-
 #: src/modules/dashboard/lists/ListHeader.tsx
 #: src/modules/markets/AssetsList.tsx
 msgid "Assets"
@@ -199,6 +183,7 @@ msgstr "Available liquidity"
 
 #: src/components/caps/CapsHint.tsx
 #: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsListMobileItem.tsx
+#: src/modules/reserve-overview/BorrowActions.tsx
 msgid "Available to borrow"
 msgstr "Available to borrow"
 
@@ -206,14 +191,9 @@ msgstr "Available to borrow"
 msgid "Available to supply"
 msgstr "Available to supply"
 
-#: src/modules/reserve-overview/BorrowActions.tsx
-msgid "Available to you"
-msgstr "Available to you"
-
 #: src/components/transactions/AssetInput.tsx
 #: src/components/transactions/ClaimRewards/ClaimRewardsModalContent.tsx
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsList.tsx
-#: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
@@ -311,10 +291,6 @@ msgstr "CLAIMING {symbol}"
 #: src/modules/reserve-overview/ReserveConfiguration.tsx
 msgid "Can be collateral"
 msgstr "Can be collateral"
-
-#: src/modules/governance/FormattedProposalTime.tsx
-msgid "Can be executed"
-msgstr "Can be executed"
 
 #: src/modules/staking/StakingPanel.tsx
 msgid "Claim AAVE"
@@ -437,19 +413,6 @@ msgstr "Debt ceiling is not zero"
 msgid "Define Retry with Approval text"
 msgstr "Define Retry with Approval text"
 
-#: src/components/transactions/GovDelegation/GovDelegationActions.tsx
-#: src/modules/governance/VotingPowerInfoPanel.tsx
-msgid "Delegate"
-msgstr "Delegate"
-
-#: src/components/transactions/GovDelegation/GovDelegationActions.tsx
-msgid "Delegating"
-msgstr "Delegating"
-
-#: src/components/transactions/GovDelegation/GovDelegationModalContent.tsx
-msgid "Delegation"
-msgstr "Delegation"
-
 #: src/components/transactions/Deposite/DepositeModal.tsx
 msgid "Desposit"
 msgstr "Desposit"
@@ -465,10 +428,6 @@ msgstr "Details"
 #: src/ui-config/menu-items/index.tsx
 msgid "Developers"
 msgstr "Developers"
-
-#: src/modules/governance/ProposalListItem.tsx
-msgid "Differential"
-msgstr "Differential"
 
 #: src/modules/dashboard/DashboardEModeButton.tsx
 msgid "Disable E-Mode"
@@ -508,6 +467,10 @@ msgstr "E-Mode increases your LTV for a selected category of assets up to 97%. <
 msgid "E-Mode increases your LTV for a selected category of assets up to<0/>. <1>Learn more</1>"
 msgstr "E-Mode increases your LTV for a selected category of assets up to<0/>. <1>Learn more</1>"
 
+#: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+msgid "Earned"
+msgstr "Earned"
+
 #: src/modules/dashboard/DashboardEModeButton.tsx
 msgid "Efficiency mode (E-Mode)"
 msgstr "Efficiency mode (E-Mode)"
@@ -538,10 +501,6 @@ msgstr "Enabling this asset as collateral increases your borrowing power and Hea
 msgid "English"
 msgstr "English"
 
-#: src/components/transactions/GovDelegation/GovDelegationModalContent.tsx
-msgid "Enter ETH address"
-msgstr "Enter ETH address"
-
 #: src/components/transactions/TxActionsWrapper.tsx
 msgid "Enter an amount"
 msgstr "Enter an amount"
@@ -549,10 +508,6 @@ msgstr "Enter an amount"
 #: src/components/WalletConnection/WalletSelector.tsx
 msgid "Error connecting. Try refreshing the page."
 msgstr "Error connecting. Try refreshing the page."
-
-#: src/modules/governance/FormattedProposalTime.tsx
-msgid "Expires"
-msgstr "Expires"
 
 #: src/modules/staking/LocksList.tsx
 #: src/modules/staking/VestList1.tsx
@@ -566,10 +521,6 @@ msgstr "FAQ"
 #: src/modules/dashboard/lists/ListBottomText.tsx
 msgid "Faucet"
 msgstr "Faucet"
-
-#: src/modules/governance/ProposalsList.tsx
-msgid "Filter"
-msgstr "Filter"
 
 #: src/ui-config/errorMapping.tsx
 msgid "For repayment of a specific type of debt, the user needs to have debt that type"
@@ -752,13 +703,8 @@ msgid "Menu"
 msgstr "Menu"
 
 #: src/layouts/MoreMenu.tsx
-#: src/ui-config/menu-items/index.tsx
 msgid "More"
 msgstr "More"
-
-#: src/modules/governance/VoteBar.tsx
-msgid "NAY"
-msgstr "NAY"
 
 #: src/components/WalletConnection/WalletSelector.tsx
 msgid "Need help connecting a wallet? <0>Read our FAQ</0>"
@@ -809,21 +755,9 @@ msgstr "No Supplies"
 msgid "No rewards to claim"
 msgstr "No rewards to claim"
 
-#: src/components/transactions/GovVote/GovVoteModalContent.tsx
-msgid "No voting power"
-msgstr "No voting power"
-
-#: src/components/transactions/GovDelegation/GovDelegationModalContent.tsx
-msgid "Not a valid address"
-msgstr "Not a valid address"
-
 #: src/components/transactions/UnStake/UnStakeModalContent_old.tsx
 msgid "Not enough staked balance"
 msgstr "Not enough staked balance"
-
-#: src/modules/governance/proposal/VoteInfo.tsx
-msgid "Not enough voting power to participate in this proposal"
-msgstr "Not enough voting power to participate in this proposal"
 
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 msgid "Nothing staked"
@@ -854,6 +788,10 @@ msgstr "Oracle price"
 msgid "Overview"
 msgstr "Overview"
 
+#: src/ui-config/menu-items/index.tsx
+msgid "POL"
+msgstr "POL"
+
 #: src/components/incentives/IncentivesTooltipContent.tsx
 msgid "Participating in this {symbol} reserve gives annualized rewards."
 msgstr "Participating in this {symbol} reserve gives annualized rewards."
@@ -875,26 +813,9 @@ msgstr "Please switch to {networkName}."
 msgid "Pool addresses provider is not registered"
 msgstr "Pool addresses provider is not registered"
 
-#: src/modules/governance/ProposalsList.tsx
-msgid "Proposals"
-msgstr "Proposals"
-
-#: src/components/transactions/GovDelegation/DelegationTypeSelector.tsx
-#: src/modules/governance/VotingPowerInfoPanel.tsx
-msgid "Proposition power"
-msgstr "Proposition power"
-
 #: src/modules/more/MoreTopPanel.tsx
 msgid "Protocol Owned DEX Liquidity Module"
 msgstr "Protocol Owned DEX Liquidity Module"
-
-#: src/modules/governance/ProposalListItem.tsx
-msgid "Quorum"
-msgstr "Quorum"
-
-#: src/components/transactions/GovDelegation/GovDelegationModalContent.tsx
-msgid "Recipient address"
-msgstr "Recipient address"
 
 #: src/components/WalletConnection/WalletSelector.tsx
 msgid "Rejected connection request"
@@ -961,6 +882,7 @@ msgid "Reward(s) to claim"
 msgstr "Reward(s) to claim"
 
 #: src/modules/dashboard/DashboardTopPanel.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
 msgid "Rewards"
 msgstr "Rewards"
@@ -1140,10 +1062,6 @@ msgstr "Switch Network"
 msgid "Switch rate"
 msgstr "Switch rate"
 
-#: src/ui-config/menu-items/index.tsx
-msgid "Switch to Aave Classic"
-msgstr "Switch to Aave Classic"
-
 #: src/components/transactions/RateSwitch/RateSwitchActions.tsx
 msgid "Switching rate"
 msgstr "Switching rate"
@@ -1157,8 +1075,8 @@ msgid "The % of your total borrowing power used. This is based on the amount of 
 msgstr "The % of your total borrowing power used. This is based on the amount of your collateral supplied and the total amount that you can borrow."
 
 #: src/components/infoTooltips/MaxLTVTooltip.tsx
-msgid "The Maximum LTV ratio represents the maximum borrowing power of a specific collateral. For example, if a collateral has an LTV of 75%, the user can borrow up to 0.75 worth of ETH in the principal currency for every 1 ETH worth of collateral."
-msgstr "The Maximum LTV ratio represents the maximum borrowing power of a specific collateral. For example, if a collateral has an LTV of 75%, the user can borrow up to 0.75 worth of ETH in the principal currency for every 1 ETH worth of collateral."
+msgid "The Maximum LTV ratio represents the maximum borrowing power of a specific collateral. For example, if a collateral has an LTV of 75%, the user can borrow up to 0.75 worth of CFX in the principal currency for every 1 CFX worth of collateral."
+msgstr "The Maximum LTV ratio represents the maximum borrowing power of a specific collateral. For example, if a collateral has an LTV of 75%, the user can borrow up to 0.75 worth of CFX in the principal currency for every 1 CFX worth of collateral."
 
 #: src/components/transactions/Borrow/BorrowModalContentNext.tsx
 msgid "The Stable Rate is not enabled for this currency"
@@ -1304,11 +1222,6 @@ msgstr "Total Borrowed"
 msgid "Total Borrows"
 msgstr "Total Borrows"
 
-#: src/modules/staking/LocksList.tsx
-#: src/modules/staking/VestList1.tsx
-msgid "Total Goledo Vesiting"
-msgstr "Total Goledo Vesiting"
-
 #: src/modules/markets/MarketsTopPanel.tsx
 msgid "Total Market Size"
 msgstr "Total Market Size"
@@ -1316,11 +1229,6 @@ msgstr "Total Market Size"
 #: src/modules/markets/AssetsList.tsx
 msgid "Total Supplied"
 msgstr "Total Supplied"
-
-#: src/modules/staking/LocksList.tsx
-#: src/modules/staking/VestList1.tsx
-msgid "Total Value"
-msgstr "Total Value"
 
 #: src/modules/markets/AssetsListMobileItem.tsx
 msgid "Total borrowed"
@@ -1337,10 +1245,6 @@ msgstr "Total worth"
 #: src/components/transactions/FlowCommons/Error.tsx
 msgid "Transaction failed"
 msgstr "Transaction failed"
-
-#: src/components/transactions/GovDelegation/GovDelegationModalContent.tsx
-msgid "Type of delegation"
-msgstr "Type of delegation"
 
 #: src/components/transactions/UnStake/UnStakeActions.tsx
 msgid "UNSTAKE {symbol}"
@@ -1398,16 +1302,6 @@ msgstr "User is trying to borrow multiple assets including a siloed one"
 msgid "Utilization Rate"
 msgstr "Utilization Rate"
 
-#: src/components/transactions/GovVote/GovVoteActions.tsx
-#: src/components/transactions/GovVote/GovVoteActions.tsx
-msgid "VOTE NAY"
-msgstr "VOTE NAY"
-
-#: src/components/transactions/GovVote/GovVoteActions.tsx
-#: src/components/transactions/GovVote/GovVoteActions.tsx
-msgid "VOTE YAE"
-msgstr "VOTE YAE"
-
 #: src/components/transactions/RateSwitch/RateSwitchModalContent.tsx
 msgid "Variable"
 msgstr "Variable"
@@ -1417,12 +1311,8 @@ msgid "Variable debt supply is not zero"
 msgstr "Variable debt supply is not zero"
 
 #: src/modules/dashboard/lists/RewardsList/RewardsListItem.tsx
-msgid "Vest 0.001 GOLEDO"
-msgstr "Vest 0.001 GOLEDO"
-
-#: src/modules/markets/AssetsListItem.tsx
-msgid "Vest 0.002 GOLEDO"
-msgstr "Vest 0.002 GOLEDO"
+msgid "Vest"
+msgstr "Vest"
 
 #: src/modules/staking/VestList1.tsx
 msgid "Vesting"
@@ -1435,25 +1325,6 @@ msgstr "View details"
 #: src/layouts/WalletWidget.tsx
 msgid "View on Explorer"
 msgstr "View on Explorer"
-
-#: src/components/transactions/GovVote/GovVoteModalContent.tsx
-msgid "Vote"
-msgstr "Vote"
-
-#: src/modules/governance/proposal/VoteInfo.tsx
-msgid "Vote NAY"
-msgstr "Vote NAY"
-
-#: src/modules/governance/proposal/VoteInfo.tsx
-msgid "Vote YAE"
-msgstr "Vote YAE"
-
-#: src/components/transactions/GovDelegation/DelegationTypeSelector.tsx
-#: src/components/transactions/GovVote/GovVoteModalContent.tsx
-#: src/modules/governance/VotingPowerInfoPanel.tsx
-#: src/modules/governance/proposal/VoteInfo.tsx
-msgid "Voting power"
-msgstr "Voting power"
 
 #: src/components/transactions/Repay/RepayTypeSelector.tsx
 msgid "Wallet balance"
@@ -1479,10 +1350,6 @@ msgstr "When a liquidation occurs, liquidators repay up to 50% of the outstandin
 msgid "Why do I need to approve?"
 msgstr "Why do I need to approve?"
 
-#: src/modules/governance/proposal/VoteInfo.tsx
-msgid "With a voting power of <0/>"
-msgstr "With a voting power of <0/>"
-
 #: src/components/transactions/Withdraw/WithdrawModal.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsListItem.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsListMobileItem.tsx
@@ -1505,10 +1372,6 @@ msgstr "Withdrawing {symbol}"
 #: src/components/transactions/TxActionsWrapper.tsx
 msgid "Wrong Network"
 msgstr "Wrong Network"
-
-#: src/modules/governance/VoteBar.tsx
-msgid "YAE"
-msgstr "YAE"
 
 #: src/modules/reserve-overview/ReserveActions.tsx
 msgid "You already deposited"
@@ -1550,10 +1413,6 @@ msgstr "You can report incident to our <0>Discord</0> or <1>Github</1>."
 msgid "You cancelled the transaction."
 msgstr "You cancelled the transaction."
 
-#: src/modules/governance/proposal/VoteInfo.tsx
-msgid "You did not participate in this proposal"
-msgstr "You did not participate in this proposal"
-
 #: src/components/transactions/CollateralChange/CollateralChangeModalContent.tsx
 msgid "You do not have supplies in this currency"
 msgstr "You do not have supplies in this currency"
@@ -1574,10 +1433,6 @@ msgstr "You switched to {0} rate"
 msgid "You unstake here"
 msgstr "You unstake here"
 
-#: src/modules/governance/proposal/VoteInfo.tsx
-msgid "You voted {0}"
-msgstr "You voted {0}"
-
 #: src/components/transactions/FlowCommons/Success.tsx
 msgid "You {action} <0/> {symbol}"
 msgstr "You {action} <0/> {symbol}"
@@ -1589,18 +1444,6 @@ msgid "Your Borrows"
 msgstr "Your Borrows"
 
 #: src/modules/staking/StakingHeader.tsx
-msgid "Your Daily Penalty Fees"
-msgstr "Your Daily Penalty Fees"
-
-#: src/modules/staking/StakingHeader.tsx
-msgid "Your Daily Platform Fees"
-msgstr "Your Daily Platform Fees"
-
-#: src/modules/staking/StakingHeader.tsx
-msgid "Your Daily Revenue"
-msgstr "Your Daily Revenue"
-
-#: src/modules/staking/StakingHeader.tsx
 msgid "Your Locked + staked Goledo"
 msgstr "Your Locked + staked Goledo"
 
@@ -1609,10 +1452,6 @@ msgstr "Your Locked + staked Goledo"
 msgid "Your Supplies"
 msgstr "Your Supplies"
 
-#: src/modules/staking/StakingHeader.tsx
-msgid "Your Weeklu Revenue"
-msgstr "Your Weeklu Revenue"
-
 #: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
 msgid "Your current loan to value based on your collateral supplied. If your loan to value goes above the liquidation threshold your collateral supplied may be liquidated."
 msgstr "Your current loan to value based on your collateral supplied. If your loan to value goes above the liquidation threshold your collateral supplied may be liquidated."
@@ -1620,10 +1459,6 @@ msgstr "Your current loan to value based on your collateral supplied. If your lo
 #: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
 msgid "Your healrh factor an loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."
 msgstr "Your healrh factor an loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."
-
-#: src/modules/governance/VotingPowerInfoPanel.tsx
-msgid "Your info"
-msgstr "Your info"
 
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
 msgid "Your locked balance"
@@ -1637,10 +1472,6 @@ msgstr "Your reward balance is 0"
 msgid "Your staked balance"
 msgstr "Your staked balance"
 
-#: src/modules/governance/proposal/VoteInfo.tsx
-msgid "Your voting info"
-msgstr "Your voting info"
-
 #: src/modules/reserve-overview/ReserveActions.tsx
 msgid "Your wallet balance"
 msgstr "Your wallet balance"
@@ -1653,10 +1484,6 @@ msgstr "Your {0} balance"
 msgid "Zero address not valid"
 msgstr "Zero address not valid"
 
-#: src/modules/governance/proposal/ProposalTopPanel.tsx
-msgid "back"
-msgstr "back"
-
 #: src/components/transactions/FlowCommons/GasEstimationError.tsx
 msgid "copy the error"
 msgstr "copy the error"
@@ -1665,21 +1492,9 @@ msgstr "copy the error"
 msgid "documentation"
 msgstr "documentation"
 
-#: src/modules/governance/FormattedProposalTime.tsx
-msgid "ends"
-msgstr "ends"
-
-#: src/modules/governance/GovernanceTopPanel.tsx
-msgid "here."
-msgstr "here."
-
 #: src/components/transactions/Warnings/AMPLWarning.tsx
 msgid "is an asset affected by rebasing. Visit the"
 msgstr "is an asset affected by rebasing. Visit the"
-
-#: src/modules/governance/FormattedProposalTime.tsx
-msgid "on"
-msgstr "on"
 
 #: src/components/transactions/Warnings/AMPLWarning.tsx
 msgid "or"

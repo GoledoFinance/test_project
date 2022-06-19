@@ -1,11 +1,12 @@
-import { Box, Typography, Stack, Button } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import { Button } from '@mui/material';
+// import { LoadingButton } from '@mui/lab';
 import * as React from 'react';
 import BigNumber from 'bignumber.js';
 
 // import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import { AssetInput } from '../AssetInput';
 import { useState } from 'react';
+// import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 
 export const StakeModalContent = ({
   type,
@@ -25,14 +26,14 @@ export const StakeModalContent = ({
   const [isMaxSelected, setIsMaxSelected] = useState(false);
   const amountRef = React.useRef<string>();
 
-  const maxAmountToBorrow = new BigNumber(walletBalance);
+  const maxAmountToStake = new BigNumber(walletBalance);
 
   const handleChange = (value: string) => {
     const maxSelected = value === '-1';
-    if (!maxSelected && maxAmountToBorrow.lt(new BigNumber(value))) {
-      value = maxAmountToBorrow.toString(10);
+    if (!maxSelected && maxAmountToStake.lt(new BigNumber(value))) {
+      value = maxAmountToStake.toString(10);
     }
-    amountRef.current = maxSelected ? maxAmountToBorrow.toString(10) : value;
+    amountRef.current = maxSelected ? maxAmountToStake.toString(10) : value;
     setIsMaxSelected(maxSelected);
     onAmountChange(amountRef.current);
   };
@@ -47,13 +48,13 @@ export const StakeModalContent = ({
         symbol={symbol}
         assets={[
           {
-            balance: '0',
+            balance: walletBalance,
             symbol: symbol,
             iconSymbol: symbol,
           },
         ]}
-        isMaxSelected={false}
-        maxValue={'0'}
+        isMaxSelected={isMaxSelected}
+        maxValue={maxAmountToStake.toString(10)}
       />
       <Button
         variant="contained"

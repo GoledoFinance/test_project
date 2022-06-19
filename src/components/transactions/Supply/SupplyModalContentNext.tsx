@@ -45,6 +45,7 @@ export const SupplyModalContentNext = ({
   const supplyUnWrapped = underlyingAsset.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase();
 
   const supplyApy = poolReserve.supplyAPY;
+  console.log('underlyingAsset2', underlyingAsset);
 
   // Calculation of future HF
   const amountIntEth = new BigNumber(amount || '0').multipliedBy(poolReserve.formattedPriceInETH);
