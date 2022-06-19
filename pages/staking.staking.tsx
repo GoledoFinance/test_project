@@ -17,7 +17,7 @@ import { StakeModal } from 'src/components/transactions/Stake/StakeModal';
 import { StakeCooldownModal } from 'src/components/transactions/StakeCooldown/StakeCooldownModal';
 import { StakeRewardClaimModal } from 'src/components/transactions/StakeRewardClaim/StakeRewardClaimModal';
 import { UnStakeModal } from 'src/components/transactions/UnStake/UnStakeModal';
-import { StakeDataProvider, useStakeData } from 'src/hooks/stake-data-provider/StakeDataProvider';
+// import { StakeDataProvider, useStakeData } from 'src/hooks/stake-data-provider/StakeDataProvider';
 import { MainLayout } from 'src/layouts/MainLayout';
 import { StakingHeader } from 'src/modules/staking/StakingHeader';
 import { StakeTxBuilderProvider } from 'src/providers/StakeTxBuilderProvider';
@@ -27,22 +27,30 @@ import { ActionList } from 'src/modules/staking/ActionList';
 import { useModalContext } from 'src/hooks/useModal';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 
+import BigNumber from 'bignumber.js';
+
 import { ConnectWalletPaper } from '../src/components/ConnectWalletPaper';
 import { useWeb3Context } from '../src/libs/hooks/useWeb3Context';
 // TODO: need to update tooltip text
 import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
+import { useRewardData } from 'src/hooks/app-data-provider/useRewardData';
 
 export default function Staking() {
   const { currentAccount, loading } = useWeb3Context();
-  const data = useStakeData();
+  const { loading: rewardLoading, data: rewardData } = useRewardData();
   const { openStake, openUnstake } = useModalContext();
 
   // const { breakpoints } = useTheme();
   // const lg = useMediaQuery(breakpoints.up('lg'));
+  const rewardPerSecond = rewardData
+    ? new BigNumber(rewardData.chefData.rewardsPerSecond)
+    : new BigNumber('0');
+  const rewardPerDay = rewardPerSecond.multipliedBy(86400);
+  const rewardPerWeek = rewardPerDay.multipliedBy(7);
 
   return (
     <>
-      <StakingHeader loading={data.loading} />
+      <StakingHeader loading={rewardLoading || loading} rewardData={rewardData} />
 
       <ContentContainer>
         {currentAccount ? (
@@ -106,7 +114,7 @@ export default function Staking() {
               </Paper>
 
               <Paper sx={{ p: 5 }}>
-                <Title img={'/icons/staking/bi.svg'} title="XXX LP" />
+                <Title img={'/icons/staking/bi.svg'} title="GDO/CFX LP" />
                 <Box sx={{ my: 5 }}>
                   <LabelList
                     arr={[
@@ -117,7 +125,7 @@ export default function Staking() {
                           <FormattedNumber
                             variant="description"
                             percent
-                            value={1.4008}
+                            value={0}
                             visibleDecimals={2}
                             symbolsColor="#111"
                           />
@@ -130,7 +138,7 @@ export default function Staking() {
                           <FormattedNumber
                             variant="description"
                             symbol="usd"
-                            value={0.15}
+                            value={0}
                             visibleDecimals={2}
                             symbolsColor="#111"
                           />
@@ -147,14 +155,14 @@ export default function Staking() {
                           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
                             <FormattedNumber
                               variant="description"
-                              value={6540000000}
+                              value={rewardData?.chefUserData[0]?.totalSupply || '0'}
                               symbol="Goledo"
                               visibleDecimals={2}
                               symbolsColor="#111"
                             />
                             <FormattedNumber
                               variant="caption"
-                              value={920001.01}
+                              value={0}
                               symbol="usd"
                               compact={false}
                               visibleDecimals={2}
@@ -176,14 +184,14 @@ export default function Staking() {
                           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
                             <FormattedNumber
                               variant="description"
-                              value={6540000000}
+                              value={rewardPerDay.toString()}
                               symbol="Goledo"
                               visibleDecimals={2}
                               symbolsColor="#111"
                             />
                             <FormattedNumber
                               variant="caption"
-                              value={920001.01}
+                              value={0}
                               symbol="usd"
                               compact={false}
                               visibleDecimals={2}
@@ -205,14 +213,14 @@ export default function Staking() {
                           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
                             <FormattedNumber
                               variant="description"
-                              value={6540000000}
+                              value={rewardPerWeek.toString()}
                               symbol="Goledo"
                               visibleDecimals={2}
                               symbolsColor="#111"
                             />
                             <FormattedNumber
                               variant="caption"
-                              value={920001.01}
+                              value={0}
                               symbol="usd"
                               compact={false}
                               visibleDecimals={2}
@@ -227,7 +235,7 @@ export default function Staking() {
                 </Box>
 
                 <Grid spacing={2} container>
-                  <Grid item xs={4}>
+                  <Grid item xs={6}>
                     <Button
                       fullWidth
                       variant="contained"
@@ -238,7 +246,7 @@ export default function Staking() {
                       Stake
                     </Button>
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={6}>
                     <Button
                       fullWidth
                       variant="contained"
@@ -249,7 +257,7 @@ export default function Staking() {
                       UnStake
                     </Button>
                   </Grid>
-                  <Grid item xs={4}>
+                  {/*<Grid item xs={4}>
                     <Button
                       fullWidth
                       variant="contained"
@@ -259,7 +267,7 @@ export default function Staking() {
                     >
                       Vest
                     </Button>
-                  </Grid>
+                  </Grid>*/}
                 </Grid>
               </Paper>
             </Stack>
@@ -327,15 +335,15 @@ Staking.getLayout = function getLayout(page: React.ReactElement) {
   return (
     <MainLayout>
       <StakeTxBuilderProvider>
-        <StakeDataProvider>
-          {page}
-          {/** Modals */}
-          <StakeModal />
-          <StakeCooldownModal />
-          <UnStakeModal />
-          <StakeRewardClaimModal />
-          {/** End of modals */}
-        </StakeDataProvider>
+        {/*<StakeDataProvider>*/}
+        {page}
+        {/** Modals */}
+        <StakeModal />
+        <StakeCooldownModal />
+        <UnStakeModal />
+        <StakeRewardClaimModal />
+        {/** End of modals */}
+        {/*</StakeDataProvider>*/}
       </StakeTxBuilderProvider>
     </MainLayout>
   );

@@ -4,6 +4,7 @@
 export type { BaseDebtToken } from './BaseDebtToken';
 export type { ERC20 } from './ERC20';
 export type { IncentivesController } from './IncentivesController';
+export type { IncentiveDataProvider } from './IncentiveDataProvider';
 export type { LendingPool } from './LendingPool';
 export type { LendingPoolAddressesProvider } from './LendingPoolAddressesProvider';
 export type { MasterChef } from './MasterChef';
@@ -15,6 +16,7 @@ export type { WETHGateway } from './WETHGateway';
 export { BaseDebtToken__factory } from './factories/BaseDebtToken__factory';
 export { ERC20__factory } from './factories/ERC20__factory';
 export { IncentivesController__factory } from './factories/IncentivesController__factory';
+export { IncentiveDataProvider__factory } from './factories/IncentiveDataProvider__factory';
 export { LendingPool__factory } from './factories/LendingPool__factory';
 export { LendingPoolAddressesProvider__factory } from './factories/LendingPoolAddressesProvider__factory';
 export { MasterChef__factory } from './factories/MasterChef__factory';

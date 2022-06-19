@@ -5,6 +5,7 @@ import { useState } from 'react';
 // import { StableAPYTooltip } from 'src/components/infoTooltips/StableAPYTooltip';
 import { VariableAPYTooltip } from 'src/components/infoTooltips/VariableAPYTooltip';
 import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
+import { useRewardData } from 'src/hooks/app-data-provider/useRewardData';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
 
 import { ListColumn } from '../../components/lists/ListColumn';
@@ -19,6 +20,7 @@ import { AssetsListMobileItemLoader } from './AssetsListMobileItemLoader';
 
 export default function AssetsList() {
   const { reserves, loading } = useAppDataContext();
+  const { loading: rewardLoading, data: rewardData } = useRewardData();
   const { currentMarketData, currentNetworkConfig } = useProtocolDataContext();
 
   const isTableChangedToCards = useMediaQuery('(max-width:1125px)');

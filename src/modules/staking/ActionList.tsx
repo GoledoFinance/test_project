@@ -1,10 +1,12 @@
 import { Divider, Stack, Box, Typography, Button } from '@mui/material';
 import { ReactNode } from 'react';
+import { useRewardData } from 'src/hooks/app-data-provider/useRewardData';
 
 // import { useModalContext } from 'src/hooks/useModal';
 
 export const ActionList = () => {
   // const { openStakeRewardsClaim } = useModalContext();
+  const data = useRewardData();
 
   return (
     <Stack divider={<Divider />} spacing={3}>
@@ -35,7 +37,7 @@ export const ActionList = () => {
           <>
             Early exit penalty{' '}
             <Typography component={'span'} color="red">
-              0.005 Goledo
+              {data.data?.stakeUserData.earnedBalances[0].amount ?? '0'} Goledo
             </Typography>
           </>
         }
@@ -77,7 +79,7 @@ const ListItem = ({
     <Box flex={1} />
     {num && (
       <Box display={'flex'} alignItems="center" marginRight={7.5}>
-        <img src={'/icons/tokens/goledo.svg'} alt="goledo" width={22} height={22} />
+        <img src={'/icons/tokens/gdo.svg'} alt="goledo" width={22} height={22} />
         <Typography variant="main16" marginLeft={2}>
           2 Goledo
         </Typography>

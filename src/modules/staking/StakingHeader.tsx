@@ -1,3 +1,4 @@
+import { IncentiveDataHumanized } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { Box, Typography, useMediaQuery, useTheme, Divider } from '@mui/material';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
@@ -8,10 +9,11 @@ import { TopInfoPanelItem } from '../../components/TopInfoPanel/TopInfoPanelItem
 interface StakingHeaderProps {
   // tvl: string;
   // stkEmission: string;
+  rewardData?: IncentiveDataHumanized;
   loading: boolean;
 }
 
-export const StakingHeader: React.FC<StakingHeaderProps> = ({ loading }) => {
+export const StakingHeader: React.FC<StakingHeaderProps> = ({ loading, rewardData }) => {
   const theme = useTheme();
   const upToLG = useMediaQuery(theme.breakpoints.up('lg'));
   const downToSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -31,6 +33,7 @@ export const StakingHeader: React.FC<StakingHeaderProps> = ({ loading }) => {
           </Box>
         </Box>
       }
+      bridge={[]}
     >
       <TopInfoPanelItem
         hideIcon
@@ -38,8 +41,8 @@ export const StakingHeader: React.FC<StakingHeaderProps> = ({ loading }) => {
         loading={loading}
       >
         <FormattedNumber
-          value={0.9}
-          symbol="USD"
+          value={rewardData?.stakeUserData.totalBalance || '0'}
+          symbol="Goledo"
           variant={valueTypographyVariant}
           visibleDecimals={2}
           compact
@@ -47,11 +50,12 @@ export const StakingHeader: React.FC<StakingHeaderProps> = ({ loading }) => {
           symbolsVariant={symbolsVariant}
         />
         <Typography sx={{ color: '#ccc', fontSize: 12 }} variant={'description'} component="div">
-          Locked 1 Goledo
+          Locked {rewardData?.stakeUserData.lockedBalance} Goledo
           <br />
-          Staked 2.01 Goledo
+          Staked {rewardData?.stakeUserData.unlockedBalance} Goledo
         </Typography>
       </TopInfoPanelItem>
+      {/*
       <TopInfoPanelItem hideIcon title={<Trans>Your Daily Revenue</Trans>} loading={loading}>
         <FormattedNumber
           value={0.0001}
@@ -78,7 +82,7 @@ export const StakingHeader: React.FC<StakingHeaderProps> = ({ loading }) => {
           <br />
           $0.05 / year
         </Typography>
-      </TopInfoPanelItem>
+    </TopInfoPanelItem>
 
       <Divider orientation="vertical" flexItem sx={{ borderColor: '#ccc' }} />
 
@@ -104,7 +108,7 @@ export const StakingHeader: React.FC<StakingHeaderProps> = ({ loading }) => {
           symbolsColor="#fff"
           symbolsVariant={symbolsVariant}
         />
-      </TopInfoPanelItem>
+      </TopInfoPanelItem>*/}
     </TopInfoPanel>
   );
 };

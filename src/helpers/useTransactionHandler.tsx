@@ -38,6 +38,8 @@ export const useTransactionHandler = ({
   const [actionTx, setActionTx] = useState<EthereumTransactionTypeExtended | undefined>();
   const mounted = useRef(false);
 
+  console.log('mounted', mounted);
+
   useEffect(() => {
     mounted.current = true; // Will set it to true on mount ...
     return () => {
