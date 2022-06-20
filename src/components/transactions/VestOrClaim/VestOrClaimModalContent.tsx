@@ -73,10 +73,10 @@ export const VestOrClaimModalContent = ({
   }
   if (mainTxState.success) {
     if (type === ModalType.GoledoVesting) {
-      return <TxSuccessView action={<Trans>Vested</Trans>} amount={amount} symbol={'GDO'} />;
+      return <TxSuccessView action={<Trans>Vested</Trans>} amount={amount} symbol={'GOL'} />;
     }
     if (type === ModalType.GoledoWithdraw) {
-      return <TxSuccessView action={<Trans>Withdrawn</Trans>} amount={amount} symbol={'GDO'} />;
+      return <TxSuccessView action={<Trans>Withdrawn</Trans>} amount={amount} symbol={'GOL'} />;
     }
     return <TxSuccessView />;
   }
@@ -106,7 +106,7 @@ export const VestOrClaimModalContent = ({
           <DetailsNumberLineWithSub
             description={<Trans>Amount</Trans>}
             futureValue={new BigNumber(amount).toString(10)}
-            symbol={'GDO'}
+            symbol={'GOL'}
             futureValueUSD={'0'}
           />
         </TxModalDetails>
@@ -116,7 +116,7 @@ export const VestOrClaimModalContent = ({
           <DetailsNumberLineWithSub
             description={<Trans>Amount</Trans>}
             futureValue={new BigNumber(amount).toString(10)}
-            symbol={'GDO'}
+            symbol={'GOL'}
             futureValueUSD={'0'}
           />
         </TxModalDetails>
@@ -162,13 +162,13 @@ export const VestOrClaimModalContent = ({
           <DetailsNumberLineWithSub
             description={<Trans>Amount</Trans>}
             futureValue={vesting.plus(userGoledoStake.unlockedBalance).toString(10)}
-            symbol={'GDO'}
+            symbol={'GOL'}
             futureValueUSD={'0'}
           />
           <DetailsNumberLineWithSub
             description={<Trans>Penaty</Trans>}
             futureValue={penalty.toString(10)}
-            symbol={'GDO'}
+            symbol={'GOL'}
             futureValueUSD={'0'}
           />
         </TxModalDetails>

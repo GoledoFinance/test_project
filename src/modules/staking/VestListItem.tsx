@@ -9,7 +9,7 @@ export const VestListItem = ({ amount, expire }: { amount: string; expire: numbe
     <ListItem px={0} minHeight={36} sx={{ cursor: 'pointer' }} button>
       <ListColumn>
         <Box display={'flex'} alignItems="center">
-          <img src={'/icons/tokens/gdo.svg'} alt="goledo" width={15} height={15} />
+          <img src={'/icons/tokens/gol.svg'} alt="goledo" width={15} height={15} />
           <Typography marginLeft={1}>
             <FormattedNumber
               variant="description"

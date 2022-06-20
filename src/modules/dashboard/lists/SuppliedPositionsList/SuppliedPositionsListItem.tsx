@@ -76,6 +76,7 @@ export const SuppliedPositionsListItem = ({
           disabled={!isActive}
           variant="contained"
           onClick={() => openWithdraw(underlyingAsset)}
+          fullWidth
         >
           <Trans>Withdraw</Trans>
         </Button>

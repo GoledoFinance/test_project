@@ -21,6 +21,8 @@ msgstr "<0>Ampleforth</0> is an asset affected by rebasing. Visit the <1>documen
 #: src/components/incentives/IncentivesTooltipContent.tsx
 #: src/modules/dashboard/lists/RewardsList/RewardsListItem.tsx
 #: src/modules/dashboard/lists/RewardsList/RewardsListItem.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
 msgid "APR"
 msgstr "APR"
 
@@ -31,6 +33,7 @@ msgstr "APR"
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsListMobileItem.tsx
 #: src/modules/dashboard/lists/ListItemAPYButton.tsx
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
@@ -352,17 +355,12 @@ msgstr "Define Retry with Approval text"
 msgid "Details"
 msgstr "Details"
 
-#: src/ui-config/menu-items/index.tsx
-msgid "Developers"
-msgstr "Developers"
-
 #: src/components/transactions/CollateralChange/CollateralChangeActions.tsx
 msgid "Disable {symbol} as collateral"
 msgstr "Disable {symbol} as collateral"
 
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
-#: src/components/transactions/Supply/SupplyModal.tsx
 msgid "Disabled"
 msgstr "Disabled"
 
@@ -374,15 +372,12 @@ msgstr "Disabling this asset as collateral affects your borrowing power and Heal
 msgid "Disconnect Wallet"
 msgstr "Disconnect Wallet"
 
-#: src/ui-config/menu-items/index.tsx
-msgid "Discord"
-msgstr "Discord"
-
 #: src/components/infoTooltips/EModeTooltip.tsx
 msgid "E-Mode increases your LTV for a selected category of assets up to<0/>. <1>Learn more</1>"
 msgstr "E-Mode increases your LTV for a selected category of assets up to<0/>. <1>Learn more</1>"
 
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
 msgid "Earned"
 msgstr "Earned"
 
@@ -391,7 +386,6 @@ msgid "Enable {symbol} as collateral"
 msgstr "Enable {symbol} as collateral"
 
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
-#: src/components/transactions/Supply/SupplyModal.tsx
 msgid "Enabled"
 msgstr "Enabled"
 
@@ -841,6 +835,10 @@ msgstr "Stablecoin"
 msgid "Stake"
 msgstr "Stake"
 
+#: src/components/transactions/UnStake/UnStakeModalContentNext.tsx
+msgid "Staked {symbol}"
+msgstr "Staked {symbol}"
+
 #: src/components/transactions/Supply/SupplyModalContentNext.tsx
 msgid "Supplied"
 msgstr "Supplied"
@@ -910,6 +908,10 @@ msgstr "Switch rate"
 #: src/components/transactions/RateSwitch/RateSwitchActions.tsx
 msgid "Switching rate"
 msgstr "Switching rate"
+
+#: src/ui-config/menu-items/index.tsx
+msgid "Telegram"
+msgstr "Telegram"
 
 #: src/layouts/components/TestNetModeSwitcher.tsx
 msgid "Testnet mode"
@@ -1128,6 +1130,7 @@ msgid "Variable debt supply is not zero"
 msgstr "Variable debt supply is not zero"
 
 #: src/modules/dashboard/lists/RewardsList/RewardsListItem.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
 msgid "Vest"
 msgstr "Vest"
 
@@ -1279,6 +1282,7 @@ msgid "Your healrh factor an loan to value determine the assurance of your colla
 msgstr "Your healrh factor an loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."
 
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
 msgid "Your locked balance"
 msgstr "Your locked balance"
 
@@ -1287,6 +1291,7 @@ msgid "Your reward balance is 0"
 msgstr "Your reward balance is 0"
 
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
 msgid "Your staked balance"
 msgstr "Your staked balance"
 
@@ -1347,8 +1352,8 @@ msgid "tokens, please go to the"
 msgstr "tokens, please go to the"
 
 #: src/components/transactions/UnStake/UnStakeModalContentNext.tsx
-msgid "un{type}"
-msgstr "un{type}"
+msgid "unstaked"
+msgstr "unstaked"
 
 #: src/components/MarketSwitcher.tsx
 msgid "v2 markets"
@@ -1373,10 +1378,6 @@ msgstr "xxxxxx"
 #: src/modules/reserve-overview/ReserveTopDetails.tsx
 msgid "{0}"
 msgstr "{0}"
-
-#: src/components/transactions/UnStake/UnStakeModalContentNext.tsx
-msgid "{0} {1}"
-msgstr "{0} {1}"
 
 #: src/components/transactions/Stake/StakeModalContentNext.tsx
 msgid "{0} {symbol}"

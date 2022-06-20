@@ -100,21 +100,23 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
       </ListColumn>
 
       <ListButtonsColumn sx={{ maxWidth: 270, minWidth: 270 }}>
-        <Button
-          disabled={earned.isZero()}
-          variant="contained"
-          onClick={() =>
-            openVestOrClaim(
-              ModalType.GoledoVesting,
-              earned.toString(),
-              [reserve.aTokenAddress, reserve.variableDebtTokenAddress],
-              currentMarketData.addresses.INCENTIVE_CONTROLLER
-            )
-          }
-          sx={{ mr: 1.5, height: 32 }}
-        >
-          <Trans>Vest {earned.toPrecision(4)} Goledo</Trans>
-        </Button>
+        {!earned.isZero() && (
+          <Button
+            disabled={earned.isZero()}
+            variant="contained"
+            onClick={() =>
+              openVestOrClaim(
+                ModalType.GoledoVesting,
+                earned.toString(),
+                [reserve.aTokenAddress, reserve.variableDebtTokenAddress],
+                currentMarketData.addresses.INCENTIVE_CONTROLLER
+              )
+            }
+            sx={{ mr: 1.5, height: 32 }}
+          >
+            <Trans>Vest {earned.toPrecision(4)} Goledo</Trans>
+          </Button>
+        )}
         <Button
           sx={{ height: 32 }}
           variant="outlined"
