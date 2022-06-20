@@ -4,13 +4,12 @@ import BigNumber from 'bignumber.js';
 import { useRef, useState } from 'react';
 
 export const UnStakeModalContent = ({
-  type,
   onSubmit,
   amount,
   balance,
+  symbol,
   onAmountChange,
 }: {
-  type?: 'lock' | 'stake';
   amount?: string;
   symbol: string;
   balance: string;
@@ -35,19 +34,19 @@ export const UnStakeModalContent = ({
   return (
     <>
       <Typography variant="main16" color={'#111'}>
-        Un{type} your GoledoCFX
+        Unstake your {symbol}
       </Typography>
       <AssetInput
-        inputTitle={`How much do you want to un${type}?`}
+        inputTitle={`How much do you want to unstake?`}
         value={amount || '0'}
         onChange={handleChange}
         usdValue={'0'}
-        symbol={'GDOCFX'}
+        symbol={symbol}
         assets={[
           {
             balance: balance,
-            symbol: 'GDOCFX',
-            iconSymbol: 'GDOCFX',
+            symbol,
+            iconSymbol: symbol,
           },
         ]}
         isMaxSelected={isMaxSelected}

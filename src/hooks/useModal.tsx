@@ -59,12 +59,7 @@ export interface ModalContextType<T extends ModalArgsType> {
     stakeAssetName: string,
     balance: string
   ) => void;
-  openUnstake: (
-    type: 'lock' | 'stake',
-    underlyingAsset: string,
-    stakeAssetName: string,
-    balance: string
-  ) => void;
+  openUnstake: (underlyingAsset: string, stakeAssetName: string, balance: string) => void;
   openSwap: (underlyingAsset: string) => void;
   close: () => void;
   type?: ModalType;
@@ -127,9 +122,9 @@ export const ModalContextProvider: React.FC = ({ children }) => {
           setType(ModalType.Stake);
           setArgs({ type, underlyingAsset, stakeAssetName, balance });
         },
-        openUnstake: (type, underlyingAsset, stakeAssetName, balance) => {
+        openUnstake: (underlyingAsset, stakeAssetName, balance) => {
           setType(ModalType.Unstake);
-          setArgs({ type, underlyingAsset, stakeAssetName, balance });
+          setArgs({ underlyingAsset, stakeAssetName, balance });
         },
         openVestOrClaim: (
           type: ModalType,

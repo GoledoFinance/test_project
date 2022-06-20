@@ -1,9 +1,10 @@
-import { BookOpenIcon, QuestionMarkCircleIcon } from '@heroicons/react/outline';
+import { QuestionMarkCircleIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { ReactNode } from 'react';
 import { ROUTES } from 'src/components/primitives/Link';
 
-import DiscordIcon from '/public/icons/discord.svg';
+// import DiscordIcon from '/public/icons/discord.svg';
+import TelegramIcon from '/public/icons/telegram.svg';
 import GithubIcon from '/public/icons/github.svg';
 
 import { MarketDataType } from '../marketsConfig';
@@ -38,22 +39,22 @@ interface MoreMenuItem extends Navigation {
 
 const moreMenuItems: MoreMenuItem[] = [
   {
-    link: 'https://docs.aave.com/faq/',
+    link: 'https://goledo-cash.gitbook.io/goledo/',
     title: t`FAQ`,
     icon: <QuestionMarkCircleIcon />,
   },
-  {
+  /*{
     link: 'https://docs.aave.com/portal/',
     title: t`Developers`,
     icon: <BookOpenIcon />,
+  },*/
+  {
+    link: '#',
+    title: t`Telegram`,
+    icon: <TelegramIcon />,
   },
   {
-    link: 'https://discord.gg/7kHKnkDEUf',
-    title: t`Discord`,
-    icon: <DiscordIcon />,
-  },
-  {
-    link: 'https://github.com/aave/interface',
+    link: 'https://github.com/Goledo',
     title: t`Github`,
     icon: <GithubIcon />,
   },

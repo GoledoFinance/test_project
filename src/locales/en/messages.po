@@ -352,17 +352,12 @@ msgstr "Define Retry with Approval text"
 msgid "Details"
 msgstr "Details"
 
-#: src/ui-config/menu-items/index.tsx
-msgid "Developers"
-msgstr "Developers"
-
 #: src/components/transactions/CollateralChange/CollateralChangeActions.tsx
 msgid "Disable {symbol} as collateral"
 msgstr "Disable {symbol} as collateral"
 
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
-#: src/components/transactions/Supply/SupplyModal.tsx
 msgid "Disabled"
 msgstr "Disabled"
 
@@ -373,10 +368,6 @@ msgstr "Disabling this asset as collateral affects your borrowing power and Heal
 #: src/layouts/WalletWidget.tsx
 msgid "Disconnect Wallet"
 msgstr "Disconnect Wallet"
-
-#: src/ui-config/menu-items/index.tsx
-msgid "Discord"
-msgstr "Discord"
 
 #: src/components/infoTooltips/EModeTooltip.tsx
 msgid "E-Mode increases your LTV for a selected category of assets up to<0/>. <1>Learn more</1>"
@@ -391,7 +382,6 @@ msgid "Enable {symbol} as collateral"
 msgstr "Enable {symbol} as collateral"
 
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
-#: src/components/transactions/Supply/SupplyModal.tsx
 msgid "Enabled"
 msgstr "Enabled"
 
@@ -841,6 +831,10 @@ msgstr "Stablecoin"
 msgid "Stake"
 msgstr "Stake"
 
+#: src/components/transactions/UnStake/UnStakeModalContentNext.tsx
+msgid "Staked {symbol}"
+msgstr "Staked {symbol}"
+
 #: src/components/transactions/Supply/SupplyModalContentNext.tsx
 msgid "Supplied"
 msgstr "Supplied"
@@ -910,6 +904,10 @@ msgstr "Switch rate"
 #: src/components/transactions/RateSwitch/RateSwitchActions.tsx
 msgid "Switching rate"
 msgstr "Switching rate"
+
+#: src/ui-config/menu-items/index.tsx
+msgid "Telegram"
+msgstr "Telegram"
 
 #: src/layouts/components/TestNetModeSwitcher.tsx
 msgid "Testnet mode"
@@ -1347,8 +1345,8 @@ msgid "tokens, please go to the"
 msgstr "tokens, please go to the"
 
 #: src/components/transactions/UnStake/UnStakeModalContentNext.tsx
-msgid "un{type}"
-msgstr "un{type}"
+msgid "unstaked"
+msgstr "unstaked"
 
 #: src/components/MarketSwitcher.tsx
 msgid "v2 markets"
@@ -1373,10 +1371,6 @@ msgstr "xxxxxx"
 #: src/modules/reserve-overview/ReserveTopDetails.tsx
 msgid "{0}"
 msgstr "{0}"
-
-#: src/components/transactions/UnStake/UnStakeModalContentNext.tsx
-msgid "{0} {1}"
-msgstr "{0} {1}"
 
 #: src/components/transactions/Stake/StakeModalContentNext.tsx
 msgid "{0} {symbol}"

@@ -126,11 +126,9 @@ export function useRewardDataRPC(
         data: {
           __typename: 'Query',
           masterChefIncentives: reservesResponse.chefUserData.map((incentive) => {
-            const emissionPerSecond = new BigNumber(
-              reservesResponse.controllerData.rewardsPerSecond
-            )
+            const emissionPerSecond = new BigNumber(reservesResponse.chefData.rewardsPerSecond)
               .multipliedBy(incentive.allocPoint)
-              .div(reservesResponse.controllerData.totalAllocPoint);
+              .div(reservesResponse.chefData.totalAllocPoint);
             return {
               __typename: 'ReserveIncentiveData',
               id: `${chainId}-${currentAccount}-${incentive.token}-${lendingPoolAddressProvider}`.toLowerCase(),

@@ -112,22 +112,24 @@ export const AssetsListMobileItem = ({ ...reserve }: ComputedReserveData) => {
         />
       </Row>
 
-      <Button
-        disabled={earned.isZero()}
-        variant="contained"
-        onClick={() =>
-          openVestOrClaim(
-            ModalType.GoledoVesting,
-            earned.toString(),
-            [reserve.aTokenAddress, reserve.variableDebtTokenAddress],
-            currentMarketData.addresses.INCENTIVE_CONTROLLER
-          )
-        }
-        fullWidth
-        sx={{ mb: 1.5 }}
-      >
-        <Trans>Vest {earned.toPrecision(4)} Goledo</Trans>
-      </Button>
+      {!earned.isZero() && (
+        <Button
+          disabled={earned.isZero()}
+          variant="contained"
+          onClick={() =>
+            openVestOrClaim(
+              ModalType.GoledoVesting,
+              earned.toString(),
+              [reserve.aTokenAddress, reserve.variableDebtTokenAddress],
+              currentMarketData.addresses.INCENTIVE_CONTROLLER
+            )
+          }
+          fullWidth
+          sx={{ mb: 1.5 }}
+        >
+          <Trans>Vest {earned.toPrecision(4)} Goledo</Trans>
+        </Button>
+      )}
 
       <Button
         variant="outlined"

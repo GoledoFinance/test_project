@@ -97,7 +97,7 @@ export class MultiFeeDistribution
     txs.push({
       tx: txCallback,
       txType: eEthereumTxType.REWARD_ACTION,
-      gas: this.generateTxPriceEstimation([], txCallback),
+      gas: this.generateTxPriceEstimation(txs, txCallback),
     });
 
     return txs;
