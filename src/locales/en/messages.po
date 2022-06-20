@@ -21,6 +21,8 @@ msgstr "<0>Ampleforth</0> is an asset affected by rebasing. Visit the <1>documen
 #: src/components/incentives/IncentivesTooltipContent.tsx
 #: src/modules/dashboard/lists/RewardsList/RewardsListItem.tsx
 #: src/modules/dashboard/lists/RewardsList/RewardsListItem.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
 msgid "APR"
 msgstr "APR"
 
@@ -31,6 +33,7 @@ msgstr "APR"
 #: src/modules/dashboard/lists/BorrowedPositionsList/BorrowedPositionsListMobileItem.tsx
 #: src/modules/dashboard/lists/ListItemAPYButton.tsx
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/dashboard/lists/SuppliedPositionsList/SuppliedPositionsList.tsx
 #: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
@@ -362,7 +365,6 @@ msgstr "Disable {symbol} as collateral"
 
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
-#: src/components/transactions/Supply/SupplyModal.tsx
 msgid "Disabled"
 msgstr "Disabled"
 
@@ -383,6 +385,7 @@ msgid "E-Mode increases your LTV for a selected category of assets up to<0/>. <1
 msgstr "E-Mode increases your LTV for a selected category of assets up to<0/>. <1>Learn more</1>"
 
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
 msgid "Earned"
 msgstr "Earned"
 
@@ -391,7 +394,6 @@ msgid "Enable {symbol} as collateral"
 msgstr "Enable {symbol} as collateral"
 
 #: src/components/transactions/FlowCommons/TxModalDetails.tsx
-#: src/components/transactions/Supply/SupplyModal.tsx
 msgid "Enabled"
 msgstr "Enabled"
 
@@ -1128,6 +1130,7 @@ msgid "Variable debt supply is not zero"
 msgstr "Variable debt supply is not zero"
 
 #: src/modules/dashboard/lists/RewardsList/RewardsListItem.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
 msgid "Vest"
 msgstr "Vest"
 
@@ -1279,6 +1282,7 @@ msgid "Your healrh factor an loan to value determine the assurance of your colla
 msgstr "Your healrh factor an loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."
 
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
 msgid "Your locked balance"
 msgstr "Your locked balance"
 
@@ -1287,6 +1291,7 @@ msgid "Your reward balance is 0"
 msgstr "Your reward balance is 0"
 
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
+#: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx
 msgid "Your staked balance"
 msgstr "Your staked balance"
 
