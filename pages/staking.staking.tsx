@@ -97,7 +97,7 @@ export default function Staking() {
                   }
                 />
                 <Typography sx={{ my: 4, color: '#666', fontSize: 14 }}>
-                  Lock Goldo and earn platform fees and penalty fees in unlocked Goledo.
+                  Lock Goledo and earn platform fees and penalty fees in unlocked Goledo.
                   <br />
                   <br />
                   Locked Goledo is subjext to a three month lock and will continue to earn fees

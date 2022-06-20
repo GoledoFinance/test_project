@@ -1136,8 +1136,8 @@ msgstr "Vest"
 
 #: src/modules/markets/AssetsListItem.tsx
 #: src/modules/markets/AssetsListMobileItem.tsx
-msgid "Vest {0} Goledo"
-msgstr "Vest {0} Goledo"
+msgid "Vest<0/>Goledo"
+msgstr "Vest<0/>Goledo"
 
 #: src/components/transactions/VestOrClaim/VestOrClaimModalContent.tsx
 msgid "Vested"
