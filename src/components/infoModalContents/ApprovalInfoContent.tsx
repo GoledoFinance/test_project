@@ -11,7 +11,7 @@ export const ApprovalInfoContent = () => {
         <Trans>
           Before supplying, you need to approve its usage by the Aave protocol. You can learn more
           in our
-          <Link fontWeight={500} href={'https://docs.aave.com/faq/'}>
+          <Link fontWeight={500} href={'https://goledo-cash.gitbook.io/goledo/'}>
             FAQ
           </Link>
         </Trans>

@@ -114,7 +114,17 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
             }
             sx={{ mr: 1.5, height: 32 }}
           >
-            <Trans>Vest {earned.toPrecision(4)} Goledo</Trans>
+            <Trans>
+              Vest
+              <FormattedNumber
+                value={earned.toString()}
+                variant="secondary12"
+                symbolsColor="common.white"
+                compact={true}
+                sx={{ ml: 1.5, mr: 1.5 }}
+              />
+              Goledo
+            </Trans>
           </Button>
         )}
         <Button
