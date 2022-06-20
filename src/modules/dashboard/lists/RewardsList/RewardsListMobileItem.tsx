@@ -115,6 +115,7 @@ export const RewardsListMobileItem = ({
           variant="contained"
           disabled={loading || earned === '0'}
           onClick={() => openVestOrClaim(ModalType.GoledoVesting, earned, tokens, stakingContract)}
+          fullWidth
         >
           <Trans>Vest</Trans>
         </Button>

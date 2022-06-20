@@ -29,18 +29,27 @@ export const StakeActions = ({
 }: StakeActionProps) => {
   const { currentAccount } = useWeb3Context();
   const { currentMarketData } = useProtocolDataContext();
-  const { staking } = useTxBuilderContext();
+  const { staking, masterChef } = useTxBuilderContext();
 
   const { action, approval, requiresApproval, loadingTxns, approvalTxState, mainTxState } =
     useTransactionHandler({
       handleGetTxns: async () => {
-        return staking.stake({
-          user: currentAccount,
-          amount: amountToStake.toString(),
-          token: selectedToken,
-          lock,
-          distributionAddress: currentMarketData.addresses.MULTI_FEE_DISTRIBUTION,
-        });
+        if (symbol === 'GOL') {
+          return staking.stake({
+            user: currentAccount,
+            amount: amountToStake,
+            token: selectedToken,
+            lock,
+            distributionAddress: currentMarketData.addresses.MULTI_FEE_DISTRIBUTION,
+          });
+        } else {
+          return masterChef.deposit({
+            user: currentAccount,
+            token: selectedToken,
+            amount: amountToStake,
+            masterChefAddress: currentMarketData.addresses.MASTER_CHEF,
+          });
+        }
       },
       skip: !amountToStake || parseFloat(amountToStake) === 0 || blocked,
       deps: [amountToStake],

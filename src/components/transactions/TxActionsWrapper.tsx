@@ -82,17 +82,6 @@ export const TxActionsWrapper = ({
   const { content, disabled, loading, handleClick } = getMainParams();
   const approvalParams = getApprovalParams();
 
-  console.log(
-    'getMainParams',
-    blocked,
-    content,
-    disabled,
-    loading,
-    handleClick,
-    approvalTxState,
-    mainTxState
-  );
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', mt: 12, ...sx }} {...rest}>
       {requiresApproval && (

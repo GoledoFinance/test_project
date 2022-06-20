@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "build:analyze": "ANALYZE=true yarn build",
     "build:static": "next build && next export",
     "build:optimize-svgs": "find public -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 npx svgo",

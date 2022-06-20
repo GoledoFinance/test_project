@@ -12,6 +12,8 @@ import { ActionList } from 'src/modules/staking/ActionList';
 import { ModalType, useModalContext } from 'src/hooks/useModal';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 
+import BigNumber from 'bignumber.js';
+
 import { ConnectWalletPaper } from '../src/components/ConnectWalletPaper';
 import { useWeb3Context } from '../src/libs/hooks/useWeb3Context';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
@@ -22,9 +24,22 @@ import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvide
 
 export default function Staking() {
   const { currentAccount, loading } = useWeb3Context();
-  const { userGoledoStake, loading: stateLoading } = useAppDataContext();
+  const {
+    userGoledoStake,
+    masterChefIncentives,
+    userMasterChefIncentives,
+    loading: stateLoading,
+  } = useAppDataContext();
   const { currentMarketData } = useProtocolDataContext();
   const { openStake, openUnstake, openVestOrClaim } = useModalContext();
+
+  const lpIncentice = masterChefIncentives[0];
+  const lpUserIncentice = userMasterChefIncentives[0];
+  const emmisionPerSecond = new BigNumber(
+    lpIncentice?.rewardsTokenInformation[0]?.emissionPerSecond || '0'
+  );
+  const emmisionPerDay = emmisionPerSecond.multipliedBy(86400);
+  const emmisionPerWeek = emmisionPerDay.multipliedBy(7);
 
   return (
     <>
@@ -60,8 +75,8 @@ export default function Staking() {
                   onClick={() => {
                     openStake(
                       'stake',
-                      currentMarketData.addresses.STAKE_TOKEN,
-                      'GDO',
+                      currentMarketData.addresses.GOLEDO_TOKEN,
+                      'GOL',
                       userGoledoStake.walletBalance
                     );
                   }}
@@ -96,8 +111,8 @@ export default function Staking() {
                   onClick={() =>
                     openStake(
                       'lock',
-                      currentMarketData.addresses.STAKE_TOKEN,
-                      'GDO',
+                      currentMarketData.addresses.GOLEDO_TOKEN,
+                      'GOL',
                       userGoledoStake.walletBalance
                     )
                   }
@@ -106,219 +121,247 @@ export default function Staking() {
                 </Button>
               </Paper>
 
-              <Paper sx={{ p: 5 }}>
-                <Title img={'/icons/staking/bi.svg'} title="GDO/CFX LP" />
-                <Box sx={{ my: 5 }}>
-                  <LabelList
-                    arr={[
-                      {
-                        label: <Typography sx={{ color: '#666' }}>Staking APR</Typography>,
-                        value: (
-                          <FormattedNumber
-                            variant="description"
-                            percent
-                            value={0}
-                            visibleDecimals={2}
-                            symbolsColor="#111"
-                          />
-                        ),
-                      },
-                      {
-                        label: <Typography sx={{ color: '#666' }}>LP Token Price</Typography>,
-                        value: (
-                          <FormattedNumber
-                            variant="description"
-                            symbol="usd"
-                            value={0}
-                            visibleDecimals={2}
-                            symbolsColor="#111"
-                          />
-                        ),
-                      },
-                      {
-                        label: (
-                          <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
-                            <Typography sx={{ color: '#666' }}>Total LP Tokens Staked</Typography>
-                          </Box>
-                        ),
-                        value: (
-                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
+              {lpIncentice && (
+                <Paper sx={{ p: 5 }}>
+                  <Title img={'/icons/staking/bi.svg'} title="GOL/CFX LP" />
+                  <Box sx={{ my: 5 }}>
+                    <LabelList
+                      arr={[
+                        {
+                          label: <Typography sx={{ color: '#666' }}>Staking APR</Typography>,
+                          value: (
                             <FormattedNumber
                               variant="description"
-                              value={'0'}
-                              symbol="GDOCFX"
+                              percent
+                              value={0}
                               visibleDecimals={2}
                               symbolsColor="#111"
                             />
-                            <FormattedNumber
-                              variant="caption"
-                              value={0}
-                              symbol="usd"
-                              compact={false}
-                              visibleDecimals={2}
-                              symbolsColor="#666"
-                              sx={{ color: '#666' }}
-                            />
-                          </Box>
-                        ),
-                      },
-                      {
-                        label: (
-                          <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
-                            <Typography sx={{ color: '#666' }}>Your Staked</Typography>
-                          </Box>
-                        ),
-                        value: (
-                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
+                          ),
+                        },
+                        {
+                          label: <Typography sx={{ color: '#666' }}>LP Token Price</Typography>,
+                          value: (
                             <FormattedNumber
                               variant="description"
-                              value={'0'}
-                              symbol="GDOCFX"
+                              symbol="usd"
+                              value={0}
                               visibleDecimals={2}
                               symbolsColor="#111"
                             />
-                            <FormattedNumber
-                              variant="caption"
-                              value={0}
-                              symbol="usd"
-                              compact={false}
-                              visibleDecimals={2}
-                              symbolsColor="#666"
-                              sx={{ color: '#666' }}
-                            />
-                          </Box>
-                        ),
-                      },
-                      {
-                        label: (
-                          <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
-                            <Typography sx={{ color: '#666' }}>Pending Rewards</Typography>
-                          </Box>
-                        ),
-                        value: (
-                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
-                            <FormattedNumber
-                              variant="description"
-                              value={'0'}
-                              symbol="Goledo"
-                              visibleDecimals={2}
-                              symbolsColor="#111"
-                            />
-                            <FormattedNumber
-                              variant="caption"
-                              value={0}
-                              symbol="usd"
-                              compact={false}
-                              visibleDecimals={2}
-                              symbolsColor="#666"
-                              sx={{ color: '#666' }}
-                            />
-                          </Box>
-                        ),
-                      },
-                      {
-                        label: (
-                          <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
-                            <Typography sx={{ color: '#666' }}>Total Rewards per day</Typography>
-                            {/*<NetAPYTooltip />*/}
-                          </Box>
-                        ),
-                        value: (
-                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
-                            <FormattedNumber
-                              variant="description"
-                              value={'0'}
-                              symbol="Goledo"
-                              visibleDecimals={2}
-                              symbolsColor="#111"
-                            />
-                            <FormattedNumber
-                              variant="caption"
-                              value={0}
-                              symbol="usd"
-                              compact={false}
-                              visibleDecimals={2}
-                              symbolsColor="#666"
-                              sx={{ color: '#666' }}
-                            />
-                          </Box>
-                        ),
-                      },
-                      {
-                        label: (
-                          <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
-                            <Typography sx={{ color: '#666' }}>Total Rewards per week</Typography>
-                            {/*<NetAPYTooltip />*/}
-                          </Box>
-                        ),
-                        value: (
-                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
-                            <FormattedNumber
-                              variant="description"
-                              value={'0'}
-                              symbol="Goledo"
-                              visibleDecimals={2}
-                              symbolsColor="#111"
-                            />
-                            <FormattedNumber
-                              variant="caption"
-                              value={0}
-                              symbol="usd"
-                              compact={false}
-                              visibleDecimals={2}
-                              symbolsColor="#666"
-                              sx={{ color: '#666' }}
-                            />
-                          </Box>
-                        ),
-                      },
-                    ]}
-                  />
-                </Box>
+                          ),
+                        },
+                        {
+                          label: (
+                            <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
+                              <Typography sx={{ color: '#666' }}>Total LP Tokens Staked</Typography>
+                            </Box>
+                          ),
+                          value: (
+                            <Box
+                              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}
+                            >
+                              <FormattedNumber
+                                variant="description"
+                                value={lpIncentice.totalStakedBalance}
+                                symbol="GOLCFX"
+                                visibleDecimals={2}
+                                symbolsColor="#111"
+                              />
+                              <FormattedNumber
+                                variant="caption"
+                                value={0}
+                                symbol="usd"
+                                compact={false}
+                                visibleDecimals={2}
+                                symbolsColor="#666"
+                                sx={{ color: '#666' }}
+                              />
+                            </Box>
+                          ),
+                        },
+                        {
+                          label: (
+                            <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
+                              <Typography sx={{ color: '#666' }}>Your Staked</Typography>
+                            </Box>
+                          ),
+                          value: (
+                            <Box
+                              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}
+                            >
+                              <FormattedNumber
+                                variant="description"
+                                value={lpUserIncentice?.userStakedBalance || '0'}
+                                symbol="GOLCFX"
+                                visibleDecimals={2}
+                                symbolsColor="#111"
+                              />
+                              <FormattedNumber
+                                variant="caption"
+                                value={0}
+                                symbol="usd"
+                                compact={false}
+                                visibleDecimals={2}
+                                symbolsColor="#666"
+                                sx={{ color: '#666' }}
+                              />
+                            </Box>
+                          ),
+                        },
+                        {
+                          label: (
+                            <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
+                              <Typography sx={{ color: '#666' }}>Pending Rewards</Typography>
+                            </Box>
+                          ),
+                          value: (
+                            <Box
+                              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}
+                            >
+                              <FormattedNumber
+                                variant="description"
+                                value={
+                                  lpUserIncentice?.userRewardsInformation[0]
+                                    ?.userUnclaimedRewards || '0'
+                                }
+                                symbol="Goledo"
+                                visibleDecimals={2}
+                                symbolsColor="#111"
+                              />
+                              <FormattedNumber
+                                variant="caption"
+                                value={0}
+                                symbol="usd"
+                                compact={false}
+                                visibleDecimals={2}
+                                symbolsColor="#666"
+                                sx={{ color: '#666' }}
+                              />
+                            </Box>
+                          ),
+                        },
+                        {
+                          label: (
+                            <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
+                              <Typography sx={{ color: '#666' }}>Total Rewards per day</Typography>
+                              {/*<NetAPYTooltip />*/}
+                            </Box>
+                          ),
+                          value: (
+                            <Box
+                              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}
+                            >
+                              <FormattedNumber
+                                variant="description"
+                                value={emmisionPerDay.toString()}
+                                symbol="Goledo"
+                                visibleDecimals={2}
+                                symbolsColor="#111"
+                              />
+                              <FormattedNumber
+                                variant="caption"
+                                value={0}
+                                symbol="usd"
+                                compact={false}
+                                visibleDecimals={2}
+                                symbolsColor="#666"
+                                sx={{ color: '#666' }}
+                              />
+                            </Box>
+                          ),
+                        },
+                        {
+                          label: (
+                            <Box sx={{ display: 'flex', alignItems: 'center', height: '20px' }}>
+                              <Typography sx={{ color: '#666' }}>Total Rewards per week</Typography>
+                              {/*<NetAPYTooltip />*/}
+                            </Box>
+                          ),
+                          value: (
+                            <Box
+                              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}
+                            >
+                              <FormattedNumber
+                                variant="description"
+                                value={emmisionPerWeek.toString()}
+                                symbol="Goledo"
+                                visibleDecimals={2}
+                                symbolsColor="#111"
+                              />
+                              <FormattedNumber
+                                variant="caption"
+                                value={0}
+                                symbol="usd"
+                                compact={false}
+                                visibleDecimals={2}
+                                symbolsColor="#666"
+                                sx={{ color: '#666' }}
+                              />
+                            </Box>
+                          ),
+                        },
+                      ]}
+                    />
+                  </Box>
 
-                <Grid spacing={2} container>
-                  <Grid item xs={4}>
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      size="large"
-                      sx={{ height: 40 }}
-                      onClick={() => openStake('stake', '', 'GDOCFX', '0')}
-                    >
-                      Stake
-                    </Button>
+                  <Grid spacing={2} container>
+                    <Grid item xs={4}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        size="large"
+                        sx={{ height: 40 }}
+                        onClick={() =>
+                          openStake(
+                            'stake',
+                            lpUserIncentice.tokenAddress,
+                            'GOLCFX',
+                            lpUserIncentice.userWalletBalance || '0'
+                          )
+                        }
+                      >
+                        Stake
+                      </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        size="large"
+                        sx={{ height: 40 }}
+                        onClick={() =>
+                          openUnstake(
+                            lpUserIncentice.tokenAddress,
+                            'GOLCFX',
+                            lpUserIncentice?.userStakedBalance || '0'
+                          )
+                        }
+                      >
+                        Unstake
+                      </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        size="large"
+                        sx={{ height: 40 }}
+                        onClick={() =>
+                          openVestOrClaim(
+                            ModalType.GoledoVesting,
+                            lpUserIncentice.userRewardsInformation[0]?.userUnclaimedRewards || '0',
+                            [currentMarketData.addresses.SWAPPI_LP_TOKEN],
+                            currentMarketData.addresses.MASTER_CHEF
+                          )
+                        }
+                      >
+                        Vest
+                      </Button>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={4}>
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      size="large"
-                      sx={{ height: 40 }}
-                      onClick={() => openUnstake('stake', '', 'GDOCFX', '0')}
-                    >
-                      Unstake
-                    </Button>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      size="large"
-                      sx={{ height: 40 }}
-                      onClick={() =>
-                        openVestOrClaim(
-                          ModalType.GoledoVesting,
-                          '0',
-                          [],
-                          currentMarketData.addresses.MASTER_CHEF
-                        )
-                      }
-                    >
-                      Vest
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Paper>
+                </Paper>
+              )}
             </Stack>
             <Stack spacing={2.5} sx={{ flex: 1 }}>
               <Paper sx={{ p: 5 }}>
