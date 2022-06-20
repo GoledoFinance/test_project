@@ -135,11 +135,13 @@ export const MarketSwitcher = () => {
               />
               <Box sx={{ mr: 1, display: 'inline-flex', alignItems: 'flex-start' }}>
                 <Typography
+                  className="ellipsis"
                   variant={upToLG ? 'display1' : 'h1'}
                   sx={{
                     fontSize: downToXSM ? '1.55rem' : undefined,
                     color: 'common.white',
                     mr: 1,
+                    maxWidth: '75vw',
                   }}
                 >
                   {getMarketHelpData(market.marketTitle).name} {market.isFork ? 'Fork' : ''}

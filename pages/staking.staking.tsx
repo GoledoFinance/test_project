@@ -32,8 +32,11 @@ export default function Staking() {
 
       <ContentContainer>
         {currentAccount ? (
-          <Box sx={{ display: 'flex' }}>
-            <Stack spacing={2.5} sx={{ width: '470px', mr: 5 }}>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', lg: 'row' } }}>
+            <Stack
+              spacing={2.5}
+              sx={{ width: { lg: '470px' }, mr: { lg: 5 }, mb: { xs: 2.5, lg: 0 } }}
+            >
               <Paper sx={{ p: 5 }}>
                 <Title
                   img={'/icons/staking/shield.svg'}

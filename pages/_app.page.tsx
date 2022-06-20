@@ -1,4 +1,5 @@
 import '/public/fonts/inter/inter.css';
+import 'src/styles/global.css';
 
 import { ApolloProvider } from '@apollo/client';
 import { CacheProvider, EmotionCache } from '@emotion/react';

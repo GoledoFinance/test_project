@@ -132,10 +132,11 @@ export const ReserveConfiguration: React.FC<{ reserve: ComputedReserveData }> = 
             ml: '30px',
             mr: '50px',
             position: 'relative',
-            display: 'flex',
+            // display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             height: 'max-content',
+            display: { xs: 'none', lg: 'flex' },
           }}
         >
           <CircularProgress

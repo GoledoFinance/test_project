@@ -778,11 +778,15 @@ export function getThemedComponents(theme: Theme) {
       },
       MuiCssBaseline: {
         styleOverrides: {
+          html: {
+            overflowX: 'hidden',
+          },
           body: {
             fontFamily: FONT,
             fontWeight: 400,
             fontSize: pxToRem(14),
-            minWidth: '375px',
+            overflowX: 'hidden',
+            minWidth: '100vw',
             '> div:first-of-type': {
               minHeight: '100vh',
               display: 'flex',

@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { useMediaQuery } from '@mui/material';
+// import { useMediaQuery } from '@mui/material';
 import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
 
 import { ListColumn } from '../../components/lists/ListColumn';
@@ -12,7 +12,7 @@ import { DashboardContentNoData } from 'src/modules/dashboard/DashboardContentNo
 export function VestList() {
   const { loading, userGoledoStake } = useAppDataContext();
 
-  const isTableChangedToCards = useMediaQuery('(max-width:1125px)');
+  const isTableChangedToCards = false; // useMediaQuery('(max-width:1125px)');
 
   const header = [
     {

@@ -125,24 +125,30 @@ const ListItem = ({
       <Typography variant="description">{desc}</Typography>
     </Box>
     <Box flex={1} />
-    {num && (
-      <Box display={'flex'} alignItems="center" marginRight={7.5}>
-        <img src={'/icons/tokens/gdo.svg'} alt="goledo" width={22} height={22} />
-        <FormattedNumber variant="main16" marginLeft={2} value={num} symbol={'Goledo'} />
-      </Box>
-    )}
-    {claimFn ? (
-      <Button
-        sx={{ width: '140px', height: '40px' }}
-        variant="contained"
-        onClick={claimFn}
-        disabled={disabled}
-        size="large"
-      >
-        {buttonText}
-      </Button>
-    ) : (
-      <Box width={140} />
-    )}
+    <Box
+      display={'flex'}
+      sx={{ flexDirection: { xs: 'column', lg: 'row' } }}
+      alignItems={{ xs: 'flex-end', lg: 'center' }}
+    >
+      {num && (
+        <Box display={'flex'} alignItems="center" marginRight={{ lg: 7.5 }} mb={{ xs: 1.5, lg: 0 }}>
+          <img src={'/icons/tokens/gdo.svg'} alt="goledo" width={22} height={22} />
+          <FormattedNumber variant="main16" marginLeft={2} value={num} symbol={'Goledo'} />
+        </Box>
+      )}
+      {claimFn ? (
+        <Button
+          sx={{ width: '140px', height: '40px' }}
+          variant="contained"
+          onClick={claimFn}
+          disabled={disabled}
+          size="large"
+        >
+          {buttonText}
+        </Button>
+      ) : (
+        <Box width={140} />
+      )}
+    </Box>
   </Box>
 );

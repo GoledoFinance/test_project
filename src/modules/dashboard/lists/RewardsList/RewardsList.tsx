@@ -1,14 +1,15 @@
-// import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
 import { Trans } from '@lingui/macro';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
 import BigNumber from 'bignumber.js';
+import { API_ETH_MOCK_ADDRESS } from '@goledo-sdk/contract-helpers';
 
 import { ListWrapper } from '../../../../components/lists/ListWrapper';
 import { DashboardContentNoData } from '../../DashboardContentNoData';
 import { ListHeader } from '../ListHeader';
 import { ListLoader } from '../ListLoader';
 
+import { RewardsListMobileItem } from './RewardsListMobileItem';
 import { RewardsListItem } from './RewardsListItem';
 import { RewardsItem } from './types';
 import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
@@ -72,7 +73,7 @@ export const RewardsList = () => {
       userGoledoStake.unlockedBalance
     );
     data.push({
-      underlyingAsset: '',
+      underlyingAsset: API_ETH_MOCK_ADDRESS.toLowerCase(),
       earned: totalControllerIncentive.toString(10),
       stakedBalance: userGoledoStake.unlockedBalance,
       lockedBalance: lockedBalance.toString(10),
@@ -95,7 +96,11 @@ export const RewardsList = () => {
         <>
           {!downToXSM && <ListHeader head={head} />}
           {data.map((item, index) =>
-            downToXSM ? null : <RewardsListItem {...item} key={index} />
+            downToXSM ? (
+              <RewardsListMobileItem {...item} key={index} />
+            ) : (
+              <RewardsListItem {...item} key={index} />
+            )
           )}
         </>
       ) : (

@@ -22,7 +22,7 @@ export const ListTopInfoItem = ({
     <Paper
       variant="outlined"
       sx={{
-        mr: 2,
+        mr: { lg: 2 },
         p: size === 'small' ? '0px 4px' : '2px 4px',
         display: 'flex',
         alignItems: 'center',

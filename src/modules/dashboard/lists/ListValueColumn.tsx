@@ -52,9 +52,10 @@ export const ListValueColumn = ({
   withTooltip,
   capsComponent,
   disabled,
-}: ListValueColumnProps) => {
+  align = 'center',
+}: ListValueColumnProps & { align?: 'center' | 'right' | 'left' }) => {
   return (
-    <ListColumn>
+    <ListColumn align={align}>
       {withTooltip ? (
         <Tooltip
           title={

@@ -38,13 +38,14 @@ export default function ReserveOverview() {
       <ReserveTopDetails underlyingAsset={underlyingAsset} />
 
       <ContentContainer>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', lg: 'row' } }}>
           {/** Main status and configuration panel*/}
           <Box
             sx={{
               display: { xs: !isOverview ? 'none' : 'block', lg: 'block' },
               width: { xs: '100%', lg: 'calc(100% - 432px)' },
               mr: { xs: 0, lg: 4 },
+              mb: { xs: 2.5, lg: 0 },
             }}
           >
             {reserve && <ReserveConfiguration reserve={reserve} />}
@@ -53,8 +54,9 @@ export default function ReserveOverview() {
           {/** Right panel with actions*/}
           <Stack
             sx={{
-              display: { xs: isOverview ? 'none' : 'block', lg: 'block' },
+              // display: { xs: isOverview ? 'none' : 'block', lg: 'block' },
               width: { xs: '100%', lg: '416px' },
+              flexDirection: 'column',
             }}
             spacing={2.5}
           >
