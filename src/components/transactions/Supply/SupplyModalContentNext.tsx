@@ -101,9 +101,9 @@ export const SupplyModalContentNext = ({
       >
         <DetailsNumberLineWithSub
           description={<Trans>Amount</Trans>}
-          futureValue={new BigNumber(amount).toString(10)}
+          futureValue={amount}
           symbol={symbol}
-          futureValueUSD={new BigNumber(amountIntEth).toFormat(2)}
+          futureValueUSD={amountIntEth.toString()}
         />
         <DetailsNumberLine description={<Trans>Supply APY</Trans>} value={supplyApy} percent />
         {/*<DetailsIncentivesLine

@@ -13,7 +13,7 @@ export const SupplyCapWarning = () => {
       </Typography>
       <Typography>
         <Trans>
-          Supply caps limit the amount of a certain asset that can be supplied to the Aave protocol.
+          Supply caps limit the amount of a certain asset that can be supplied to the Goledo Cash.
           This helps reducing exposure to the asset and mitigate attacks like infinite minting or
           price oracle manipulation.
           <Link href="https://docs.aave.com/developers/whats-new/supply-borrow-caps">

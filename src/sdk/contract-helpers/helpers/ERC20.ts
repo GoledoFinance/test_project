@@ -48,8 +48,6 @@ export class ERC20Service extends BaseService<ERC20Contract> implements IERC20Se
   public approve({ user, token, spender, amount }: ApproveType): EthereumTransactionTypeExtended {
     const erc20Contract: ERC20Contract = this.getContractInstance(token);
 
-    console.log('amount', amount);
-
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () => erc20Contract.populateTransaction.approve(spender, amount),
       from: user,
@@ -71,7 +69,6 @@ export class ERC20Service extends BaseService<ERC20Contract> implements IERC20Se
       amount === '-1'
         ? BigNumber.from(SUPER_BIG_ALLOWANCE_NUMBER)
         : BigNumber.from(valueToWei(amount, decimals));
-    console.log('allowance', allowance);
     return allowance.gte(amountBNWithDecimals);
   }
 
