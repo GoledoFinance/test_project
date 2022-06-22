@@ -130,9 +130,9 @@ export const BorrowModalContentNext = ({
       >
         <DetailsNumberLineWithSub
           description={<Trans>Amount</Trans>}
-          futureValue={new BigNumber(amount).toString(10)}
+          futureValue={amount}
           symbol={symbol}
-          futureValueUSD={new BigNumber(amountToBorrowInETH).toFormat(2)}
+          futureValueUSD={amountToBorrowInETH.toString()}
         />
         {/*<DetailsIncentivesLine
           incentives={poolReserve.vIncentivesData}

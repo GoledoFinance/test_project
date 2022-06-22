@@ -27,12 +27,6 @@ export const RewardsListMobileItem = ({
   const { openVestOrClaim } = useModalContext();
   const { currentMarket } = useProtocolDataContext();
 
-  console.log('symbol:', symbol);
-  console.log('underlyingAsset:', underlyingAsset);
-  console.log('name:', name);
-  console.log('currentMarket:', currentMarket);
-  console.log('iconSymbol:', iconSymbol);
-
   return (
     <ListMobileItemWrapper
       symbol={symbol}

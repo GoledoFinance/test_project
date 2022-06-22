@@ -145,9 +145,9 @@ export const WithdrawModalContentNext = ({
       >
         <DetailsNumberLineWithSub
           description={<Trans>Amount</Trans>}
-          futureValue={new BigNumber(amount).toString(10)}
+          futureValue={amount}
           symbol={symbol}
-          futureValueUSD={new BigNumber(amountToWithdrawInEth).toFormat(2)}
+          futureValueUSD={amountToWithdrawInEth.toString()}
         />
         <DetailsNumberLine
           description={<Trans>Remaining supply</Trans>}

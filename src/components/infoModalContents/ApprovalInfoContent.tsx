@@ -9,8 +9,8 @@ export const ApprovalInfoContent = () => {
     <InfoContentWrapper caption={<Trans>Approval</Trans>}>
       <Typography>
         <Trans>
-          Before supplying, you need to approve its usage by the Aave protocol. You can learn more
-          in our
+          Before supplying, you need to approve its usage by the Goledo Cash. You can learn more in
+          our
           <Link fontWeight={500} href={'https://goledo-cash.gitbook.io/goledo/'}>
             FAQ
           </Link>
