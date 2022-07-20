@@ -33,7 +33,7 @@ export const LiquidationRiskParametresInfoModal = ({
       </Typography>
       <Typography mb={6}>
         <Trans>
-          Your healrh factor an loan to value determine the assurance of your collateral. To avoid
+          Your health factor an loan to value determine the assurance of your collateral. To avoid
           liquidations you can supply more collateral or repay borrow positions.
         </Trans>
         {/* <Link
