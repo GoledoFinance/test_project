@@ -661,8 +661,8 @@ msgid "Participating in this {symbol} reserve gives annualized rewards."
 msgstr "Participating in this {symbol} reserve gives annualized rewards."
 
 #: src/components/transactions/VestOrClaim/VestOrClaimModalContent.tsx
-msgid "Penaty"
-msgstr "Penaty"
+msgid "Penalty"
+msgstr "Penalty"
 
 #: src/components/transactions/CollateralChange/CollateralChangeActions.tsx
 msgid "Pending..."
@@ -1278,8 +1278,8 @@ msgid "Your current loan to value based on your collateral supplied. If your loa
 msgstr "Your current loan to value based on your collateral supplied. If your loan to value goes above the liquidation threshold your collateral supplied may be liquidated."
 
 #: src/modules/dashboard/LiquidationRiskParametresModal/LiquidationRiskParametresModal.tsx
-msgid "Your healrh factor an loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."
-msgstr "Your healrh factor an loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."
+msgid "Your health factor an loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."
+msgstr "Your health factor an loan to value determine the assurance of your collateral. To avoid liquidations you can supply more collateral or repay borrow positions."
 
 #: src/modules/dashboard/lists/RewardsList/RewardsList.tsx
 #: src/modules/dashboard/lists/RewardsList/RewardsListMobileItem.tsx

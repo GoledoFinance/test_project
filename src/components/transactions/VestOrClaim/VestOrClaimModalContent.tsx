@@ -166,7 +166,7 @@ export const VestOrClaimModalContent = ({
             futureValueUSD={'0'}
           />
           <DetailsNumberLineWithSub
-            description={<Trans>Penaty</Trans>}
+            description={<Trans>Penalty</Trans>}
             futureValue={penalty.toString(10)}
             symbol={'GOL'}
             futureValueUSD={'0'}
