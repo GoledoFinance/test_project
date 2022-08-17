@@ -81,7 +81,7 @@ export const BorrowedPositionsList = () => {
       title={<Trans>Your Borrows</Trans>}
       localStorageName="borrowedAssetsDashboardTableCollapse"
       noData={!borrowPositions.length}
-      subTitleComponent={
+      topInfo={
         <>
           {!!borrowPositions.length && (
             <>

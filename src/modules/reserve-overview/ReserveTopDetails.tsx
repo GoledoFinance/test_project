@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
 import { Link } from 'src/components/primitives/Link';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
-import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
+// import { NetAPYTooltip } from 'src/components/infoTooltips/NetAPYTooltip';
 
 import { TopInfoPanel } from '../../components/TopInfoPanel/TopInfoPanel';
 import { TopInfoPanelItem } from '../../components/TopInfoPanel/TopInfoPanelItem';
@@ -190,7 +190,7 @@ export const ReserveTopDetails = ({ underlyingAsset }: ReserveTopDetailsProps) =
         title={
           <div style={{ display: 'flex' }}>
             <Trans>Utilization Rate</Trans>
-            <NetAPYTooltip />
+            {/* <NetAPYTooltip /> */}
           </div>
         }
         loading={loading}

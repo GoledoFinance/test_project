@@ -66,7 +66,7 @@ export const IncentivesTooltipContent = ({
         flexDirection: 'column',
       }}
     >
-      <Typography variant="caption" color="text.secondary" mb={3}>
+      <Typography variant="caption" color="white" mb={3}>
         <Trans>Participating in this {symbol} reserve gives annualized rewards.</Trans>
       </Typography>
 

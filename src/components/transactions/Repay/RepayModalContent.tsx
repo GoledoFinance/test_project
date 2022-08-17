@@ -80,7 +80,7 @@ export const RepayModalContent = ({
     onRepayTokenChanged(tokenToRepayWith);
     setIsMaxSelected(maxSelected);
     amountRef.current = maxSelected ? maxAmountToRepay.toString(10) : value;
-    onAmountChange(value);
+    onAmountChange(maxSelected ? maxAmountToRepay.toString(10) : value);
     if (maxSelected && maxAmountToRepay.eq(debt)) {
       if (tokenToRepayWith.address === API_ETH_MOCK_ADDRESS.toLowerCase()) {
         // for native token and synthetix (only mainnet) we can't send -1 as
